@@ -5,6 +5,10 @@ const controller = {
         // res.render('index');
         res.send('hello worlds');
     },
+    getRegister: function(req, res) {
+        // OK
+        res.render('register');
+    }
 };
 
 // enables to export controller object when called in another .js file

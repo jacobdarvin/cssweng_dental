@@ -18,8 +18,10 @@
   "homepage": "https://github.com/Darvvvin/cssweng_dental#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "express-validator": "^6.6.0",
     "hbs": "^4.1.1",
+    "mongodb": "^3.5.9",
     "mongoose": "^5.9.26",
-    "nodemon": "^2.0.4"
+    "supervisor": "^0.12.0"
   }
 }

@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 const routes = require('./routes/routes.js');
 
 //partials
-// hbs.registerPartials(__dirname + '/views/partials');
+hbs.registerPartials(__dirname + '/views/partials');
 
 // import '' module
 // const db = require('./models/db.js');
