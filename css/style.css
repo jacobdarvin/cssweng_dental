@@ -2,15 +2,21 @@
 
 body {
     font-family: 'Nunito Sans', sans-serif;
-    color: #55595c;
+    
+}
+
+p {
+   color: #55595c; 
 }
 
 #landing {
+    background:  linear-gradient(52deg, rgba(123,31,162,1) 0%, rgba(150,193,255,1) 100%);
     min-height: 100px;
     
-    padding: 13rem;
+    padding-left: 10rem;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
    
-    background-image: url(../imgs/banner.jpg);
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: scroll;
@@ -22,8 +28,11 @@ h1 {
     font-size: 80px;
 }
 
-h2 {
-    
+#loginArea {
+    background: url(imgs/login.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-size: 
 }
 
 #learnMore {
