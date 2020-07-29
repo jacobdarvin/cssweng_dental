@@ -15,5 +15,12 @@
   "bugs": {
     "url": "https://github.com/Darvvvin/cssweng_dental/issues"
   },
-  "homepage": "https://github.com/Darvvvin/cssweng_dental#readme"
+  "homepage": "https://github.com/Darvvvin/cssweng_dental#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "hbs": "^4.1.1",
+    "mongodb": "^3.5.9",
+    "mongoose": "^5.9.26",
+    "supervisor": "^0.12.0"
+  }
 }

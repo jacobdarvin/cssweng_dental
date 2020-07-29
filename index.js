@@ -2,10 +2,14 @@
 const express = require('express');
 const hbs = require('hbs');
 const db = require('./models/db.js');
+const app = express();
 
 // define css, img, js, and views as static 
 app.use(express.static('public'));
 app.use(express.static('views'));
+
+// set hbs as view engine
+app.set('view engine', 'hbs');
 
 // parses incoming requests with urlencoded payloads
 app.use(express.urlencoded({extended: true}));
@@ -16,16 +20,11 @@ const routes = require('./routes/routes.js');
 //partials
 //hbs.registerPartials(__dirname + '/views/partials');
 
-// define css, img, js, and views as static 
-app.use(express.static('css'));
-app.use(express.static('imgs'));
-app.use(express.static('views'));
+// set the folder `public` as folder containing static assets (css, js, imgs)
+app.use(express.static('public'));
 
 // define the paths contained in routes module
 app.use('/', routes);
-
-// set hbs as view engine
-app.set('view engine', 'hbs');
 
 // connects to the database
 db.connect();

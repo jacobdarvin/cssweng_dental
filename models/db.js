@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const url = 'mongodb://localhost:27017/practice';
+const url = 'mongodb://localhost:27017/cssweng_dental';
 
 const options = {
     useUnifiedTopology: true,
