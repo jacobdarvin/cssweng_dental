@@ -13,10 +13,15 @@ app.use(express.urlencoded({extended: true}));
 const routes = require('./routes/routes.js');
 
 //partials
-hbs.registerPartials(__dirname + '/views/partials');
+//hbs.registerPartials(__dirname + '/views/partials');
 
 // import '' module
-const db = require('./models/db.js');
+//const db = require('./models/db.js');
+
+// define css, img, js, and views as static 
+app.use(express.static('css'));
+app.use(express.static('imgs'));
+app.use(express.static('views'));
 
 // define the paths contained in routes module
 app.use('/', routes);
@@ -25,7 +30,7 @@ app.use('/', routes);
 app.set('view engine', 'hbs');
 
 // connects to the database
-db.connect();
+//db.connect();
 
 // binds the server to a specific port
 const port = 9090;
