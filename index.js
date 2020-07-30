@@ -3,10 +3,12 @@ const express = require('express');
 const hbs = require('hbs');
 const exphbs = require('express-handlebars');
 const mongoose = require('mongoose');
-var path = require('path');
+const path = require('path');
 
 //DATA BASE AND EXPRESS
+// const db = require('./models/db')
 const db = require('./models/account.js');
+
 const app = express();
 
 // DEFINE STATIC FOLDERS

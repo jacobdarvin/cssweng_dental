@@ -9,40 +9,37 @@
 
 <h1 style="text-align: center; color: white; margin-top: 5rem;">BookMeDental <i class="fas fa-tooth"></i></h1>
 
-<div class="card mx-auto" style="width: 35rem; margin-bottom: 5rem;">
+<div class="card mx-auto" style="width: 35rem; margin-bottom: 2rem;">
     <div class="card-body">
         <div class="card-title" style="font-size: 42px;">Register</div>
         <div class="card-text">
-            <form method="POST" action="/register">
-                <div class="form-group">
-                    <label for="InputFirst">First name</label>
-                    <input type="text" class="form-control" id="InputFirst" name="fname" aria-describedby="emailHelp" placeholder="First Name e.g. John" />
+            <form>
+                <div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
+                  <label class="btn btn-secondary active">
+                    <input type="radio" name="options" id="option1" autocomplete="off" checked> Applicant
+                  </label>
+                  <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="option2" autocomplete="off"> Employer
+                  </label>
                 </div>
-                <div class="form-group">
-                    <label for="InputLast">Last name</label>
-                    <input type="text" class="form-control" id="InputLast" name="lname" aria-describedby="emailHelp" placeholder="Last Name e.g. Doe" />
-                </div>
+                <br> <br>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Email address</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp" placeholder="Enter email" />
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Confirm email address</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" name="confemail" aria-describedby="emailHelp" placeholder="Enter email" />
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Password" />
+                    <label for="exampleInputPassword1">Password</label> <i><small style="font-size: 12px; color: grey">Minimum of 8 characters</small></i>
+                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" />
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Confirm Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" name="confpassword" placeholder="Password" />
+                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" />
                 </div>
                 <div class="form-check">
                     <input type="checkbox" class="form-check-input" id="exampleCheck1" />
                     <label class="form-check-label" for="exampleCheck1">I agree to the <a href="#">terms and conditions.</a></label>
                 </div>
-                <br />
+                <br>
                 <button type="submit" class="btn btn-primary w-100" style="background-color: #8455ca;">Register</button>
             </form>
         </div>
