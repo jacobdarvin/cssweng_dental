@@ -18,6 +18,12 @@ app.get('/home(page)?(.html)?', function(req, res) {
     })
 });
 
+app.get('/profile', function(req, res) {
+    res.render('profile', {
+        title: 'Profile | BookMeDental',
+        profile_active: true
+    })
+});
 
 app.get('/login', function(req, res) {
     res.render('login', {
