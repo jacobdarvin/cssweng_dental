@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const { validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
 
-const Account = require('../models/account');
+const Account = require('../models/AccountModel');
 const saltRounds = 10;
 
 // define objects for client request functions for a certain path in the server
@@ -30,13 +30,32 @@ const controller = {
             for (let i = 0; i < errors.length; i++)
                 details[errors[i].param + 'Error'] = errors[i].msg;
 
-            res.send(errors);
+            res.render('register', details);
         } else {
-            res.send('ok from postRegister');
+            var { options, email, password } = req.body;
+
+            // apply hashing
+            bcrypt.hash(password, saltRounds, (err, hash) => {
+                // create new Account document
+                Account.create({
+                    _id: new mongoose.Types.ObjectId(),
+                    accType: options,
+                    accEmail: email,
+                    password: hash,
+                })
+                    .then(result => {
+                        console.log(result);
+                        // if no errors, send result for now
+                        res.send(result);
+                    })
+                    .catch(err => {
+                        // if there are errors, log them for now
+                        console.log(err);
+                    });
+            });
         }
     },
 };
-
 
 // enables to export controller object when called in another .js file
 module.exports = controller;

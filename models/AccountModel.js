@@ -5,20 +5,25 @@ const accountSchema = mongoose.Schema({
     accType: {
         type: String,
         enum: ['applicant', 'employer'],
+        required: true
     },
     accEmail: {
         type: String,
-        required: true
+        required: true,
     },
     password: {
         type: String,
-        required: true
+        required: true,
     },
     accStatus: {
         type: String,
         enum: ['active', 'inactive'],
-        default: 'active'
-    }
+        default: 'active',
+    },
+    created: {
+        type: Date,
+        default: Date.now,
+    },
 });
 
 module.exports = mongoose.model('Account', accountSchema);
