@@ -18,9 +18,12 @@
   "homepage": "https://github.com/Darvvvin/cssweng_dental#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "express-handlebars": "^5.1.0",
+    "express-hbs": "^2.3.4",
     "hbs": "^4.1.1",
     "mongodb": "^3.5.9",
     "mongoose": "^5.9.26",
+    "path": "^0.12.7",
     "supervisor": "^0.12.0"
   }
 }
