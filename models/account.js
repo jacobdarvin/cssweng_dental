@@ -14,6 +14,11 @@ const accountSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    accStatus: {
+        type: String,
+        enum: ['active', 'inactive'],
+        default: 'active'
+    }
 });
 
 module.exports = mongoose.model('Account', accountSchema);

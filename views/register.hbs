@@ -1,63 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" />
-        <link rel="stylesheet" type="text/css" href="/css/style.css" />
-        <title>Dentistry</title>
-        
-        <style>
-            body {
-                background: url(imgs/login.jpg);
-                background-size: cover;
-                background-repeat: no-repeat;
-                background-attachment: fixed;
-            }
-        </style>
-    </head>
-    <body>
-        {{> navbar }}
-        
-        <h1 style="text-align: center; color: white; margin-top: 8rem"> BookMeDental <i class="fas fa-tooth"></i> </h1>
-        
-        <div class="card mx-auto" style="width: 35rem;">
-          <div class="card-body">
-              <div class="card-title" style="font-size: 42px"> Register </div>
-              <div class="card-text"> 
-                  <form>
-                      <div class="form-group">
-                        <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                      </div>
-                      <div class="form-group">
-                        <label for="exampleInputEmail1">Confirm email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                      </div>
-                      <div class="form-group">
-                        <label for="exampleInputPassword1">Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                      </div>
-                      <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                        <label class="form-check-label" for="exampleCheck1">Remember Me</label>
-                      </div>
-                      <br>
-                      <button type="submit" class="btn btn-primary w-100" style="background-color: #8455ca;">Submit</button>
-                      <br> <br>
-                      <a href="#"> Forgot Password? </a>
-                    </form>
-              </div>
-          </div>
+<style>
+    body {
+        background: url(imgs/login.jpg);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+</style>
+
+<h1 style="text-align: center; color: white; margin-top: 5rem;">BookMeDental <i class="fas fa-tooth"></i></h1>
+
+<div class="card mx-auto" style="width: 35rem; margin-bottom: 5rem;">
+    <div class="card-body">
+        <div class="card-title" style="font-size: 42px;">Register</div>
+        <div class="card-text">
+            <form method="POST" action="/register">
+                <div class="form-group">
+                    <label for="InputFirst">First name</label>
+                    <input type="text" class="form-control" id="InputFirst" name="fname" aria-describedby="emailHelp" placeholder="First Name e.g. John" />
+                </div>
+                <div class="form-group">
+                    <label for="InputLast">Last name</label>
+                    <input type="text" class="form-control" id="InputLast" name="lname" aria-describedby="emailHelp" placeholder="Last Name e.g. Doe" />
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Email address</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp" placeholder="Enter email" />
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Confirm email address</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" name="confemail" aria-describedby="emailHelp" placeholder="Enter email" />
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Password" />
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Confirm Password</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" name="confpassword" placeholder="Password" />
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+                    <label class="form-check-label" for="exampleCheck1">I agree to the <a href="#">terms and conditions.</a></label>
+                </div>
+                <br />
+                <button type="submit" class="btn btn-primary w-100" style="background-color: #8455ca;">Register</button>
+            </form>
         </div>
-        
-        <!-- Optional JavaScript -->
-        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-        <script src="https://kit.fontawesome.com/7e6ab4004f.js" crossorigin="anonymous"></script>
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-    </body>
-</html>
+    </div>
+</div>
