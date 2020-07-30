@@ -17,7 +17,7 @@ p {
     background:  linear-gradient(52deg, rgba(123,31,162,1) 0%, rgba(150,193,255,1) 100%);
     min-height: 100px;
     
-    padding-left: 10rem;
+    margin-left: auto;
     padding-top: 5rem;
     padding-bottom: 5rem;
    
