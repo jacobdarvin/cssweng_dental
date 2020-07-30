@@ -14,6 +14,22 @@ app.get('/', controller.getIndex);
 app.get('/home(page)?(.html)?', function(req, res) {
     res.render('index', {
         title: 'Home | BookMeDental',
+        home_active: true
+    })
+});
+
+
+app.get('/login', function(req, res) {
+    res.render('login', {
+        title: 'Login | BookMeDental',
+        login_active: true,
+    })
+});
+
+app.get('/register', function(req, res) {
+    res.render('register', {
+        title: 'Register | BookMeDental',
+        register_active: true
     })
 });
 
