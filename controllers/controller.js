@@ -30,7 +30,11 @@ const controller = {
             for (let i = 0; i < errors.length; i++)
                 details[errors[i].param + 'Error'] = errors[i].msg;
 
-            res.render('register', details);
+            res.render('register', {
+                details: details,
+                title: 'Register | BookMeDental',
+                register_active: true,
+            });
         } else {
             var { options, email, password } = req.body;
 
@@ -45,7 +49,7 @@ const controller = {
                 })
                     .then(result => {
                         console.log(result);
-                        // if no errors, send result for now
+                        // if no errors, display created document for now
                         res.send(result);
                     })
                     .catch(err => {
