@@ -28,10 +28,13 @@ app.get('/profile', function (req, res) {
     });
 });
 
+// Register route
 app.get('/register', controller.getRegister);
 app.post('/register', validation.signupValidation(), controller.postRegister);
 
+//LogIn route
 app.get('/login', loginController.getLogIn);
+app.post('/login', loginController.postLogIn);
 
 // enables to export app object when called in another .js file
 module.exports = app;
