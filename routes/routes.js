@@ -3,6 +3,7 @@ const express = require('express');
 
 // import module `controller` from `./controllers/controller.js`
 const controller = require('../controllers/controller.js');
+const loginController = require('../controllers/loginController.js');
 
 const app = express();
 
@@ -25,19 +26,14 @@ app.get('/profile', function(req, res) {
     })
 });
 
-app.get('/login', function(req, res) {
-    res.render('login', {
-        title: 'Login | BookMeDental',
-        login_active: true,
-    })
-});
-
 app.get('/register', function(req, res) {
     res.render('register', {
         title: 'Register | BookMeDental',
         register_active: true
     })
 });
+
+app.get('/login', loginController.getLogIn);
 
 // enables to export app object when called in another .js file
 module.exports = app;
