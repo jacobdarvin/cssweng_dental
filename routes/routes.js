@@ -5,6 +5,7 @@ const express = require('express');
 const controller = require('../controllers/controller');
 const profileController = require('../controllers/profileController');
 const registerController = require('../controllers/registerController');
+const loginController = require('../controllers/loginController.js');
 
 // import validation script
 const validation = require('../helpers/validation.js');
@@ -18,14 +19,6 @@ app.get('/home', controller.getIndex);
 // /profile routes
 app.get('/profile', profileController.getProfile);
 
-// /login routes
-app.get('/login', function (req, res) {
-    res.render('login', {
-        title: 'Login | BookMeDental',
-        login_active: true,
-    });
-});
-
 // /register routes
 app.get('/register', registerController.getRegister);
 
@@ -34,6 +27,10 @@ app.post(
     validation.signupValidation(),
     registerController.postRegister,
 );
+
+// /login route
+app.get('/login', loginController.getLogIn);
+app.post('/login', loginController.postLogIn);
 
 // enables to export app object when called in another .js file
 module.exports = app;
