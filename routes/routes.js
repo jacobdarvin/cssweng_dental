@@ -32,6 +32,13 @@ app.get('/login', function(req, res) {
     })
 });
 
+app.get('/form', function(req, res) {
+    res.render('form', {
+        title: 'Sign Up | BookMeDental',
+        login_active: true,
+    })
+});
+
 app.get('/register', function(req, res) {
     res.render('register', {
         title: 'Register | BookMeDental',

@@ -2,18 +2,28 @@
     body {
         background-color: rgb(245, 245, 245); 
     }
+    .rectangle {
+        padding: 5px;
+        height: auto;
+        display: inline-block;
 
-    .container {
-        /*margin-left: 0 !important;*/
+        background-color: #8fc81f;
+        color: white;
+
+        font-size: 12px;
+        font-weight: bold;
+
+        border-radius: 5px;
+        text-align: center;
     }
 </style>
 
-<div class="container mt-4">
+<div class="container mt-4 mb-4">
     <div class="row">
         <div class="col-sm-4">
-            <div class="card mx-auto" style="width: 100%;">
+            <div class="card mx-auto profile-length" style="width: 100%;">
                 <div class="card-body pb-2 pt-2">
-                    <span class="card-title" style="font-size: 32px; font-weight: 800">Profile</span>
+                    <span class="card-title" style="font-size: 32px; font-weight: 800;">Profile</span>
                 </div>
                 <img src="/imgs/portrait.png" style="width: inherit;">
                 <div class="card-body">
@@ -21,6 +31,11 @@
                         Pam Tidalgo
                         <br>
                         <span style="font-size: 22px">Front Desk</span>
+                    </span>
+                    <!--
+                    <span class="rectangle">
+                    Active
+                    -->
                     </span>
                    <hr>
                     <span class="card-text" style="text-align: left">
@@ -41,7 +56,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-sm">
-                        <div class="card mx-auto" style="width: 100%;">
+                        <div class="card mx-auto profile-length" style="width: 100%;">
                             <div class="card-body">
                                 <div class="card-title" style="font-size: 42px; font-weight: 800">Dashboard</div> <hr>
                                 <div class="container">
