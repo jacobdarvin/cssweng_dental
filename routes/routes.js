@@ -2,7 +2,7 @@
 const express = require('express');
 
 // import module `controller` from `./controllers/controller.js`
-const controller = require('../controllers/controller');
+const indexController = require('../controllers/indexController');
 const profileController = require('../controllers/profileController');
 const registerController = require('../controllers/registerController');
 const loginController = require('../controllers/loginController.js');
@@ -13,8 +13,8 @@ const validation = require('../helpers/validation.js');
 const app = express();
 
 // /home routes
-app.get('/', controller.getIndex);
-app.get('/home', controller.getIndex);
+app.get('/', indexController.getIndex);
+app.get('/home', indexController.getIndex);
 
 // /profile routes
 app.get('/profile', profileController.getProfile);

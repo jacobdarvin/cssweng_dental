@@ -1,5 +1,5 @@
 const { check } = require('express-validator');
-const account = require('../models/AccountModel');
+const Account = require('../models/AccountModel');
 
 const validation = {
     signupValidation: function () {
@@ -10,7 +10,7 @@ const validation = {
                 .normalizeEmail()
                 .custom(async value => {
                     // check if email is already used
-                    const data = await account
+                    const data = await Account
                         .findOne({ accEmail: value })
                         .exec();
                     // reject if a record is found
