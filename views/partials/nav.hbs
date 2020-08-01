@@ -27,15 +27,21 @@
             </li>
         </ul>
         <ul class="navbar-nav ml-auto">
+            {{#if active_session}}
             <li class="nav-item {{#if profile_active}}active{{/if}}">
                 <a class="nav-link" href="/profile">Profile</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="/logout">Logout</a>
+            </li>
+            {{else}}
+            <li class="nav-item">
                 <a class="nav-link {{#if login_active}}active{{/if}}" href="/login">Login</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{#if register_active}}active{{/if}}" href="/register">Sign Up</a>
+                <a class="nav-link {{#if register_active}}active{{/if}}" href="/register">Register</a>
             </li>
+            {{/if}}
         </ul>
     </div>
 </nav>

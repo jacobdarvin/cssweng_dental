@@ -3,6 +3,8 @@ const indexController = {
     // render log-in page when client requests '/' defined in routes.js
     getIndex: function (req, res) {
         res.render('index', {
+        	active_session: (req.session.user && req.cookies.user_sid),
+       		active_user: req.session.user,
             title: 'Home | BookMeDental',
             home_active: true,
         });
