@@ -7,6 +7,7 @@ const validation = {
             check('email')
                 .isEmail()
                 .withMessage('Please enter a valid email address')
+                .normalizeEmail()
                 .custom(async value => {
                     // check if email is already used
                     const data = await account
@@ -15,7 +16,7 @@ const validation = {
                     // reject if a record is found
                     if (data) return Promise.reject();
                 })
-                .withMessage('Email is already in use'),
+                .withMessage('Email address is already in use'),
             check('password')
                 .isLength({ min: 8 })
                 .withMessage('Password should contain at least 8 characters')
