@@ -43,6 +43,7 @@ const registerController = {
                 // create a new Account document
                 db.insertOne(Account, account, function (flag) {
                     if (flag) {
+                        req.session.user = accEmail;
                         res.redirect('/profile');
                     }
                 });
