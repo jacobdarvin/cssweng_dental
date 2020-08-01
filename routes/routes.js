@@ -3,6 +3,7 @@ const express = require('express');
 
 // import module `controller` from `./controllers/controller.js`
 const controller = require('../controllers/controller');
+const profileController = require('../controllers/profileController');
 const registerController = require('../controllers/registerController');
 
 // import validation script
@@ -10,16 +11,12 @@ const validation = require('../helpers/validation.js');
 
 const app = express();
 
-// /home route
+// /home routes
 app.get('/', controller.getIndex);
+app.get('/home', controller.getIndex);
 
 // /profile routes
-app.get('/profile', function (req, res) {
-    res.render('profile', {
-        title: 'Profile | BookMeDental',
-        profile_active: true,
-    });
-});
+app.get('/profile', profileController.getProfile);
 
 // /login routes
 app.get('/login', function (req, res) {

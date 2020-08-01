@@ -6,14 +6,12 @@ const Account = require('../models/AccountModel');
 const saltRounds = 10;
 
 const registerController = {
-    // TODO: move to registerController
     getRegister: function (req, res) {
         res.render('register', {
             title: 'Register | BookMeDental',
             register_active: true,
         });
     },
-    // TODO: move to registerController
     postRegister: function (req, res) {
         var errors = validationResult(req);
 
