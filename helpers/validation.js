@@ -10,9 +10,9 @@ const validation = {
                 .normalizeEmail()
                 .custom(async value => {
                     // check if email is already used
-                    const data = await Account
-                        .findOne({ accEmail: value })
-                        .exec();
+                    const data = await Account.findOne({
+                        accEmail: value,
+                    }).exec();
                     // reject if a record is found
                     if (data) return Promise.reject();
                 })

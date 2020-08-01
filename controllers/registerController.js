@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
 const { validationResult } = require('express-validator');
 
+const db = require('../models/db');
 const Account = require('../models/AccountModel');
 const saltRounds = 10;
 
@@ -32,22 +33,19 @@ const registerController = {
 
             // apply hashing
             bcrypt.hash(password, saltRounds, (err, hash) => {
-                // create new Account document
-                Account.create({
+                const account = {
                     _id: new mongoose.Types.ObjectId(),
                     accType: options,
                     accEmail: email,
                     password: hash,
-                })
-                    .then(result => {
-                        console.log(result);
-                        // if no errors, redirect to /profile for now
+                };
+
+                // create a new Account document
+                db.insertOne(Account, account, function (flag) {
+                    if (flag) {
                         res.redirect('/profile');
-                    })
-                    .catch(err => {
-                        // if there are errors, log them for now
-                        console.log(err);
-                    });
+                    }
+                });
             });
         }
     },
