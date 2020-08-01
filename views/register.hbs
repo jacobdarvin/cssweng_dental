@@ -13,31 +13,43 @@
     <div class="card-body">
         <div class="card-title" style="font-size: 42px;">Register</div>
         <div class="card-text">
-            <form>
+            <form method="POST" action="/register">
                 <div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
-                  <label class="btn btn-secondary active">
-                    <input type="radio" name="options" id="option1" autocomplete="off" checked> Applicant
-                  </label>
-                  <label class="btn btn-secondary">
-                    <input type="radio" name="options" id="option2" autocomplete="off"> Employer
-                  </label>
+                    <label class="btn btn-secondary active">
+                        <input type="radio" name="options" value="applicant" id="option1" autocomplete="off" checked>
+                        Applicant
+                    </label>
+                    <label class="btn btn-secondary">
+                        <input type="radio" name="options" value="employer" id="option2" autocomplete="off"> Employer
+                    </label>
                 </div>
                 <br> <br>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
+                    <input type="email" class="form-control" id="exampleInputEmail1" name="email"
+                        aria-describedby="emailHelp" placeholder="Enter email"/>
+                    <br>
+                    <p style="color: red;">{{details.emailError}}</p>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Password</label> <i><small style="font-size: 12px; color: grey">Minimum of 8 characters</small></i>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" />
+                    <label for="exampleInputPassword1">Password</label> <i><small
+                            style="font-size: 12px; color: grey">Minimum of 8 characters</small></i>
+                    <input type="password" class="form-control" id="exampleInputPassword1" name="password"
+                        placeholder="Password" />
+                    <br>
+                    <p style="color: red;">{{details.passwordError}}</p>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Confirm Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" />
+                    <input type="password" class="form-control" id="exampleInputPassword1" name="passwordConfirm"
+                        placeholder="Password" />
+                    <br>
+                    <p style="color: red;">{{details.passwordConfirmError}}</p>
                 </div>
                 <div class="form-check">
                     <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-                    <label class="form-check-label" for="exampleCheck1">I agree to the <a href="#">terms and conditions.</a></label>
+                    <label class="form-check-label" for="exampleCheck1">I agree to the <a href="#">terms and
+                            conditions.</a></label>
                 </div>
                 <br>
                 <button type="submit" class="btn btn-primary w-100" style="background-color: #8455ca;">Register</button>
