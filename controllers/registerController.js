@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const session = require('express-session');
 const mongoose = require('mongoose');
 const { validationResult } = require('express-validator');
 
@@ -28,6 +29,8 @@ const registerController = {
                 title: 'Register | BookMeDental',
                 register_active: true,
             });
+
+
         } else {
             var { options, email, password } = req.body;
 
@@ -43,8 +46,8 @@ const registerController = {
                 // create a new Account document
                 db.insertOne(Account, account, function (flag) {
                     if (flag) {
-                        req.session.user = accEmail;
-                        res.redirect('/profile');
+                        req.session.user = email;
+                        res.redirect('/');
                     }
                 });
             });

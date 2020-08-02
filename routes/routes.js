@@ -48,6 +48,13 @@ app.get('/form', function(req, res) {
     })
 });
 
+app.get('/admin', function(req, res) {
+    res.render('admin', {
+        title: 'Admin | BookMeDental',
+        admin_active: true,
+    })
+});
+
 // /home routes
 app.get('/', indexController.getIndex);
 app.get('/home', indexController.getIndex);
@@ -57,7 +64,6 @@ app.get('/profile', profileController.getProfile);
 
 // /register routes
 app.get('/register', registerController.getRegister);
-
 app.post(
     '/register',
     validation.signupValidation(),
