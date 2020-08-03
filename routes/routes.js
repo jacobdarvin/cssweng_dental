@@ -51,7 +51,9 @@ app.get('/form', function (req, res) {
     });
 });
 
+// /admin routes
 app.get('/admin', adminController.getAdmin);
+app.get('/employers', adminController.getEmployerList);
 
 // /home routes
 app.get('/', indexController.getIndex);
