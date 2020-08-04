@@ -47,7 +47,7 @@ const registerController = {
                 db.insertOne(Account, account, function (flag) {
                     if (flag) {
                         req.session.user = email;
-                        res.redirect('/');
+                        res.redirect('/form');
                     }
                 });
             });
