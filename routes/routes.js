@@ -43,6 +43,8 @@ app.use((req, res, next) => {
 // call function getIndex when client sends a request for '/' defined in routes.js
 app.get('/form', function(req, res) {
     res.render('form', {
+        active_session: (req.session.user && req.cookies.user_sid),
+        active_user: req.session.user,
         title: 'Sign Up | BookMeDental',
         login_active: true,
     })
@@ -50,6 +52,8 @@ app.get('/form', function(req, res) {
 
 app.get('/admin', function(req, res) {
     res.render('admin', {
+        active_session: (req.session.user && req.cookies.user_sid),
+        active_user: req.session.user,
         title: 'Admin | BookMeDental',
         admin_active: true,
     })
