@@ -29,6 +29,12 @@ const validation = {
                 .withMessage('Please enter a password'),
         ];
     },
+
+    formValidation: function(){
+        return[
+            
+        ];
+    }
 };
 
 module.exports = validation;

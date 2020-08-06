@@ -54,16 +54,16 @@
     <div class="card-body">
         <div class="card-title" style="font-size: 42px;">Contact Information</div>
         <div class="card-text">
-            <form>
+            <form method="POST" action="/form">
                 <div class="form-group">
                 	<div class="row">
                 		<div class="col">
                     <label for="fname">First Name</label>
-                    <input type="text" class="form-control" id="fname" aria-describedby="emailHelp" placeholder="First Name" />
+                    <input type="text" class="form-control" id="fname" name="fname" aria-describedby="emailHelp" placeholder="First Name" />
                     	</div>
                     	<div class="col">
                     <label for="lname">Last Name</label>
-                    <input type="text" class="form-control" id="lname" aria-describedby="emailHelp" placeholder="Last Name" />	
+                    <input type="text" class="form-control" id="lname" name="lname" aria-describedby="emailHelp" placeholder="Last Name" />	
                     	</div>
                 	</div>
                 </div>
@@ -71,11 +71,11 @@
                 	<div class="row">
                 		<div class="col-8">
                     <label for="streetaddress">Street Address</label>
-                    <input type="text" class="form-control" id="streetaddress" aria-describedby="emailHelp" placeholder="Street Address" />
+                    <input type="text" class="form-control" id="streetAdd" name="streetAdd" aria-describedby="emailHelp" placeholder="Street Address" />
                     	</div>
                     	<div class="col-4">
                     <label for="house">House No.</label>
-                    <input type="text" class="form-control" id="house" aria-describedby="emailHelp" placeholder="House No." />	
+                    <input type="text" class="form-control" id="house" name="house" aria-describedby="emailHelp" placeholder="House No." />	
                     	</div>
                 	</div>
                 </div>
@@ -83,84 +83,92 @@
                 	<div class="row">
                 		<div class="col-6">
                     <label for="city">City</label>
-                    <input type="text" class="form-control" id="city" aria-describedby="emailHelp" placeholder="City" />
+                    <input type="text" class="form-control" id="city" name="city" aria-describedby="emailHelp" placeholder="City" />
                     	</div>
                     	<div class="col-4">
                     <label for="state">State</label>
-                    <input type="text" class="form-control" id="state" aria-describedby="emailHelp" placeholder="State" />	
+                    <input type="text" class="form-control" id="state" name="state" aria-describedby="emailHelp" placeholder="State" />	
                     	</div>
                     	<div class="col-2">
                     <label for="zip">Zip</label>
-                    <input type="text" class="form-control" id="zip" aria-describedby="emailHelp" placeholder="Zip" />	
+                    <input type="text" class="form-control" id="zip" name="zip" aria-describedby="emailHelp" placeholder="Zip" />	
                     	</div>
                 	</div>
                 </div>
                 <div class="form-group">
                 	<label for="phone">Phone</label>
-                	<input type="text" class="form-control" id="phone" placeholder="(555) 555-1234" />
+                	<input type="text" class="form-control" id="phone" name="phone" placeholder="(555) 555-1234" />
                 </div>
                 <div class="card-title" style="font-size: 42px;">Qualifications</div>
                 <label>Position</label>
                 <div class="form-check">
-				  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+				  <input class="form-check-input" type="radio" name="position" id="exampleRadios1" value="Front Desk" checked>
 				  	 <p style="margin-bottom: -3px">Front Desk</p>
 				</div>
 				<div class="form-check">
-				  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+				  <input class="form-check-input" type="radio" name="position" id="exampleRadios2" value="Dental Assistant">
 				 	 <p style="margin-bottom: -3px">Dental Assistant</p>
 				</div>
 				<div class="form-check">
-				  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
+				  <input class="form-check-input" type="radio" name="position" id="exampleRadios3" value="Dental Hygienist">
 				  	 <p style="margin-bottom: -3px">Dental Hygienist</p>
 				</div>
 				<div class="form-check">
-				  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option4">
+				  <input class="form-check-input" type="radio" name="position" id="exampleRadios3" value="Dentist">
 				   <p style="margin-bottom: -3px">Dentist</p>
 				</div>
 				<div class="col-4" style="margin-left: -15px; margin-top: 10px;">
                     <label for="yearsofexperience">Years of Experience?</label>
-                    <input type="text" class="form-control" id="yearsofexperience" aria-describedby="emailHelp" placeholder="Years of experience" />	
+                    <input type="text" class="form-control" id="years" name="years" aria-describedby="emailHelp" placeholder="Years of experience" />	
                 </div>
 				<div class="form-group" style="margin-top: 10px;">
                 	<label for="dentalprograms">What dental programs(s) are you proficient?</label>
-                	<input type="text" class="form-control" id="dentalprograms" placeholder="List down any programs..." />
+                	<input type="text" class="form-control" id="programs" name="programs" name="dentalprograms" placeholder="List down any programs..." />
                 </div>
 				<div class="form-group" style="margin-top: 10px;">
                 	<label for="language">What second language do you speak fluently?</label>
-                	<input type="text" class="form-control" id="language" placeholder="List down your second language..." />
+                	<input type="text" class="form-control" id="language" name="language" placeholder="List down your second language..." />
                 </div>
 				<div class="form-group" style="margin-top: 10px;">
                 	<label for="workspecialties">List down any specialties you have work experience with</label>
-                	<input type="text" class="form-control" id="workspecialties" placeholder="List down your specialties..." />
+                	<input type="text" class="form-control" id="specialties" name="specialties" placeholder="List down your specialties..." />
                 </div>
 
 				<div class="card-title" style="font-size: 42px;">Placement Preferences</div>
 				 <label>What type of placement are you seeking?</label>
 				 <div class="form-check">
-				  <input class="form-check-input" type="radio" name="placement" id="placement" value="option1" checked>
+				  <input class="form-check-input" type="radio" name="placement" id="placement" value="Permanent Work" checked>
 				  	 <p style="margin-bottom: -3px">Permanent Work</p>
 				</div>
 				<div class="form-check">
-				  <input class="form-check-input" type="radio" name="placement" id="placement" value="option2">
+				  <input class="form-check-input" type="radio" name="placement" id="placement" value="Temporary Work">
 				 	 <p>Temporary Work</p>
 				</div>
 				<div class="col-5" style="margin-left: -15px; margin-top: 10px;">
                 	<label for="payrate">Desired pay rate per hour?</label>
-                	<input type="text" class="form-control" id="payrate" placeholder="$/hr..." />	
+                	<input type="text" class="form-control" id="payrate" name="payrate" placeholder="$/hr..." />	
                 </div>
 				<p style="font-style: italic; font-size:12px; margin-top: 3px;">Take note that this hourly rate applies for temporary jobs. Setting wage against exceeding salary norms may result in fewers opportunities. When hired as a permanent worker, new pay may be negotiated.</p>
 				 <label>When are you available for placement?</label>
 				 <div class="form-check">
-				  <input class="form-check-input" type="radio" name="availability" id="placement" value="option1" checked>
+				  <input class="form-check-input" type="radio" name="availability" id="availability" value="option1" checked>
 				  	 <p style="margin-bottom: -3px">Available immediately</p>
 				</div>
 				<div class="form-check" style="margin-bottom: 20px;">
-				  <input class="form-check-input" type="radio" name="availability" id="placement" value="option2">
+				  <input class="form-check-input" type="radio" name="availability" id="availability-after" value="">
 				 	 <p>Available after</p>
 					<div class="col-5" style="margin-left: -15px; margin-top: -10px;">
-                	<input type="date" class="form-control" id="availability"/>	
-                </div>
+                		<input type="date" class="form-control" id="availability-after-date" name="availability-after-date"/>	
+               	 	</div>
 				</div>
+				{{!-- <div class="dropdown">
+					<select id="availability" name="availability" style="border: 2px black; background-color: rgba(202, 199, 199, 0.438); cursor:pointer; margin-left: 5px;">
+						<option value="">Available immediately</option>
+						<option value="up to 50 miles">Available after a week</option>
+						<option value="up to 100 miles">Available 2-3 weeks after hiring</option>
+						<option value="farther than 100 miles">farther than 100 miles</option>
+					</select>
+				</div> --}}
 				<label>How far are you willing to travel for work?</label>
 				<br>
 				<div class="dropdown">
@@ -196,7 +204,7 @@
 						<img class="img-circle" src="/imgs/document.jpg"/>
 					</div>
 					<div class="container3">
-  						<p style="padding-left: 120px;"><input type="file" id="myfile" name="myfile" accept="application/pdf, text/plain, application/msword, image/jpeg, image/png"></p>
+  						<p style="padding-left: 120px;"><input type="file" id="myfile" name="myfile" accept="application/pdf, text/plain, application/msword, image/jpeg, image/png" required></p>
 						<p style="font-size: small;">Format of resume should be in PDF(.pdf), Word(.doc,.docx), plain text (.txt), or image (.jpg, .png)</p>
 					</div>
 				</div>
@@ -205,7 +213,7 @@
 				<textarea id="candidateagreement" style="margin-bottom: 10px;" rows="10" cols="92" disabled> Put your candidate agreement and policy here...
 				</textarea>
 				<div class="form-check" style="margin-left: 5px; margin-top: -15px">
-                    <input type="checkbox" class="form-check-input" id="useragreement" />
+                    <input type="checkbox" class="form-check-input" id="useragreement" required/>
                    <p style="font-style:italic; font-size: 15.5px">I have read, understand and agree to the Candidate Agreement, Terms and Conditions, and Privacy Policy</p>
                 </div>
 				<label>Last Question! How did you hear about us?</label>

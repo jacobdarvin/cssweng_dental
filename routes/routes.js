@@ -10,8 +10,9 @@ const bodyParser = require('body-parser');
 const indexController = require('../controllers/indexController');
 const profileController = require('../controllers/profileController');
 const registerController = require('../controllers/registerController');
-const loginController = require('../controllers/loginController.js');
+const loginController = require('../controllers/loginController');
 const adminController = require('../controllers/adminController');
+const formController = require('../controllers/formController');
 
 // import validation script
 const validation = require('../helpers/validation.js');
@@ -52,6 +53,7 @@ app.get('/form', function (req, res) {
         login_active: true,
     });
 });
+app.post('/form', formController.postApplicantReg);
 
 app.get('/form-emp', function(req, res) {
     res.render('form-emp', {

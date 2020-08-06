@@ -47,7 +47,7 @@ const applicantSchema = mongoose.Schema({
         type: String,
         required: true,
     },
-    secLanguage: {
+    language: {
         type: String, 
         required: true,
     },
@@ -81,7 +81,6 @@ const applicantSchema = mongoose.Schema({
     },
     resume: {
         data: Buffer,
-        required: true,
     },
     feedback: {
         type: String,
