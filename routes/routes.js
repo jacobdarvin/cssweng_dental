@@ -53,7 +53,7 @@ app.get('/form', function (req, res) {
         login_active: true,
     });
 });
-app.post('/form', formController.postApplicantReg);
+app.post('/form', validation.formValidation, formController.postApplicantReg);
 
 app.get('/form-emp', function(req, res) {
     res.render('form-emp', {
