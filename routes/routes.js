@@ -3,6 +3,7 @@ const express = require('express');
 const session = require('express-session');
 const database = require('../models/db.js');
 
+
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
@@ -16,6 +17,9 @@ const formController = require('../controllers/formController.js');
 
 // import validation script
 const validation = require('../helpers/validation.js');
+
+// import multer for file uploads
+var multer = require('multer');
 
 const app = express();
 
@@ -54,7 +58,6 @@ app.get('/form', function (req, res) {
     });
 });
 app.post('/form', validation.formValidation(), formController.postApplicantReg);
-
 
 app.get('/form-emp', function(req, res) {
     res.render('form-emp', {

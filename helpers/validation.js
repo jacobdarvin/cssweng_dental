@@ -31,7 +31,7 @@ const validation = {
     },
 
     formValidation: function() {
-        return[
+        return [
             check('fname')
                 .notEmpty()
                 .withMessage('Empty field. Please input your first name!')

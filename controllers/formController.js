@@ -21,12 +21,20 @@ const formController = {
             });
         }
         else{
-            //check if blank value nung placement if yes edi yung kunin na value is textbox
             var { fname, lname, streetAdd, house, city, state, zip, phone, position, years, programs, 
-                language, specialties, placement, payrate, travel, shortprofile, feedback} = req.body
+            language, specialties, placement, payrate, travel, shortprofile, feedback} = req.body
+            var availability
+
+            if(req.body.availability == "after"){
+                availability = req.body.date;
+            }
+            else{
+                availability = req.body.availability;
+            } 
+
         }
        
-    }
-}
+    },
+};
 
 module.exports = formController;
