@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
 
-const nameSchema = mongoose.Schema({ first: String, last: String });
-
 const employerSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     account: {
@@ -10,8 +8,8 @@ const employerSchema = mongoose.Schema({
         required: true,
     },
     name: {
-        type: nameSchema,
-        required: true,
+        first: String,
+        last: String,
     },
     title: {
         type: String,
@@ -30,33 +28,30 @@ const employerSchema = mongoose.Schema({
         required: true,
     },
     clinicAddress: {
-        type: mongoose.Schema({
-            street: String,
-            houseNo: String,
-            city: String,
-            state: String,
-            zip: String,
-        }),
-        required: true,
+        street: String,
+        houseNo: String,
+        city: String,
+        state: String,
+        zip: String,
     },
     clinicPhone: {
         type: String,
         required: true,
     },
     detailsSoftware: {
-        type: [String],
+        type: String,
         required: true,
     },
     detailsSpecialties: {
-        type: [String],
+        type: String,
         required: true,
     },
     detailsServices: {
-        type: [String],
+        type: String,
         required: true,
     },
     clinicContactName: {
-        type: nameSchema,
+        type: String,
         required: true,
     },
     clinicContactTitle: {
@@ -70,5 +65,9 @@ const employerSchema = mongoose.Schema({
     accepted: {
         type: Boolean,
         default: false,
+    },
+    feedback: {
+        type: String,
+        required: true,
     },
 });
