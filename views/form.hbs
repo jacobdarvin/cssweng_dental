@@ -60,10 +60,12 @@
                 		<div class="col">
                     <label for="fname">First Name</label>
                     <input type="text" class="form-control" id="fname" name="fname" aria-describedby="emailHelp" placeholder="First Name" />
+					<p style="margin-left: 5px; margin-bottom: -10px; color: red; font-style:italic; font-size: 10px">{{details.fnameError}}</p>
                     	</div>
                     	<div class="col">
                     <label for="lname">Last Name</label>
                     <input type="text" class="form-control" id="lname" name="lname" aria-describedby="emailHelp" placeholder="Last Name" />	
+					<p style="margin-left: 5px; margin-bottom: -10px; color: red; font-style:italic; font-size: 10px">{{details.lnameError}}</p>
                     	</div>
                 	</div>
                 </div>
@@ -72,10 +74,12 @@
                 		<div class="col-8">
                     <label for="streetaddress">Street Address</label>
                     <input type="text" class="form-control" id="streetAdd" name="streetAdd" aria-describedby="emailHelp" placeholder="Street Address" />
+					<p style="margin-left: 5px; margin-bottom: -10px; color: red; font-style:italic; font-size: 10px">{{details.streetAddError}}</p>
                     	</div>
                     	<div class="col-4">
                     <label for="house">House No.</label>
                     <input type="text" class="form-control" id="house" name="house" aria-describedby="emailHelp" placeholder="House No." />	
+					<p style="margin-left: 5px; margin-bottom: -10px; color: red; font-style:italic; font-size: 10px">{{details.houseError}}!</p>
                     	</div>
                 	</div>
                 </div>
@@ -84,20 +88,24 @@
                 		<div class="col-6">
                     <label for="city">City</label>
                     <input type="text" class="form-control" id="city" name="city" aria-describedby="emailHelp" placeholder="City" />
+					<p style="margin-left: 5px; margin-bottom: -10px; color: red; font-style:italic; font-size: 10px">{{details.cityError}}</p>
                     	</div>
                     	<div class="col-4">
                     <label for="state">State</label>
                     <input type="text" class="form-control" id="state" name="state" aria-describedby="emailHelp" placeholder="State" />	
+					<p style="margin-left: 5px; margin-bottom: -10px; color: red; font-style:italic; font-size: 10px">{{details.stateError}}</p>
                     	</div>
                     	<div class="col-2">
                     <label for="zip">Zip</label>
                     <input type="text" class="form-control" id="zip" name="zip" aria-describedby="emailHelp" placeholder="Zip" />	
+					<p style="margin-left: 5px; margin-bottom: -10px; color: red; font-style:italic; font-size: 10px">{{details.zipError}}</p>
                     	</div>
                 	</div>
                 </div>
                 <div class="form-group">
                 	<label for="phone">Phone</label>
                 	<input type="text" class="form-control" id="phone" name="phone" placeholder="(555) 555-1234" />
+					<p style="margin-left: 5px; margin-bottom: -10px; color: red; font-style:italic; font-size: 10px">{{details.phoneError}}</p>
                 </div>
                 <div class="card-title" style="font-size: 42px;">Qualifications</div>
                 <label>Position</label>
@@ -119,19 +127,23 @@
 				</div>
 				<div class="col-4" style="margin-left: -15px; margin-top: 10px;">
                     <label for="yearsofexperience">Years of Experience?</label>
-                    <input type="text" class="form-control" id="years" name="years" aria-describedby="emailHelp" placeholder="Years of experience" />	
+                    <input type="text" class="form-control" id="years" name="years" aria-describedby="emailHelp" placeholder="Years of experience" />
+					<p style="margin-left: 5px; margin-bottom: -10px; color: red; font-style:italic; font-size: 10px">{{details.yearsError}}</p>	
                 </div>
 				<div class="form-group" style="margin-top: 10px;">
                 	<label for="dentalprograms">What dental programs(s) are you proficient?</label>
                 	<input type="text" class="form-control" id="programs" name="programs" name="dentalprograms" placeholder="List down any programs..." />
+					<p style="margin-left: 5px; margin-bottom: -10px; color: red; font-style:italic; font-size: 10px">{{details.programsError}}</p>
                 </div>
 				<div class="form-group" style="margin-top: 10px;">
                 	<label for="language">What second language do you speak fluently?</label>
                 	<input type="text" class="form-control" id="language" name="language" placeholder="List down your second language..." />
+					<p style="margin-left: 5px; margin-bottom: -10px; color: red; font-style:italic; font-size: 10px">{{details.languageError}}</p>
                 </div>
 				<div class="form-group" style="margin-top: 10px;">
                 	<label for="workspecialties">List down any specialties you have work experience with</label>
                 	<input type="text" class="form-control" id="specialties" name="specialties" placeholder="List down your specialties..." />
+					<p style="margin-left: 5px; margin-bottom: -10px; color: red; font-style:italic; font-size: 10px">{{details.specialtiesError}}</p>
                 </div>
 
 				<div class="card-title" style="font-size: 42px;">Placement Preferences</div>
@@ -146,7 +158,8 @@
 				</div>
 				<div class="col-5" style="margin-left: -15px; margin-top: 10px;">
                 	<label for="payrate">Desired pay rate per hour?</label>
-                	<input type="text" class="form-control" id="payrate" name="payrate" placeholder="$/hr..." />	
+                	<input type="text" class="form-control" id="payrate" name="payrate" placeholder="$/hr..." />
+					 <p style="margin-left: 5px; margin-bottom: -10px; color: red; font-style:italic; font-size: 10px">{{details.payrateError}}</p>
                 </div>
 				<p style="font-style: italic; font-size:12px; margin-top: 3px;">Take note that this hourly rate applies for temporary jobs. Setting wage against exceeding salary norms may result in fewers opportunities. When hired as a permanent worker, new pay may be negotiated.</p>
 				 <label>When are you available for placement?</label>
@@ -185,6 +198,7 @@
 				<div class="card-title" style="font-size: 42px;">Additional Profile Information</div>
 				<label>Short Personal Profile</label><br>
 				<textarea id="shortprofile" name="shortprofile" rows="4" cols="92"> </textarea>
+				<p style="margin-left: 5px; margin-bottom: 1px; color: red; font-style:italic; font-size: 10px">{{details.shortprofileError}}</p>
 				<p style="font-style: italic; font-size:13px">Consider including things not found in your resume (e.g. hobbies, interests, goals). Market yourself!</p>
 				<label>Profile Photo</label><br>
 				<p style="font-style:normal; font-size:14px; margin-top: -5px;">Profile photo is not required. But feel free to upload your photo so employers can virtually see you!</p>
@@ -204,7 +218,7 @@
 						<img class="img-circle" src="/imgs/document.jpg"/>
 					</div>
 					<div class="container3">
-  						<p style="padding-left: 120px;"><input type="file" id="myfile" name="myfile" accept="application/pdf, text/plain, application/msword, image/jpeg, image/png" required></p>
+  						<p style="padding-left: 120px;"><input type="file" id="myfile" name="myfile" accept="application/pdf, text/plain, application/msword, image/jpeg, image/png"></p>
 						<p style="font-size: small;">Format of resume should be in PDF(.pdf), Word(.doc,.docx), plain text (.txt), or image (.jpg, .png)</p>
 					</div>
 				</div>

@@ -1,6 +1,7 @@
 const db = require('../models/db');
 const Applicant = require('../models/ApplicantModel.js');
 const helper = require('../helpers/helper.js');
+const { validationResult } = require('express-validator');
 
 const formController = {
     postApplicantReg: function (req, res){
@@ -9,12 +10,12 @@ const formController = {
         if (!errors.isEmpty()) {
             errors = errors.errors;
 
-            var msg = {};
+            var details = {};
             for (let i = 0; i < errors.length; i++)
-                msg[errors[i].param + 'Error'] = errors[i].msg;
+                details[errors[i].param + 'Error'] = errors[i].msg;
 
             res.render('form', {
-                msg: msg,
+                details: details,
                 title: 'Sign Up | BookMeDental',
                 login_active: true,
             });
@@ -24,7 +25,6 @@ const formController = {
             var { fname, lname, streetAdd, house, city, state, zip, phone, position, years, programs, 
                 language, specialties, placement, payrate, travel, shortprofile, feedback} = req.body
         }
-
        
     }
 }
