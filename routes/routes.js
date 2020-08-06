@@ -62,6 +62,16 @@ app.get('/form-emp', function(req, res) {
     })
 });
 
+app.get('/features', function(req, res) {
+    res.render('features', {
+        active_session: (req.session.user && req.cookies.user_sid),
+        active_user: req.session.user,
+        title: 'Features | BookMeDental',
+        login_active: true,
+    })
+});
+
+
 app.get('/404', function(req, res) {
     res.render('404', {
         active_session: (req.session.user && req.cookies.user_sid),
