@@ -12,6 +12,8 @@ const profileController = require('../controllers/profileController');
 const registerController = require('../controllers/registerController');
 const loginController = require('../controllers/loginController.js');
 const adminController = require('../controllers/adminController');
+const formController = require('../controllers/formController');
+
 
 // import validation script
 const validation = require('../helpers/validation.js');
@@ -53,14 +55,8 @@ app.get('/form', function (req, res) {
     });
 });
 
-app.get('/form-emp', function(req, res) {
-    res.render('form-emp', {
-        active_session: (req.session.user && req.cookies.user_sid),
-        active_user: req.session.user,
-        title: 'Sign Up | BookMeDental',
-        login_active: true,
-    })
-});
+app.get('/form-emp', formController.getFormEmp);
+app.post('/form-emp', formController.postFormEmp);
 
 // /admin routes
 // app.get('/admin', adminController.getAdmin);
