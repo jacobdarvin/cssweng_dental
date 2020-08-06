@@ -21,6 +21,23 @@ const validation = require('../helpers/validation.js');
 // import multer for file uploads
 var multer = require('multer');
 
+var avatarStorage = multer.diskStorage({
+    destination:  './public/avatars',
+    filename: function(req, file, cb) {
+        cb(null, file.originalname)
+    }
+}),
+avatarUpload = multer({ storage: avatarStorage }).single('avatar');
+
+var resumeStorage = multer.diskStorage({
+    destination:  './public/resumes',
+    filename: function(req, file, cb) {
+        cb(null, file.originalname)
+    }
+}),
+resumeUpload = multer({ storage: resumeStorage }).single('resume');
+
+
 const app = express();
 
 //Init Cookie and Body Parser
@@ -57,7 +74,7 @@ app.get('/form', function (req, res) {
         login_active: true,
     });
 });
-app.post('/form', validation.formValidation(), formController.postApplicantReg);
+app.post('/form', validation.formValidation(), avatarUpload, resumeUpload, formController.postApplicantReg);
 
 app.get('/form-emp', function(req, res) {
     res.render('form-emp', {
