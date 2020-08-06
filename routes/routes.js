@@ -67,7 +67,7 @@ app.get('/features', function(req, res) {
         active_session: (req.session.user && req.cookies.user_sid),
         active_user: req.session.user,
         title: 'Features | BookMeDental',
-        login_active: true,
+        features_active: true,
     })
 });
 
@@ -77,7 +77,6 @@ app.get('/404', function(req, res) {
         active_session: (req.session.user && req.cookies.user_sid),
         active_user: req.session.user,
         title: '404 Error | BookMeDental',
-        login_active: true,
     })
 });
 
