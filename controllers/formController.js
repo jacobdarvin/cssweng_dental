@@ -14,6 +14,7 @@ const formController = {
     postFormEmp: function (req, res) {
         var errors = validationResult(req);
 
+        console.log(req.body);
         if (!errors.isEmpty()) {
             errors = errors.errors;
 
@@ -21,6 +22,7 @@ const formController = {
             for (let i = 0; i < errors.length; i++)
                 details[errors[i].param + 'Error'] = errors[i].msg;
 
+            console.log(details);
             res.render('form-emp', {
                 details: details,
                 active_session: req.session.user && req.cookies.user_sid,
@@ -30,8 +32,7 @@ const formController = {
             });
         } else {
             var { fname, lname, title } = req.body;
-
-            res.send(`no errors ${fname} ${lname} ${title}`);
+            res.send(req.body);
         }
     },
 };

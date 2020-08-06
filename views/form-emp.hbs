@@ -1,17 +1,17 @@
 <style>
 	body {
-        background-color: rgb(245, 245, 245); 
-    }
+		background-color: rgb(245, 245, 245);
+	}
 
-	form label{
-		font-weight:bold;
+	form label {
+		font-weight: bold;
 	}
 
 	textarea {
-	  resize: none;
+		resize: none;
 	}
 
-	#container{
+	#container {
 		display: flex;
 		justify-content: left;
 		height: 250px;
@@ -19,13 +19,13 @@
 		margin-top: -20px;
 	}
 
-	.container2{
+	.container2 {
 		height: auto;
 		width: 250px;
 		padding-top: 40px;
 	}
 
-	.container3{
+	.container3 {
 		height: auto;
 		width: 510px;
 		padding-left: 50px;
@@ -41,157 +41,196 @@
 	}
 
 	.dropdown {
-    position: relative;
-    display: inline-block;
-    cursor: pointer;
-}
-
+		position: relative;
+		display: inline-block;
+		cursor: pointer;
+	}
 </style>
 
 <h1 style="text-align: center; color: #8455ca; margin-top: 4rem;">BookMeDental <i class="fas fa-tooth"></i></h1>
 
 <div class="card mx-auto" style="width: 50rem; margin-bottom: 2rem">
-    <div class="card-body">
-        <div class="card-title" style="font-size: 42px;">Employer Information</div>
-        <div class="card-text">
-            <form action="/form-emp" method="POST">
-                <div class="form-group">
-                	<div class="row">
-                		<div class="col">
-                    <label for="fname">First Name</label>
-                    <input type="text" class="form-control" id="fname" name="fname" aria-describedby="emailHelp" placeholder="First Name" />
-                    	</div>
-                    	<div class="col">
-                    <label for="lname">Last Name</label>
-                    <input type="text" class="form-control" id="lname" name="lname" aria-describedby="emailHelp" placeholder="Last Name" />	
-                    	</div>
-                	</div>
-                </div>
+	<div class="card-body">
+		<div class="card-title" style="font-size: 42px;">Employer Information</div>
+		<div class="card-text">
+			<form action="/form-emp" method="POST">
+				<div class="form-group">
+					<div class="row">
+						<div class="col">
+							<label for="fname">First Name</label>
+							<input type="text" class="form-control" id="fname" name="fname" aria-describedby="emailHelp"
+								placeholder="First Name" />
+							<p style="color: red;">{{details.fnameError}}</p>
+						</div>
+						<div class="col">
+							<label for="lname">Last Name</label>
+							<input type="text" class="form-control" id="lname" name="lname" aria-describedby="emailHelp"
+								placeholder="Last Name" />
+							<p style="color: red;">{{details.lnameError}}</p>
+						</div>
+					</div>
+				</div>
 
-                <div class="form-group">
-                	<div class="row">
-                		<div class="col">
-                    <label for="title">Title</label>
-                    <input type="text" class="form-control" id="title" name="title" aria-describedby="emailHelp" placeholder="Title" />
-                    	</div>
-                	</div>
-                </div>
+				<div class="form-group">
+					<div class="row">
+						<div class="col">
+							<label for="title">Title</label>
+							<input type="text" class="form-control" id="title" name="title" aria-describedby="emailHelp"
+								placeholder="Title" />
+							<p style="color: red;">{{details.titleError}}</p>
+						</div>
+					</div>
+				</div>
 
-                <div class="form-group">
-                	<div class="row">
-                		<div class="col">
-                    <label for="phone">Phone</label>
-                    <input type="text" class="form-control" id="phone" name="phone" aria-describedby="emailHelp" placeholder="Phone" />
-                    	</div>
-                	</div>
-                </div>
+				<div class="form-group">
+					<div class="row">
+						<div class="col">
+							<label for="phone">Phone</label>
+							<input type="text" class="form-control" id="phone" name="phone" aria-describedby="emailHelp"
+								placeholder="Phone" />
+							<p style="color: red;">{{details.phoneError}}</p>
+						</div>
+					</div>
+				</div>
 
-                <div class="form-group">
-                	<div class="row">
-                		<div class="col">
-                    <label for="blname">Business Legal Name</label>
-                    <input type="text" class="form-control" id="blname" name="blname" aria-describedby="emailHelp" placeholder="Business Legal Name" />
-                    	</div>
-                	</div>
-                </div>
+				<div class="form-group">
+					<div class="row">
+						<div class="col">
+							<label for="blname">Business Legal Name</label>
+							<input type="text" class="form-control" id="blname" name="blname"
+								aria-describedby="emailHelp" placeholder="Business Legal Name" />
+							<p style="color: red;">{{details.blnameError}}</p>
+						</div>
+					</div>
+				</div>
 
-                <div class="card-title" style="font-size: 42px;">Clinic Location</div>
-                <div class="form-group">
-                	<div class="row">
-                		<div class="col-8">
-                    <label for="clinic_street">Clinic Street Address</label>
-                    <input type="text" class="form-control" id="clinic_street" name="clinic_street" aria-describedby="emailHelp" placeholder="Street Address" />
-                    	</div>
-                    	<div class="col-4">
-                    <label for="clinic_no">No.</label>
-                    <input type="text" class="form-control" id="clinic_no" name="clinic_no" aria-describedby="emailHelp" placeholder="No." />	
-                    	</div>
-                	</div>
-                </div>
+				<div class="card-title" style="font-size: 42px;">Clinic Location</div>
+				<div class="form-group">
+					<div class="row">
+						<div class="col-8">
+							<label for="clinic_street">Clinic Street Address</label>
+							<input type="text" class="form-control" id="clinic_street" name="clinic_street"
+								aria-describedby="emailHelp" placeholder="Street Address" />
+							<p style="color: red;">{{details.clinic_streetError}}</p>
 
-                <div class="form-group">
-                	<div class="row">
-                		<div class="col-6">
-                    <label for="clinic_city">City</label>
-                    <input type="text" class="form-control" id="clinic_city" name="clinic_city" aria-describedby="emailHelp" placeholder="City" />
-                    	</div>
-                    	<div class="col-4">
-                    <label for="clinic_state">State</label>
-                    <input type="text" class="form-control" id="clinic_state" name="clinic_state" aria-describedby="emailHelp" placeholder="State" />	
-                    	</div>
-                    	<div class="col-2">
-                    <label for="clinic_zip">Zip</label>
-                    <input type="text" class="form-control" id="clinic_zip" name="clinic_zip" aria-describedby="emailHelp" placeholder="Zip" />	
-                    	</div>
-                	</div>
-                </div>
-                <div class="form-group">
-                	<label for="clinic_phone">Clinic Phone</label>
-                	<input type="text" class="form-control" id="clinic_phone" name="clinic_phone" placeholder="(555) 555-1234" />
-                </div>
-                
+						</div>
+						<div class="col-4">
+							<label for="clinic_no">No.</label>
+							<input type="text" class="form-control" id="clinic_no" name="clinic_no"
+								aria-describedby="emailHelp" placeholder="No." />
+							<p style="color: red;">{{details.clinic_noError}}</p>
+
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="row">
+						<div class="col-6">
+							<label for="clinic_city">City</label>
+							<input type="text" class="form-control" id="clinic_city" name="clinic_city"
+								aria-describedby="emailHelp" placeholder="City" />
+							<p style="color: red;">{{details.clinic_cityError}}</p>
+						</div>
+						<div class="col-4">
+							<label for="clinic_state">State</label>
+							<input type="text" class="form-control" id="clinic_state" name="clinic_state"
+								aria-describedby="emailHelp" placeholder="State" />
+							<p style="color: red;">{{details.clinic_stateError}}</p>
+						</div>
+						<div class="col-2">
+							<label for="clinic_zip">Zip</label>
+							<input type="text" class="form-control" id="clinic_zip" name="clinic_zip"
+								aria-describedby="emailHelp" placeholder="Zip" />
+							<p style="color: red;">{{details.clinic_zipError}}</p>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="clinic_phone">Clinic Phone</label>
+					<input type="text" class="form-control" id="clinic_phone" name="clinic_phone"
+						placeholder="(555) 555-1234" />
+					<p style="color: red;">{{details.clinic_phoneError}}</p>
+				</div>
+
 				<div class="form-group" style="margin-top: 10px;">
-                	<label for="clinic_name">Clinic Name</label>
-                	<input type="text" class="form-control" id="clinic_name" name="clinic_name" placeholder="Clinic Name" />
-                </div>
+					<label for="clinic_name">Clinic Name</label>
+					<input type="text" class="form-control" id="clinic_name" name="clinic_name"
+						placeholder="Clinic Name" />
+					<p style="color: red;">{{details.clinic_nameError}}</p>
+				</div>
 
-                <div class="card-title" style="font-size: 42px;">Additional Details</div>
+				<div class="card-title" style="font-size: 42px;">Additional Details</div>
 
-                <div class="form-group" style="margin-top: 10px;">
-                	<label for="clinic_program">What type of software does this clinic use?</label>
-                	<input type="text" class="form-control" id="clinic_program" name="clinic_program" placeholder="List down any programs..." />
-                </div>
+				<div class="form-group" style="margin-top: 10px;">
+					<label for="clinic_program">What type of software does this clinic use?</label>
+					<input type="text" class="form-control" id="clinic_program" name="clinic_program"
+						placeholder="List down any programs..." />
+					<p style="color: red;">{{details.clinic_programError}}</p>
+				</div>
 
-                <div class="form-group" style="margin-top: 10px;">
-                	<label for="clinic_speciality">Office Specialty</label>
-                	<input type="text" class="form-control" id="clinic_speciality" name="clinic_specialty" placeholder="List down any programs..." />
-                </div>
+				<div class="form-group" style="margin-top: 10px;">
+					<label for="clinic_speciality">Office Specialty</label>
+					<input type="text" class="form-control" id="clinic_speciality" name="clinic_specialty"
+						placeholder="List down any programs..." />
+					<p style="color: red;">{{details.clinic_specialtyError}}</p>
+				</div>
 
-                <div class="form-group" style="margin-top: 10px;">
-                	<label for="clinic_services">Which services does this office offer?</label>
-                	<input type="text" class="form-control" id="clinic_services" name="clinic_services" placeholder="List down any services..." />
-                </div>
+				<div class="form-group" style="margin-top: 10px;">
+					<label for="clinic_services">Which services does this office offer?</label>
+					<input type="text" class="form-control" id="clinic_services" name="clinic_services"
+						placeholder="List down any services..." />
+					<p style="color: red;">{{details.clinic_servicesError}}</p>
+				</div>
 
-                <div class="card-title" style="font-size: 42px;">Clinic Contact</div>
-                <div class="form-group">
-                	<div class="row">
-                		<div class="col">
-                    <label for="clinic_con_name">Name</label>
-                    <input type="text" class="form-control" id="clinic_con_name" name="clinic_con_name" aria-describedby="emailHelp" placeholder="Full Name" />
-                    	</div>
-                	</div>
-                </div>
+				<div class="card-title" style="font-size: 42px;">Clinic Contact</div>
+				<div class="form-group">
+					<div class="row">
+						<div class="col">
+							<label for="clinic_con_name">Name</label>
+							<input type="text" class="form-control" id="clinic_con_name" name="clinic_con_name"
+								aria-describedby="emailHelp" placeholder="Full Name" />
+							<p style="color: red;">{{details.clinic_con_nameError}}</p>
+						</div>
+					</div>
+				</div>
 
-                <div class="form-group">
-                	<div class="row">
-                		<div class="col">
-                    <label for="clinic_con_title">Title</label>
-                    <input type="text" class="form-control" id="clinic_con_title" name="clinic_con_title" aria-describedby="emailHelp" placeholder="Title" />
-                    	</div>
-                	</div>
-                </div>
+				<div class="form-group">
+					<div class="row">
+						<div class="col">
+							<label for="clinic_con_title">Title</label>
+							<input type="text" class="form-control" id="clinic_con_title" name="clinic_con_title"
+								aria-describedby="emailHelp" placeholder="Title" />
+							<p style="color: red;">{{details.clinic_con_titleError}}</p>
+						</div>
+					</div>
+				</div>
 
-                <div class="form-group">
-                	<div class="row">
-                		<div class="col">
-                    <label for="clinic_con_email">Email/s </label>
-                    <input type="text" class="form-control" id="clinic_con_email" name="clinic_con_email" aria-describedby="emailHelp" placeholder="Email" />
-                    	</div>
-                	</div>
-                	<small>Separate email addresses with a comma.</small>
-                </div>
+				<div class="form-group">
+					<div class="row">
+						<div class="col">
+							<label for="clinic_con_email">Email/s </label>
+							<input type="text" class="form-control" id="clinic_con_email" name="clinic_con_email"
+								aria-describedby="emailHelp" placeholder="Email" />
+							<p style="color: red;">{{details.clinic_con_emailError}}</p>
+						</div>
+					</div>
+					<small>Separate email addresses with a comma.</small>
+				</div>
 
 				<div class="card-title" style="font-size: 42px;">Employer Agreement</div>
 				<textarea id="candidateagreement" style="margin-bottom: 10px;" rows="10" cols="92" disabled> Put your candidate agreement and policy here...
 				</textarea>
 				<div class="form-check" style="margin-left: 5px; margin-top: -15px">
-                    <input type="checkbox" class="form-check-input" id="useragreement" name="useragreement"/>
-                   <p style="font-style:italic; font-size: 15.5px">I have read, understand and agree to the Employer Agreement, Terms and Conditions, and Privacy Policy</p>
-                </div>
+					<input type="checkbox" class="form-check-input" id="useragreement" name="useragreement" />
+					<p style="font-style:italic; font-size: 15.5px">I have read, understand and agree to the Employer
+						Agreement, Terms and Conditions, and Privacy Policy</p>
+				</div>
 				<label>Last Question! How did you hear about us?</label>
 				<br>
 				<div class="dropdown">
-					<select id="feedback" name="feedback" style="border: 2px black; background-color: rgba(197, 194, 194, 0.438); cursor:pointer; margin-left: 5px;">
+					<select id="feedback" name="feedback"
+						style="border: 2px black; background-color: rgba(197, 194, 194, 0.438); cursor:pointer; margin-left: 5px;">
 						<option value="friend">From a friend</option>
 						<option value="ad">From an ad</option>
 						<option value="recommendation">From a recommendation</option>
@@ -199,8 +238,9 @@
 				</div>
 				<br>
 				<br>
-                <button type="submit" class="btn btn-primary w-100" id="save_button" style="background-color: #8455ca;">Save</button>
-            </form>
-        </div>
-    </div>
+				<button type="submit" class="btn btn-primary w-100" id="save_button"
+					style="background-color: #8455ca;">Save</button>
+			</form>
+		</div>
+	</div>
 </div>
