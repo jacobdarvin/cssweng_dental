@@ -62,6 +62,16 @@ app.get('/form-emp', function(req, res) {
     })
 });
 
+app.get('/404', function(req, res) {
+    res.render('404', {
+        active_session: (req.session.user && req.cookies.user_sid),
+        active_user: req.session.user,
+        title: '404 Error | BookMeDental',
+        login_active: true,
+    })
+});
+
+
 // /admin routes
 // app.get('/admin', adminController.getAdmin);
 app.get('/employers', adminController.getEmployerList);
