@@ -38,10 +38,7 @@ const validation = {
                 .notEmpty()
                 .withMessage('First name required.')
                 .trim(),
-            check('lname')
-                .notEmpty()
-                .withMessage('Last name required.')
-                .trim(),
+            check('lname').notEmpty().withMessage('Last name required.').trim(),
             check('title').notEmpty().withMessage('Title is required.').trim(),
             check('phone')
                 .isMobilePhone('en-US')
@@ -51,16 +48,10 @@ const validation = {
                 .notEmpty()
                 .withMessage('Business legal name is required.')
                 .trim(),
-            check('clinic_street')
-                .notEmpty()
-                .withMessage('Required')
-                .trim(),
+            check('clinic_street').notEmpty().withMessage('Required').trim(),
             check('clinic_no').notEmpty().withMessage('Required').trim(),
             check('clinic_city').notEmpty().withMessage('Required').trim(),
-            check('clinic_state')
-                .notEmpty()
-                .withMessage('Required')
-                .trim(),
+            check('clinic_state').notEmpty().withMessage('Required').trim(),
             check('clinic_zip').notEmpty().withMessage('Required').trim(),
             check('clinic_phone')
                 .isMobilePhone('en-US')
@@ -90,12 +81,16 @@ const validation = {
                 .notEmpty()
                 .withMessage('Clinic contact title field is required.')
                 .trim(),
-            check('clinic_con_email')
-                .customSanitizer(value => value.split(',')) // split emails into array of emails
+            check('clinic_con_email').customSanitizer(value =>
+                value.split(','),
+            ),
+            check('clinic_con_email.*')
+                .trim()
                 .isEmail()
-                .withMessage('Please enter valid emails.')
+                .withMessage('Please enter valid email addresses.')
                 .bail()
-                .trim(),
+                .trim()
+                .normalizeEmail(),
         ];
     },
 };

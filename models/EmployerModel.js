@@ -5,7 +5,6 @@ const employerSchema = mongoose.Schema({
     account: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Account',
-        required: true,
     },
     name: {
         first: String,
@@ -23,10 +22,6 @@ const employerSchema = mongoose.Schema({
         type: String,
         required: true,
     },
-    clinicName: {
-        type: String,
-        required: true,
-    },
     clinicAddress: {
         street: String,
         houseNo: String,
@@ -38,15 +33,19 @@ const employerSchema = mongoose.Schema({
         type: String,
         required: true,
     },
-    detailsSoftware: {
+    clinicName: {
         type: String,
         required: true,
     },
-    detailsSpecialties: {
+    clinicProgram: {
         type: String,
         required: true,
     },
-    detailsServices: {
+    clinicSpecialties: {
+        type: String,
+        required: true,
+    },
+    clinicServices: {
         type: String,
         required: true,
     },
@@ -71,3 +70,5 @@ const employerSchema = mongoose.Schema({
         required: true,
     },
 });
+
+module.exports = mongoose.model('Employer', employerSchema);
