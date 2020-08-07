@@ -29,8 +29,6 @@ const registerController = {
                 title: 'Register | BookMeDental',
                 register_active: true,
             });
-
-
         } else {
             var { options, email, password } = req.body;
 
@@ -46,12 +44,11 @@ const registerController = {
                 // create a new Account document
                 db.insertOne(Account, account, function (flag) {
                     if (flag) {
+                        req.session.accId = account._id;
                         req.session.user = email;
                         console.log(req.session.user);
-                        if(options == "applicant")
-                            res.redirect('/form');
-                        else
-                            res.redirect('/form-emp');
+                        if (options == 'applicant') res.redirect('/form');
+                        else res.redirect('/form-emp');
                     }
                 });
             });
