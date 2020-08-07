@@ -63,10 +63,10 @@ const formController = {
                 console.log("no avatar");
                 var applicant = new Applicant({
                     account: req.session.accId,
-                    fname: fname,
-                    lname: lname,
+                    fName: fname,
+                    lName: lname,
                     streetAdd: streetAdd,
-                    house: house,
+                    houseNo: house,
                     city: city,
                     state: state,
                     zip: zip,
@@ -103,10 +103,10 @@ const formController = {
                 console.log("with avatar")
                 var applicant = new Applicant({
                     account: req.session.accId,
-                    fname: fname,
-                    lname: lname,
+                    fName: fname,
+                    lName: lname,
                     streetAdd: streetAdd,
-                    house: house,
+                    houseNo: house,
                     city: city,
                     state: state,
                     zip: zip,

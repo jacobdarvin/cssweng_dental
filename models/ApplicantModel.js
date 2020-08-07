@@ -40,7 +40,7 @@ const applicantSchema = mongoose.Schema({
     },
     position: {
         type: String,
-        enum: ['Front Desk, Dental Assistant, Dental Hygienist, Dentist'],
+        enum: ['Front Desk', 'Dental Assistant', 'Dental Hygienist', 'Dentist'],
         required: true
     },
     yearExp: {
