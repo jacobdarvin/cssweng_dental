@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 
 const applicantSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
+    account: {
+        type: mongoose.Types.ObjectId,
+        ref: 'Account'
+    },
     fName: {
         type: String,
         required: true,

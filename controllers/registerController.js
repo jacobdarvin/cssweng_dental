@@ -47,6 +47,7 @@ const registerController = {
                 db.insertOne(Account, account, function (flag) {
                     if (flag) {
                         req.session.user = email;
+                        req.session.accId = account._id;
                         if(options == "applicant")
                             res.redirect('/form');
                         else

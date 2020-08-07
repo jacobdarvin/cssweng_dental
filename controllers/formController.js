@@ -40,6 +40,7 @@ const formController = {
             //user used default avatar
             if(!(req.files['avatar'][0])){
                 var applicant = new Applicant({
+                    account = req.session.accId,
                     fname: fname,
                     lname: lname,
                     streetAdd: streetAdd,
@@ -72,8 +73,10 @@ const formController = {
                 })
             }
 
+            //user uploaded his/her own avatar
             else{
                 var applicant = new Applicant({
+                    account = req.session.accId,
                     fname: fname,
                     lname: lname,
                     streetAdd: streetAdd,
