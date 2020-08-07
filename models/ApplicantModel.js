@@ -77,10 +77,11 @@ const applicantSchema = mongoose.Schema({
         required: true,
     },
     avatar: {
-        data: Buffer,
+        type: String,
+        default: "portrait.png"
     },
     resume: {
-        data: Buffer,
+        type: String
     },
     feedback: {
         type: String,

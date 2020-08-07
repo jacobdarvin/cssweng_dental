@@ -21,21 +21,39 @@ const validation = require('../helpers/validation.js');
 // import multer for file uploads
 var multer = require('multer');
 
-var avatarStorage = multer.diskStorage({
-    destination:  './public/avatars',
-    filename: function(req, file, cb) {
-        cb(null, file.originalname)
-    }
-}),
-avatarUpload = multer({ storage: avatarStorage }).single('avatar');
+// var avatarStorage = multer.diskStorage({
+//     destination:  './public/avatars',
+//     filename: function(req, file, cb) {
+//         cb(null, file.originalname)
+//     }
+// }),
+// avatarUpload = multer({ storage: avatarStorage }).single('avatar');
 
-var resumeStorage = multer.diskStorage({
-    destination:  './public/resumes',
-    filename: function(req, file, cb) {
-        cb(null, file.originalname)
+// var resumeStorage = multer.diskStorage({
+//     destination:  './public/resumes',
+//     filename: function(req, file, cb) {
+//         cb(null, file.originalname)
+//     }
+// }),
+// resumeUpload = multer({ storage: resumeStorage }).single('resume');
+
+var storage = multer.diskStorage({
+    destination: function (req, file, cd) {
+        if (file.fieldname === 'avatar') {
+            cd(null, '/public/avatars');
+        }
+
+        else if (file.fieldname === 'resume') {
+            cd(null, '/public/resumes');
+        }  
+    },
+    filename: function (req, file, cd) {
+      cd(null, file.originalname);
     }
-}),
-resumeUpload = multer({ storage: resumeStorage }).single('resume');
+});
+
+var upload = multer({storage: storage});
+var uploadFilter = upload.fields([{ name: 'avatar', maxCount: 1 }, { name: 'resume', maxCount: 1 }]);
 
 
 const app = express();
@@ -74,7 +92,7 @@ app.get('/form', function (req, res) {
         login_active: true,
     });
 });
-app.post('/form', validation.formValidation(), avatarUpload, resumeUpload, formController.postApplicantReg);
+app.post('/form', validation.formValidation(), uploadFilter, formController.postApplicantReg);
 
 app.get('/form-emp', function(req, res) {
     res.render('form-emp', {
