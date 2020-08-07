@@ -2,6 +2,7 @@ const db = require('../models/db');
 const Applicant = require('../models/ApplicantModel.js');
 const helper = require('../helpers/helper.js');
 const { validationResult } = require('express-validator');
+const mongoose = require('mongoose');
 
 const formController = {
 
@@ -17,7 +18,6 @@ const formController = {
     postApplicantReg: function (req, res){
         var errors = validationResult(req);
 
-        console.log(req.body);
         if (!errors.isEmpty()) {
             errors = errors.errors;
 
@@ -25,7 +25,6 @@ const formController = {
             for (let i = 0; i < errors.length; i++)
                 details[errors[i].param + 'Error'] = errors[i].msg;
 
-            console.log(details);
             res.render('form', {
                 details: details,
                 active_session: (req.session.user && req.cookies.user_sid),
@@ -50,18 +49,11 @@ const formController = {
             else{
                 availability = req.body.availability;
             } 
-
-            // console.log(req.files['resume'][0].originalname);
-            // console.log(!(req.files['avatar']));
-
-            // if(!(req.files['avatar'])){
-            //     console.log("waley");
-            // }
         
             //user used default avatar
             if(!(req.files['avatar'])){
-                console.log("no avatar");
                 var applicant = new Applicant({
+                    _id: new mongoose.Types.ObjectId(),
                     account: req.session.accId,
                     fName: fname,
                     lName: lname,
@@ -90,11 +82,9 @@ const formController = {
                 applicant.resume = fileName;
 
                 db.insertOne(Applicant, applicant, function(flag){
-                    console.log("yes");
-                    console.log(flag)
-                    // if(flag){
-                       
-                    // }
+                    if(flag){
+                       res.send("success!")
+                    }
                 })
             }
 
@@ -102,6 +92,7 @@ const formController = {
             else{
                 console.log("with avatar")
                 var applicant = new Applicant({
+                    _id: new mongoose.Types.ObjectId(),
                     account: req.session.accId,
                     fName: fname,
                     lName: lname,
@@ -136,7 +127,7 @@ const formController = {
 
                 db.insertOne(Applicant, applicant, function(flag){
                     if(flag){
-                       res.send(flag);
+                       res.send("success!");
                     }
                 })
             }
