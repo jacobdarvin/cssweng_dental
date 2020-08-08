@@ -71,12 +71,21 @@ app.get('/features', function(req, res) {
     })
 });
 
-
-app.get('/404', function(req, res) {
-    res.render('404', {
+app.get('/features', function(req, res) {
+    res.render('features', {
         active_session: (req.session.user && req.cookies.user_sid),
         active_user: req.session.user,
-        title: '404 Error | BookMeDental',
+        title: 'Features | BookMeDental',
+        features_active: true,
+    })
+});
+
+
+app.get('/offers', function(req, res) {
+    res.render('offers', {
+        active_session: (req.session.user && req.cookies.user_sid),
+        active_user: req.session.user,
+        title: 'Offers | BookMeDental',
     })
 });
 
