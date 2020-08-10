@@ -7,8 +7,8 @@ const validation = {
             check('email')
                 .isEmail()
                 .withMessage('Please enter a valid email address')
-                // .bail()
-                // .trim()
+                .bail()
+                .trim()
                 .normalizeEmail()
                 .custom(async value => {
                     // check if email is already used
@@ -29,6 +29,9 @@ const validation = {
                 .withMessage('Passwords do not match')
                 .notEmpty()
                 .withMessage('Please enter a password'),
+            check('termsCheck')
+                .exists()
+                .withMessage('You must agree to the terms and conditions.'),
         ];
     },
 
@@ -91,6 +94,11 @@ const validation = {
                 .bail()
                 .trim()
                 .normalizeEmail(),
+            check('useragreement')
+                .exists()
+                .withMessage(
+                    'You must agree to the Employer Agreement, Terms and Conditions, and Privacy Policy.',
+                ),
         ];
     },
 };

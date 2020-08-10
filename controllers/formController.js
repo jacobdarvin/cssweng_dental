@@ -28,6 +28,7 @@ const formController = {
             }
 
             res.render('form-emp', {
+                inputs: req.body,
                 details: details,
                 active_session: req.session.user && req.cookies.user_sid,
                 active_user: req.session.user,

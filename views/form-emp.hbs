@@ -59,13 +59,13 @@
 						<div class="col">
 							<label for="fname">First Name</label>
 							<input type="text" class="form-control" id="fname" name="fname" aria-describedby="emailHelp"
-								placeholder="First Name" />
+								placeholder="First Name" value="{{inputs.fname}}" />
 							<p style="color: red;">{{details.fnameError}}</p>
 						</div>
 						<div class="col">
 							<label for="lname">Last Name</label>
 							<input type="text" class="form-control" id="lname" name="lname" aria-describedby="emailHelp"
-								placeholder="Last Name" />
+								placeholder="Last Name" value="{{inputs.lname}}" />
 							<p style="color: red;">{{details.lnameError}}</p>
 						</div>
 					</div>
@@ -76,7 +76,7 @@
 						<div class="col">
 							<label for="title">Title</label>
 							<input type="text" class="form-control" id="title" name="title" aria-describedby="emailHelp"
-								placeholder="Title" />
+								placeholder="Title" value="{{inputs.title}}" />
 							<p style="color: red;">{{details.titleError}}</p>
 						</div>
 					</div>
@@ -87,7 +87,7 @@
 						<div class="col">
 							<label for="phone">Phone</label>
 							<input type="text" class="form-control" id="phone" name="phone" aria-describedby="emailHelp"
-								placeholder="Phone" />
+								placeholder="Phone" value="{{inputs.phone}}" />
 							<p style="color: red;">{{details.phoneError}}</p>
 						</div>
 					</div>
@@ -98,7 +98,8 @@
 						<div class="col">
 							<label for="blname">Business Legal Name</label>
 							<input type="text" class="form-control" id="blname" name="blname"
-								aria-describedby="emailHelp" placeholder="Business Legal Name" />
+								aria-describedby="emailHelp" placeholder="Business Legal Name"
+								value="{{inputs.blname}}" />
 							<p style="color: red;">{{details.blnameError}}</p>
 						</div>
 					</div>
@@ -110,14 +111,15 @@
 						<div class="col-8">
 							<label for="clinic_street">Clinic Street Address</label>
 							<input type="text" class="form-control" id="clinic_street" name="clinic_street"
-								aria-describedby="emailHelp" placeholder="Street Address" />
+								aria-describedby="emailHelp" placeholder="Street Address"
+								value="{{inputs.clinic_street}}" />
 							<p style="color: red;">{{details.clinic_streetError}}</p>
 
 						</div>
 						<div class="col-4">
 							<label for="clinic_no">No.</label>
 							<input type="text" class="form-control" id="clinic_no" name="clinic_no"
-								aria-describedby="emailHelp" placeholder="No." />
+								aria-describedby="emailHelp" placeholder="No." value="{{inputs.clinic_no}}" />
 							<p style="color: red;">{{details.clinic_noError}}</p>
 
 						</div>
@@ -129,19 +131,19 @@
 						<div class="col-6">
 							<label for="clinic_city">City</label>
 							<input type="text" class="form-control" id="clinic_city" name="clinic_city"
-								aria-describedby="emailHelp" placeholder="City" />
+								aria-describedby="emailHelp" placeholder="City" value="{{inputs.clinic_city}}" />
 							<p style="color: red;">{{details.clinic_cityError}}</p>
 						</div>
 						<div class="col-4">
 							<label for="clinic_state">State</label>
 							<input type="text" class="form-control" id="clinic_state" name="clinic_state"
-								aria-describedby="emailHelp" placeholder="State" />
+								aria-describedby="emailHelp" placeholder="State" value="{{inputs.clinic_state}}" />
 							<p style="color: red;">{{details.clinic_stateError}}</p>
 						</div>
 						<div class="col-2">
 							<label for="clinic_zip">Zip</label>
 							<input type="text" class="form-control" id="clinic_zip" name="clinic_zip"
-								aria-describedby="emailHelp" placeholder="Zip" />
+								aria-describedby="emailHelp" placeholder="Zip" value="{{inputs.clinic_zip}}" />
 							<p style="color: red;">{{details.clinic_zipError}}</p>
 						</div>
 					</div>
@@ -149,14 +151,14 @@
 				<div class="form-group">
 					<label for="clinic_phone">Clinic Phone</label>
 					<input type="text" class="form-control" id="clinic_phone" name="clinic_phone"
-						placeholder="(555) 555-1234" />
+						placeholder="(555) 555-1234" value="{{inputs.clinic_phone}}" />
 					<p style="color: red;">{{details.clinic_phoneError}}</p>
 				</div>
 
 				<div class="form-group" style="margin-top: 10px;">
 					<label for="clinic_name">Clinic Name</label>
 					<input type="text" class="form-control" id="clinic_name" name="clinic_name"
-						placeholder="Clinic Name" />
+						placeholder="Clinic Name" value="{{inputs.clinic_name}}" />
 					<p style="color: red;">{{details.clinic_nameError}}</p>
 				</div>
 
@@ -165,21 +167,21 @@
 				<div class="form-group" style="margin-top: 10px;">
 					<label for="clinic_program">What type of software does this clinic use?</label>
 					<input type="text" class="form-control" id="clinic_program" name="clinic_program"
-						placeholder="List down any programs..." />
+						placeholder="List down any programs..." value="{{inputs.clinic_program}}" />
 					<p style="color: red;">{{details.clinic_programError}}</p>
 				</div>
 
 				<div class="form-group" style="margin-top: 10px;">
 					<label for="clinic_speciality">Office Specialty</label>
 					<input type="text" class="form-control" id="clinic_speciality" name="clinic_specialty"
-						placeholder="List down any programs..." />
+						placeholder="List down any programs..." value="{{inputs.clinic_specialty}}" />
 					<p style="color: red;">{{details.clinic_specialtyError}}</p>
 				</div>
 
 				<div class="form-group" style="margin-top: 10px;">
 					<label for="clinic_services">Which services does this office offer?</label>
 					<input type="text" class="form-control" id="clinic_services" name="clinic_services"
-						placeholder="List down any services..." />
+						placeholder="List down any services..." value="{{inputs.clinic_services}}" />
 					<p style="color: red;">{{details.clinic_servicesError}}</p>
 				</div>
 
@@ -189,7 +191,8 @@
 						<div class="col">
 							<label for="clinic_con_name">Name</label>
 							<input type="text" class="form-control" id="clinic_con_name" name="clinic_con_name"
-								aria-describedby="emailHelp" placeholder="Full Name" />
+								aria-describedby="emailHelp" placeholder="Full Name"
+								value="{{inputs.clinic_con_name}}" />
 							<p style="color: red;">{{details.clinic_con_nameError}}</p>
 						</div>
 					</div>
@@ -200,7 +203,7 @@
 						<div class="col">
 							<label for="clinic_con_title">Title</label>
 							<input type="text" class="form-control" id="clinic_con_title" name="clinic_con_title"
-								aria-describedby="emailHelp" placeholder="Title" />
+								aria-describedby="emailHelp" placeholder="Title" value="{{inputs.clinic_con_title}}" />
 							<p style="color: red;">{{details.clinic_con_titleError}}</p>
 						</div>
 					</div>
@@ -211,7 +214,7 @@
 						<div class="col">
 							<label for="clinic_con_email">Email/s </label>
 							<input type="text" class="form-control" id="clinic_con_email" name="clinic_con_email"
-								aria-describedby="emailHelp" placeholder="Email" />
+								aria-describedby="emailHelp" placeholder="Email" value="{{inputs.clinic_con_email}}" />
 							<p style="color: red;">{{details.clinic_con_emailError}}</p>
 						</div>
 					</div>
@@ -222,9 +225,11 @@
 				<textarea id="candidateagreement" style="margin-bottom: 10px;" rows="10" cols="92" disabled> Put your candidate agreement and policy here...
 				</textarea>
 				<div class="form-check" style="margin-left: 5px; margin-top: -15px">
-					<input type="checkbox" class="form-check-input" id="useragreement" name="useragreement" />
+					<input type="checkbox" class="form-check-input" id="useragreement" name="useragreement"
+						{{#if inputs.useragreement}}checked{{/if}} />
 					<p style="font-style:italic; font-size: 15.5px">I have read, understand and agree to the Employer
 						Agreement, Terms and Conditions, and Privacy Policy</p>
+					<p style="color: red;">{{details.useragreementError}}</p>
 				</div>
 				<label>Last Question! How did you hear about us?</label>
 				<br>

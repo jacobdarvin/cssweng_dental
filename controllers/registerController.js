@@ -15,7 +15,7 @@ const registerController = {
     },
     postRegister: function (req, res) {
         var errors = validationResult(req);
-
+        console.log(req.body);
         if (!errors.isEmpty()) {
             errors = errors.errors;
 
@@ -24,6 +24,8 @@ const registerController = {
                 details[errors[i].param + 'Error'] = errors[i].msg;
 
             res.render('register', {
+                inputs: req.body,
+                isEmployer: req.body.options == 'employer',
                 details: details,
                 title: 'Register | BookMeDental',
                 register_active: true,
