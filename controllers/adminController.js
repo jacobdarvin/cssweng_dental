@@ -1,4 +1,4 @@
-const Account = require('../models/AccountModel');
+const Employer = require('../models/EmployerModel');
 
 const adminController = {
     getAdmin: function (req, res) {
@@ -8,12 +8,34 @@ const adminController = {
         });
     },
     getEmployerList: function (req, res) {
-        // get all Employers from Employer
-        // TESTING: get data from Account collection for testing purposes
-        Account.find({ accType: 'employer' }, '_id accEmail created')
+        // only get Employers who have completed the form
+        Employer.find(
+            { account: { $exists: true } },
+            'account name clinicName phone',
+        )
+            .populate('account')
             .exec()
             .then(docs => {
-                res.send(docs);
+                var data = [];
+                for (const {
+                    name: { first, last },
+                    clinicName,
+                    phone,
+                    account: { accEmail, created, accStatus },
+                } of docs) {
+                    data.push({
+                        first,
+                        last,
+                        clinicName,
+                        phone,
+                        accEmail,
+                        created,
+                        accStatus: accStatus === 'active',
+                    });
+                }
+                
+                console.log(data);
+                res.send(data);
             })
             .catch(err => {
                 res.send(err);

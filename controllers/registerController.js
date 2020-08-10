@@ -1,5 +1,4 @@
 const bcrypt = require('bcrypt');
-const session = require('express-session');
 const mongoose = require('mongoose');
 const { validationResult } = require('express-validator');
 
@@ -44,6 +43,7 @@ const registerController = {
                 // create a new Account document
                 db.insertOne(Account, account, function (flag) {
                     if (flag) {
+                        // account._id will be stored in Employer.account
                         req.session.accId = account._id;
                         req.session.user = email;
                         console.log(req.session.user);

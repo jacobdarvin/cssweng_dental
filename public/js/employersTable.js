@@ -1,4 +1,4 @@
-var table = new Tabulator('#example-table2', {
+var table = new Tabulator('#example-table', {
     resizableRows: false,
     resizableColumns: true,
     pagination: 'local',
@@ -12,24 +12,24 @@ var table = new Tabulator('#example-table2', {
         { title: 'Last Name', field: 'last' },
         { title: 'Clinic Name', field: 'clinicName' },
         { title: 'Employer email', field: 'accEmail' },
-        { title: 'Contact', field: 'contact' },
+        { title: 'Contact', field: 'phone' },
         {
             title: 'Date Filed',
             field: 'created',
             formatter: 'datetime',
             formatterParams: {
-                outputFormat: 'MM/DD/YYYY',
+                outputFormat: 'DD/MM/YYYY',
             },
             sorter: 'date',
             sorterParams: {
-                format: 'MM/DD/YYYY',
+                format: 'DD/MM/YYYY',
                 alignEmptyValues: 'top',
             },
             hozAlign: 'center',
         },
         {
             title: 'Status',
-            field: 'accepted',
+            field: 'accStatus',
             hozAlign: 'center',
             formatter: 'tickCross',
         },
