@@ -15,7 +15,7 @@ const registerController = {
     },
     postRegister: function (req, res) {
         var errors = validationResult(req);
-        console.log(req.body);
+
         if (!errors.isEmpty()) {
             errors = errors.errors;
 
@@ -48,7 +48,7 @@ const registerController = {
                         // account._id will be stored in Employer.account
                         req.session.accId = account._id;
                         req.session.user = email;
-                        console.log(req.session.user);
+
                         if (options == 'applicant') res.redirect('/form');
                         else res.redirect('/form-emp');
                     }

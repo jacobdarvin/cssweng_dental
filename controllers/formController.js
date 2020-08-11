@@ -16,7 +16,6 @@ const formController = {
     postFormEmp: function (req, res) {
         var errors = validationResult(req);
 
-        console.log(req.body);
         if (!errors.isEmpty()) {
             errors = errors.errors;
 

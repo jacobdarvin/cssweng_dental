@@ -34,7 +34,6 @@ const adminController = {
                     });
                 }
                 
-                console.log(data);
                 res.send(data);
             })
             .catch(err => {
