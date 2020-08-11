@@ -69,6 +69,11 @@ const validation = {
                 .withMessage('Empty field. Please fill this out!')
                 .trim(),
             check('programs')
+                .customSanitizer(value =>
+                    value.split(',')
+            ),
+            check('programs.*')
+                .trim()
                 .notEmpty()
                 .withMessage('Empty field. Please fill this out!')
                 .trim(),
@@ -77,6 +82,11 @@ const validation = {
                 .withMessage('Empty field. Please fill this out!')
                 .trim(),
             check('specialties')
+                .customSanitizer(value =>
+                    value.split(',')
+            ),
+            check('specialties.*')
+                .trim()
                 .notEmpty()
                 .withMessage('Empty field. Please fill this out!')
                 .trim(),
