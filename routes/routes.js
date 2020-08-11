@@ -3,6 +3,7 @@ const express = require('express');
 const session = require('express-session');
 const database = require('../models/db.js');
 
+
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
@@ -10,12 +11,50 @@ const bodyParser = require('body-parser');
 const indexController = require('../controllers/indexController');
 const profileController = require('../controllers/profileController');
 const registerController = require('../controllers/registerController');
-const loginController = require('../controllers/loginController.js');
+const loginController = require('../controllers/loginController');
 const adminController = require('../controllers/adminController');
 const formController = require('../controllers/formController');
 
 // import validation script
 const validation = require('../helpers/validation.js');
+
+// import multer for file uploads
+var multer = require('multer');
+
+// var avatarStorage = multer.diskStorage({
+//     destination:  './public/avatars',
+//     filename: function(req, file, cb) {
+//         cb(null, file.originalname)
+//     }
+// }),
+// avatarUpload = multer({ storage: avatarStorage }).single('avatar');
+
+// var resumeStorage = multer.diskStorage({
+//     destination:  './public/resumes',
+//     filename: function(req, file, cb) {
+//         cb(null, file.originalname)
+//     }
+// }),
+// resumeUpload = multer({ storage: resumeStorage }).single('resume');
+
+var storage = multer.diskStorage({
+    destination: function (req, file, cd) {
+        if (file.fieldname === 'avatar') {
+            cd(null, './public/avatars');
+        }
+
+        else if (file.fieldname === 'resume') {
+            cd(null, './public/resumes');
+        }  
+    },
+    filename: function (req, file, cd) {
+      cd(null, file.originalname);
+    }
+});
+
+var upload = multer({storage: storage});
+var uploadFilter = upload.fields([{ name: 'avatar', maxCount: 1 }, { name: 'resume', maxCount: 1 }]);
+
 
 const app = express();
 
@@ -45,13 +84,20 @@ app.use((req, res, next) => {
 });
 
 // call function getIndex when client sends a request for '/' defined in routes.js
-app.get('/form', function (req, res) {
-    res.render('form', {
-        active_session: req.session.user && req.cookies.user_sid,
+// app.get('/form', function (req, res) {
+    // res.render('form', {
+        // active_session: req.session.user && req.cookies.user_sid,
+app.get('/form', formController.getApplicantReg);
+app.post('/form', uploadFilter, validation.formValidation(), formController.postApplicantReg);
+
+
+app.get('/form-emp', function(req, res) {
+    res.render('form-emp', {
+        active_session: (req.session.user && req.cookies.user_sid),
         active_user: req.session.user,
         title: 'Sign Up | BookMeDental',
         login_active: true,
-    });
+    })
 });
 
 app.get('/form-emp', formController.getFormEmp);
@@ -60,6 +106,25 @@ app.post(
     validation.formEmpValidation(),
     formController.postFormEmp,
 );
+
+app.get('/features', function(req, res) {
+    res.render('features', {
+        active_session: (req.session.user && req.cookies.user_sid),
+        active_user: req.session.user,
+        title: 'Features | BookMeDental',
+        features_active: true,
+    })
+});
+
+
+app.get('/offers', function(req, res) {
+    res.render('offers', {
+        active_session: (req.session.user && req.cookies.user_sid),
+        active_user: req.session.user,
+        title: 'Offers | BookMeDental',
+    })
+});
+
 
 // /admin routes
 // app.get('/admin', adminController.getAdmin);
