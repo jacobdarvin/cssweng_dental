@@ -38,15 +38,15 @@ const employerSchema = mongoose.Schema({
         required: true,
     },
     clinicProgram: {
-        type: String,
+        type: [String],
         required: true,
     },
     clinicSpecialties: {
-        type: String,
+        type: [String],
         required: true,
     },
     clinicServices: {
-        type: String,
+        type: [String],
         required: true,
     },
     clinicContactName: {
