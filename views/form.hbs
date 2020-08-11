@@ -46,7 +46,14 @@
 		cursor: pointer;
 	}
 
+	input[type=radio]:checked + .showdate {
+  		display: block;
+	}
 
+
+	input[type=radio] + .details{
+		display: none;
+	}
 }
 
 </style>
@@ -171,10 +178,10 @@
 				  	 <p style="margin-bottom: -3px">Available immediately</p>
 				</div>
 				<div class="form-check" style="margin-bottom: 20px;">
-				  <input class="form-check-input" type="radio" name="availability" id="availability-after" value="after">
-				 	 <p>Available after</p>
-
-					<div class="col-5" style="margin-left: -15px; margin-top: -10px;">
+					<label style="font-weight: 10; color:rgb(97, 95, 95)">Available after...</label>
+					<input class="form-check-input" type="radio" name="availability" id="availability-after" value="after" style="margin-left:-130px;">
+				 	 
+					<div class="col-5 details showdate" style="margin-left: -15px; margin-top: 5px;">
                 		<input type="date" class="form-control" id="date" name="date"/>	
                	 	</div>
 				</div>
@@ -193,17 +200,17 @@
 				<br>
 				<div class="card-title" style="font-size: 42px;">Additional Profile Information</div>
 				<label>Short Personal Profile</label><br>
-				<textarea id="shortprofile" name="shortprofile" rows="4" cols="92" value="{{input.shortprofile}}"> </textarea>
+				<textarea id="shortprofile" name="shortprofile" rows="4" cols="92"> </textarea>
 				<p style="margin-left: 5px; margin-bottom: 1px; color: red; font-style:italic; font-size: 10px">{{details.shortprofileError}}</p>
 				<p style="font-style: italic; font-size:13px">Consider including things not found in your resume (e.g. hobbies, interests, goals). Market yourself!</p>
 				<label>Profile Photo</label><br>
 				<p style="font-style:normal; font-size:14px; margin-top: -5px;">Profile photo is not required. But feel free to upload your photo so employers can virtually see you!</p>
 				<div id="container" style="margin-bottom: -10px;">
 					<div class="container2">
-						<img class="img-circle" src="/imgs/portrait.png"/>
+						<img class="img-circle" id="output" src="/imgs/portrait.png"/>
 					</div>
 					<div class="container3">
-  						<p style="padding-left: 120px;"><input type="file" id="avatar" name="avatar" accept="image/jpeg, image/png" value="{{input.avatar}}"></p>
+  						<p style="padding-left: 120px;"><input type="file" id="avatar" name="avatar" accept="image/jpeg, image/png" value="{{input.avatar}}" onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])"></p>
 						<p style="font-size: small;">Tip: Crop your photo into a 200x200 and should be in JPG or PNG for best results!</p>
 					</div>
 				</div>
