@@ -67,15 +67,18 @@ const validation = {
             check('clinic_program')
                 .notEmpty()
                 .withMessage('Clinic software field is required.')
-                .trim(),
+                .customSanitizer(value => value.split(',')),
+            check('clinic_program.*').trim(),
             check('clinic_specialty')
                 .notEmpty()
                 .withMessage('Clinic specialty field is required.')
-                .trim(),
+                .customSanitizer(value => value.split(',')),
+            check('clinic_specialty.*').trim(),
             check('clinic_services')
                 .notEmpty()
                 .withMessage('Clinic services field is required.')
-                .trim(),
+                .customSanitizer(value => value.split(',')),
+            check('clinic_services.*').trim(),
             check('clinic_con_name')
                 .notEmpty()
                 .withMessage('Clinic contact name field is required.')
