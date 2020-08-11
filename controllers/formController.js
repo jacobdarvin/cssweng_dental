@@ -26,6 +26,7 @@ const formController = {
                 details[errors[i].param + 'Error'] = errors[i].msg;
 
             res.render('form', {
+                input: req.body,
                 details: details,
                 active_session: (req.session.user && req.cookies.user_sid),
                 active_user: req.session.user,
@@ -34,14 +35,25 @@ const formController = {
             });
         }
         else{
-            var { fname, lname, streetAdd, house, city, state, zip, phone, position, years, programs, 
-            language, specialties, placement, payrate, travel, shortprofile, feedback} = req.body;
+            var { position, placement, travel, feedback} = req.body;
             var availability;
 
-            //sanitize all user inputs
-            // const fname = helper.sanitize(req.body.fname);
-            // const lname =  helper.sanitize(req.body.lname);
-            // const streetAdd =  helper.sanitize(req.body.streetAdd);
+            //sanitize user inputs
+            const fname = helper.sanitize(req.body.fname);
+            const lname =  helper.sanitize(req.body.lname);
+            const streetAdd =  helper.sanitize(req.body.streetAdd);
+            const house = helper.sanitize(req.body.house);
+            const city = helper.sanitize(req.body.city);
+            const state = helper.sanitize(req.body.state);
+            const zip = helper.sanitize(req.body.zip);
+            const phone = helper.sanitize(req.body.phone);
+            const years = helper.sanitize(req.body.years);
+            const programs = helper.sanitize(req.body.programs);
+            const language = helper.sanitize(req.body.language);
+            const specialties = helper.sanitize(req.body.specialties);
+            const payrate = helper.sanitize(req.body.payrate);
+            const shortprofile = helper.sanitize(req.body.shortprofile);
+
 
             if(req.body.availability == "after"){
                 availability = req.body.date;
