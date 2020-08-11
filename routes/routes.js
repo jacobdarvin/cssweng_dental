@@ -96,6 +96,34 @@ app.get('/form-emp', function(req, res) {
     })
 });
 
+app.get('/features', function(req, res) {
+    res.render('features', {
+        active_session: (req.session.user && req.cookies.user_sid),
+        active_user: req.session.user,
+        title: 'Features | BookMeDental',
+        features_active: true,
+    })
+});
+
+app.get('/features', function(req, res) {
+    res.render('features', {
+        active_session: (req.session.user && req.cookies.user_sid),
+        active_user: req.session.user,
+        title: 'Features | BookMeDental',
+        features_active: true,
+    })
+});
+
+
+app.get('/offers', function(req, res) {
+    res.render('offers', {
+        active_session: (req.session.user && req.cookies.user_sid),
+        active_user: req.session.user,
+        title: 'Offers | BookMeDental',
+    })
+});
+
+
 // /admin routes
 // app.get('/admin', adminController.getAdmin);
 app.get('/employers', adminController.getEmployerList);

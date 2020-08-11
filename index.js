@@ -53,6 +53,12 @@ mongoose.connect(url, options, err => {
     console.log('connected at ' + url);
 });
 
+//404 error.
+
+app.use(function(req, res) {
+    res.render('404');
+});
+
 // binds the server to a specific port
 const port = 9090;
 app.listen(port, function () {
