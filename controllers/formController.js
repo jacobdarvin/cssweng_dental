@@ -144,7 +144,6 @@ const formController = {
             }
         }
     },
-
     getFormEmp: function (req, res) {
         res.render('form-emp', {
             active_session: req.session.user && req.cookies.user_sid,

@@ -1,4 +1,4 @@
-var table = new Tabulator('#example-table', {
+var employersTable = new Tabulator('#employers-table', {
     resizableRows: false,
     resizableColumns: true,
     pagination: 'local',
@@ -36,6 +36,22 @@ var table = new Tabulator('#example-table', {
     ],
 });
 
-table.setData('/employers');
+var applicantsTable = new Tabulator('#applicants-table', {
+    resizableRows: false,
+    resizableColumns: true,
+    pagination: 'local',
+    paginationSize: 6,
+    layout: 'fitColumns',
+    index: '_id',
+    columns: [
+        //Define Table Columns
 
-console.log(table);
+        { title: 'First Name', field: 'fname' },
+        { title: 'Last Name', field: 'lname' },
+        { title: 'Employer email', field: 'accEmail' },
+        { title: 'Contact', field: 'phone' },
+    ],
+});
+
+employersTable.setData('/employers');
+applicantsTable.setData('/applicants');
