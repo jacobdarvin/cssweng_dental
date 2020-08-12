@@ -61,7 +61,6 @@ const adminController = {
                 } of docs)
                     data.push({ accEmail, fName, lName, phone });
 
-                console.log(data);
                 res.send(data);
             })
             .catch(err => res.send(err));

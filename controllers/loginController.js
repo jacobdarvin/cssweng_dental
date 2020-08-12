@@ -18,7 +18,6 @@ const loginController = {
         var email = helper.sanitize(req.body.loginEmail);
         var password = helper.sanitize(req.body.loginPassword);
 
-        console.log(req.body)
         if (email.trim() == '' || password == '') {
             res.render('login', {
             title: 'Login | BookMeDental',

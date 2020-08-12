@@ -27,7 +27,6 @@ const formController = {
             for (let i = 0; i < errors.length; i++)
                 details[errors[i].param + 'Error'] = errors[i].msg;
 
-            console.log(req.body);
             res.render('form', {
                 input: req.body,
                 details: details,
@@ -89,7 +88,6 @@ const formController = {
                 });
 
                 var newName = applicant.account;
-                console.log(applicant.account);
                 var fileName = helper.renameResume(req, newName);
                 applicant.resume = fileName;
 
@@ -102,7 +100,6 @@ const formController = {
 
             //user uploaded his/her own avatar
             else {
-                console.log('with avatar');
                 var applicant = new Applicant({
                     _id: new mongoose.Types.ObjectId(),
                     account: req.session.accId,

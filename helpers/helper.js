@@ -17,13 +17,11 @@ const helper = {
     },
 
     renameResume: function (req, newName){
-      console.log(req.files);
       var origName = req.files['resume'][0].originalname;
       var extension = origName.substring(origName.lastIndexOf("."));
       const newURL = req.files['resume'][0].destination + '/' + newName + extension;
 
       fs.renameSync(req.files['resume'][0].path, newURL);
-      console.log('bye from renameResume');
 
       return newName + extension;
     }
