@@ -1,3 +1,4 @@
+const Applicant = require('../models/ApplicantModel');
 const Employer = require('../models/EmployerModel');
 
 const adminController = {
@@ -24,7 +25,7 @@ const adminController = {
                     clinicName,
                     phone,
                     account: { accEmail, created, accStatus },
-                } of docs) {
+                } of docs)
                     data.push({
                         first,
                         last,
@@ -34,7 +35,6 @@ const adminController = {
                         created,
                         accStatus: accStatus === 'active',
                     });
-                }
 
                 res.send(data);
             })
@@ -43,22 +43,28 @@ const adminController = {
             });
     },
     getApplicantList: function (req, res) {
-        // TODO: get from database
-        // DUMMY DATA below
-        res.send([
-            {
-                fname: 'Rethaniel',
-                lname: 'Ramos',
-                accEmail: 'rethanielramos@gmail.com',
-                phone: '(555) 555-5656',
-            },
-            {
-                fname: 'Another',
-                lname: 'Person',
-                accEmail: 'anotherperson@gmail.com',
-                phone: '(555) 555-3434',
-            },
-        ]);
+        // only get Applicants who have completed the form
+        Applicant.find(
+            { account: { $exists: true } },
+            'account fName lName phone',
+        )
+            .populate('account')
+            .exec()
+            .then(docs => {
+                var data = [];
+
+                for (const {
+                    account: { accEmail },
+                    fName,
+                    lName,
+                    phone,
+                } of docs)
+                    data.push({ accEmail, fName, lName, phone });
+
+                console.log(data);
+                res.send(data);
+            })
+            .catch(err => res.send(err));
     },
 };
 

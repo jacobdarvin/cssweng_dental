@@ -46,9 +46,9 @@ var applicantsTable = new Tabulator('#applicants-table', {
     columns: [
         //Define Table Columns
 
-        { title: 'First Name', field: 'fname' },
-        { title: 'Last Name', field: 'lname' },
-        { title: 'Employer email', field: 'accEmail' },
+        { title: 'First Name', field: 'fName' },
+        { title: 'Last Name', field: 'lName' },
+        { title: 'Applicant email', field: 'accEmail' },
         { title: 'Contact', field: 'phone' },
     ],
 });
