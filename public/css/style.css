@@ -9,6 +9,10 @@ p {
    color: #55595c; 
 }
 
+.h1 {
+    font-weight: 800;
+}
+
 .btn-primary {
     background-color: #8455ca;
 }
