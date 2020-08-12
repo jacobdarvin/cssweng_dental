@@ -202,7 +202,7 @@ const formController = {
 
             Employer.create(employer)
                 .then(doc => {
-                    res.send(doc);
+                    res.redirect('/home');
                 })
                 .catch(err => {
                     res.send(err);
