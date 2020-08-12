@@ -48,7 +48,7 @@ const applicantSchema = mongoose.Schema({
         required: true,
     },
     dentalProg: {
-        type: String,
+        type: [String],
         required: true,
     },
     language: {
@@ -56,7 +56,7 @@ const applicantSchema = mongoose.Schema({
         required: true,
     },
     specialties: {
-        type: String,
+        type: [String],
         required: true,
     },
     placement: {
