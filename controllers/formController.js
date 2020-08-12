@@ -54,7 +54,6 @@ const formController = {
             const payrate = helper.sanitize(req.body.payrate);
             const shortprofile = helper.sanitize(req.body.shortprofile);
 
-
             if(req.body.availability == "after"){
                 availability = req.body.date;
             }
