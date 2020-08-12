@@ -35,7 +35,8 @@ const routes = require('./routes/routes.js');
 hbs.registerPartials(__dirname + '/views/partials');
 
 // set the folder `public` as folder containing static assets (css, js, imgs)
-app.use(express.static('public'));
+// app.use(express.static('public'));
+app.use(express.static(path.join(__dirname,'public')));
 
 // define the paths contained in routes module
 app.use('/', routes);
