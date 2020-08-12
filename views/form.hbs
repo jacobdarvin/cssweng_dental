@@ -1,17 +1,17 @@
 <style>
 	body {
-        background-color: rgb(245, 245, 245); 
-    }
+		background-color: rgb(245, 245, 245);
+	}
 
-	form label{
-		font-weight:bold;
+	form label {
+		font-weight: bold;
 	}
 
 	textarea {
-	  resize: none;
+		resize: none;
 	}
 
-	#container{
+	#container {
 		display: flex;
 		justify-content: left;
 		height: 250px;
@@ -19,13 +19,13 @@
 		margin-top: -20px;
 	}
 
-	.container2{
+	.container2 {
 		height: auto;
 		width: 250px;
 		padding-top: 40px;
 	}
 
-	.container3{
+	.container3 {
 		height: auto;
 		width: 510px;
 		padding-left: 50px;
@@ -46,151 +46,192 @@
 		cursor: pointer;
 	}
 
-	input[type=radio]:checked + .showdate {
-  		display: block;
+	input[type=radio]:checked+.showdate {
+		display: block;
 	}
 
 
-	input[type=radio] + .details{
+	input[type=radio]+.details {
 		display: none;
 	}
-}
-
+	}
 </style>
 
 <h1 style="text-align: center; color: #8455ca; margin-top: 4rem;">BookMeDental <i class="fas fa-tooth"></i></h1>
 
 <div class="card mx-auto" style="width: 50rem; margin-bottom: 2rem">
-    <div class="card-body">
-        <div class="card-title" style="font-size: 42px;">Contact Information</div>
-        <div class="card-text">
-            <form method="POST" action="/form" enctype="multipart/form-data">
-                <div class="form-group">
-                	<div class="row">
-                		<div class="col">
-                    <label for="fname">First Name</label>
-                    <input type="text" class="form-control" id="fname" name="fname" aria-describedby="emailHelp" placeholder="First Name" value="{{input.fname}}"/>
-					<p style="margin-left: 5px; margin-bottom: -10px; color: red; font-style:italic; font-size: 10px">{{details.fnameError}}</p>
-                    	</div>
-                    	<div class="col">
-                    <label for="lname">Last Name</label>
-                    <input type="text" class="form-control" id="lname" name="lname" aria-describedby="emailHelp" placeholder="Last Name" value="{{input.lname}}"/>	
-					<p style="margin-left: 5px; margin-bottom: -10px; color: red; font-style:italic; font-size: 10px">{{details.lnameError}}</p>
-                    	</div>
-                	</div>
-                </div>
-                <div class="form-group">
-                	<div class="row">
-                		<div class="col-8">
-                    <label for="streetaddress">Street Address</label>
-                    <input type="text" class="form-control" id="streetAdd" name="streetAdd" aria-describedby="emailHelp" placeholder="Street Address" value="{{input.streetAdd}}"/>
-					<p style="margin-left: 5px; margin-bottom: -10px; color: red; font-style:italic; font-size: 10px">{{details.streetAddError}}</p>
-                    	</div>
-                    	<div class="col-4">
-                    <label for="house">House No.</label>
-                    <input type="text" class="form-control" id="house" name="house" aria-describedby="emailHelp" placeholder="House No." value="{{input.house}}" />	
-					<p style="margin-left: 5px; margin-bottom: -10px; color: red; font-style:italic; font-size: 10px">{{details.houseError}}!</p>
-                    	</div>
-                	</div>
-                </div>
-                <div class="form-group">
-                	<div class="row">
-                		<div class="col-6">
-                    <label for="city">City</label>
-                    <input type="text" class="form-control" id="city" name="city" aria-describedby="emailHelp" placeholder="City" value="{{input.city}}"/>
-					<p style="margin-left: 5px; margin-bottom: -10px; color: red; font-style:italic; font-size: 10px">{{details.cityError}}</p>
-                    	</div>
-                    	<div class="col-4">
-                    <label for="state">State</label>
-                    <input type="text" class="form-control" id="state" name="state" aria-describedby="emailHelp" placeholder="State" value="{{input.state}}"/>	
-					<p style="margin-left: 5px; margin-bottom: -10px; color: red; font-style:italic; font-size: 10px">{{details.stateError}}</p>
-                    	</div>
-                    	<div class="col-2">
-                    <label for="zip">Zip</label>
-                    <input type="text" class="form-control" id="zip" name="zip" aria-describedby="emailHelp" placeholder="Zip" value="{{input.zip}}"/>	
-					<p style="margin-left: 5px; margin-bottom: -10px; color: red; font-style:italic; font-size: 10px">{{details.zipError}}</p>
-                    	</div>
-                	</div>
-                </div>
-                <div class="form-group">
-                	<label for="phone">Phone</label>
-                	<input type="text" class="form-control" id="phone" name="phone" placeholder="(555) 555-1234" value="{{input.phone}}" />
-					<p style="margin-left: 5px; margin-bottom: -10px; color: red; font-style:italic; font-size: 10px">{{details.phoneError}}</p>
-                </div>
-                <div class="card-title" style="font-size: 42px;">Qualifications</div>
-                <label>Position</label>
-                <div class="form-check">
-				  <input class="form-check-input" type="radio" name="position" id="exampleRadios1" value="Front Desk" checked>
-				  	 <p style="margin-bottom: -3px">Front Desk</p>
+	<div class="card-body">
+		<div class="card-title" style="font-size: 42px;">Contact Information</div>
+		<div class="card-text">
+			<form method="POST" action="/form" enctype="multipart/form-data">
+				<div class="form-group">
+					<div class="row">
+						<div class="col">
+							<label for="fname">First Name</label>
+							<input type="text" class="form-control" id="fname" name="fname" aria-describedby="emailHelp"
+								placeholder="First Name" value="{{input.fname}}" />
+							<p
+								style="margin-left: 5px; margin-bottom: -10px; color: red; font-style:italic; font-size: 10px">
+								{{details.fnameError}}</p>
+						</div>
+						<div class="col">
+							<label for="lname">Last Name</label>
+							<input type="text" class="form-control" id="lname" name="lname" aria-describedby="emailHelp"
+								placeholder="Last Name" value="{{input.lname}}" />
+							<p
+								style="margin-left: 5px; margin-bottom: -10px; color: red; font-style:italic; font-size: 10px">
+								{{details.lnameError}}</p>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="row">
+						<div class="col-8">
+							<label for="streetaddress">Street Address</label>
+							<input type="text" class="form-control" id="streetAdd" name="streetAdd"
+								aria-describedby="emailHelp" placeholder="Street Address" value="{{input.streetAdd}}" />
+							<p
+								style="margin-left: 5px; margin-bottom: -10px; color: red; font-style:italic; font-size: 10px">
+								{{details.streetAddError}}</p>
+						</div>
+						<div class="col-4">
+							<label for="house">House No.</label>
+							<input type="text" class="form-control" id="house" name="house" aria-describedby="emailHelp"
+								placeholder="House No." value="{{input.house}}" />
+							<p
+								style="margin-left: 5px; margin-bottom: -10px; color: red; font-style:italic; font-size: 10px">
+								{{details.houseError}}!</p>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="row">
+						<div class="col-6">
+							<label for="city">City</label>
+							<input type="text" class="form-control" id="city" name="city" aria-describedby="emailHelp"
+								placeholder="City" value="{{input.city}}" />
+							<p
+								style="margin-left: 5px; margin-bottom: -10px; color: red; font-style:italic; font-size: 10px">
+								{{details.cityError}}</p>
+						</div>
+						<div class="col-4">
+							<label for="state">State</label>
+							<input type="text" class="form-control" id="state" name="state" aria-describedby="emailHelp"
+								placeholder="State" value="{{input.state}}" />
+							<p
+								style="margin-left: 5px; margin-bottom: -10px; color: red; font-style:italic; font-size: 10px">
+								{{details.stateError}}</p>
+						</div>
+						<div class="col-2">
+							<label for="zip">Zip</label>
+							<input type="text" class="form-control" id="zip" name="zip" aria-describedby="emailHelp"
+								placeholder="Zip" value="{{input.zip}}" />
+							<p
+								style="margin-left: 5px; margin-bottom: -10px; color: red; font-style:italic; font-size: 10px">
+								{{details.zipError}}</p>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="phone">Phone</label>
+					<input type="text" class="form-control" id="phone" name="phone" placeholder="(555) 555-1234"
+						value="{{input.phone}}" />
+					<p style="margin-left: 5px; margin-bottom: -10px; color: red; font-style:italic; font-size: 10px">
+						{{details.phoneError}}</p>
+				</div>
+				<div class="card-title" style="font-size: 42px;">Qualifications</div>
+				<label>Position</label>
+				<div class="form-check">
+					<input class="form-check-input" type="radio" name="position" id="exampleRadios1" value="Front Desk"
+						checked>
+					<p style="margin-bottom: -3px">Front Desk</p>
 				</div>
 				<div class="form-check">
-				  <input class="form-check-input" type="radio" name="position" id="exampleRadios2" value="Dental Assistant">
-				 	 <p style="margin-bottom: -3px">Dental Assistant</p>
+					<input class="form-check-input" type="radio" name="position" id="exampleRadios2"
+						value="Dental Assistant">
+					<p style="margin-bottom: -3px">Dental Assistant</p>
 				</div>
 				<div class="form-check">
-				  <input class="form-check-input" type="radio" name="position" id="exampleRadios3" value="Dental Hygienist">
-				  	 <p style="margin-bottom: -3px">Dental Hygienist</p>
+					<input class="form-check-input" type="radio" name="position" id="exampleRadios3"
+						value="Dental Hygienist">
+					<p style="margin-bottom: -3px">Dental Hygienist</p>
 				</div>
 				<div class="form-check">
-				  <input class="form-check-input" type="radio" name="position" id="exampleRadios3" value="Dentist">
-				   <p style="margin-bottom: -3px">Dentist</p>
+					<input class="form-check-input" type="radio" name="position" id="exampleRadios3" value="Dentist">
+					<p style="margin-bottom: -3px">Dentist</p>
 				</div>
 				<div class="col-4" style="margin-left: -15px; margin-top: 10px;">
-                    <label for="yearsofexperience">Years of Experience?</label>
-                    <input type="text" class="form-control" id="years" name="years" aria-describedby="emailHelp" placeholder="Years of experience" value="{{input.years}}"/>
-					<p style="margin-left: 5px; margin-bottom: -10px; color: red; font-style:italic; font-size: 10px">{{details.yearsError}}</p>	
-                </div>
+					<label for="yearsofexperience">Years of Experience?</label>
+					<input type="text" class="form-control" id="years" name="years" aria-describedby="emailHelp"
+						placeholder="Years of experience" value="{{input.years}}" />
+					<p style="margin-left: 5px; margin-bottom: -10px; color: red; font-style:italic; font-size: 10px">
+						{{details.yearsError}}</p>
+				</div>
 				<div class="form-group" style="margin-top: 10px;">
-                	<label for="dentalprograms">What dental programs(s) are you proficient?</label>
-                	<input type="text" class="form-control" id="programs" name="programs" name="dentalprograms" placeholder="List down any programs..." value="{{input.programs}}"/>
-					<p style="margin-left: 5px; margin-bottom: -10px; color: red; font-style:italic; font-size: 10px">{{details.programsError}}</p>
-                </div>
+					<label for="dentalprograms">What dental programs(s) are you proficient?</label>
+					<input type="text" class="form-control" id="programs" name="programs" name="dentalprograms"
+						placeholder="List down any programs..." value="{{input.programs}}" />
+					<p style="margin-left: 5px; margin-bottom: -10px; color: red; font-style:italic; font-size: 10px">
+						{{details.programsError}}</p>
+				</div>
 				<div class="form-group" style="margin-top: 10px;">
-                	<label for="language">What second language do you speak fluently?</label>
-                	<input type="text" class="form-control" id="language" name="language" placeholder="List down your second language..." value="{{input.language}}"/>
-					<p style="margin-left: 5px; margin-bottom: -10px; color: red; font-style:italic; font-size: 10px">{{details.languageError}}</p>
-                </div>
+					<label for="language">What second language do you speak fluently?</label>
+					<input type="text" class="form-control" id="language" name="language"
+						placeholder="List down your second language..." value="{{input.language}}" />
+					<p style="margin-left: 5px; margin-bottom: -10px; color: red; font-style:italic; font-size: 10px">
+						{{details.languageError}}</p>
+				</div>
 				<div class="form-group" style="margin-top: 10px;">
-                	<label for="workspecialties">List down any specialties you have work experience with</label>
-                	<input type="text" class="form-control" id="specialties" name="specialties" placeholder="List down your specialties..." value="{{input.specialties}}"/>
-					<p style="margin-left: 5px; margin-bottom: -10px; color: red; font-style:italic; font-size: 10px">{{details.specialtiesError}}</p>
-                </div>
+					<label for="workspecialties">List down any specialties you have work experience with</label>
+					<input type="text" class="form-control" id="specialties" name="specialties"
+						placeholder="List down your specialties..." value="{{input.specialties}}" />
+					<p style="margin-left: 5px; margin-bottom: -10px; color: red; font-style:italic; font-size: 10px">
+						{{details.specialtiesError}}</p>
+				</div>
 
 				<div class="card-title" style="font-size: 42px;">Placement Preferences</div>
-				 <label>What type of placement are you seeking?</label>
-				 <div class="form-check">
-				  <input class="form-check-input" type="radio" name="placement" id="placement" value="Permanent Work" checked>
-				  	 <p style="margin-bottom: -3px">Permanent Work</p>
+				<label>What type of placement are you seeking?</label>
+				<div class="form-check">
+					<input class="form-check-input" type="radio" name="placement" id="placement" value="Permanent Work"
+						checked>
+					<p style="margin-bottom: -3px">Permanent Work</p>
 				</div>
 				<div class="form-check">
-				  <input class="form-check-input" type="radio" name="placement" id="placement" value="Temporary Work">
-				 	 <p>Temporary Work</p>
+					<input class="form-check-input" type="radio" name="placement" id="placement" value="Temporary Work">
+					<p>Temporary Work</p>
 				</div>
 				<div class="col-5" style="margin-left: -15px; margin-top: 10px;">
-                	<label for="payrate">Desired pay rate per hour?</label>
-                	<input type="text" class="form-control" id="payrate" name="payrate" placeholder="$/hr..." value="{{input.payrate}}"/>
-					 <p style="margin-left: 5px; margin-bottom: -7px; color: red; font-style:italic; font-size: 10px">{{details.payrateError}}</p>
-                </div>
-				<p style="font-style: italic; font-size:12px; margin-top: 3px;">Take note that this hourly rate applies for temporary jobs. Setting wage against exceeding salary norms may result in fewers opportunities. When hired as a permanent worker, new pay may be negotiated.</p>
-				 <label>When are you available for placement?</label>
-				 <div class="form-check">
-				  <input class="form-check-input" type="radio" name="availability" id="availability" value="Available immediately" checked>
-				  	 <p style="margin-bottom: -3px">Available immediately</p>
+					<label for="payrate">Desired pay rate per hour?</label>
+					<input type="text" class="form-control" id="payrate" name="payrate" placeholder="$/hr..."
+						value="{{input.payrate}}" />
+					<p style="margin-left: 5px; margin-bottom: -7px; color: red; font-style:italic; font-size: 10px">
+						{{details.payrateError}}</p>
+				</div>
+				<p style="font-style: italic; font-size:12px; margin-top: 3px;">Take note that this hourly rate applies
+					for temporary jobs. Setting wage against exceeding salary norms may result in fewers opportunities.
+					When hired as a permanent worker, new pay may be negotiated.</p>
+				<label>When are you available for placement?</label>
+				<div class="form-check">
+					<input class="form-check-input" type="radio" name="availability" id="availability"
+						value="Available immediately" checked>
+					<p style="margin-bottom: -3px">Available immediately</p>
 				</div>
 				<div class="form-check" style="margin-bottom: 20px;">
 					<label style="font-weight: 10; color:rgb(97, 95, 95)">Available after...</label>
-					<input class="form-check-input" type="radio" name="availability" id="availability-after" value="after" style="margin-left:-130px;">
-				 	 
+					<input class="form-check-input" type="radio" name="availability" id="availability-after"
+						value="after" style="margin-left:-130px;">
+
 					<div class="col-5 details showdate" style="margin-left: -15px; margin-top: 5px;">
-                		<input type="date" class="form-control" id="date" name="date"/>	
-               	 	</div>
+						<input type="date" class="form-control" id="date" name="date" />
+					</div>
 				</div>
 				<label>How far are you willing to travel for work?</label>
 				<br>
 				<div class="dropdown">
-					<select id="travel" name="travel" style="border: 2px black; background-color: rgba(202, 199, 199, 0.438); cursor:pointer; margin-left: 5px;">
+					<select id="travel" name="travel"
+						style="border: 2px black; background-color: rgba(202, 199, 199, 0.438); cursor:pointer; margin-left: 5px;">
 						<option value="up to 25 miles">up to 25 miles (recommended)</option>
-						<option value="up to 50 miles">up to  50 miles</option>
+						<option value="up to 50 miles">up to 50 miles</option>
 						<option value="up to 100 miles">up to 100 miles </option>
 						<option value="farther than 100 miles">farther than 100 miles</option>
 					</select>
@@ -201,28 +242,39 @@
 				<div class="card-title" style="font-size: 42px;">Additional Profile Information</div>
 				<label>Short Personal Profile</label><br>
 				<textarea id="shortprofile" name="shortprofile" rows="4" cols="92"> </textarea>
-				<p style="margin-left: 5px; margin-bottom: 1px; color: red; font-style:italic; font-size: 10px">{{details.shortprofileError}}</p>
-				<p style="font-style: italic; font-size:13px">Consider including things not found in your resume (e.g. hobbies, interests, goals). Market yourself!</p>
+				<p style="margin-left: 5px; margin-bottom: 1px; color: red; font-style:italic; font-size: 10px">
+					{{details.shortprofileError}}</p>
+				<p style="font-style: italic; font-size:13px">Consider including things not found in your resume (e.g.
+					hobbies, interests, goals). Market yourself!</p>
 				<label>Profile Photo</label><br>
-				<p style="font-style:normal; font-size:14px; margin-top: -5px;">Profile photo is not required. But feel free to upload your photo so employers can virtually see you!</p>
+				<p style="font-style:normal; font-size:14px; margin-top: -5px;">Profile photo is not required. But feel
+					free to upload your photo so employers can virtually see you!</p>
 				<div id="container" style="margin-bottom: -10px;">
 					<div class="container2">
-						<img class="img-circle" id="output" src="/imgs/portrait.png"/>
+						<img class="img-circle" id="output" src="/imgs/portrait.png" />
 					</div>
 					<div class="container3">
-  						<p style="padding-left: 120px;"><input type="file" id="avatar" name="avatar" accept="image/jpeg, image/png" value="{{input.avatar}}" onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])"></p>
-						<p style="font-size: small;">Tip: Crop your photo into a 200x200 and should be in JPG or PNG for best results!</p>
+						<p style="padding-left: 120px;"><input type="file" id="avatar" name="avatar"
+								accept="image/jpeg, image/png" value="{{input.avatar}}"
+								onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])">
+						</p>
+						<p style="font-size: small;">Tip: Crop your photo into a 200x200 and should be in JPG or PNG for
+							best results!</p>
 					</div>
 				</div>
 				<label>Resume</label><br>
-				<p style="font-style:normal; font-size:14px; margin-top: -5px;">Include only the most relevant information and put the most important information first in your resume!</p>
+				<p style="font-style:normal; font-size:14px; margin-top: -5px;">Include only the most relevant
+					information and put the most important information first in your resume!</p>
 				<div id="container" style="margin-top: -30px;">
 					<div class="container2">
-						<img class="img-circle" src="/imgs/document.jpg"/>
+						<img class="img-circle" src="/imgs/document.jpg" />
 					</div>
 					<div class="container3">
-  						<p style="padding-left: 120px;"><input type="file" id="resume" name="resume" accept="application/pdf, text/plain, application/msword, image/jpeg, image/png" value="{{input.resume}}" required></p>
-						<p style="font-size: small;">Format of resume should be in PDF(.pdf), Word(.doc,.docx), plain text (.txt), or image (.jpg, .png)</p>
+						<p style="padding-left: 120px;"><input type="file" id="resume" name="resume"
+								accept="application/pdf, text/plain, application/msword, image/jpeg, image/png"
+								value="{{input.resume}}" required></p>
+						<p style="font-size: small;">Format of resume should be in PDF(.pdf), Word(.doc,.docx), plain
+							text (.txt), or image (.jpg, .png)</p>
 					</div>
 				</div>
 
@@ -230,13 +282,18 @@
 				<textarea id="candidateagreement" style="margin-bottom: 10px;" rows="10" cols="92" disabled> Put your candidate agreement and policy here...
 				</textarea>
 				<div class="form-check" style="margin-left: 5px; margin-top: -15px">
-                    <input type="checkbox" class="form-check-input" id="useragreement" required/>
-                   <p style="font-style:italic; font-size: 15.5px">I have read, understand and agree to the Candidate Agreement, Terms and Conditions, and Privacy Policy</p>
-                </div>
+					<input type="checkbox" class="form-check-input" id="useragreement" name="useragreement"
+						{{#if input.useragreement}}checked{{/if}} />
+					<p style="font-style:italic; font-size: 15.5px">I have read, understand and agree to the Candidate
+						Agreement, Terms and Conditions, and Privacy Policy</p>
+					<p style="color: red;">{{details.useragreementError}}</p>
+
+				</div>
 				<label>Last Question! How did you hear about us?</label>
 				<br>
 				<div class="dropdown">
-					<select id="feedback" name="feedback" style="border: 2px black; background-color: rgba(197, 194, 194, 0.438); cursor:pointer; margin-left: 5px;">
+					<select id="feedback" name="feedback"
+						style="border: 2px black; background-color: rgba(197, 194, 194, 0.438); cursor:pointer; margin-left: 5px;">
 						<option value="From a friend">From a friend</option>
 						<option value="From an ad">From an ad</option>
 						<option value="From a recommendation">From a recommendation</option>
@@ -244,8 +301,8 @@
 				</div>
 				<br>
 				<br>
-                <button type="submit" class="btn btn-primary w-100" style="background-color: #8455ca;">Save</button>
-            </form>
-        </div>
-    </div>
+				<button type="submit" class="btn btn-primary w-100" style="background-color: #8455ca;">Save</button>
+			</form>
+		</div>
+	</div>
 </div>
