@@ -19,7 +19,20 @@ p {
     padding-top: 7rem;
     padding-bottom: 5rem;
 
-    background:  linear-gradient(52deg, rgba(123,31,162,1) 0%, rgba(150,193,255,1) 100%);
+    background: linear-gradient(52deg, rgba(123,31,162,1) 0%, rgba(150,193,255,1) 100%);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-size: cover;
+}
+
+.masthead-features {
+    min-height: 400px;
+
+    padding-top: 7rem;
+
+    background: rgb(123,31,162);
+    background: linear-gradient(180deg, rgba(123,31,162,1) 0%, rgba(150,193,255,1) 85%, rgba(255,255,255,1) 85%);
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: scroll;
@@ -58,6 +71,15 @@ h2 {
     padding-bottom: 3rem;
 }
 
+.features {
+    position: absolute;
+    left: 10%;
+    margin-left: -38rem;
+}
+
+.display-card {
+    display: inline-block;
+}
 
 @media only screen and (max-width: 726px) {
     .jingle {
@@ -71,6 +93,10 @@ h2 {
     .card {
         width: 80% !important;
         margin: 0 auto;
+    }
+
+    .features {
+        position: relative;
     }
 }
 
