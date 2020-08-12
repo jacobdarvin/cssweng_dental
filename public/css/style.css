@@ -39,38 +39,6 @@ p {
     background-size: cover;
 }
 
-
-h1 {
-    color: #8455ca;
-    font-size: 80px;
-    font-weight: 800;
-}
-
-h2 {
-    font-weight: 800;
-}
-
-#loginArea {
-    background: url(imgs/login.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
-    /* background-size:  */
-}
-
-#learnMore {
-    padding-top: 3rem;
-    padding-left: 20em;
-    padding-right: 20em;
-    padding-bottom: 3rem;
-    background-color: white;
-}
-
-.letsGetStarted {
-    background-color: #8455ca; /* PURPLE THEME */
-    padding-top: 3rem;
-    padding-bottom: 3rem;
-}
-
 .features {
     position: absolute;
     left: 10%;
@@ -86,7 +54,7 @@ h2 {
         display: none;
     }
 
-    .h1 {
+    .shrink {
         font-size: 55px !important;
     }
 
@@ -100,21 +68,8 @@ h2 {
     }
 }
 
-.learnCards{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
-}
-
 .card {
     margin-left: 30px;
     margin-right: 30px;
     border: none;
-}
-
-
-learnBody {
-    color: #55595c;
-    font-size: 32px;
 }
