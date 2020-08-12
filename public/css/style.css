@@ -13,23 +13,17 @@ p {
     background-color: #8455ca;
 }
 
-#landing {
-    background:  linear-gradient(52deg, rgba(123,31,162,1) 0%, rgba(150,193,255,1) 100%);
+.masthead {
     min-height: 100px;
-    
-    margin-left: auto;
+
     padding-top: 7rem;
     padding-bottom: 5rem;
-   
+
+    background:  linear-gradient(52deg, rgba(123,31,162,1) 0%, rgba(150,193,255,1) 100%);
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: scroll;
     background-size: cover;
-}
-@media only screen and (max-width: 768px) {
-   .landingHeader {
-        
-    } 
 }
 
 
@@ -58,22 +52,26 @@ h2 {
     background-color: white;
 }
 
-@media only screen and (max-width: 768px) {
-    #learnMore {
-        padding-top: 3rem;
-        padding-left: 5em;
-        padding-right: 5em;
-        padding-bottom: 5rem;
-        background-color: white;
-    }
-}
-
-#letsGetStarted {
+.letsGetStarted {
     background-color: #8455ca; /* PURPLE THEME */
     padding-top: 3rem;
-    padding-left: 10rem;
-    padding-right: 10rem;
     padding-bottom: 3rem;
+}
+
+
+@media only screen and (max-width: 726px) {
+    .jingle {
+        display: none;
+    }
+
+    .h1 {
+        font-size: 55px !important;
+    }
+
+    .card {
+        width: 80% !important;
+        margin: 0 auto;
+    }
 }
 
 .learnCards{
