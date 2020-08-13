@@ -93,7 +93,7 @@ const formController = {
 
                 db.insertOne(Applicant, applicant, function (flag) {
                     if (flag) {
-                        res.send('success!');
+                        res.redirect('/home');
                     }
                 });
             }
@@ -136,7 +136,7 @@ const formController = {
 
                 db.insertOne(Applicant, applicant, function (flag) {
                     if (flag) {
-                        res.send('success!');
+                        res.redirect('/home');
                     }
                 });
             }
