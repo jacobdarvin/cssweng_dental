@@ -53,13 +53,17 @@ p {
     display: inline-block;
 }
 
+.form-upload {
+    display: flex;
+}
+
 @media only screen and (max-width: 726px) {
     .jingle {
         display: none;
     }
 
     .shrink {
-        font-size: 55px !important;
+        font-size: 50px !important;
     }
 
     .card {
@@ -69,6 +73,10 @@ p {
 
     .features {
         position: relative;
+    }
+
+    .form-upload {
+        display: block;
     }
 }
 
