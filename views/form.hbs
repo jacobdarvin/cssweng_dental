@@ -50,38 +50,42 @@
 		display: block;
 	}
 
-
 	input[type=radio]+.details {
 		display: none;
+	}
+
+	input[type=radio]+.temp {
+		display: none;
+	}
+
+	input[type=radio]:checked+.showrate {
+		display: block;
 	}
 </style>
 
 <p class="h1 shrink" style="font-size: 70px;text-align: center; color: #8455ca; margin-top: 4rem;">BookMeDental <i class="fas fa-tooth"></i></p>
 
-
+<form method="POST" action="/form" enctype="multipart/form-data">
 <div class="card mx-auto" style="width: 50rem; margin-bottom: 2rem">
 	<div class="card-body">
 		<div class="card-title" style="font-size: 42px;">Contact Information</div>
-		<div class="card-text">
-			<form method="POST" action="/form" enctype="multipart/form-data">
+			<div class="card-text">
 				<div class="form-group">
 					<div class="row">
 						<div class="col pr-2">
 							<label for="fname">First Name</label>
 							<input type="text" class="form-control" id="fname" name="fname" aria-describedby="emailHelp"
 								placeholder="First Name" value="{{input.fname}}" />
-							<p
-								style="margin-left: 5px; margin-bottom: -10px; color: red; font-style:italic; font-size: 10px">
+							<pstyle="margin-left: 5px; margin-bottom: -10px; color: red; font-style:italic; font-size: 10px">
 								{{details.fnameError}}</p>
 						</div>
-						<div class="col pl-2">
-							<label for="lname">Last Name</label>
-							<input type="text" class="form-control" id="lname" name="lname" aria-describedby="emailHelp"
-								placeholder="Last Name" value="{{input.lname}}" />
-							<p
-								style="margin-left: 5px; margin-bottom: -10px; color: red; font-style:italic; font-size: 10px">
-								{{details.lnameError}}</p>
-						</div>
+					<div class="col pl-2">
+						<label for="lname">Last Name</label>
+						<input type="text" class="form-control" id="lname" name="lname" aria-describedby="emailHelp"
+							placeholder="Last Name" value="{{input.lname}}" />
+						<p
+							style="margin-left: 5px; margin-bottom: -10px; color: red; font-style:italic; font-size: 10px">
+							{{details.lnameError}}</p>
 					</div>
 				</div>
 				<div class="form-group">
@@ -139,8 +143,16 @@
 					<p style="margin-left: 5px; margin-bottom: -10px; color: red; font-style:italic; font-size: 10px">
 						{{details.phoneError}}</p>
 				</div>
-				<div class="card-title" style="font-size: 42px;">Qualifications</div>
-				<label>Position</label>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="card mx-auto" style="width: 50rem; margin-bottom: 2rem">
+	<div class="card-body">
+		<div class="card-title" style="font-size: 42px;">Qualifications</div>
+		<div class="card-text">
+			<label>Position</label>
 				<div class="form-check">
 					<input class="form-check-input" type="radio" name="position" id="exampleRadios1" value="Front Desk"
 						checked>
@@ -167,49 +179,65 @@
 					<p style="margin-left: 5px; margin-bottom: -10px; color: red; font-style:italic; font-size: 10px">
 						{{details.yearsError}}</p>
 				</div>
-				<div class="form-group" style="margin-top: 10px;">
-					<label for="dentalprograms">What dental programs(s) are you proficient?</label>
-					<input type="text" class="form-control" id="programs" name="programs" name="dentalprograms"
-						placeholder="List down any programs..." value="{{input.programs}}" />
-					<p style="margin-left: 5px; margin-bottom: -10px; color: red; font-style:italic; font-size: 10px">
-						{{details.programsError}}</p>
-				</div>
-				<div class="form-group" style="margin-top: 10px;">
+				<div class="form-group" style="margin-top: 20px;">
 					<label for="language">What second language do you speak fluently?</label>
 					<input type="text" class="form-control" id="language" name="language"
 						placeholder="List down your second language..." value="{{input.language}}" />
 					<p style="margin-left: 5px; margin-bottom: -10px; color: red; font-style:italic; font-size: 10px">
 						{{details.languageError}}</p>
 				</div>
+				<div class="form-group" style="margin-top: 20px;">
+					<label for="dentalprograms">What dental programs(s) are you proficient?</label>
+					<input type="text" class="form-control" id="programs" name="programs" name="dentalprograms"
+						placeholder="List down any programs..." value="{{input.programs}}" />
+						<p style="font-style:italic; font-size:12px;">Separate dental programs with a comma.</p>
+					<p style="margin-left: 5px; margin-bottom: -10px; color: red; font-style:italic; font-size: 10px">
+						{{details.programsError}}</p>
+				</div>
 				<div class="form-group" style="margin-top: 10px;">
 					<label for="workspecialties">List down any specialties you have work experience with</label>
 					<input type="text" class="form-control" id="specialties" name="specialties"
 						placeholder="List down your specialties..." value="{{input.specialties}}" />
+						<p style="font-style:italic; font-size:12px;">Separate your specialties with a comma.</p>
 					<p style="margin-left: 5px; margin-bottom: -10px; color: red; font-style:italic; font-size: 10px">
 						{{details.specialtiesError}}</p>
 				</div>
+		</div>
+	</div>
+</div>
 
-				<div class="card-title" style="font-size: 42px;">Placement Preferences</div>
-				<label>What type of placement are you seeking?</label>
+<div class="card mx-auto" style="width: 50rem; margin-bottom: 2rem">
+	<div class="card-body">
+		<div class="card-title" style="font-size: 42px;">Placement Preferences</div>
+		<div class="card-text">
+			<label>What type of placement are you seeking?</label>
 				<div class="form-check">
 					<input class="form-check-input" type="radio" name="placement" id="placement" value="Permanent Work"
 						checked>
 					<p style="margin-bottom: -3px">Permanent Work</p>
 				</div>
 				<div class="form-check">
-					<input class="form-check-input" type="radio" name="placement" id="placement" value="Temporary Work">
-					<p>Temporary Work</p>
+					<label style="font-weight: 10; color:rgb(97, 95, 95)">Temporary Work</label>
+					<input class="form-check-input" type="radio" name="placement" id="placement" value="Temporary Work" style="margin-left:-138.3px;">
+					<div class="col-5 temp showrate" style="margin-left: -35px; margin-top: -5px;">
+						<label for="payrate">Desired pay rate per hour?</label>
+						<input type="text" class="form-control" id="payrate" name="payrate" placeholder="$/hr..."
+							value="{{input.payrate}}" style="margin-bottom:10px;"/>
+						<p style="margin-left: 5px; margin-bottom: -7px; color: red; font-style:italic; font-size: 10px">
+							{{details.payrateError}}</p>
+						{{!-- <p style="font-style: italic; font-size:12px; margin-top: 3px; background-color:red">Take note that this hourly rate applies
+					for temporary jobs. Setting wage against exceeding salary norms may result in fewers opportunities.
+					When hired as a permanent worker, new pay may be negotiated.</p> --}}
+					</div>
 				</div>
-				<div class="col-5" style="margin-left: -15px; margin-top: 10px;">
+				{{!-- <div class="col-5" style="margin-left: -15px; margin-top: 10px;">
 					<label for="payrate">Desired pay rate per hour?</label>
 					<input type="text" class="form-control" id="payrate" name="payrate" placeholder="$/hr..."
 						value="{{input.payrate}}" />
 					<p style="margin-left: 5px; margin-bottom: -7px; color: red; font-style:italic; font-size: 10px">
 						{{details.payrateError}}</p>
-				</div>
-				<p style="font-style: italic; font-size:12px; margin-top: 3px;">Take note that this hourly rate applies
-					for temporary jobs. Setting wage against exceeding salary norms may result in fewers opportunities.
-					When hired as a permanent worker, new pay may be negotiated.</p>
+				</div> --}}
+				
 				<label>When are you available for placement?</label>
 				<div class="form-check">
 					<input class="form-check-input" type="radio" name="availability" id="availability"
@@ -236,84 +264,53 @@
 						<option value="farther than 100 miles">farther than 100 miles</option>
 					</select>
 				</div>
+		</div>
+	</div>
+</div>
 
-				<br>
-				<br>
-				<div class="card-title" style="font-size: 42px;">Additional Profile Information</div>
-				<label>Short Personal Profile</label><br>
+<div class="card mx-auto" style="width: 50rem; margin-bottom: 2rem">
+	<div class="card-body">
+		<div class="card-title" style="font-size: 42px;">Additional Profile Information</div>
+		<div class="card-text">
+			<label>Short Personal Profile</label><br>
 				<textarea class="w-100" id="shortprofile" name="shortprofile" style="height: 8em;"> </textarea>
 
 				<p style="margin-left: 5px; margin-bottom: 1px; color: red; font-style:italic; font-size: 10px">
 					{{details.shortprofileError}}</p>
-				<p style="font-style: italic; font-size:13px">Consider including things not found in your resume (e.g.
-					hobbies, interests, goals). Market yourself!</p>
+				<p style="font-style: italic; font-size:13px">Consider including things not found on your resume (e.g.
+					hobbies, interests, goals). Market yourself.</p>
 
 				<label>Profile Photo</label><br>
 				<p style="font-style:normal; font-size:14px;">Profile photo is not required. But feel
-					free to upload your photo so employers can virtually see you!</p>
-				<!--
-				<div id="container" style="margin-bottom: -10px;">
-					<div class="container2">
-						<img class="img-circle" id="output" src="/imgs/portrait.png" />
-					</div>
-					<div class="container3">
-						<p style="padding-left: 120px;"><input type="file" id="avatar" name="avatar"
-								accept="image/jpeg, image/png" value="{{input.avatar}}"
-								onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])">
-						</p>
-						<p style="font-size: small;">Tip: Crop your photo into a 200x200 and should be in JPG or PNG for
-							best results!</p>
-					</div>
-				</div>
-				-->
+					free to upload your photo so employers can virtually see you.</p>
 
 				<div class="container form-upload" style="justify-content: center; align-items: center; text-align: center;">
-			        <img class="img-circle" id="output" src="/imgs/portrait.png" />
+			        <img class="img-circle" id="output" src="/imgs/portrait.png" style="margin-left: 2px;" />
 			        <div>
-			            <div class="col">
+			            <div class="col" style="padding-left: 150px;">
 			                <p class="mx-auto w-100"><input type="file" id="avatar" name="avatar"
 								accept="image/jpeg, image/png" value="{{input.avatar}}"
 								onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])">
 							</p>
-			            </div>
-
-			            <div class="col" style="max-width: 30em;">
-			                <p style="font-size: small;">Tip: Crop your photo into a 200x200 and should be in JPG or PNG for
-							best results!</p>
 			            </div>
 			        </div>
 			    </div>
 
 				<label>Resume</label><br>
 				<p style="font-style:normal; font-size:14px; margin-top: -5px;">Include only the most relevant
-					information and put the most important information first in your resume!</p>
-
-				<!--
-				<div id="container" style="margin-top: -30px;">
-					<div class="container2">
-						<img class="img-circle" src="/imgs/document.jpg" />
-					</div>
-					<div class="container3">
-						<p style="padding-left: 120px;"><input type="file" id="resume" name="resume"
-								accept="application/pdf, text/plain, application/msword, image/jpeg, image/png"
-								value="{{input.resume}}" required></p>
-						<p style="font-size: small;">Format of resume should be in PDF(.pdf), Word(.doc,.docx), plain
-							text (.txt), or image (.jpg, .png)</p>
-					</div>
-				</div>
-				-->
+					information on your resume.</p>
 
 				<div class="container form-upload mb-5" style="justify-content: center; align-items: center; text-align: center;">
 			        <img class="img-circle" src="/imgs/document.jpg" />
 			        <div>
-			            <div class="col">
+			            <div class="col" style="padding-left: 150px;">
 			                <p><input type="file" id="resume" name="resume"
 								accept="application/pdf, text/plain, application/msword, image/jpeg, image/png"
 								value="{{input.resume}}" required>
 							</p>
 			            </div>
 
-			            <div class="col" style="max-width: 30em;">
+			            <div class="col" style="max-width: 30em">
 			                <p style="font-size: small;">Format of resume should be in PDF(.pdf), Word(.doc,.docx), plain
 							text (.txt), or image (.jpg, .png)</p>
 			            </div>
@@ -344,7 +341,7 @@
 				<br>
 				<br>
 				<button type="submit" class="btn btn-primary w-100" style="background-color: #8455ca;">Save</button>
-			</form>
 		</div>
 	</div>
 </div>
+</form>
