@@ -5,7 +5,7 @@ BookMe Dental is a simple dentistry referral website that helps connect and netw
 ## Getting Started
 This web application requires a locally running MongoDB and Nodejs to run.
 
-###Prerequisites
+### Prerequisites
 #### Clone
 - Clone this repository to your local computer
 
