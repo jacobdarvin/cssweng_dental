@@ -69,6 +69,7 @@
 <div class="card mx-auto" style="width: 50rem; margin-bottom: 2rem">
 	<div class="card-body">
 		<div class="card-title" style="font-size: 42px;">Contact Information</div>
+		<p style="font-style:italic; font-size:16px; margin-top: -16px">Tell us about yourself and how we can contact you.</p>
 			<div class="card-text">
 				<div class="form-group">
 					<div class="row">
@@ -151,6 +152,7 @@
 <div class="card mx-auto" style="width: 50rem; margin-bottom: 2rem">
 	<div class="card-body">
 		<div class="card-title" style="font-size: 42px;">Qualifications</div>
+		<p style="font-style:italic; font-size:16px; margin-top: -16px">Select the position that you're seeking and tell us about your experiences.</p>
 		<div class="card-text">
 			<label>Position</label>
 				<div class="form-check">
@@ -209,6 +211,7 @@
 <div class="card mx-auto" style="width: 50rem; margin-bottom: 2rem">
 	<div class="card-body">
 		<div class="card-title" style="font-size: 42px;">Placement Preferences</div>
+		<p style="font-style:italic; font-size:16px; margin-top: -16px">Tell us about your work preferences so we can help you find great opportunities.</p>
 		<div class="card-text">
 			<label>What type of placement are you seeking?</label>
 				<div class="form-check">
@@ -271,13 +274,14 @@
 <div class="card mx-auto" style="width: 50rem; margin-bottom: 2rem">
 	<div class="card-body">
 		<div class="card-title" style="font-size: 42px;">Additional Profile Information</div>
+		<p style="font-style:italic; font-size:16px; margin-top: -16px">Provide more information that can help you to stand out among other applicants.</p>
 		<div class="card-text">
 			<label>Short Personal Profile</label><br>
 				<textarea class="w-100" id="shortprofile" name="shortprofile" style="height: 8em;"> </textarea>
 
 				<p style="margin-left: 5px; margin-bottom: 1px; color: red; font-style:italic; font-size: 10px">
 					{{details.shortprofileError}}</p>
-				<p style="font-style: italic; font-size:13px">Consider including things not found on your resume (e.g.
+				<p style="font-style: italic; font-size:12px">Consider including things not found on your resume (e.g.
 					hobbies, interests, goals). Market yourself.</p>
 
 				<label>Profile Photo</label><br>
@@ -323,13 +327,14 @@
 <div class="card mx-auto" style="width: 50rem; margin-bottom: 2rem">
 	<div class="card-body">
 		<div class="card-title" style="font-size: 42px;">Candidate Agreement</div>
+		<p style="font-style:italic; font-size:16px; margin-top: -16px">Please read and familiarize yourself with our agreement and conditions.</p>
 		<div class="card-text">
 			<textarea class="w-100" id="candidateagreement" style="margin-bottom: 10px;" disabled> Put your candidate agreement and policy here...
 				</textarea>
 				<div class="form-check" style="margin-left: 5px; margin-top: -15px">
 					<input type="checkbox" class="form-check-input" id="useragreement" name="useragreement"
 						{{#if input.useragreement}}checked{{/if}} />
-					<p style="font-style:italic; font-size: 15.5px">I have read, understand and agree to the Candidate
+					<p style="font-style:italic; font-size: 14px">I have read, understand and agree to the Candidate
 						Agreement, Terms and Conditions, and Privacy Policy</p>
 					<p style="color: red;">{{details.useragreementError}}</p>
 
