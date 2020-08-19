@@ -12,14 +12,17 @@ This web application requires a locally running MongoDB and Nodejs to run.
 #### Setup
 
 - This project uses a variety of dependencies such as Express, Handlebars and MongoDB so it is recommended to make sure you have Node.JS installed and then conduct the following steps:
-> Navigate to the project folder and open cmd
+
+> Run a local Mongodb from the Mongodb bin folder
+```shell
+mongod
+```
+
+> Navigate to the project folder and open cmd or terminal.
 ```shell
 npm install
 ```
-> Additionally if needed, you may use this code to fill in the cats database with dummy data:
-```shell
-node addDefaults.js
-```
+
 > Run the application
 ```shell
 node index.js
