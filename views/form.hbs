@@ -56,7 +56,8 @@
 	}
 </style>
 
-<p class="h1 shrink" style="font-size: 70px;text-align: center; color: #8455ca; margin-top: 4rem;">BookMeDental <i class="fas fa-tooth"></i></p>
+<p class="h1 shrink" style="font-size: 70px;text-align: center; color: #8455ca; margin-top: 4rem;">BookMeDental <i
+		class="fas fa-tooth"></i></p>
 
 
 <div class="card mx-auto" style="width: 50rem; margin-bottom: 2rem">
@@ -139,6 +140,26 @@
 					<p style="margin-left: 5px; margin-bottom: -10px; color: red; font-style:italic; font-size: 10px">
 						{{details.phoneError}}</p>
 				</div>
+
+				<div class="form-group">
+					<div class="row">
+						<div class="col-6 pr-1">
+							<label for="test1">State</label>
+							<select name="test1" class="form-control" id="test1">
+								<option value="">--Select a state--</option>
+							</select>
+						</div>
+						<div class="col-6 pr-1">
+							<label for="test2">City</label>
+							<select name="test2" class="form-control" id="test2">
+								<option value="">--Select a city--</option>
+							</select>
+						</div>
+					</div>
+
+				</div>
+
+
 				<div class="card-title" style="font-size: 42px;">Qualifications</div>
 				<label>Position</label>
 				<div class="form-check">
@@ -267,22 +288,24 @@
 				</div>
 				-->
 
-				<div class="container form-upload" style="justify-content: center; align-items: center; text-align: center;">
-			        <img class="img-circle" id="output" src="/imgs/portrait.png" />
-			        <div>
-			            <div class="col">
-			                <p class="mx-auto w-100"><input type="file" id="avatar" name="avatar"
-								accept="image/jpeg, image/png" value="{{input.avatar}}"
-								onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])">
+				<div class="container form-upload"
+					style="justify-content: center; align-items: center; text-align: center;">
+					<img class="img-circle" id="output" src="/imgs/portrait.png" />
+					<div>
+						<div class="col">
+							<p class="mx-auto w-100"><input type="file" id="avatar" name="avatar"
+									accept="image/jpeg, image/png" value="{{input.avatar}}"
+									onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])">
 							</p>
-			            </div>
+						</div>
 
-			            <div class="col" style="max-width: 30em;">
-			                <p style="font-size: small;">Tip: Crop your photo into a 200x200 and should be in JPG or PNG for
-							best results!</p>
-			            </div>
-			        </div>
-			    </div>
+						<div class="col" style="max-width: 30em;">
+							<p style="font-size: small;">Tip: Crop your photo into a 200x200 and should be in JPG or PNG
+								for
+								best results!</p>
+						</div>
+					</div>
+				</div>
 
 				<label>Resume</label><br>
 				<p style="font-style:normal; font-size:14px; margin-top: -5px;">Include only the most relevant
@@ -303,22 +326,24 @@
 				</div>
 				-->
 
-				<div class="container form-upload mb-5" style="justify-content: center; align-items: center; text-align: center;">
-			        <img class="img-circle" src="/imgs/document.jpg" />
-			        <div>
-			            <div class="col">
-			                <p><input type="file" id="resume" name="resume"
-								accept="application/pdf, text/plain, application/msword, image/jpeg, image/png"
-								value="{{input.resume}}" required>
+				<div class="container form-upload mb-5"
+					style="justify-content: center; align-items: center; text-align: center;">
+					<img class="img-circle" src="/imgs/document.jpg" />
+					<div>
+						<div class="col">
+							<p><input type="file" id="resume" name="resume"
+									accept="application/pdf, text/plain, application/msword, image/jpeg, image/png"
+									value="{{input.resume}}" required>
 							</p>
-			            </div>
+						</div>
 
-			            <div class="col" style="max-width: 30em;">
-			                <p style="font-size: small;">Format of resume should be in PDF(.pdf), Word(.doc,.docx), plain
-							text (.txt), or image (.jpg, .png)</p>
-			            </div>
-			        </div>
-			    </div>
+						<div class="col" style="max-width: 30em;">
+							<p style="font-size: small;">Format of resume should be in PDF(.pdf), Word(.doc,.docx),
+								plain
+								text (.txt), or image (.jpg, .png)</p>
+						</div>
+					</div>
+				</div>
 
 				<div class="card-title" style="font-size: 42px; margin-top: -50px">Candidate Agreement</div>
 				<textarea class="w-100" id="candidateagreement" style="margin-bottom: 10px;" disabled> Put your candidate agreement and policy here...
@@ -348,3 +373,5 @@
 		</div>
 	</div>
 </div>
+
+<script src="/js/dropdown-populator.js"></script>
