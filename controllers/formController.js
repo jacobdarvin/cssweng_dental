@@ -37,7 +37,7 @@ const formController = {
             });
         } else {
             var { position, placement, travel, feedback } = req.body;
-            var availability;
+            var availability, payrate;
 
             //sanitize user inputs
             const fname = helper.sanitize(req.body.fname);
@@ -52,13 +52,19 @@ const formController = {
             const programs = helper.sanitize(req.body.programs);
             const language = helper.sanitize(req.body.language);
             const specialties = helper.sanitize(req.body.specialties);
-            const payrate = helper.sanitize(req.body.payrate);
             const shortprofile = helper.sanitize(req.body.shortprofile);
 
             if (req.body.availability == 'after') {
                 availability = req.body.date;
             } else {
                 availability = req.body.availability;
+            }
+
+            if (req.body.placement == 'Temporary Work'){
+                payrate = helper.sanitize(req.body.payrate);
+            }
+            else{
+                payrate = 0;
             }
 
             //user used default avatar
