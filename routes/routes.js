@@ -8,7 +8,12 @@ const bodyParser = require('body-parser');
 
 // import module `controller` from `./controllers/controller.js`
 const indexController = require('../controllers/indexController');
+
+//Employer and Applicant
 const profileController = require('../controllers/profileController');
+const employerController = require('../controllers/employerController');
+
+
 const registerController = require('../controllers/registerController');
 const loginController = require('../controllers/loginController');
 const adminController = require('../controllers/adminController');
@@ -125,6 +130,7 @@ app.get('/home', indexController.getIndex);
 
 // /profile routes
 app.get('/profile', profileController.getProfile);
+app.get('/profile-emp', employerController.getEmpProfile);
 
 // /register routes
 app.get('/register', registerController.getRegister);
