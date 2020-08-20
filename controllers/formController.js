@@ -163,7 +163,8 @@ const formController = {
                 details[`${errors[i].param.replace(/\[\d\]/g, '')}Error`] =
                     errors[i].msg;
             }
-
+            // console.log(details);
+            console.log(req.body);
             res.render('form-emp', {
                 inputs: req.body,
                 details: details,

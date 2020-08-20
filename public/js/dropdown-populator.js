@@ -9,12 +9,12 @@ request.onload = function () {
 
         console.log(data);
 
-        var stateSelect = document.getElementById('test1');
+        var stateSelect = document.getElementById('clinic_state');
         for (const state of states) {
             stateSelect.innerHTML += `<option value="${state}">${state}</option>`;
         }
 
-        var citySelect = document.getElementById('test2');
+        var citySelect = document.getElementById('clinic_city');
         stateSelect.onchange = function (e) {
             citySelect.innerHTML = `<option value="">--Select a city--</option>`;
 

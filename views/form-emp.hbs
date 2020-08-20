@@ -47,7 +47,8 @@
 	}
 </style>
 
-<p class="h1 shrink" style="font-size: 70px;text-align: center; color: #8455ca; margin-top: 4rem;">BookMeDental <i class="fas fa-tooth"></i></p>
+<p class="h1 shrink" style="font-size: 70px;text-align: center; color: #8455ca; margin-top: 4rem;">BookMeDental <i
+		class="fas fa-tooth"></i></p>
 
 <div class="card mx-auto" style="width: 50rem; margin-bottom: 2rem">
 	<div class="card-body">
@@ -128,17 +129,30 @@
 
 				<div class="form-group">
 					<div class="row">
-						<div class="col-6">
-							<label for="clinic_city">City</label>
-							<input type="text" class="form-control" id="clinic_city" name="clinic_city"
-								aria-describedby="emailHelp" placeholder="City" value="{{inputs.clinic_city}}" />
-							<p style="color: red;">{{details.clinic_cityError}}</p>
-						</div>
+
 						<div class="col-4">
-							<label for="clinic_state">State</label>
+							{{!-- <label for="clinic_state">State</label>
 							<input type="text" class="form-control" id="clinic_state" name="clinic_state"
-								aria-describedby="emailHelp" placeholder="State" value="{{inputs.clinic_state}}" />
+								aria-describedby="emailHelp" placeholder="State" value="{{inputs.clinic_state}}" /> --}}
+
+							<label for="clinic_state">State</label>
+							<select name="clinic_state" class="form-control" id="clinic_state">
+								<option value="">--Select a state--</option>
+								
+							</select>
 							<p style="color: red;">{{details.clinic_stateError}}</p>
+						</div>
+						<div class="col-6">
+							{{!-- <label for="clinic_city">City</label> --}}
+							{{!-- <input type="text" class="form-control" id="clinic_city" name="clinic_city"
+								aria-describedby="emailHelp" placeholder="City" value="{{inputs.clinic_city}}" /> --}}
+
+							<label for="clinic_city">City</label>
+							<select name="clinic_city" class="form-control" id="clinic_city">
+								<option value=""></option>
+							</select>
+
+							<p style="color: red;">{{details.clinic_cityError}}</p>
 						</div>
 						<div class="col-2">
 							<label for="clinic_zip">Zip</label>
@@ -256,3 +270,5 @@
 		</div>
 	</div>
 </div>
+
+<script src="/js/dropdown-populator.js"></script>
