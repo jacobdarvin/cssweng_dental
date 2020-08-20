@@ -128,9 +128,12 @@ app.get('/admin', adminController.getAdmin);
 app.get('/', indexController.getIndex);
 app.get('/home', indexController.getIndex);
 
-// /profile routes
+// /dashboard-type routes
 app.get('/profile', profileController.getProfile);
 app.get('/profile-emp', employerController.getEmpProfile);
+
+// post / create routes
+app.get('/create', employerController.getCreateJob)
 
 // /register routes
 app.get('/register', registerController.getRegister);
