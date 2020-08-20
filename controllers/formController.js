@@ -1,12 +1,20 @@
 const mongoose = require('mongoose');
 const { validationResult } = require('express-validator');
 const session = require('express-session');
-
+const fs = require('fs');
+const path = require('path');
 const db = require('../models/db');
 const Applicant = require('../models/ApplicantModel');
 const Employer = require('../models/EmployerModel');
 
 const helper = require('../helpers/helper');
+
+const buffer = fs.readFileSync(
+    path.resolve(__dirname, '../public/json/us_cities_and_states.json'),
+);
+const citiesAndStates = JSON.parse(buffer);
+// console.log(Object.keys(citiesAndStates));
+
 const formController = {
     getApplicantReg: function (req, res) {
         res.render('form', {
@@ -14,6 +22,8 @@ const formController = {
             active_user: req.session.user,
             title: 'Sign Up | BookMeDental',
             register_active: true,
+
+            states: Object.keys(citiesAndStates).sort(),
         });
     },
     postApplicantReg: function (req, res) {
@@ -26,7 +36,7 @@ const formController = {
 
             for (let i = 0; i < errors.length; i++)
                 details[errors[i].param + 'Error'] = errors[i].msg;
-
+            console.log(req.body)
             res.render('form', {
                 input: req.body,
                 details: details,
@@ -34,6 +44,11 @@ const formController = {
                 active_user: req.session.user,
                 title: 'Sign Up | BookMeDental',
                 register_active: true,
+
+                states: Object.keys(citiesAndStates).sort(),
+                cities: req.body.state
+                    ? citiesAndStates[req.body.state].sort()
+                    : '',
             });
         } else {
             var { position, placement, travel, feedback } = req.body;
@@ -148,6 +163,8 @@ const formController = {
             active_user: req.session.user,
             title: 'Sign Up | BookMeDental',
             login_active: true,
+
+            states: Object.keys(citiesAndStates).sort(),
         });
     },
     postFormEmp: function (req, res) {
@@ -172,6 +189,11 @@ const formController = {
                 active_user: req.session.user,
                 title: 'Register | BookMeDental',
                 register_active: true,
+
+                states: Object.keys(citiesAndStates).sort(),
+                cities: req.body.clinic_state
+                    ? citiesAndStates[req.body.clinic_state].sort()
+                    : '',
             });
         } else {
             var employer = {
@@ -201,14 +223,15 @@ const formController = {
                 feedback: req.body.feedback,
             };
 
-            Employer.create(employer)
-                .then(doc => {
+            db.insertOne(Employer, employer, function (flag) {
+                if (flag) {
                     res.redirect('/home');
-                })
-                .catch(err => {
-                    res.send(err);
-                });
+                }
+            });
         }
+    },
+    getCities: function (req, res) {
+        res.send(citiesAndStates[req.query.state].sort());
     },
 };
 

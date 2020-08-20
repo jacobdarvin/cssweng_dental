@@ -136,9 +136,11 @@
 								aria-describedby="emailHelp" placeholder="State" value="{{inputs.clinic_state}}" /> --}}
 
 							<label for="clinic_state">State</label>
-							<select name="clinic_state" class="form-control" id="clinic_state">
+							<select name="clinic_state" class="form-control" id="clinic_state" onchange="populateCities(this.value, 'clinic_city')">
 								<option value="">--Select a state--</option>
-								
+								{{#each states}}
+									<option value="{{this}}" {{select this ../inputs.clinic_state}}>{{this}}</option>
+								{{/each}}
 							</select>
 							<p style="color: red;">{{details.clinic_stateError}}</p>
 						</div>
@@ -149,7 +151,10 @@
 
 							<label for="clinic_city">City</label>
 							<select name="clinic_city" class="form-control" id="clinic_city">
-								<option value=""></option>
+								<option value="">--Select a city--</option>
+								{{#each cities}}
+									<option value="{{this}}" {{select this ../inputs.clinic_city}}>{{this}}</option>
+								{{/each}}
 							</select>
 
 							<p style="color: red;">{{details.clinic_cityError}}</p>
@@ -257,9 +262,9 @@
 				<div class="dropdown">
 					<select id="feedback" name="feedback"
 						style="border: 2px black; background-color: rgba(197, 194, 194, 0.438); cursor:pointer; margin-left: 5px;">
-						<option value="friend">From a friend</option>
-						<option value="ad">From an ad</option>
-						<option value="recommendation">From a recommendation</option>
+						<option value="friend" {{select "friend" inputs.feedback}}>From a friend</option>
+						<option value="ad" {{select "ad" inputs.feedback}}>From an ad</option>
+						<option value="recommendation" {{select "recommendation" inputs.feedback}}>From a recommendation</option>
 					</select>
 				</div>
 				<br>

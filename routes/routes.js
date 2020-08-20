@@ -82,6 +82,7 @@ app.use((req, res, next) => {
     next();
 });
 
+app.get('/cities', formController.getCities);
 app.get('/form', formController.getApplicantReg);
 app.post(
     '/form',

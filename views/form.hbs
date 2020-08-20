@@ -108,17 +108,34 @@
 				<div class="form-group">
 					<div class="row">
 						<div class="col-6 pr-1">
-							<label for="city">City</label>
+							{{!-- <label for="city">City</label>
 							<input type="text" class="form-control" id="city" name="city" aria-describedby="emailHelp"
-								placeholder="City" value="{{input.city}}" />
+								placeholder="City" value="{{input.city}}" /> --}}
+
+							<label for="city">City</label>
+							<select name="city" class="form-control" id="city">
+								<option value="">--Select a city--</option>
+								{{#each cities}}
+								<option value="{{this}}" {{select this ../input.city}}>{{this}}</option>
+								{{/each}}
+							</select>
 							<p
 								style="margin-left: 5px; margin-bottom: -10px; color: red; font-style:italic; font-size: 10px">
 								{{details.cityError}}</p>
 						</div>
 						<div class="col-4 pl-1 pr-1">
-							<label for="state">State</label>
+							{{!-- <label for="state">State</label>
 							<input type="text" class="form-control" id="state" name="state" aria-describedby="emailHelp"
-								placeholder="State" value="{{input.state}}" />
+								placeholder="State" value="{{input.state}}" /> --}}
+
+							<label for="state">State</label>
+							<select name="state" class="form-control" id="state"
+								onchange="populateCities(this.value, 'city')">
+								<option value="">--Select a state--</option>
+								{{#each states}}
+								<option value="{{this}}" {{select this ../input.state}}>{{this}}</option>
+								{{/each}}
+							</select>
 							<p
 								style="margin-left: 5px; margin-bottom: -10px; color: red; font-style:italic; font-size: 10px">
 								{{details.stateError}}</p>
@@ -140,25 +157,6 @@
 					<p style="margin-left: 5px; margin-bottom: -10px; color: red; font-style:italic; font-size: 10px">
 						{{details.phoneError}}</p>
 				</div>
-
-				<div class="form-group">
-					<div class="row">
-						<div class="col-6 pr-1">
-							<label for="test1">State</label>
-							<select name="test1" class="form-control" id="test1">
-								<option value="">--Select a state--</option>
-							</select>
-						</div>
-						<div class="col-6 pr-1">
-							<label for="test2">City</label>
-							<select name="test2" class="form-control" id="test2">
-								<option value="">--Select a city--</option>
-							</select>
-						</div>
-					</div>
-
-				</div>
-
 
 				<div class="card-title" style="font-size: 42px;">Qualifications</div>
 				<label>Position</label>
@@ -361,9 +359,10 @@
 				<div class="dropdown">
 					<select id="feedback" name="feedback"
 						style="border: 2px black; background-color: rgba(197, 194, 194, 0.438); cursor:pointer; margin-left: 5px;">
-						<option value="From a friend">From a friend</option>
-						<option value="From an ad">From an ad</option>
-						<option value="From a recommendation">From a recommendation</option>
+						<option value="From a friend" {{select "From a friend" input.feedback}}>From a friend</option>
+						<option value="From an ad" {{select "From an ad" input.feedback}}>From an ad</option>
+						<option value="From a recommendation" {{select "From a recommendation" input.feedback}}>From a
+							recommendation</option>
 					</select>
 				</div>
 				<br>
