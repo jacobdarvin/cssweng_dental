@@ -1,7 +1,7 @@
-const profileController = {
+const employerController = {
     // render log-in page when client requests '/' defined in routes.js
-    getProfile: function (req, res) {
-        res.render('profile', {
+    getEmpProfile: function (req, res) {
+        res.render('profile-emp', {
         	active_session: (req.session.user && req.cookies.user_sid),
        		active_user: req.session.user,
             title: 'Dashboard | BookMeDental',
@@ -11,4 +11,4 @@ const profileController = {
 };
 
 // enables to export controller object when called in another .js file
-module.exports = profileController;
+module.exports = employerController;
