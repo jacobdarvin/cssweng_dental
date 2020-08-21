@@ -27,7 +27,6 @@ app.engine(
         helpers: {
             // Use this helper on <select> elements to retain option when submitting form data
             select: function (value, input) {
-                console.log('here ' + value + ' ' + input);
                 return value === input ? ' selected' : '';
             },
         },
