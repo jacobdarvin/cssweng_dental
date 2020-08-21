@@ -58,6 +58,11 @@ p {
     display: flex;
 }
 
+.job:hover {
+    border: 1;
+    border-color: #96bfff !important;
+}
+
 @media only screen and (max-width: 726px) {
     .jingle {
         display: none;
