@@ -1,31 +1,34 @@
-// import sessions
-const express = require('express');
-const session = require('express-session');
-const database = require('../models/db.js');
+// IMPORT
+const express = require('express');                         //EXPRESS
+const session = require('express-session');                 //EXPRESS-SESSIONS
+const database = require('../models/db.js');                //CONNECT DB
 
-const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');              //COOKIES
+const bodyParser = require('body-parser');                  //BODY PARSING
+
+const validation = require('../helpers/validation.js');     //FORM VALIDATION
+var multer = require('multer');                             //FILE UPLOAD
+// IMPORT
 
 // import module `controller` from `./controllers/controller.js`
 const indexController = require('../controllers/indexController');
 
-//Employer and Applicant
-const profileController = require('../controllers/profileController');
-const employerController = require('../controllers/employerController');
+//DASHBOARD CONTROLLER
+const dashboardAppController = require('../controllers/dashboardAppController');
+const dashboardEmpController = require('../controllers/dashboardEmpController');
+//DASHBOARD CONTROLLER
 
-//Feed
+//FEED CONTROLLER
 const feedController = require('../controllers/feedController');
+//FEED CONTROLLER
 
+//ACCOUNT LOG CONTROLLER
 const registerController = require('../controllers/registerController');
 const loginController = require('../controllers/loginController');
+//ACCOUNT LOG CONTROLLER
+
 const adminController = require('../controllers/adminController');
 const formController = require('../controllers/formController');
-
-// import validation script
-const validation = require('../helpers/validation.js');
-
-// import multer for file uploads
-var multer = require('multer');
 
 // var avatarStorage = multer.diskStorage({
 //     destination:  './public/avatars',
@@ -43,6 +46,7 @@ var multer = require('multer');
 // }),
 // resumeUpload = multer({ storage: resumeStorage }).single('resume');
 
+//MULTER INIT
 var storage = multer.diskStorage({
     destination: function (req, file, cd) {
         if (file.fieldname === 'avatar') {
@@ -61,6 +65,7 @@ var uploadFilter = upload.fields([
     { name: 'avatar', maxCount: 1 },
     { name: 'resume', maxCount: 1 },
 ]);
+//MULTER INIT
 
 const app = express();
 
@@ -104,6 +109,16 @@ app.post(
     formController.postFormEmp,
 );
 
+// /admin | ADMIN
+app.get('/employers', adminController.getEmployerList);
+app.get('/applicants', adminController.getApplicantList);
+app.get('/admin', adminController.getAdmin);
+// /admin | ADMIN
+
+// /home | HOME
+app.get('/', indexController.getIndex);
+app.get('/home', indexController.getIndex);
+
 app.get('/features', function (req, res) {
     res.render('features', {
         active_session: req.session.user && req.cookies.user_sid,
@@ -120,45 +135,44 @@ app.get('/offers', function (req, res) {
         title: 'Offers | BookMeDental',
     });
 });
+// /home | HOME
 
-// /admin routes
-app.get('/employers', adminController.getEmployerList);
-app.get('/applicants', adminController.getApplicantList);
-app.get('/admin', adminController.getAdmin);
+// /dashboard-type | DASHBAORD
+app.get('/dashboard-app', dashboardAppController.getAppDashboard);
+app.get('/dashboard-emp', dashboardEmpController.getEmpDashboard);
+// /dashboard-type | DASHBAORD
 
-// /home routes
-app.get('/', indexController.getIndex);
-app.get('/home', indexController.getIndex);
+// create | CREATE
+app.get('/create', dashboardEmpController.getCreateJob)
+// create | CREATE
 
-// /dashboard-type routes
-app.get('/profile', profileController.getProfile);
-app.get('/profile-emp', employerController.getEmpProfile);
-
-// post / create routes
-app.get('/create', employerController.getCreateJob)
-
-// feed
+// feed | FEED
 app.get('/feed', feedController.getFeed)
+// feed | FEED
 
 
-// /register routes
+// /register | REGISTER
 app.get('/register', registerController.getRegister);
 app.post(
     '/register',
     validation.signupValidation(),
     registerController.postRegister,
 );
+// /register | REGISTER
 
-//Login route
+
+//login | LOGIN
 app.get('/login', loginController.getLogIn);
 app.post('/login', loginController.postLogIn);
+//login | LOGIN
 
-//Logout Route
+//logout | LOGOUT
 app.get('/logout', function (req, res) {
     req.logout;
     req.session.destroy(function (err) {});
     res.redirect('/');
 });
+//logout | LOGOUT
 
 // enables to export app object when called in another .js file
 module.exports = app;

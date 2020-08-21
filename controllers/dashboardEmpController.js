@@ -1,7 +1,7 @@
-const employerController = {
+const dashboardEmpController = {
     // render log-in page when client requests '/' defined in routes.js
-    getEmpProfile: function (req, res) {
-        res.render('profile-emp', {
+    getEmpDashboard: function (req, res) {
+        res.render('dashboard-emp', {
         	active_session: (req.session.user && req.cookies.user_sid),
        		active_user: req.session.user,
             title: 'Dashboard | BookMeDental',
@@ -20,4 +20,4 @@ const employerController = {
 };
 
 // enables to export controller object when called in another .js file
-module.exports = employerController;
+module.exports = dashboardEmpController;
