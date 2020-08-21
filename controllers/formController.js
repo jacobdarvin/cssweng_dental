@@ -36,7 +36,7 @@ const formController = {
 
             for (let i = 0; i < errors.length; i++)
                 details[errors[i].param + 'Error'] = errors[i].msg;
-            console.log(req.body)
+            console.log(req.body);
             res.render('form', {
                 input: req.body,
                 details: details,
@@ -75,10 +75,9 @@ const formController = {
                 availability = req.body.availability;
             }
 
-            if (req.body.placement == 'Temporary Work'){
+            if (req.body.placement == 'Temporary Work') {
                 payrate = helper.sanitize(req.body.payrate);
-            }
-            else{
+            } else {
                 payrate = 0;
             }
 
@@ -86,7 +85,7 @@ const formController = {
             if (!req.files['avatar']) {
                 var applicant = new Applicant({
                     _id: new mongoose.Types.ObjectId(),
-                    account: req.session.accId,
+                    account: req.session.user,
                     fName: fname,
                     lName: lname,
                     streetAdd: streetAdd,
@@ -123,7 +122,7 @@ const formController = {
             else {
                 var applicant = new Applicant({
                     _id: new mongoose.Types.ObjectId(),
-                    account: req.session.accId,
+                    account: req.session.user,
                     fName: fname,
                     lName: lname,
                     streetAdd: streetAdd,
@@ -157,7 +156,7 @@ const formController = {
 
                 db.insertOne(Applicant, applicant, function (flag) {
                     if (flag) {
-                        res.redirect('/home');
+                        res.redirect('/dashboard');
                     }
                 });
             }
@@ -204,7 +203,7 @@ const formController = {
         } else {
             var employer = {
                 _id: new mongoose.Types.ObjectId(),
-                account: req.session.accId,
+                account: req.session.user,
                 name: { first: req.body.fname, last: req.body.lname },
                 title: req.body.title,
                 phone: req.body.phone,
@@ -231,13 +230,14 @@ const formController = {
 
             db.insertOne(Employer, employer, function (flag) {
                 if (flag) {
-                    res.redirect('/home');
+                    res.redirect('/dashboard');
                 }
             });
         }
     },
     getCities: function (req, res) {
-        res.send(citiesAndStates[req.query.state].sort());
+        if (req.query.state) res.send(citiesAndStates[req.query.state].sort());
+        else res.send('');
     },
 };
 

@@ -10,7 +10,7 @@ const bodyParser = require('body-parser');
 const indexController = require('../controllers/indexController');
 
 //Employer and Applicant
-const profileController = require('../controllers/profileController');
+const dashboardController = require('../controllers/dashboardController');
 const employerController = require('../controllers/employerController');
 
 //Feed
@@ -132,15 +132,13 @@ app.get('/', indexController.getIndex);
 app.get('/home', indexController.getIndex);
 
 // /dashboard-type routes
-app.get('/profile', profileController.getProfile);
-app.get('/profile-emp', employerController.getEmpProfile);
+app.get('/dashboard', dashboardController.getProfile);
 
 // post / create routes
-app.get('/create', employerController.getCreateJob)
+app.get('/create', employerController.getCreateJob);
 
 // feed
-app.get('/feed', feedController.getFeed)
-
+app.get('/feed', feedController.getFeed);
 
 // /register routes
 app.get('/register', registerController.getRegister);

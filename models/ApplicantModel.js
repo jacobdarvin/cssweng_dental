@@ -66,7 +66,6 @@ const applicantSchema = mongoose.Schema({
     },
     rate: {
         type: Number,
-        required: true,
     },
     availability: {
         type: String,
