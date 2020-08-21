@@ -8,7 +8,14 @@ const bodyParser = require('body-parser');
 
 // import module `controller` from `./controllers/controller.js`
 const indexController = require('../controllers/indexController');
+
+//Employer and Applicant
 const profileController = require('../controllers/profileController');
+const employerController = require('../controllers/employerController');
+
+//Feed
+const feedController = require('../controllers/feedController');
+
 const registerController = require('../controllers/registerController');
 const loginController = require('../controllers/loginController');
 const adminController = require('../controllers/adminController');
@@ -124,8 +131,16 @@ app.get('/admin', adminController.getAdmin);
 app.get('/', indexController.getIndex);
 app.get('/home', indexController.getIndex);
 
-// /profile routes
+// /dashboard-type routes
 app.get('/profile', profileController.getProfile);
+app.get('/profile-emp', employerController.getEmpProfile);
+
+// post / create routes
+app.get('/create', employerController.getCreateJob)
+
+// feed
+app.get('/feed', feedController.getFeed)
+
 
 // /register routes
 app.get('/register', registerController.getRegister);
