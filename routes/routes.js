@@ -13,6 +13,8 @@ const indexController = require('../controllers/indexController');
 const profileController = require('../controllers/profileController');
 const employerController = require('../controllers/employerController');
 
+//Feed
+const feedController = require('../controllers/feedController');
 
 const registerController = require('../controllers/registerController');
 const loginController = require('../controllers/loginController');
@@ -134,6 +136,10 @@ app.get('/profile-emp', employerController.getEmpProfile);
 
 // post / create routes
 app.get('/create', employerController.getCreateJob)
+
+// feed
+app.get('/feed', feedController.getFeed)
+
 
 // /register routes
 app.get('/register', registerController.getRegister);

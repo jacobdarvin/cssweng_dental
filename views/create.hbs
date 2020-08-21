@@ -10,41 +10,6 @@
     textarea {
         resize: none;
     }
-
-    #container {
-        display: flex;
-        justify-content: left;
-        height: 250px;
-        text-align: center;
-        margin-top: -20px;
-    }
-
-    .container2 {
-        height: auto;
-        width: 250px;
-        padding-top: 40px;
-    }
-
-    .container3 {
-        height: auto;
-        width: 510px;
-        padding-left: 50px;
-        padding-top: 70px;
-        margin-left: -30px;
-    }
-
-    .img-circle {
-        width: 150px;
-        height: 150px;
-        border: 4px solid none;
-        border-radius: 50%;
-    }
-
-    .dropdown {
-        position: relative;
-        display: inline-block;
-        cursor: pointer;
-    }
 </style>
 <p class="h1 shrink" style="font-size: 70px; text-align: center; color: #8455ca; margin-top: 4rem;">
     Post Job
@@ -59,19 +24,19 @@
             <div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
           <label class="btn w-100 btn-secondary active">
             <i class="fas fa-user" style="font-size: 42px"></i> <br>
-            <input type="radio" name="options" id="option1" autocomplete="off" checked> Front Desk
+            <input type="radio" name="frontdesk" id="frontdesk" autocomplete="off" checked> Front Desk
           </label>
           <label class="btn w-100 btn-secondary">
             <i class="fas fa-user-nurse" style="font-size: 42px"></i> <br>
-            <input type="radio" name="options" id="option2" autocomplete="off"> Dental Assistant
+            <input type="radio" name="dentalass" id="dentalass" autocomplete="off"> Dental Assistant
           </label>
           <label class="btn w-100 btn-secondary">
             <i class="fas fa-user-ninja" style="font-size: 42px"></i> <br>
-            <input type="radio" name="options" id="option3" autocomplete="off"> Dental Hygenist
+            <input type="radio" name="dentalhyg" id="dentalhyg" autocomplete="off"> Dental Hygenist
           </label>
           <label class="btn w-100 btn-secondary">
             <i class="fas fa-user-md" style="font-size: 42px"></i> <br>
-            <input type="radio" name="options" id="option3" autocomplete="off"> Dentist
+            <input type="radio" name="dental" id="dental" autocomplete="off"> Dentist
           </label>
         </div>
             </div>
@@ -85,10 +50,7 @@
                 <label for="inputGroupSelect04">Clinic</label>
                 <div class="input-group">
                   <select class="custom-select" id="inputGroupSelect04" aria-label="Example select with button addon">
-                    <option selected>Choose...</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                    <option selected>Main Clinic</option>
                   </select>
                 </div>
             </div>
@@ -100,10 +62,10 @@
     <div class="card shadow-sm border mx-auto" style="width: 50rem; margin-bottom: 2rem;">
         <div class="card-body">
             <div class="card-title" style="font-size: 42px;">Job Details</div>
-            <p style="font-style: italic; font-size: 16px; margin-top: -16px;">Anything we need to know about your clinic?</p>
+            <p style="font-style: italic; font-size: 16px; margin-top: -16px;">Write a quick description about this job</p>
             <div class="card-text">
-                <label>Short Personal Profile</label><br />
-                <textarea class="w-100 border" id="shortprofile" name="shortprofile" style="height: 8em;"> </textarea>
+                <label>Job Description</label><br />
+                <textarea class="w-100 border" id="jobdescription" name="jobdescription" style="height: 8em;"> </textarea>
             </div>
         </div>
     </div>
@@ -129,7 +91,6 @@
             </div>
             <button type="submit" class="btn btn-primary w-100" id="save_button" style="background-color: #8455ca; font-weight: 800">Post</button>
         </div>
-
     </div>
     </div>
 </form>
