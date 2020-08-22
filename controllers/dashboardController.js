@@ -4,7 +4,7 @@ const Employer = require('../models/EmployerModel');
 
 const dashboardController = {
     // render log-in page when client requests '/' defined in routes.js
-    getProfile: function (req, res, next) {
+    getDashboard: function (req, res, next) {
         // If there's no active session, redirect to login
         if (!req.session.user) res.redirect('/login');
         else {
