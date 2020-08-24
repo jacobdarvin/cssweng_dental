@@ -142,6 +142,16 @@ app.get('/dashboard-app', dashboardAppController.getAppDashboard);
 app.get('/dashboard-emp', dashboardEmpController.getEmpDashboard);
 // /dashboard-type | DASHBAORD
 
+// /details | JOB
+app.get('/details', function(req, res) {
+    res.render('details', {
+        active_session: req.session.user && req.cookies.user_sid,
+        active_user: req.session.user,
+        title: 'Details | BookMeDental',
+    });
+});
+// /details | JOB
+
 // create | CREATE
 app.get('/create', dashboardEmpController.getCreateJob)
 // create | CREATE
