@@ -14,7 +14,7 @@ var multer = require('multer');                             //FILE UPLOAD
 const indexController = require('../controllers/indexController');
 
 //DASHBOARD CONTROLLER
-const dashboardAppController = require('../controllers/dashboardAppController');
+const dashboardController = require('../controllers/dashboardController');
 const dashboardEmpController = require('../controllers/dashboardEmpController');
 //DASHBOARD CONTROLLER
 
@@ -30,21 +30,6 @@ const loginController = require('../controllers/loginController');
 const adminController = require('../controllers/adminController');
 const formController = require('../controllers/formController');
 
-// var avatarStorage = multer.diskStorage({
-//     destination:  './public/avatars',
-//     filename: function(req, file, cb) {
-//         cb(null, file.originalname)
-//     }
-// }),
-// avatarUpload = multer({ storage: avatarStorage }).single('avatar');
-
-// var resumeStorage = multer.diskStorage({
-//     destination:  './public/resumes',
-//     filename: function(req, file, cb) {
-//         cb(null, file.originalname)
-//     }
-// }),
-// resumeUpload = multer({ storage: resumeStorage }).single('resume');
 
 //MULTER INIT
 var storage = multer.diskStorage({
@@ -94,6 +79,7 @@ app.use((req, res, next) => {
     next();
 });
 
+app.get('/cities', formController.getCities);
 app.get('/form', formController.getApplicantReg);
 app.post(
     '/form',
@@ -137,10 +123,6 @@ app.get('/offers', function (req, res) {
 });
 // /home | HOME
 
-// /dashboard-type | DASHBAORD
-app.get('/dashboard-app', dashboardAppController.getAppDashboard);
-app.get('/dashboard-emp', dashboardEmpController.getEmpDashboard);
-// /dashboard-type | DASHBAORD
 
 // /details | JOB
 app.get('/details', function(req, res) {
@@ -150,16 +132,17 @@ app.get('/details', function(req, res) {
         title: 'Details | BookMeDental',
     });
 });
-// /details | JOB
+// /dashboard-type / DASHBOARD
+app.get('/dashboard', dashboardController.getDashboard);
+// /dashboard-type / DASHBOARD
 
-// create | CREATE
-app.get('/create', dashboardEmpController.getCreateJob)
-// create | CREATE
+// post job / CREATE
+app.get('/create', dashboardEmpController.getCreateJob);
+// post job / CREATE
 
-// feed | FEED
-app.get('/feed', feedController.getFeed)
-// feed | FEED
-
+// /feed / FEED
+app.get('/feed', feedController.getFeed);
+// /feed / FEED
 
 // /register | REGISTER
 app.get('/register', registerController.getRegister);
