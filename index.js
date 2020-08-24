@@ -22,6 +22,14 @@ app.engine(
         defaultView: 'main',
         layoutsDir: path.join(__dirname, '/views/layouts'),
         partialsDir: path.join(__dirname, '/views/partials'),
+
+        // custom helpers
+        helpers: {
+            // Use this helper on <select> elements to retain option when submitting form data
+            select: function (value, input) {
+                return value === input ? ' selected' : '';
+            },
+        },
     }),
 );
 
@@ -36,7 +44,7 @@ hbs.registerPartials(__dirname + '/views/partials');
 
 // set the folder `public` as folder containing static assets (css, js, imgs)
 // app.use(express.static('public'));
-app.use(express.static(path.join(__dirname,'public')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // define the paths contained in routes module
 app.use('/', routes);
@@ -55,7 +63,7 @@ mongoose.connect(url, options, err => {
 
 //404 error.
 
-app.use(function(req, res) {
+app.use(function (req, res) {
     res.render('404');
 });
 

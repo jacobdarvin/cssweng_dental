@@ -46,9 +46,10 @@ const registerController = {
                 db.insertOne(Account, account, function (flag) {
                     if (flag) {
                         // account._id will be stored in Employer.account
-                        req.session.accId = account._id;
-                        req.session.user = email;
-
+                        // req.session.accId = account._id;
+                        req.session.user = account._id;
+                        req.session.accType = account.accType;
+                        
                         if (options == 'applicant') res.redirect('/form');
                         else res.redirect('/form-emp');
                     }
