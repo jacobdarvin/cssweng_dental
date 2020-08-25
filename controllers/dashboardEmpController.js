@@ -1,3 +1,7 @@
+const mongoose = require('mongoose');
+const CreateJob = require('../models/CreateJobModel');
+const helper = require('../helpers/helper');
+
 const dashboardEmpController = {
     getCreateJob: function (req, res) {
         res.render('create', {
@@ -9,7 +13,15 @@ const dashboardEmpController = {
     },
 
     postCreateJob: function(req,res){
-        
+        console.log(req.body);
+        const desc = helper.sanitize(req.body.jobdescription);
+        const software = helper.sanitize(req.body.software);
+
+        var job = {
+            _id = new mongoose.Types.ObjectId(),
+            account = req.session.user,
+            position = req.body.
+        }
     }
 };
 

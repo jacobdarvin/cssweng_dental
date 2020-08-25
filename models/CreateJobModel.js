@@ -26,6 +26,12 @@ const createJobSchema = mongoose.Schema({
     },
     software: {
         type: String,
+        default: "None"
+    },
+    experience: {
+        type: String,
         required: true
     }
 })
+
+module.exports = mongoose.model('CreateJob', createJobSchema);
