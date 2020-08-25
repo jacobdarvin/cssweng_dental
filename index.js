@@ -55,7 +55,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // create ./public/resumes directory if it doesn't exists
 const resumesDir = './public/resumes';
 if (!fs.existsSync(resumesDir)) {
-    console.log('resumes folder does not exist!');
+    console.log('resumes folder does not exist! creating ' + resumesDir + '...');
     fs.mkdirSync(resumesDir);
 }
 
