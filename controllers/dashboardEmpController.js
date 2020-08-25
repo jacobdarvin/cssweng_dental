@@ -43,23 +43,6 @@ const dashboardEmpController = {
             })
 
         })
-
-        // var job = new CreateJob({
-        //     _id: new mongoose.Types.ObjectId(),
-        //     account: req.session.user,
-        //     position: req.body.position,
-        //     location: req.body.clinic,
-        //     date: req.body.date,
-        //     description: desc,
-        //     software: software,
-        //     experience: req.body.experience
-        // });
-        
-        // db.insertOne(CreateJob, job,function (flag){
-        //     if(flag){
-        //         res.redirect('/dashboard');
-        //     }
-        // })
     }
 };
 
