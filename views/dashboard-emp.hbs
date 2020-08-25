@@ -24,14 +24,14 @@
             <div class="card shadow-sm mx-auto profile-length" style="width: 100%;">
                 <div class="card-body">
                     <span class="card-text" style="text-align: left; font-size: 32px;">
-                        DBA Dental
+                        {{profileData.clinicName}} 
                     </span>
                     <hr />
-                    <span class="card-text" style="text-align: left;"> <i class="fas fa-location-arrow" style="color: #8455ca;">&nbsp;</i> Beaverly Hills, CA </span>
+                    <span class="card-text" style="text-align: left;"> <i class="fas fa-location-arrow" style="color: #8455ca;">&nbsp;</i> {{profileData.clinicAddress.city}}, {{profileData.clinicAddress.state}} </span>
                     <br />
-                    <span class="card-text" style="text-align: left;"> <i class="far fa-envelope" style="color: #8455ca;">&nbsp;</i> pamtidalgo@hotmail.com </span>
+                    <span class="card-text" style="text-align: left;"> <i class="far fa-envelope" style="color: #8455ca;">&nbsp;</i> {{profileData.clinicContactEmails.[0]}}</span>
                     <br />
-                    <span class="card-text" style="text-align: left;"> <i class="fas fa-phone" style="color: #8455ca;">&nbsp;</i> (+63) 09176565612 </span>
+                    <span class="card-text" style="text-align: left;"> <i class="fas fa-phone" style="color: #8455ca;">&nbsp;</i> {{profileData.phone}} </span>
                     <br />
                     <br />
                     <a href="#">Edit Profile</a>
