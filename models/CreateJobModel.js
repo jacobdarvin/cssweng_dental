@@ -11,6 +11,18 @@ const createJobSchema = mongoose.Schema({
         enum: ['Front Desk', 'Dental Assistant', 'Dental Hygienist', 'Dentist'],
         required: true,
     },
+    clinicName: {
+        type: String,
+        required: true
+    },
+    city: {
+        type: String,
+        required: true
+    },
+    state: {
+        type: String,
+        required: true
+    },
     location: {
         type: String,
         enum: ['Main Clinic'],

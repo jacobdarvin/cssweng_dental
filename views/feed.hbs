@@ -8,12 +8,9 @@
 
 	<div class="col-sm-9 m-0">
 		<p class="h1">Job Feed</p>
-			{{> jobItem}}
-			{{> jobItem}}
-			{{> jobItem}}
-			{{> jobItem}}
-			{{> jobItem}}
-			{{> jobItem}}
+			{{#each jobs}}
+				{{>jobItem}}
+			{{/each}}
 	</div>
 
 	<div class="col-sm-3">
