@@ -23,7 +23,6 @@ const helper = {
             req.files['resume'][0].destination + '/' + newName + extension;
 
         fs.renameSync(req.files['resume'][0].path, newURL);
-
         return newName + extension;
     },
 };

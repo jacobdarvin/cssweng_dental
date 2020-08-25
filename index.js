@@ -30,6 +30,11 @@ app.engine(
             select: function (value, input) {
                 return value === input ? ' selected' : '';
             },
+            // Use this helper on <input type="radio"> elements to retain option when submitting form data
+            check: function (value, input, init) {
+                if (!input) input = init;
+                return value === input ? ' checked' : '';
+            },
         },
     }),
 );

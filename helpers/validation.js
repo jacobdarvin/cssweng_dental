@@ -38,48 +38,72 @@ const validation = {
     formEmpValidation: function () {
         return [
             check('fname')
+                .trim()
                 .notEmpty()
                 .withMessage('First name required.')
                 .trim(),
-            check('lname').notEmpty().withMessage('Last name required.').trim(),
-            check('title').notEmpty().withMessage('Title is required.').trim(),
+            check('lname')
+                .trim()
+                .notEmpty()
+                .withMessage('Last name required.')
+                .trim(),
+            check('title')
+                .trim()
+                .notEmpty()
+                .withMessage('Title is required.')
+                .trim(),
             check('phone')
+                .trim()
                 .isMobilePhone('en-US')
                 .withMessage('Please enter a valid phone number.')
                 .trim(),
             check('blname')
+                .trim()
                 .notEmpty()
                 .withMessage('Business legal name is required.')
                 .trim(),
-            check('clinic_street').notEmpty().withMessage('Required').trim(),
-            check('clinic_no').notEmpty().withMessage('Required').trim(),
+            check('clinic_street')
+                .trim()
+                .notEmpty()
+                .withMessage('Required')
+                .trim(),
+            check('clinic_no').trim().notEmpty().withMessage('Required').trim(),
             check('clinic_city').notEmpty().withMessage('Required').trim(),
             check('clinic_state').notEmpty().withMessage('Required').trim(),
-            check('clinic_zip').notEmpty().withMessage('Required').trim(),
+            check('clinic_zip')
+                .trim()
+                .notEmpty()
+                .withMessage('Required')
+                .trim(),
 
             check('clinic_phone')
+                .trim()
                 .isMobilePhone('en-US')
-                .withMessage('Please enter a valid phone number.')
+                .withMessage('Please enter a valid US phone number.')
                 .trim(),
 
             check('clinic_name')
+                .trim()
                 .notEmpty()
                 .withMessage('Clinic name is required.')
                 .trim(),
 
             check('clinic_program')
+                .trim()
                 .notEmpty()
                 .withMessage('Clinic software field is required.')
                 .customSanitizer(value => value.split(',')),
             check('clinic_program.*').trim(),
 
             check('clinic_specialty')
+                .trim()
                 .notEmpty()
                 .withMessage('Clinic specialty field is required.')
                 .customSanitizer(value => value.split(',')),
             check('clinic_specialty.*').trim(),
 
             check('clinic_services')
+                .trim()
                 .notEmpty()
                 .withMessage('Clinic services field is required.')
                 .customSanitizer(value => value.split(',')),
@@ -114,18 +138,22 @@ const validation = {
     formValidation: function () {
         return [
             check('fname')
+                .trim()
                 .notEmpty()
                 .withMessage('Empty field. Please input your first name!')
                 .trim(),
             check('lname')
+                .trim()
                 .notEmpty()
                 .withMessage('Empty field. Please input your last name!')
                 .trim(),
             check('streetAdd')
+                .trim()
                 .notEmpty()
                 .withMessage('Empty field. Please input your street address!')
                 .trim(),
             check('house')
+                .trim()
                 .notEmpty()
                 .withMessage('Empty field. Please input your house no.!')
                 .trim(),
@@ -137,38 +165,63 @@ const validation = {
                 .notEmpty()
                 .withMessage('Empty field. Please input your state!')
                 .trim(),
-            check('zip').notEmpty().withMessage('Invalid input!').trim(),
+            check('zip').trim().notEmpty().withMessage('Invalid input!').trim(),
             check('phone')
+                .trim()
                 .isMobilePhone('en-US')
-                .withMessage('Empty field. Please input your number!')
+                .withMessage('Please enter a valid US phone number.')
                 .trim(),
             check('years')
+                .trim()
                 .notEmpty()
                 .withMessage('Empty field. Please fill this out!')
                 .trim(),
 
             check('programs')
+                .trim()
                 .notEmpty()
                 .withMessage('Empty field. Please fill this out!')
                 .customSanitizer(value => value.split(',')),
             check('programs.*').trim(),
 
             check('language')
+                .trim()
                 .notEmpty()
                 .withMessage('Empty field. Please fill this out!')
                 .trim(),
 
             check('specialties')
+                .trim()
                 .notEmpty()
                 .withMessage('Empty field. Please fill this out!')
                 .customSanitizer(value => value.split(',')),
             check('specialties.*').trim(),
 
             check('payrate')
-                .notEmpty()
+                .trim()
+                .custom((value, { req, location, path }) => {
+                    if (req.body.placement == 'Permanent Work') {
+                        return true;
+                    }
+
+                    // return false if placement is temp and payrate is empty
+                    return !(
+                        req.body.placement == 'Temporary Work' && value == ''
+                    );
+                })
                 .withMessage('Empty field. Please fill this out!')
                 .trim(),
+            check('date')
+                .custom((value, { req, location, path }) => {
+                    if (req.body.availability == 'Available immediately') {
+                        return true;
+                    }
+
+                    return !(req.body.availability == 'after' && value == '');
+                })
+                .withMessage('Empty field. Please fill this out!'),
             check('shortprofile')
+                .trim()
                 .notEmpty()
                 .withMessage('Empty field. Please fill this out!')
                 .trim(),
