@@ -51,17 +51,21 @@ const dashboardController = {
                 } else {
                     if(view == 'dashboard-app') {
                         res.render('form', {
-                            active_session:
-                            req.session.user && req.cookies.user_sid,
+                            active_session: req.session.user && req.cookies.user_sid,
                             active_user: req.session.user,
-                            title: 'Dashboard | BookMeDental',
+                            title: 'Sign Up | BookMeDental',
+                            register_active: true,
+
+                            states: Object.keys(citiesAndStates).sort(),
                         });
                     } else {
                         res.render('form-emp', {
-                            active_session:
-                            req.session.user && req.cookies.user_sid,
+                            active_session: req.session.user && req.cookies.user_sid,
                             active_user: req.session.user,
-                            title: 'Dashboard | BookMeDental',
+                            title: 'Sign Up | BookMeDental',
+                            register_active: true,
+
+                            states: Object.keys(citiesAndStates).sort(),
                         }); 
                     }
                 }
