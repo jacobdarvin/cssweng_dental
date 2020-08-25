@@ -1,5 +1,10 @@
 <nav class="navbar navbar-expand-lg navbar-light fixed-top bg-light shadow-sm">
-    <a class="navbar-brand" href="/home">BookMeDental {{#if admin_active}}Admin{{/if}} <i class="fas fa-tooth"></i></a>
+    <a class="navbar-brand" href="/home">BookMeDental 
+    {{#if admin_active}}Admin{{/if}}
+    {{#if applicant_active}}Applicant{{/if}}
+    {{#if employer_active}}Employer{{/if}}
+
+    <i class="fas fa-tooth"></i></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
         aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
