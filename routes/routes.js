@@ -1,60 +1,56 @@
-// import sessions
-const express = require('express');
-const session = require('express-session');
-const database = require('../models/db.js');
+// IMPORT
+const express = require('express');                         //EXPRESS
+const session = require('express-session');                 //EXPRESS-SESSIONS
+const database = require('../models/db.js');                //CONNECT DB
 
+const cookieParser = require('cookie-parser');              //COOKIES
+const bodyParser = require('body-parser');                  //BODY PARSING
 
-const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
+const validation = require('../helpers/validation.js');     //FORM VALIDATION
+var multer = require('multer');                             //FILE UPLOAD
+// IMPORT
 
 // import module `controller` from `./controllers/controller.js`
 const indexController = require('../controllers/indexController');
-const profileController = require('../controllers/profileController');
+
+//DASHBOARD CONTROLLER
+const dashboardController = require('../controllers/dashboardController');
+const dashboardEmpController = require('../controllers/dashboardEmpController');
+//DASHBOARD CONTROLLER
+
+//FEED CONTROLLER
+const feedController = require('../controllers/feedController');
+//FEED CONTROLLER
+
+//ACCOUNT LOG CONTROLLER
 const registerController = require('../controllers/registerController');
 const loginController = require('../controllers/loginController');
+//ACCOUNT LOG CONTROLLER
+
 const adminController = require('../controllers/adminController');
-const formController = require('../controllers/formController.js');
+const formController = require('../controllers/formController');
 
-// import validation script
-const validation = require('../helpers/validation.js');
 
-// import multer for file uploads
-var multer = require('multer');
-
-// var avatarStorage = multer.diskStorage({
-//     destination:  './public/avatars',
-//     filename: function(req, file, cb) {
-//         cb(null, file.originalname)
-//     }
-// }),
-// avatarUpload = multer({ storage: avatarStorage }).single('avatar');
-
-// var resumeStorage = multer.diskStorage({
-//     destination:  './public/resumes',
-//     filename: function(req, file, cb) {
-//         cb(null, file.originalname)
-//     }
-// }),
-// resumeUpload = multer({ storage: resumeStorage }).single('resume');
-
+//MULTER INIT
 var storage = multer.diskStorage({
     destination: function (req, file, cd) {
         if (file.fieldname === 'avatar') {
             cd(null, './public/avatars');
-        }
-
-        else if (file.fieldname === 'resume') {
+        } else if (file.fieldname === 'resume') {
             cd(null, './public/resumes');
-        }  
+        }
     },
     filename: function (req, file, cd) {
-      cd(null, file.originalname);
-    }
+        cd(null, file.originalname);
+    },
 });
 
-var upload = multer({storage: storage});
-var uploadFilter = upload.fields([{ name: 'avatar', maxCount: 1 }, { name: 'resume', maxCount: 1 }]);
-
+var upload = multer({ storage: storage });
+var uploadFilter = upload.fields([
+    { name: 'avatar', maxCount: 1 },
+    { name: 'resume', maxCount: 1 },
+]);
+//MULTER INIT
 
 const app = express();
 
@@ -83,85 +79,93 @@ app.use((req, res, next) => {
     next();
 });
 
-// call function getIndex when client sends a request for '/' defined in routes.js
+app.get('/cities', formController.getCities);
 app.get('/form', formController.getApplicantReg);
-app.post('/form', uploadFilter, validation.formValidation(), formController.postApplicantReg);
+app.post(
+    '/form',
+    uploadFilter,
+    validation.formValidation(),
+    formController.postApplicantReg,
+);
 
-app.get('/form-emp', function(req, res) {
-    res.render('form-emp', {
-        active_session: (req.session.user && req.cookies.user_sid),
-        active_user: req.session.user,
-        title: 'Sign Up | BookMeDental',
-        login_active: true,
-    })
-});
+app.get('/form-emp', formController.getFormEmp);
+app.post(
+    '/form-emp',
+    validation.formEmpValidation(),
+    formController.postFormEmp,
+);
 
-app.get('/features', function(req, res) {
-    res.render('features', {
-        active_session: (req.session.user && req.cookies.user_sid),
-        active_user: req.session.user,
-        title: 'Features | BookMeDental',
-        features_active: true,
-    })
-});
-
-app.get('/features', function(req, res) {
-    res.render('features', {
-        active_session: (req.session.user && req.cookies.user_sid),
-        active_user: req.session.user,
-        title: 'Features | BookMeDental',
-        features_active: true,
-    })
-});
-
-
-app.get('/offers', function(req, res) {
-    res.render('offers', {
-        active_session: (req.session.user && req.cookies.user_sid),
-        active_user: req.session.user,
-        title: 'Offers | BookMeDental',
-    })
-});
-
-
-// /admin routes
-// app.get('/admin', adminController.getAdmin);
+// /admin | ADMIN
 app.get('/employers', adminController.getEmployerList);
+app.get('/applicants', adminController.getApplicantList);
+app.get('/admin', adminController.getAdmin);
+// /admin | ADMIN
 
-app.get('/admin', function(req, res) {
-    res.render('admin', {
-        active_session: (req.session.user && req.cookies.user_sid),
-        active_user: req.session.user,
-        title: 'Admin | BookMeDental',
-        admin_active: true,
-    })
-});
-
-// /home routes
+// /home | HOME
 app.get('/', indexController.getIndex);
 app.get('/home', indexController.getIndex);
 
-// /profile routes
-app.get('/profile', profileController.getProfile);
+app.get('/features', function (req, res) {
+    res.render('features', {
+        active_session: req.session.user && req.cookies.user_sid,
+        active_user: req.session.user,
+        title: 'Features | BookMeDental',
+        features_active: true,
+    });
+});
 
-// /register routes
+app.get('/offers', function (req, res) {
+    res.render('offers', {
+        active_session: req.session.user && req.cookies.user_sid,
+        active_user: req.session.user,
+        title: 'Offers | BookMeDental',
+    });
+});
+// /home | HOME
+
+
+// /details | JOB
+app.get('/details', function(req, res) {
+    res.render('details', {
+        active_session: req.session.user && req.cookies.user_sid,
+        active_user: req.session.user,
+        title: 'Details | BookMeDental',
+    });
+});
+// /dashboard-type / DASHBOARD
+app.get('/dashboard', dashboardController.getDashboard);
+// /dashboard-type / DASHBOARD
+
+// post job / CREATE
+app.get('/create', dashboardEmpController.getCreateJob);
+// post job / CREATE
+
+// /feed / FEED
+app.get('/feed', feedController.getFeed);
+// /feed / FEED
+
+// /register | REGISTER
 app.get('/register', registerController.getRegister);
 app.post(
     '/register',
     validation.signupValidation(),
     registerController.postRegister,
 );
+// /register | REGISTER
 
-//Login route
+
+//login | LOGIN
 app.get('/login', loginController.getLogIn);
 app.post('/login', loginController.postLogIn);
+//login | LOGIN
 
-//Logout Route
+//logout | LOGOUT
 app.get('/logout', function (req, res) {
     req.logout;
     req.session.destroy(function (err) {});
     res.redirect('/');
 });
+//logout | LOGOUT
 
 // enables to export app object when called in another .js file
 module.exports = app;

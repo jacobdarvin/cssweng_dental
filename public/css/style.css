@@ -11,6 +11,11 @@ p {
 
 .h1 {
     font-weight: 800;
+    color: #2f353e;
+}
+
+.h3 {
+    font-weight: 800 !important;
 }
 
 .btn-primary {
@@ -53,13 +58,22 @@ p {
     display: inline-block;
 }
 
+.form-upload {
+    display: flex;
+}
+
+.job:hover {
+    border: 1;
+    border-color: #96bfff !important;
+}
+
 @media only screen and (max-width: 726px) {
     .jingle {
         display: none;
     }
 
     .shrink {
-        font-size: 55px !important;
+        font-size: 50px !important;
     }
 
     .card {
@@ -69,6 +83,10 @@ p {
 
     .features {
         position: relative;
+    }
+
+    .form-upload {
+        display: block;
     }
 }
 
