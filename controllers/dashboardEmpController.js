@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const CreateJob = require('../models/CreateJobModel');
 const helper = require('../helpers/helper');
+const db = require('../models/db');
 
 const dashboardEmpController = {
     getCreateJob: function (req, res) {
@@ -13,15 +14,25 @@ const dashboardEmpController = {
     },
 
     postCreateJob: function(req,res){
-        console.log(req.body);
-        const desc = helper.sanitize(req.body.jobdescription);
-        const software = helper.sanitize(req.body.software);
+        var desc = helper.sanitize(req.body.jobdescription);
+        var software = helper.sanitize(req.body.software);
 
-        var job = {
-            _id = new mongoose.Types.ObjectId(),
-            account = req.session.user,
-            position = req.body.
-        }
+        var job = new CreateJob({
+            _id: new mongoose.Types.ObjectId(),
+            account: req.session.user,
+            position: req.body.position,
+            location: req.body.clinic,
+            date: req.body.date,
+            description: desc,
+            software: software,
+            experience: req.body.experience
+        });
+        
+        db.insertOne(CreateJob, job,function (flag){
+            if(flag){
+                res.redirect('/dashboard');
+            }
+        })
     }
 };
 

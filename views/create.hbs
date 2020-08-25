@@ -16,7 +16,7 @@
     <i class="fas fa-tooth"></i>
 </p>
 <!-- OWNER INFORMATION -->
-<form action="/form-emp" method="POST">
+<form action="/create" method="POST">
     <div class="card shadow-sm border mx-auto" style="width: 50rem; margin-bottom: 2rem;">
         <div class="card-body">
         <div class="card-title" style="font-size: 42px;">Position</div>
@@ -56,7 +56,7 @@
             </div>
             <br>
             <label for="example-datetime-local-input">Date Needed</label>
-            <input class="form-control" type="date" id="date" name="date">
+            <input class="form-control" type="date" id="date" name="date" required>
         </div>
     </div>
     <div class="card shadow-sm border mx-auto" style="width: 50rem; margin-bottom: 2rem;">
@@ -65,8 +65,7 @@
             <p style="font-style: italic; font-size: 16px; margin-top: -16px;">Write a quick description about this job</p>
             <div class="card-text">
                 <label>Job Description</label><br />
-                <textarea class="w-100 border" id="jobdescription" name="jobdescription" style="height: 8em;" required> </textarea>
-            </div>
+                <textarea class="w-100 border" id="jobdescription" name="jobdescription" style="height: 8em;" required></textarea>
         </div>
     </div>
     <!-- CLINIC CONTACT -->
