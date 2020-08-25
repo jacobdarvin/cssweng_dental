@@ -25,14 +25,11 @@ const dashboardController = {
                         .populate('account')
                         .execPopulate(function (err, data) {
                             if (err) throw err;
-
                             res.render(view, {
-                                active_session:
-                                    req.session.user && req.cookies.user_sid,
+                                active_session: req.session.user && req.cookies.user_sid,
                                 active_user: req.session.user,
                                 title: 'Dashboard | BookMeDental',
                                 profile_active: true,
-
                                 profileData: data
                             });
                         });

@@ -45,18 +45,18 @@
     <div class="card shadow-sm border mx-auto" style="width: 50rem; margin-bottom: 2rem;">
         <div class="card-body">
             <div class="card-title" style="font-size: 42px;">Location</div>
-            <p style="font-style: italic; font-size: 16px; margin-top: -16px;">Details</p>
+            <p style="font-style: italic; font-size: 16px; margin-top: -16px;">Where and when is the job needed?</p>
             <div class="card-text">
                 <label for="inputGroupSelect04">Clinic</label>
                 <div class="input-group">
-                  <select class="custom-select" id="inputGroupSelect04" aria-label="Example select with button addon">
-                    <option selected>Main Clinic</option>
+                  <select class="custom-select" id="clinic" name="clinic" aria-label="Example select with button addon">
+                    <option value="Main Clinic" selected>Main Clinic</option>
                   </select>
                 </div>
             </div>
             <br>
             <label for="example-datetime-local-input">Date Needed</label>
-            <input class="form-control" type="date" value="2011-08-19T13:45:00" id="example-datetime-local-input">
+            <input class="form-control" type="date" id="date" name="date">
         </div>
     </div>
     <div class="card shadow-sm border mx-auto" style="width: 50rem; margin-bottom: 2rem;">
@@ -75,16 +75,16 @@
             <div class="card-title" style="font-size: 42px;">Optional Filters</div>
             <div class="card-title">
                             <label for="clinic_con_name">Software Proficiency</label>
-                            <input type="text" class="form-control" id="clinic_con_name" name="clinic_con_name" aria-describedby="emailHelp" placeholder="Full Name" value="{{inputs.clinic_con_name}}" />
-                            <p style="color: red;">{{details.clinic_con_nameError}}</p>
+                            <input type="text" class="form-control" id="software" name="software" aria-describedby="emailHelp" placeholder="List down your needed softwares..." />
+                           <br>
                 <div class="card-text">
                 <label for="inputGroupSelect04">Experience</label>
                 <div class="input-group">
-                  <select class="custom-select" id="inputGroupSelect04" aria-label="Example select with button addon">
-                    <option selected>Less than a Year</option>
-                    <option value="1">1 Year</option>
-                    <option value="2">More than a Year </option>
-                    <option value="3">5 Years or More</option>
+                  <select class="custom-select" id="experience" name="experience" aria-label="Example select with button addon">
+                    <option value="Less than a Year" selected>Less than a Year</option>
+                    <option value="1 Year">1 Year</option>
+                    <option value="More than a Year">More than a Year </option>
+                    <option value="5 Years or More">5 Years or More</option>
                   </select>
                 </div>
                 </div>

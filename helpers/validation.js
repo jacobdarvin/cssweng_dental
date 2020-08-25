@@ -115,62 +115,63 @@ const validation = {
         return [
             check('fname')
                 .notEmpty()
-                .withMessage('Empty field. Please input your first name!')
+                .withMessage('Empty field. Please input your first name.')
                 .trim(),
             check('lname')
                 .notEmpty()
-                .withMessage('Empty field. Please input your last name!')
+                .withMessage('Empty field. Please input your last name.')
                 .trim(),
             check('streetAdd')
                 .notEmpty()
-                .withMessage('Empty field. Please input your street address!')
+                .withMessage('Empty field. Please input your street address.')
                 .trim(),
             check('house')
                 .notEmpty()
-                .withMessage('Empty field. Please input your house no.!')
+                .withMessage('Empty field. Please input your house no.')
                 .trim(),
             check('city')
                 .notEmpty()
-                .withMessage('Empty field. Please input your city!')
+                .withMessage('Empty field. Please input your city.')
                 .trim(),
             check('state')
                 .notEmpty()
-                .withMessage('Empty field. Please input your state!')
+                .withMessage('Empty field. Please input your state.')
                 .trim(),
             check('zip').notEmpty().withMessage('Invalid input!').trim(),
             check('phone')
+                .isMobilePhone('en-US')
                 .notEmpty()
-                .withMessage('Empty field. Please input your number!')
+                .withMessage('Empty field. Please input your number.')
                 .trim(),
             check('years')
                 .notEmpty()
-                .withMessage('Empty field. Please fill this out!')
+                .withMessage('Empty field. Please fill this out.')
                 .trim(),
 
             check('programs')
                 .notEmpty()
-                .withMessage('Empty field. Please fill this out!')
+                .withMessage('Empty field. Please fill this out.')
                 .customSanitizer(value => value.split(',')),
             check('programs.*').trim(),
 
             check('language')
                 .notEmpty()
-                .withMessage('Empty field. Please fill this out!')
+                .withMessage('Empty field. Please fill this out.')
                 .trim(),
 
             check('specialties')
                 .notEmpty()
-                .withMessage('Empty field. Please fill this out!')
+                .withMessage('Empty field. Please fill this out.')
                 .customSanitizer(value => value.split(',')),
             check('specialties.*').trim(),
 
             check('payrate')
                 .notEmpty()
-                .withMessage('Empty field. Please fill this out!')
+                .withMessage('Empty field. Please fill this out.')
                 .trim(),
             check('shortprofile')
                 .notEmpty()
-                .withMessage('Empty field. Please fill this out!')
+                .withMessage('Empty field. Please fill this out.')
                 .trim(),
 
             check('useragreement')
