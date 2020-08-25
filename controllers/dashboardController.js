@@ -10,10 +10,10 @@ const dashboardController = {
         else {
             var view, model;
             if (req.session.accType == 'applicant') {
-                view = 'profile';
+                view = 'dashboard-app';
                 model = Applicant;
             } else {
-                view = 'profile-emp';
+                view = 'dashboard-emp';
                 model = Employer;
             }
 
@@ -33,9 +33,15 @@ const dashboardController = {
                                 title: 'Dashboard | BookMeDental',
                                 profile_active: true,
 
-                                profileData: data
+                                profileData: data,
                             });
                         });
+                } else {
+                    res.redirect(
+                        req.session.accType == 'applicant'
+                            ? '/form'
+                            : '/form-emp',
+                    );
                 }
             });
         }
