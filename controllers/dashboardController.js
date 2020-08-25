@@ -48,6 +48,22 @@ const dashboardController = {
                                 });
                             }
                         });
+                } else {
+                    if(view == 'dashboard-app') {
+                        res.render('form', {
+                            active_session:
+                            req.session.user && req.cookies.user_sid,
+                            active_user: req.session.user,
+                            title: 'Dashboard | BookMeDental',
+                        });
+                    } else {
+                        res.render('form-emp', {
+                            active_session:
+                            req.session.user && req.cookies.user_sid,
+                            active_user: req.session.user,
+                            title: 'Dashboard | BookMeDental',
+                        }); 
+                    }
                 }
             });
         }
