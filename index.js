@@ -4,6 +4,7 @@ const hbs = require('hbs');
 const exphbs = require('express-handlebars');
 const mongoose = require('mongoose');
 const path = require('path');
+const fs = require('fs');
 
 //DATA BASE AND EXPRESS
 const app = express();
@@ -45,6 +46,13 @@ hbs.registerPartials(__dirname + '/views/partials');
 // set the folder `public` as folder containing static assets (css, js, imgs)
 // app.use(express.static('public'));
 app.use(express.static(path.join(__dirname, 'public')));
+
+// create ./public/resumes directory if it doesn't exists
+const resumesDir = './public/resumes';
+if (!fs.existsSync(resumesDir)) {
+    console.log('resumes folder does not exist!');
+    fs.mkdirSync(resumesDir);
+}
 
 // define the paths contained in routes module
 app.use('/', routes);

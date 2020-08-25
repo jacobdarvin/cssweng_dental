@@ -124,24 +124,6 @@
                                 <input type="text" class="form-control" id="city" name="city"
                                     aria-describedby="emailHelp" placeholder="City" value="{{input.city}}" /> --}}
 
-                                <label for="city">City</label>
-                                <select name="city" class="form-control" id="city">
-                                    <option value="">--Select a city--</option>
-                                    {{#each cities}}
-                                    <option value="{{this}}" {{select this ../input.city}}>{{this}}</option>
-                                    {{/each}}
-                                </select>
-
-                                <p
-                                    style="margin-left: 5px; margin-bottom: -10px; color: red; font-style: italic; font-size: 10px;">
-                                    {{details.cityError}}
-                                </p>
-                            </div>
-                            <div class="col-4 pl-1 pr-1">
-                                {{!-- <label for="state">State</label>
-                                <input type="text" class="form-control" id="state" name="state"
-                                    aria-describedby="emailHelp" placeholder="State" value="{{input.state}}" /> --}}
-
                                 <label for="state">State</label>
                                 <select name="state" class="form-control" id="state"
                                     onchange="populateCities(this.value, 'city')">
@@ -155,6 +137,26 @@
                                     style="margin-left: 5px; margin-bottom: -10px; color: red; font-style: italic; font-size: 10px;">
                                     {{details.stateError}}
                                 </p>
+                            </div>
+                            <div class="col-4 pl-1 pr-1">
+                                {{!-- <label for="state">State</label>
+                                <input type="text" class="form-control" id="state" name="state"
+                                    aria-describedby="emailHelp" placeholder="State" value="{{input.state}}" /> --}}
+
+                                <label for="city">City</label>
+                                <select name="city" class="form-control" id="city">
+                                    <option value="">--Select a city--</option>
+                                    {{#each cities}}
+                                    <option value="{{this}}" {{select this ../input.city}}>{{this}}</option>
+                                    {{/each}}
+                                </select>
+
+                                <p
+                                    style="margin-left: 5px; margin-bottom: -10px; color: red; font-style: italic; font-size: 10px;">
+                                    {{details.cityError}}
+                                </p>
+
+
                             </div>
                             <div class="col-2 pl-1">
                                 <label for="zip">Zip</label>

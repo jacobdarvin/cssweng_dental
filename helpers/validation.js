@@ -139,7 +139,7 @@ const validation = {
                 .trim(),
             check('zip').notEmpty().withMessage('Invalid input!').trim(),
             check('phone')
-                .notEmpty()
+                .isMobilePhone('en-US')
                 .withMessage('Empty field. Please input your number!')
                 .trim(),
             check('years')
