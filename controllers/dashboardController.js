@@ -26,15 +26,27 @@ const dashboardController = {
                         .execPopulate(function (err, data) {
                             if (err) throw err;
 
-                            res.render(view, {
-                                active_session:
+                            if(view == 'dashboard-app') {
+                                res.render(view, {
+                                    active_session:
                                     req.session.user && req.cookies.user_sid,
-                                active_user: req.session.user,
-                                title: 'Dashboard | BookMeDental',
-                                profile_active: true,
-
-                                profileData: data
-                            });
+                                    active_user: req.session.user,
+                                    title: 'Dashboard | BookMeDental',
+                                    profile_active: true,
+                                    applicant_active: true,
+                                    profileData: data
+                                });
+                            } else {
+                                res.render(view, {
+                                    active_session:
+                                    req.session.user && req.cookies.user_sid,
+                                    active_user: req.session.user,
+                                    title: 'Dashboard | BookMeDental',
+                                    profile_active: true,
+                                    employer_active: true,
+                                    profileData: data
+                                });
+                            }
                         });
                 }
             });
