@@ -22,12 +22,9 @@ const dashboardEmpController = {
 
               var job = new Job({
                 _id: new mongoose.Types.ObjectId(),
-                account: req.session.user,
+                employer: result._id,
                 position: req.body.position,
                 location: req.body.clinic,
-                clinicName: result.clinicName,
-                city: result.clinicAddress.city,
-                state: result.clinicAddress.state,
                 date: req.body.date,
                 description: desc,
                 software: software,
