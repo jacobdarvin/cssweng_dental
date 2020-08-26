@@ -15,7 +15,7 @@ const feedController = {
         let positionStatus = sanitize(req.query.position);
 
         if(positionStatus) {
-            positionQuery.push(positionStatus);
+            positionQuery = positionStatus;
         } else {
             positionQuery.push('Dentist', 'Dental Hygienist', 'Front Desk', 'Dental Assistant');
         }
