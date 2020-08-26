@@ -69,6 +69,7 @@ const formController = {
             const specialties = helper.sanitize(req.body.specialties);
             const shortprofile = helper.sanitize(req.body.shortprofile);
 
+
             if (req.body.availability == 'after') {
                 availability = req.body.date;
             } else {

@@ -24,6 +24,7 @@ const dashboardController = {
                     result
                         .populate('account')
                         .execPopulate(function (err, data) {
+                            console.log(data.toObject())
                             if (err) throw err;
 
                             if(view == 'dashboard-app') {
