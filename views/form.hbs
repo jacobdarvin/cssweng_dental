@@ -67,7 +67,7 @@
         class="fas fa-tooth"></i></p>
 
 <form method="POST" action="/form" enctype="multipart/form-data">
-    <div class="card mx-auto" style="width: 50rem; margin-bottom: 2rem;">
+    <div class="card mx-auto border shadow-sm" style="width: 50rem; margin-bottom: 2rem;">
         <div class="card-body">
             <div class="card-title" style="font-size: 42px;">Contact Information</div>
             <p style="font-style: italic; font-size: 16px; margin-top: -16px;">Tell us about yourself and how we can
@@ -120,10 +120,6 @@
                     <div class="form-group">
                         <div class="row">
                             <div class="col-6 pr-1">
-                                {{!-- <label for="city">City</label>
-                                <input type="text" class="form-control" id="city" name="city"
-                                    aria-describedby="emailHelp" placeholder="City" value="{{input.city}}" /> --}}
-
                                 <label for="state">State</label>
                                 <select name="state" class="form-control" id="state"
                                     onchange="populateCities(this.value, 'city')">
@@ -139,10 +135,6 @@
                                 </p>
                             </div>
                             <div class="col-4 pl-1 pr-1">
-                                {{!-- <label for="state">State</label>
-                                <input type="text" class="form-control" id="state" name="state"
-                                    aria-describedby="emailHelp" placeholder="State" value="{{input.state}}" /> --}}
-
                                 <label for="city">City</label>
                                 <select name="city" class="form-control" id="city">
                                     <option value="">--Select a city--</option>
@@ -155,8 +147,6 @@
                                     style="margin-left: 5px; margin-bottom: -10px; color: red; font-style: italic; font-size: 10px;">
                                     {{details.cityError}}
                                 </p>
-
-
                             </div>
                             <div class="col-2 pl-1">
                                 <label for="zip">Zip</label>
@@ -183,7 +173,7 @@
         </div>
     </div>
 
-    <div class="card mx-auto" style="width: 50rem; margin-bottom: 2rem;">
+    <div class="card mx-auto border shadow-sm" style="width: 50rem; margin-bottom: 2rem;">
         <div class="card-body">
             <div class="card-title" style="font-size: 42px;">Qualifications</div>
             <p style="font-style: italic; font-size: 16px; margin-top: -16px;">Select the position that you're seeking
@@ -248,7 +238,7 @@
         </div>
     </div>
 
-    <div class="card mx-auto" style="width: 50rem; margin-bottom: 2rem;">
+    <div class="card mx-auto border shadow-sm" style="width: 50rem; margin-bottom: 2rem;">
         <div class="card-body">
             <div class="card-title" style="font-size: 42px;">Placement Preferences</div>
             <p style="font-style: italic; font-size: 16px; margin-top: -16px;">Tell us about your work preferences so we
@@ -330,7 +320,7 @@
         </div>
     </div>
 
-    <div class="card mx-auto" style="width: 50rem; margin-bottom: 2rem;">
+    <div class="card mx-auto border shadow-sm" style="width: 50rem; margin-bottom: 2rem;">
         <div class="card-body">
             <div class="card-title" style="font-size: 42px;">Additional Profile Information</div>
             <p style="font-style: italic; font-size: 16px; margin-top: -16px;">Provide more information that can help
@@ -388,7 +378,7 @@
         </div>
     </div>
 
-    <div class="card mx-auto" style="width: 50rem; margin-bottom: 2rem;">
+    <div class="card mx-auto border shadow-sm" style="width: 50rem; margin-bottom: 2rem;">
         <div class="card-body">
             <div class="card-title" style="font-size: 42px;">Candidate Agreement</div>
             <p style="font-style: italic; font-size: 16px; margin-top: -16px;">Please read and familiarize yourself with

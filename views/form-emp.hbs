@@ -52,7 +52,7 @@
 </p>
 <!-- OWNER INFORMATION -->
 <form action="/form-emp" method="POST">
-    <div class="card mx-auto" style="width: 50rem; margin-bottom: 2rem;">
+    <div class="card mx-auto border shadow-sm" style="width: 50rem; margin-bottom: 2rem;">
         <div class="card-body">
             <div class="card-title" style="font-size: 42px;">Account Owner Information</div>
             <p style="font-style: italic; font-size: 16px; margin-top: -16px;">Tell us about yourself and how we can
@@ -109,7 +109,7 @@
         </div>
     </div>
     <!-- CLINIC LOCATION -->
-    <div class="card mx-auto" style="width: 50rem; margin-bottom: 2rem;">
+    <div class="card mx-auto border shadow-sm" style="width: 50rem; margin-bottom: 2rem;">
         <div class="card-body">
             <div class="card-title" style="font-size: 42px;">Clinic Location</div>
             <p style="font-style: italic; font-size: 16px; margin-top: -16px;">Tell us about your clinic.</p>
@@ -134,7 +134,6 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-6">
-
                             <label for="clinic_state">State</label>
                             <select name="clinic_state" class="form-control" id="clinic_state"
                                 onchange="populateCities(this.value, 'clinic_city')">
@@ -143,11 +142,9 @@
                                 <option value="{{this}}" {{select this ../inputs.clinic_state}}>{{this}}</option>
                                 {{/each}}
                             </select>
-
                             <p style="color: red;">{{details.clinic_stateError}}</p>
                         </div>
                         <div class="col-4">
-
                             <label for="clinic_city">City</label>
                             <select name="clinic_city" class="form-control" id="clinic_city">
                                 <option value="">--Select a city--</option>
@@ -155,10 +152,7 @@
                                 <option value="{{this}}" {{select this ../inputs.clinic_city}}>{{this}}</option>
                                 {{/each}}
                             </select>
-
                             <p style="color: red;">{{details.clinic_cityError}}</p>
-
-
                         </div>
                         <div class="col-2">
                             <label for="clinic_zip">Zip</label>
@@ -184,7 +178,7 @@
         </div>
     </div>
     <!-- CLINIC CONTACT -->
-    <div class="card mx-auto" style="width: 50rem; margin-bottom: 2rem;">
+    <div class="card mx-auto border shadow-sm" style="width: 50rem; margin-bottom: 2rem;">
         <div class="card-body">
             <div class="card-title" style="font-size: 42px;">Clinic Contact</div>
             <div class="card-title">
@@ -225,7 +219,7 @@
     </div>
 
     <!-- ADDITIONAL DETAILS -->
-    <div class="card mx-auto" style="width: 50rem; margin-bottom: 2rem;">
+    <div class="card mx-auto border shadow-sm" style="width: 50rem; margin-bottom: 2rem;">
         <div class="card-body">
             <div class="card-title" style="font-size: 42px;">Additional Details</div>
             <p style="font-style: italic; font-size: 16px; margin-top: -16px;">Anything we need to know about your
@@ -256,7 +250,7 @@
         </div>
     </div>
     <!-- AGREEMENT -->
-    <div class="card mx-auto" style="width: 50rem; margin-bottom: 2rem;">
+    <div class="card mx-auto border shadow-sm" style="width: 50rem; margin-bottom: 2rem;">
         <div class="card-body">
             <div class="card-title" style="font-size: 42px;">Employer Agreement</div>
             <div class="card-text">

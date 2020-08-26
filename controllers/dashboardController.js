@@ -3,7 +3,6 @@ const Applicant = require('../models/ApplicantModel');
 const Employer = require('../models/EmployerModel');
 
 const dashboardController = {
-    // render log-in page when client requests '/' defined in routes.js
     getDashboard: function (req, res, next) {
         // If there's no active session, redirect to login
         if (!req.session.user) res.redirect('/login');
@@ -32,7 +31,6 @@ const dashboardController = {
                                 active_user: req.session.user,
                                 title: 'Dashboard | BookMeDental',
                                 profile_active: true,
-
                                 profileData: data,
                             });
                         });

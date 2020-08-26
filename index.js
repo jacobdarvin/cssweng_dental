@@ -5,6 +5,8 @@ const exphbs = require('express-handlebars');
 const mongoose = require('mongoose');
 const path = require('path');
 const fs = require('fs');
+const session = require('express-session');                 
+
 
 //DATA BASE AND EXPRESS
 const app = express();

@@ -124,6 +124,14 @@ app.get('/offers', function (req, res) {
 // /home | HOME
 
 
+// /details | JOB
+app.get('/details', function(req, res) {
+    res.render('details', {
+        active_session: req.session.user && req.cookies.user_sid,
+        active_user: req.session.user,
+        title: 'Details | BookMeDental',
+    });
+});
 // /dashboard-type / DASHBOARD
 app.get('/dashboard', dashboardController.getDashboard);
 // /dashboard-type / DASHBOARD
@@ -134,6 +142,8 @@ app.get('/create', dashboardEmpController.getCreateJob);
 
 // /feed / FEED
 app.get('/feed', feedController.getFeed);
+app.get('/feed-app', feedController.getAppFeed);
+
 // /feed / FEED
 
 // /register | REGISTER
