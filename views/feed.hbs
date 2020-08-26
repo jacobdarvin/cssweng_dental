@@ -8,55 +8,66 @@
 
 	<div class="col-sm-9 m-0">
 		<p class="h1">Job Feed</p>
+		<div id = "jobFeed">
 			{{#each jobs}}
 				{{>jobItem}}
 			{{/each}}
+		</div>
 	</div>
 
 	<div class="col-sm-3 p-0">
 		<p class="h1">Filter</p>
+
+		<form method="GET" action="/feed">
+
 		<div class="p-3 card border m-0 mb-2">
 			<p class="h5"> Placement Type </p>
+
 			<div class="form-check">
-			  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+			  <input class="form-check-input" type="checkbox" value="">
 			  <label class="form-check-label" for="defaultCheck1">
 			    Permanent Work
 			  </label>
 			</div>
+
 			<div class="form-check">
-			  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+			  <input class="form-check-input" type="checkbox" value="">
 			  <label class="form-check-label" for="defaultCheck1">
 			    Temporary Work
 			  </label>
 			</div>
+
 		</div>
 
 		<div class="p-3 card border m-0 mb-2">
 			<p class="h5"> Position </p>
+
 			<div class="form-check">
-			  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-			  <label class="form-check-label" for="defaultCheck1">
+			  <input class="form-check-input" type="checkbox" name="position" value="Dentist" id="dentistStatus">
+			  <label class="form-check-label" value="dentist" name="position" for="dentistStatus">
 			    Dentist
 			  </label>
 			</div>
+
 			<div class="form-check">
-			  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-			  <label class="form-check-label" for="defaultCheck1">
+			  <input class="form-check-input" type="checkbox" name="position" value="Dental Assistant" id="dentalAssStatus">
+			  <label class="form-check-label" value="dentalass" name="position" for="dentalAssStatus">
 			    Dental Assistant
 			  </label>
 			</div>
 			<div class="form-check">
-			  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-			  <label class="form-check-label" for="defaultCheck1">
+			  <input class="form-check-input" type="checkbox" name="position" value="Dental Hygenist" id="dentalHygStatus">
+			  <label class="form-check-label" value="dentalhyg" name="position" for="dentalHygStatus">
 			    Dental Hygenist
 			  </label>
 			</div>
 			<div class="form-check">
-			  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-			  <label class="form-check-label" for="defaultCheck1">
+			  <input class="form-check-input" type="checkbox" name="position" value="Front Desk" id="fontDeskStatus">
+			  <label class="form-check-label" name="position" for="fontDeskStatus">
 			    Front Desk
 			  </label>
 			</div>
+
 		</div>
 
 		<div class="p-3 card border m-0 mb-2">
@@ -73,6 +84,9 @@
 		  </div>
 		</div>
 
-		<a class="btn btn-primary w-100" href="#" role="button">Filter</a>
+		<button id="filter" class="btn btn-primary w-100"  role="button" type="submit">Filter</button>
+
+		</form>
+
 	</div>
 </div>
