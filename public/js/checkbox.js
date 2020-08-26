@@ -44,3 +44,23 @@
                 localStorage.frontdesk = $(this).is(':checked');
                 console.log($(this).is(':checked'));
             });
+
+            $(function(){
+                var test = localStorage.permanent === 'true'? true: false;
+                $('#permanent').prop('checked', test || false);
+            });
+
+            $('#permanent').on('change', function() {
+                localStorage.permanent = $(this).is(':checked');
+                console.log($(this).is(':checked'));
+            });
+
+            $(function(){
+                var test = localStorage.temporary === 'true'? true: false;
+                $('#temporary').prop('checked', test || false);
+            });
+
+            $('#temporary').on('change', function() {
+                localStorage.temporary = $(this).is(':checked');
+                console.log($(this).is(':checked'));
+            });

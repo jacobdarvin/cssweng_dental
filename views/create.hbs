@@ -17,6 +17,23 @@
 </p>
 <!-- OWNER INFORMATION -->
 <form action="/create" method="POST">
+
+    <div class="card shadow-sm border mx-auto" style="width: 50rem; margin-bottom: 2rem;">
+        <div class="card-body">
+            <div class="card-title" style="font-size: 42px;">Placement</div>
+            <p style="font-style: italic; font-size: 16px; margin-top: -16px;">What kind of job are you offering?</p>
+                <div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
+              <label class="btn w-100 btn-secondary active">
+                <i class="fas fa-user" style="font-size: 42px"></i> <br>
+                <input type="radio" name="placement" id="Permanent" autocomplete="off" value="Permanent" checked>Permanent
+              </label>
+              <label class="btn w-100 btn-secondary">
+                <i class="fas fa-user-nurse" style="font-size: 42px"></i> <br>
+                <input type="radio" name="placement" id="Temporary" autocomplete="off" value="Temporary">Temporary
+            </div>
+        </div>
+    </div>
+
     <div class="card shadow-sm border mx-auto" style="width: 50rem; margin-bottom: 2rem;">
         <div class="card-body">
         <div class="card-title" style="font-size: 42px;">Position</div>
@@ -59,6 +76,7 @@
             <input class="form-control" type="date" id="date" name="date" required>
         </div>
     </div>
+
     <div class="card shadow-sm border mx-auto" style="width: 50rem; margin-bottom: 2rem;">
         <div class="card-body">
             <div class="card-title" style="font-size: 42px;">Job Details</div>
@@ -68,6 +86,7 @@
                 <textarea class="w-100 border" id="jobdescription" name="jobdescription" style="height: 8em;" required></textarea>
         </div>
     </div>
+</div>
     <!-- CLINIC CONTACT -->
     <div class="card shadow-sm border mx-auto" style="width: 50rem; margin-bottom: 2rem;">
         <div class="card-body">

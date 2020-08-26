@@ -25,6 +25,7 @@ const dashboardEmpController = {
               var job = new CreateJob({
                 _id: new mongoose.Types.ObjectId(),
                 account: req.session.user,
+                placement: req.body.placement,
                 position: req.body.position,
                 location: req.body.clinic,
                 clinicName: result.clinicName,

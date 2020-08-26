@@ -6,6 +6,13 @@ const createJobSchema = mongoose.Schema({
         type: mongoose.Types.ObjectId,
         ref: 'Account'
     },
+
+    placement: {
+        type: String,
+        enum: ['Permanent', 'Temporary'],
+        required: true,
+    },
+
     position: {
         type: String,
         enum: ['Front Desk', 'Dental Assistant', 'Dental Hygienist', 'Dentist'],
