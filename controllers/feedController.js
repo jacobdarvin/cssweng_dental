@@ -13,6 +13,7 @@ const feedController = {
 
         let positionQuery = new Array();
         let positionStatus = sanitize(req.query.position);
+        let dateStatus = sanitize(req.query.date);
 
         if(positionStatus) {
             positionQuery = positionStatus;
@@ -26,6 +27,8 @@ const feedController = {
         };
 
         console.log(positionQuery);
+
+
 
         db.findMany(CreateJob, query, '' , function(result){
             res.render('feed', {
