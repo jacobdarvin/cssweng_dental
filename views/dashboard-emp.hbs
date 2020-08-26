@@ -20,7 +20,7 @@
 
 <div class="container mb-4 p-0" style="margin-top: 6rem;">
     <div class="row">
-        <div class="col-sm-3 p-1">
+        <div class="col-sm-3">
             <div class="card shadow-sm mx-auto profile-length" style="width: 100%;">
                 <div class="card-body">
                     <span class="card-text" style="text-align: left; font-size: 32px;">
@@ -47,19 +47,10 @@
                         <span style="font-size: 15px;">Temporary Job Posts</span>
                     </span>
                     <hr />
-                    <a href="#" class="btn btn-primary w-100">View Jobs</a>
+                    <a href="#" class="btn btn-primary w-100" style="text-align: left;">View Temporary Job Posts</a>
                 </div>
             </div>
-            <div class="card border border-info shadow-sm mx-auto mb-4 profile-length" style="width: 100%;">
-                <div class="card-body">
-                    <span class="card-text" style="text-align: left; font-size: 32px;">
-                        2
-                        <span style="font-size: 15px;">Resumes Downloaded</span>
-                    </span>
-                    <hr />
-                    <a href="#" class="btn btn-info w-100" style="text-align: left;">100% Response Rate</a>
-                </div>
-            </div>
+
             <div class="card border border-success shadow-sm mx-auto mb-4 profile-length" style="width: 100%;">
                 <div class="card-body">
                     <span class="card-text" style="text-align: left; font-size: 32px;">
@@ -67,57 +58,50 @@
                         <span style="font-size: 15px;">Permanent Job Posts</span>
                     </span>
                     <hr />
-                    <a href="#" class="btn btn-success w-100" style="text-align: left;">100% Response Rate</a>
+                    <a href="#" class="btn btn-success w-100" style="text-align: left;">View Permanent Job Posts</a>
+                </div>
+            </div>
+
+            <div class="card border border-info shadow-sm mx-auto mb-4 profile-length" style="width: 100%;">
+                <div class="card-body">
+                    <span class="card-text" style="text-align: left; font-size: 32px;">
+                        2
+                        <span style="font-size: 15px;">Completed Posts</span>
+                    </span>
+                    <hr />
+                    <a href="#" class="btn btn-info w-100" style="text-align: left;">View Completed Posts</a>
                 </div>
             </div>
         </div>
 
-        <div class="col-sm-9 p-1">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm">
-                        <div class="card shadow-sm mx-auto profile-length" style="height: 100%;">
+        <div class="col-sm-9">
+            <div class="card shadow-sm mx-auto profile-length">
+                <div class="card-body">
+                    <div class="card-title" style="font-size: 42px; font-weight: 800;">Dashboard</div>
+                    <hr />
+                    <div class="container">
+                        <h2>Your Active Job Posts</h2>
+                        <a href="/create">+ Create New</a>
+
+                        {{> dashboardJobEmp}}
+
+                        <div class="card border border-primary m-0 mt-2 mb-2">
                             <div class="card-body">
-                                <div class="card-title" style="font-size: 42px; font-weight: 800;">Dashboard</div>
-                                <hr />
-                                <div class="container">
-                                    <h2>Active Job Posts</h2>
-                                    <a href="/create">+ Create New</a>
-
-                                    {{> dashboardJobEmp}}
-
-                                    <div class="card border border-primary m-0 mt-2 mb-2">
-                                        <div class="card-body">
-                                            <h5 class="card-title">
-                                                Front desk wanted (temp!) | <br />
-                                                <small> Brichmond Dental </small>
-                                            </h5>
-                                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                                            <a href="#" class="btn btn-primary">View this job</a>
-                                        </div>
-                                    </div>
-
-                                    <a href="/feed">View All Jobs</a>
-
-                                    <hr />
-                                    <h2>Upcoming Temp Opportunities</h2>
-                                    
-                                    {{> dashboardJobEmp}}
-
-                                    <div class="card border border-primary m-0 mt-2 mb-2">
-                                        <div class="card-body">
-                                            <h5 class="card-title">
-                                                Front desk wanted (temp!) | <br />
-                                                <small> Brichmond Dental </small>
-                                            </h5>
-                                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                                            <a href="#" class="btn btn-primary">View this job</a>
-                                        </div>
-                                    </div>
-                                    <small>No upcoming temporary jobs are currently listed for you.</small>
-                                </div>
+                                <h5 class="card-title">
+                                    Front desk wanted (temp!) | <br />
+                                    <small> Brichmond Dental </small>
+                                </h5>
+                                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                <a href="#" class="btn btn-primary">View this job</a>
                             </div>
                         </div>
+
+                        <a href="/feed">View All Jobs</a>
+
+                        <hr />
+                        <h2>Search For Employees</h2>
+                        <small>Browse and filter a list of our website's applicants</small>
+                        <a href="#" class="btn btn-primary w-100">Search</a>
                     </div>
                 </div>
             </div>

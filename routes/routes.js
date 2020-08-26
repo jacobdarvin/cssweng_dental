@@ -144,6 +144,8 @@ app.post('/create', dashboardEmpController.postCreateJob
 
 // /feed / FEED
 app.get('/feed', feedController.getFeed);
+app.get('/feed-app', feedController.getAppFeed);
+
 // /feed / FEED
 
 // /register | REGISTER
