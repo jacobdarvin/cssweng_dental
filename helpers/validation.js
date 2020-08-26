@@ -31,7 +31,7 @@ const validation = {
                 .withMessage('Please enter a password'),
             check('termsCheck')
                 .exists()
-                .withMessage('You must agree to the terms and conditions.'),
+                .withMessage('You must agree to the terms and conditions'),
         ];
     },
 
@@ -40,12 +40,12 @@ const validation = {
             check('fname')
                 .trim()
                 .notEmpty()
-                .withMessage('First name required.')
+                .withMessage('First name is required.')
                 .trim(),
             check('lname')
                 .trim()
                 .notEmpty()
-                .withMessage('Last name required.')
+                .withMessage('Last name is required.')
                 .trim(),
             check('title')
                 .trim()
@@ -55,7 +55,7 @@ const validation = {
             check('phone')
                 .trim()
                 .isMobilePhone('en-US')
-                .withMessage('Please enter a valid phone number.')
+                .withMessage('Please enter a valid US phone number.')
                 .trim(),
             check('blname')
                 .trim()
@@ -65,15 +65,25 @@ const validation = {
             check('clinic_street')
                 .trim()
                 .notEmpty()
-                .withMessage('Required')
+                .withMessage('Street address is required.')
                 .trim(),
-            check('clinic_no').trim().notEmpty().withMessage('Required').trim(),
-            check('clinic_city').notEmpty().withMessage('Required').trim(),
-            check('clinic_state').notEmpty().withMessage('Required').trim(),
+            check('clinic_no')
+                .trim()
+                .notEmpty()
+                .withMessage('House number is required.')
+                .trim(),
+            check('clinic_city')
+                .notEmpty()
+                .withMessage('Please select a city.')
+                .trim(),
+            check('clinic_state')
+                .notEmpty()
+                .withMessage('Please select a state.')
+                .trim(),
             check('clinic_zip')
                 .trim()
                 .notEmpty()
-                .withMessage('Required')
+                .withMessage('Zip is required.')
                 .trim(),
 
             check('clinic_phone')
@@ -140,32 +150,36 @@ const validation = {
             check('fname')
                 .trim()
                 .notEmpty()
-                .withMessage('Empty field. Please input your first name!')
+                .withMessage('First name is required.')
                 .trim(),
             check('lname')
                 .trim()
                 .notEmpty()
-                .withMessage('Empty field. Please input your last name!')
+                .withMessage('Last name is required.')
                 .trim(),
             check('streetAdd')
                 .trim()
                 .notEmpty()
-                .withMessage('Empty field. Please input your street address!')
+                .withMessage('Street address is required.')
                 .trim(),
             check('house')
                 .trim()
                 .notEmpty()
-                .withMessage('Empty field. Please input your house no.!')
+                .withMessage('House number is required.')
                 .trim(),
             check('city')
                 .notEmpty()
-                .withMessage('Empty field. Please input your city!')
+                .withMessage('Please select a city.')
                 .trim(),
             check('state')
                 .notEmpty()
-                .withMessage('Empty field. Please input your state!')
+                .withMessage('Please select a state.')
                 .trim(),
-            check('zip').trim().notEmpty().withMessage('Invalid input!').trim(),
+            check('zip')
+                .trim()
+                .notEmpty()
+                .withMessage('Zip is required.')
+                .trim(),
             check('phone')
                 .trim()
                 .isMobilePhone('en-US')
@@ -174,26 +188,26 @@ const validation = {
             check('years')
                 .trim()
                 .notEmpty()
-                .withMessage('Empty field. Please fill this out!')
+                .withMessage('Empty field. Please fill this out.')
                 .trim(),
 
             check('programs')
                 .trim()
                 .notEmpty()
-                .withMessage('Empty field. Please fill this out!')
+                .withMessage('Empty field. Please fill this out.')
                 .customSanitizer(value => value.split(',')),
             check('programs.*').trim(),
 
             check('language')
                 .trim()
                 .notEmpty()
-                .withMessage('Empty field. Please fill this out!')
+                .withMessage('Empty field. Please fill this out.')
                 .trim(),
 
             check('specialties')
                 .trim()
                 .notEmpty()
-                .withMessage('Empty field. Please fill this out!')
+                .withMessage('Empty field. Please fill this out.')
                 .customSanitizer(value => value.split(',')),
             check('specialties.*').trim(),
 
@@ -209,21 +223,42 @@ const validation = {
                         req.body.placement == 'Temporary Work' && value == ''
                     );
                 })
-                .withMessage('Empty field. Please fill this out!')
+                .withMessage(
+                    "Empty field. If you selected 'Temporary Work', please fill this out.",
+                )
                 .trim(),
             check('date')
                 .custom((value, { req, location, path }) => {
-                    if (req.body.availability == 'Available immediately') {
-                        return true;
-                    }
-
-                    return !(req.body.availability == 'after' && value == '');
+                    return (
+                        (req.body.availability == 'after' && value != '') ||
+                        req.body.availability == 'Available immediately'
+                    );
                 })
-                .withMessage('Empty field. Please fill this out!'),
+                .withMessage(
+                    'Empty field. Please enter a date that comes after the date today.',
+                )
+                .bail()
+                .custom((value, { req, location, path }) => {
+                    var [year, month, day] = value.split('-');
+                    var input = Date.UTC(
+                        Number(year),
+                        Number(month) - 1, // parameter month starts at 0
+                        Number(day),
+                    );
+                    var now = Date.now();
+
+                    return (
+                        (req.body.availability == 'after' && input > now) ||
+                        req.body.availability == 'Available immediately'
+                    );
+                })
+                .withMessage(
+                    'Please enter a date that comes after the date today.',
+                ),
             check('shortprofile')
                 .trim()
                 .notEmpty()
-                .withMessage('Empty field. Please fill this out!')
+                .withMessage('Empty field. Please fill this out.')
                 .trim(),
 
             check('useragreement')
