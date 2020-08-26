@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const CreateJob = require('../models/CreateJobModel');
+const Job = require('../models/JobModel');
 const Employer = require('../models/EmployerModel');
 const helper = require('../helpers/helper');
 const db = require('../models/db');
@@ -19,10 +19,8 @@ const dashboardEmpController = {
         var software = helper.sanitize(req.body.software);
 
         db.findOne(Employer, {account: req.session.user}, '', function(result){
-            console.log(result.clinicName)
-            console.log(result.clinicAddress.city)
 
-              var job = new CreateJob({
+              var job = new Job({
                 _id: new mongoose.Types.ObjectId(),
                 account: req.session.user,
                 position: req.body.position,
@@ -36,7 +34,7 @@ const dashboardEmpController = {
                 experience: req.body.experience
             });
 
-              db.insertOne(CreateJob, job,function (flag){
+              db.insertOne(Job, job,function (flag){
                 if(flag){
                     res.redirect('/dashboard');
                 }

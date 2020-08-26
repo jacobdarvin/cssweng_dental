@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const createJobSchema = mongoose.Schema({
+const JobSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     account: {
         type: mongoose.Types.ObjectId,
@@ -46,4 +46,4 @@ const createJobSchema = mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model('CreateJob', createJobSchema);
+module.exports = mongoose.model('Job', JobSchema);

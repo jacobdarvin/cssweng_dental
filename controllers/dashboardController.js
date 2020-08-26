@@ -24,9 +24,7 @@ const dashboardController = {
                     result
                         .populate('account')
                         .execPopulate(function (err, data) {
-                            console.log(data.toObject())
                             if (err) throw err;
-
                             if(view == 'dashboard-app') {
                                 res.render(view, {
                                     active_session:
@@ -45,7 +43,7 @@ const dashboardController = {
                                     title: 'Dashboard | BookMeDental',
                                     profile_active: true,
                                     employer_active: true,
-                                    profileData: data
+                                    profileData: data.toObject()
                                 });
                             }
                         });
