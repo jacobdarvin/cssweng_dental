@@ -134,9 +134,6 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-6">
-                            {{!-- <label for="clinic_city">City</label>
-                            <input type="text" class="form-control" id="clinic_city" name="clinic_city" aria-describedby="emailHelp" placeholder="City" value="{{inputs.clinic_city}}" /> --}}
-
                             <label for="clinic_state">State</label>
                             <select name="clinic_state" class="form-control" id="clinic_state"
                                 onchange="populateCities(this.value, 'clinic_city')">
@@ -145,13 +142,9 @@
                                 <option value="{{this}}" {{select this ../inputs.clinic_state}}>{{this}}</option>
                                 {{/each}}
                             </select>
-
-                            <p style="color: red;">{{details.clinic_cityError}}</p>
+                            <p style="color: red;">{{details.clinic_stateError}}</p>
                         </div>
                         <div class="col-4">
-                            {{!-- <label for="clinic_state">State</label>
-                            <input type="text" class="form-control" id="clinic_state" name="clinic_state" aria-describedby="emailHelp" placeholder="State" value="{{inputs.clinic_state}}" /> --}}
-
                             <label for="clinic_city">City</label>
                             <select name="clinic_city" class="form-control" id="clinic_city">
                                 <option value="">--Select a city--</option>
@@ -159,8 +152,7 @@
                                 <option value="{{this}}" {{select this ../inputs.clinic_city}}>{{this}}</option>
                                 {{/each}}
                             </select>
-
-                            <p style="color: red;">{{details.clinic_stateError}}</p>
+                            <p style="color: red;">{{details.clinic_cityError}}</p>
                         </div>
                         <div class="col-2">
                             <label for="clinic_zip">Zip</label>

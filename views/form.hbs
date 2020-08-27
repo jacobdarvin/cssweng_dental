@@ -79,8 +79,7 @@
                             <label for="fname">First Name</label>
                             <input type="text" class="form-control" id="fname" name="fname" aria-describedby="emailHelp"
                                 placeholder="First Name" value="{{input.fname}}" />
-                            <p
-                                style="margin-left: 5px; margin-bottom: -10px; color: red; font-style: italic; font-size: 10px;">
+                            <p style="color: red;">
                                 {{details.fnameError}}
                             </p>
                         </div>
@@ -88,8 +87,7 @@
                             <label for="lname">Last Name</label>
                             <input type="text" class="form-control" id="lname" name="lname" aria-describedby="emailHelp"
                                 placeholder="Last Name" value="{{input.lname}}" />
-                            <p
-                                style="margin-left: 5px; margin-bottom: -10px; color: red; font-style: italic; font-size: 10px;">
+                            <p style="color: red;">
                                 {{details.lnameError}}
                             </p>
                         </div>
@@ -101,8 +99,7 @@
                                 <input type="text" class="form-control" id="streetAdd" name="streetAdd"
                                     aria-describedby="emailHelp" placeholder="Street Address"
                                     value="{{input.streetAdd}}" />
-                                <p
-                                    style="margin-left: 5px; margin-bottom: -10px; color: red; font-style: italic; font-size: 10px;">
+                                <p style="color: red;">
                                     {{details.streetAddError}}
                                 </p>
                             </div>
@@ -110,8 +107,7 @@
                                 <label for="house">House No.</label>
                                 <input type="text" class="form-control" id="house" name="house"
                                     aria-describedby="emailHelp" placeholder="House No." value="{{input.house}}" />
-                                <p
-                                    style="margin-left: 5px; margin-bottom: -10px; color: red; font-style: italic; font-size: 10px;">
+                                <p style="color: red;">
                                     {{details.houseError}}
                                 </p>
                             </div>
@@ -120,10 +116,6 @@
                     <div class="form-group">
                         <div class="row">
                             <div class="col-6 pr-1">
-                                {{!-- <label for="state">State</label>
-                                <input type="text" class="form-control" id="state" name="state"
-                                    aria-describedby="emailHelp" placeholder="State" value="{{input.state}}" /> --}}
-
                                 <label for="state">State</label>
                                 <select name="state" class="form-control" id="state"
                                     onchange="populateCities(this.value, 'city')">
@@ -133,16 +125,11 @@
                                     {{/each}}
                                 </select>
 
-                                <p
-                                    style="margin-left: 5px; margin-bottom: -10px; color: red; font-style: italic; font-size: 10px;">
+                                <p style="color: red;">
                                     {{details.stateError}}
                                 </p>
                             </div>
                             <div class="col-4 pl-1 pr-1">
-                                {{!-- <label for="city">City</label>
-                                <input type="text" class="form-control" id="city" name="city"
-                                    aria-describedby="emailHelp" placeholder="City" value="{{input.city}}" /> --}}
-
                                 <label for="city">City</label>
                                 <select name="city" class="form-control" id="city">
                                     <option value="">--Select a city--</option>
@@ -151,8 +138,7 @@
                                     {{/each}}
                                 </select>
 
-                                <p
-                                    style="margin-left: 5px; margin-bottom: -10px; color: red; font-style: italic; font-size: 10px;">
+                                <p style="color: red;">
                                     {{details.cityError}}
                                 </p>
                             </div>
@@ -160,8 +146,7 @@
                                 <label for="zip">Zip</label>
                                 <input type="text" class="form-control" id="zip" name="zip" aria-describedby="emailHelp"
                                     placeholder="Zip" value="{{input.zip}}" />
-                                <p
-                                    style="margin-left: 5px; margin-bottom: -10px; color: red; font-style: italic; font-size: 10px;">
+                                <p style="color: red;">
                                     {{details.zipError}}
                                 </p>
                             </div>
@@ -171,8 +156,7 @@
                         <label for="phone">Phone</label>
                         <input type="text" class="form-control" id="phone" name="phone" placeholder="(555) 555-1234"
                             value="{{input.phone}}" />
-                        <p
-                            style="margin-left: 5px; margin-bottom: -10px; color: red; font-style: italic; font-size: 10px;">
+                        <p style="color: red;">
                             {{details.phoneError}}
                         </p>
                     </div>
@@ -190,28 +174,29 @@
                 <label>Position</label>
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="position" id="exampleRadios1" value="Front Desk"
-                        checked />
+                        {{check "Front Desk" input.position "Front Desk"}} />
                     <p style="margin-bottom: -3px;">Front Desk</p>
                 </div>
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="position" id="exampleRadios2"
-                        value="Dental Assistant" />
+                        value="Dental Assistant" {{check "Dental Assistant" input.position "Front Desk"}} />
                     <p style="margin-bottom: -3px;">Dental Assistant</p>
                 </div>
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="position" id="exampleRadios3"
-                        value="Dental Hygienist" />
+                        value="Dental Hygienist" {{check "Dental Hygienist" input.position "Front Desk"}} />
                     <p style="margin-bottom: -3px;">Dental Hygienist</p>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="position" id="exampleRadios3" value="Dentist" />
+                    <input class="form-check-input" type="radio" name="position" id="exampleRadios3" value="Dentist"
+                        {{check "Dentist" input.position "Front Desk"}} />
                     <p style="margin-bottom: -3px;">Dentist</p>
                 </div>
                 <div class="col-4" style="margin-left: -15px; margin-top: 10px;">
                     <label for="yearsofexperience">Years of Experience?</label>
                     <input type="text" class="form-control" id="years" name="years" aria-describedby="emailHelp"
                         placeholder="Years of experience" value="{{input.years}}" />
-                    <p style="margin-left: 5px; margin-bottom: -10px; color: red; font-style: italic; font-size: 10px;">
+                    <p style="color: red;">
                         {{details.yearsError}}
                     </p>
                 </div>
@@ -219,7 +204,7 @@
                     <label for="language">What second language do you speak fluently?</label>
                     <input type="text" class="form-control" id="language" name="language"
                         placeholder="List down your second language..." value="{{input.language}}" />
-                    <p style="margin-left: 5px; margin-bottom: -10px; color: red; font-style: italic; font-size: 10px;">
+                    <p style="color: red;">
                         {{details.languageError}}
                     </p>
                 </div>
@@ -228,7 +213,7 @@
                     <input type="text" class="form-control" id="programs" name="programs" name="dentalprograms"
                         placeholder="List down any programs..." value="{{input.programs}}" />
                     <p style="font-style: italic; font-size: 12px;">Separate dental programs with a comma.</p>
-                    <p style="margin-left: 5px; margin-bottom: -10px; color: red; font-style: italic; font-size: 10px;">
+                    <p style="color: red;">
                         {{details.programsError}}
                     </p>
                 </div>
@@ -237,7 +222,7 @@
                     <input type="text" class="form-control" id="specialties" name="specialties"
                         placeholder="List down your specialties..." value="{{input.specialties}}" />
                     <p style="font-style: italic; font-size: 12px;">Separate your specialties with a comma.</p>
-                    <p style="margin-left: 5px; margin-bottom: -10px; color: red; font-style: italic; font-size: 10px;">
+                    <p style="color: red;">
                         {{details.specialtiesError}}
                     </p>
                 </div>
@@ -254,52 +239,44 @@
                 <label>What type of placement are you seeking?</label>
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="placement" id="placement" value="Permanent Work"
-                        checked />
+                        {{check "Permanent Work" input.placement "Permanent Work"}} />
                     <p style="margin-bottom: -3px;">Permanent Work</p>
                 </div>
                 <div class="form-check">
                     <label style="font-weight: 10; color: rgb(97, 95, 95);">Temporary Work</label>
                     <input class="form-check-input" type="radio" name="placement" id="placement" value="Temporary Work"
-                        style="margin-left: -138.3px;" />
+                        style="margin-left: -138.3px;" {{check "Temporary Work" input.placement "Permanent Work"}} />
                     <div class="col-5 temp showrate" style="margin-left: -35px; margin-top: -5px;">
                         <label for="payrate">Desired pay rate per hour?</label>
                         <input type="text" class="form-control" id="payrate" name="payrate" placeholder="$/hr..."
                             value="{{input.payrate}}" style="margin-bottom: 10px;" />
-                        <p
-                            style="margin-left: 5px; margin-bottom: -7px; color: red; font-style: italic; font-size: 10px;">
+                        <p style="color: red;">
                             {{details.payrateError}}
                         </p>
-                        {{!--
-                        <p style="font-style: italic; font-size: 12px; margin-top: 3px; background-color: red;">
-                            Take note that this hourly rate applies for temporary jobs. Setting wage against exceeding salary norms may result in fewers opportunities. When hired as a permanent worker, new pay may be negotiated.
-                        </p>
-                        --}}
                     </div>
                 </div>
-                {{!--
-                <div class="col-5" style="margin-left: -15px; margin-top: 10px;">
-                    <label for="payrate">Desired pay rate per hour?</label>
-                    <input type="text" class="form-control" id="payrate" name="payrate" placeholder="$/hr..." value="{{input.payrate}}" />
-                    <p style="margin-left: 5px; margin-bottom: -7px; color: red; font-style: italic; font-size: 10px;">
-                        {{details.payrateError}}
-                    </p>
-                </div>
-                --}}
+
 
                 <label>When are you available for placement?</label>
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="availability" id="availability"
-                        value="Available immediately" checked />
+                        value="Available immediately"
+                        {{check "Available immediately" input.availability "Available immediately"}} />
                     <p style="margin-bottom: -3px;">Available immediately</p>
                 </div>
                 <div class="form-check">
                     <label style="font-weight: 10; color: rgb(97, 95, 95);">Available after...</label>
                     <input class="form-check-input" type="radio" name="availability" id="availability-after"
-                        value="after" style="margin-left: -130px;" />
+                        value="after" style="margin-left: -130px;"
+                        {{check "after" input.availability "Available immediately"}} />
 
                     <div class="col-5 details showdate"
                         style="margin-left: -15px; margin-top: 5px; margin-bottom: 10px;">
-                        <input type="date" class="form-control" id="date" name="date" />
+                        <input type="date" class="form-control" id="date" name="date" value="{{input.date}}" />
+
+                        <p style="color: red;">
+                            {{details.dateError}}
+                        </p>
                     </div>
                 </div>
                 <label>How far are you willing to travel for work?</label>
@@ -307,10 +284,13 @@
                 <div class="dropdown">
                     <select id="travel" name="travel"
                         style="border: 2px black; background-color: rgba(202, 199, 199, 0.438); cursor: pointer; margin-left: 5px;">
-                        <option value="up to 25 miles">up to 25 miles (recommended)</option>
-                        <option value="up to 50 miles">up to 50 miles</option>
-                        <option value="up to 100 miles">up to 100 miles </option>
-                        <option value="farther than 100 miles">farther than 100 miles</option>
+                        <option value="up to 25 miles" {{select "up to 25 miles" input.travel}}>up to 25 miles
+                            (recommended)</option>
+                        <option value="up to 50 miles" {{select "up to 50 miles" input.travel}}>up to 50 miles</option>
+                        <option value="up to 100 miles" {{select "up to 100 miles" input.travel}}>up to 100 miles
+                        </option>
+                        <option value="farther than 100 miles" {{select "farther than 100 miles" input.travel}}>farther
+                            than 100 miles</option>
                     </select>
                 </div>
             </div>
@@ -324,14 +304,15 @@
                 you to stand out among other applicants.</p>
             <div class="card-text">
                 <label>Short Personal Profile</label><br />
-                <textarea class="w-100" id="shortprofile" name="shortprofile" style="height: 8em;"> </textarea>
+                <textarea class="w-100" id="shortprofile" name="shortprofile"
+                    style="height: 8em;">{{input.shortprofile}}</textarea>
 
-                <p style="margin-left: 5px; margin-bottom: 1px; color: red; font-style: italic; font-size: 10px;">
-                    {{details.shortprofileError}}
-                </p>
+
                 <p style="font-style: italic; font-size: 12px;">Consider including things not found on your resume (e.g.
                     hobbies, interests, goals). Market yourself.</p>
-
+                <p style="color: red;">
+                    {{details.shortprofileError}}
+                </p>
                 <label>Profile Photo</label><br />
                 <p style="font-style: normal; font-size: 14px;">Profile photo is not required. But feel free to upload
                     your photo so employers can virtually see you.</p>
@@ -389,7 +370,7 @@
                         {{#if input.useragreement}}checked{{/if}} />
                     <p style="font-style: italic; font-size: 14px;">I have read, understand and agree to the Candidate
                         Agreement, Terms and Conditions, and Privacy Policy</p>
-                    <p style="margin-left: 5px; margin-bottom: 1px; color: red; font-style: italic; font-size: 10px;">
+                    <p style="color: red;">
                         {{details.useragreementError}}</p>
                 </div>
                 <label>Last Question! How did you hear about us?</label>

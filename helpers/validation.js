@@ -31,55 +31,89 @@ const validation = {
                 .withMessage('Please enter a password'),
             check('termsCheck')
                 .exists()
-                .withMessage('You must agree to the terms and conditions.'),
+                .withMessage('You must agree to the terms and conditions'),
         ];
     },
 
     formEmpValidation: function () {
         return [
             check('fname')
+                .trim()
                 .notEmpty()
-                .withMessage('First name required.')
+                .withMessage('First name is required.')
                 .trim(),
-            check('lname').notEmpty().withMessage('Last name required.').trim(),
-            check('title').notEmpty().withMessage('Title is required.').trim(),
+            check('lname')
+                .trim()
+                .notEmpty()
+                .withMessage('Last name is required.')
+                .trim(),
+            check('title')
+                .trim()
+                .notEmpty()
+                .withMessage('Title is required.')
+                .trim(),
             check('phone')
+                .trim()
                 .isMobilePhone('en-US')
-                .withMessage('Please enter a valid phone number.')
+                .withMessage('Please enter a valid US phone number.')
                 .trim(),
             check('blname')
+                .trim()
                 .notEmpty()
                 .withMessage('Business legal name is required.')
                 .trim(),
-            check('clinic_street').notEmpty().withMessage('Required').trim(),
-            check('clinic_no').notEmpty().withMessage('Required').trim(),
-            check('clinic_city').notEmpty().withMessage('Required').trim(),
-            check('clinic_state').notEmpty().withMessage('Required').trim(),
-            check('clinic_zip').notEmpty().withMessage('Required').trim(),
+            check('clinic_street')
+                .trim()
+                .notEmpty()
+                .withMessage('Street address is required.')
+                .trim(),
+            check('clinic_no')
+                .trim()
+                .notEmpty()
+                .withMessage('House number is required.')
+                .trim(),
+            check('clinic_city')
+                .notEmpty()
+                .withMessage('Please select a city.')
+                .trim(),
+            check('clinic_state')
+                .notEmpty()
+                .withMessage('Please select a state.')
+                .trim(),
+            check('clinic_zip')
+                .trim()
+                .notEmpty()
+                .withMessage('Zip is required.')
+                .trim(),
 
             check('clinic_phone')
+                .trim()
                 .isMobilePhone('en-US')
-                .withMessage('Please enter a valid phone number.')
+                .withMessage('Please enter a valid US phone number.')
                 .trim(),
 
             check('clinic_name')
+                .trim()
                 .notEmpty()
                 .withMessage('Clinic name is required.')
                 .trim(),
 
             check('clinic_program')
+                .trim()
                 .notEmpty()
                 .withMessage('Clinic software field is required.')
                 .customSanitizer(value => value.split(',')),
             check('clinic_program.*').trim(),
 
             check('clinic_specialty')
+                .trim()
                 .notEmpty()
                 .withMessage('Clinic specialty field is required.')
                 .customSanitizer(value => value.split(',')),
             check('clinic_specialty.*').trim(),
 
             check('clinic_services')
+                .trim()
                 .notEmpty()
                 .withMessage('Clinic services field is required.')
                 .customSanitizer(value => value.split(',')),
@@ -114,62 +148,117 @@ const validation = {
     formValidation: function () {
         return [
             check('fname')
+                .trim()
                 .notEmpty()
-                .withMessage('Empty field. Please input your first name.')
+                .withMessage('First name is required.')
                 .trim(),
+
             check('lname')
+                .trim()
                 .notEmpty()
-                .withMessage('Empty field. Please input your last name.')
+                .withMessage('Last name is required.')
                 .trim(),
             check('streetAdd')
+                .trim()
                 .notEmpty()
-                .withMessage('Empty field. Please input your street address.')
+                .withMessage('Street address is required.')
                 .trim(),
+
             check('house')
+                .trim()
                 .notEmpty()
-                .withMessage('Empty field. Please input your house no.')
+                .withMessage('House number is required.')
                 .trim(),
             check('city')
                 .notEmpty()
-                .withMessage('Empty field. Please input your city.')
+                .withMessage('Please select a city.')
                 .trim(),
             check('state')
                 .notEmpty()
-                .withMessage('Empty field. Please input your state.')
+                .withMessage('Please select a state.')
                 .trim(),
-            check('zip').notEmpty().withMessage('Invalid input!').trim(),
-            check('phone')
-                .isMobilePhone('en-US')
+            check('zip')
+                .trim()
                 .notEmpty()
-                .withMessage('Empty field. Please input your number.')
+                .withMessage('Zip is required.')
+                .trim(),
+            check('phone')
+                .trim()
+                .isMobilePhone('en-US')
+                .withMessage('Please enter a valid US phone number.')
                 .trim(),
             check('years')
+                .trim()
                 .notEmpty()
                 .withMessage('Empty field. Please fill this out.')
                 .trim(),
 
             check('programs')
+                .trim()
                 .notEmpty()
                 .withMessage('Empty field. Please fill this out.')
                 .customSanitizer(value => value.split(',')),
             check('programs.*').trim(),
 
             check('language')
+                .trim()
                 .notEmpty()
                 .withMessage('Empty field. Please fill this out.')
                 .trim(),
 
             check('specialties')
+                .trim()
                 .notEmpty()
                 .withMessage('Empty field. Please fill this out.')
                 .customSanitizer(value => value.split(',')),
             check('specialties.*').trim(),
 
             check('payrate')
-                .notEmpty()
-                .withMessage('Empty field. Please fill this out.')
+                .trim()
+                .custom((value, { req, location, path }) => {
+                    if (req.body.placement == 'Permanent Work') {
+                        return true;
+                    }
+
+                    // return false if placement is temp and payrate is empty
+                    return !(
+                        req.body.placement == 'Temporary Work' && value == ''
+                    );
+                })
+                .withMessage(
+                    "Empty field. If you selected 'Temporary Work', please fill this out.",
+                )
                 .trim(),
+            check('date')
+                .custom((value, { req, location, path }) => {
+                    return (
+                        (req.body.availability == 'after' && value != '') ||
+                        req.body.availability == 'Available immediately'
+                    );
+                })
+                .withMessage(
+                    'Empty field. Please enter a date that comes after the date today.',
+                )
+                .bail()
+                .custom((value, { req, location, path }) => {
+                    var [year, month, day] = value.split('-');
+                    var input = Date.UTC(
+                        Number(year),
+                        Number(month) - 1, // parameter month starts at 0
+                        Number(day),
+                    );
+                    var now = Date.now();
+
+                    return (
+                        (req.body.availability == 'after' && input > now) ||
+                        req.body.availability == 'Available immediately'
+                    );
+                })
+                .withMessage(
+                    'Please enter a date that comes after the date today.',
+                ),
             check('shortprofile')
+                .trim()
                 .notEmpty()
                 .withMessage('Empty field. Please fill this out.')
                 .trim(),

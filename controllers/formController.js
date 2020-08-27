@@ -114,7 +114,7 @@ const formController = {
 
                 db.insertOne(Applicant, applicant, function (flag) {
                     if (flag) {
-                        res.redirect('/home');
+                        res.redirect('/dashboard');
                     }
                 });
             }
@@ -187,7 +187,8 @@ const formController = {
                     errors[i].msg;
             }
             // console.log(details);
-            console.log(req.body);
+            // console.log(req.body);
+            
             res.render('form-emp', {
                 inputs: req.body,
                 details: details,
@@ -202,31 +203,44 @@ const formController = {
                     : '',
             });
         } else {
+            //sanitize user inputs
+            const o = {};
+            for (const field in req.body) {
+                if (req.body.hasOwnProperty(field)) {
+                    o[field] = helper.sanitize(req.body[field]);
+                    
+                }
+            }
+            console.log(o)
+            
+
+            // console.log(req.body);
+
             var employer = {
                 _id: new mongoose.Types.ObjectId(),
                 account: req.session.user,
-                name: { first: req.body.fname, last: req.body.lname },
-                title: req.body.title,
-                phone: req.body.phone,
-                businessName: req.body.blname,
+                name: { first: o.fname, last: o.lname },
+                title: o.title,
+                phone: o.phone,
+                businessName: o.blname,
 
                 clinicAddress: {
-                    street: req.body.clinic_street,
-                    houseNo: req.body.clinic_no,
-                    city: req.body.clinic_city,
-                    state: req.body.clinic_state,
-                    zip: req.body.clinic_zip,
+                    street: o.clinic_street,
+                    houseNo: o.clinic_no,
+                    city: o.clinic_city,
+                    state: o.clinic_state,
+                    zip: o.clinic_zip,
                 },
-                clinicPhone: req.body.clinic_phone,
-                clinicName: req.body.clinic_name,
-                clinicProgram: req.body.clinic_program,
-                clinicSpecialties: req.body.clinic_specialty,
-                clinicServices: req.body.clinic_services,
+                clinicPhone: o.clinic_phone,
+                clinicName: o.clinic_name,
+                clinicProgram: o.clinic_program,
+                clinicSpecialties: o.clinic_specialty,
+                clinicServices: o.clinic_services,
 
-                clinicContactName: req.body.clinic_con_name,
-                clinicContactTitle: req.body.clinic_con_title,
-                clinicContactEmails: req.body.clinic_con_email,
-                feedback: req.body.feedback,
+                clinicContactName: o.clinic_con_name,
+                clinicContactTitle: o.clinic_con_title,
+                clinicContactEmails: o.clinic_con_email,
+                feedback: o.feedback,
             };
 
             db.insertOne(Employer, employer, function (flag) {
