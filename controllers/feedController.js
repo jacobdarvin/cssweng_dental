@@ -85,6 +85,7 @@ const feedController = {
                         res.render('details',{
                             active_session: (req.session.user && req.cookies.user_sid),
                             active_user: req.session.user,
+                            title: data.placement + ' ' + data.position + ' | ' + 'BookMeDental',
                             profile_active: true,
                             jobData: data.toObject()
                         })
