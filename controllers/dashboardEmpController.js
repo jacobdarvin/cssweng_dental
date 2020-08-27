@@ -22,9 +22,8 @@ const dashboardEmpController = {
             console.log("inserting");
               var job = new Job({
                 _id: new mongoose.Types.ObjectId(),
-                account: req.session.user,
-                placement: req.body.placement,
                 employer: result._id,
+                placement: req.body.placement,            
                 position: req.body.position,
                 location: req.body.clinic,
                 date: req.body.date,

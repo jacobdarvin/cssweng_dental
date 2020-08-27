@@ -88,10 +88,11 @@ const feedController = {
                             profile_active: true,
                             jobData: data.toObject()
                         })
-                })
+                    })
             }
-        });
-    }
+            
+        })
+    },
 };
 // enables to export controller object when called in another .js file
 module.exports = feedController;
