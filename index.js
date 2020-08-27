@@ -4,6 +4,7 @@ const hbs = require('hbs');
 const exphbs = require('express-handlebars');
 const mongoose = require('mongoose');
 const path = require('path');
+const fs = require('fs');
 const session = require('express-session');                 
 
 
@@ -31,6 +32,11 @@ app.engine(
             select: function (value, input) {
                 return value === input ? ' selected' : '';
             },
+            // Use this helper on <input type="radio"> elements to retain option when submitting form data
+            check: function (value, input, init) {
+                if (!input) input = init;
+                return value === input ? ' checked' : '';
+            },
         },
     }),
 );
@@ -47,6 +53,13 @@ hbs.registerPartials(__dirname + '/views/partials');
 // set the folder `public` as folder containing static assets (css, js, imgs)
 // app.use(express.static('public'));
 app.use(express.static(path.join(__dirname, 'public')));
+
+// create ./public/resumes directory if it doesn't exists
+const resumesDir = './public/resumes';
+if (!fs.existsSync(resumesDir)) {
+    console.log('resumes folder does not exist! creating ' + resumesDir + '...');
+    fs.mkdirSync(resumesDir);
+}
 
 // define the paths contained in routes module
 app.use('/', routes);

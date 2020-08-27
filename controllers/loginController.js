@@ -23,34 +23,37 @@ const loginController = {
                 login_active: true,
                 loginErrorMessage: 'Please input your email and password!',
             });
+        } else {
+            db.findOne(Account, { accEmail: email }, '', function (user) {
+                if (user) {
+                    bcrypt.compare(password, user.password, function (
+                        err,
+                        equal,
+                    ) {
+                        if (equal) {
+                            req.session.user = user._id;
+                            req.session.accType = user.accType;
+
+                            res.redirect('/dashboard');
+                        } else {
+                            res.render('login', {
+                                input: req.body,
+                                title: 'Login | BookMeDental',
+                                login_active: true,
+                                loginErrorMessage: 'Invalid email or password!',
+                            });
+                        }
+                    });
+                } else {
+                    res.render('login', {
+                        input: req.body,
+                        title: 'Login | BookMeDental',
+                        login_active: true,
+                        loginErrorMessage: 'Invalid email or password!',
+                    });
+                }
+            });
         }
-
-        db.findOne(Account, { accEmail: email }, '', function (user) {
-            if (user) {
-                bcrypt.compare(password, user.password, function (err, equal) {
-                    if (equal) {
-                        req.session.user = user._id;
-                        req.session.accType = user.accType;
-
-                        res.redirect('/dashboard');
-                    } else {
-                        res.render('login', {
-                            input: req.body,
-                            title: 'Login | BookMeDental',
-                            login_active: true,
-                            loginErrorMessage: 'Invalid email or password!',
-                        });
-                    }
-                });
-            } else {
-                res.render('login', {
-                    input: req.body,
-                    title: 'Login | BookMeDental',
-                    login_active: true,
-                    loginErrorMessage: 'Invalid email or password!',
-                });
-            }
-        });
     },
 };
 
