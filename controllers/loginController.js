@@ -19,6 +19,7 @@ const loginController = {
 
         if (email.trim() == '' || password == '') {
             res.render('login', {
+                input: req.body,
                 title: 'Login | BookMeDental',
                 login_active: true,
                 loginErrorMessage: 'Please input your email and password!',

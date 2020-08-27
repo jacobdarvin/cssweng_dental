@@ -1,0 +1,66 @@
+<style>
+  .media-text{
+    float:left;
+    margin-right: 20px;
+  }
+  .media-text #btn{
+      margin-right: -20px;
+  }
+  .filter_bar{
+    background-color: white;
+    margin:auto;
+    justify-content: center;
+  }
+  .card{
+    text-align: center;
+  }
+</style>
+
+<br>
+<div class="card" >
+  <div class="filter_bar">
+    <br>
+          <form method="get" action="/admin/orders">
+
+            <div class = "media-text" id="input">
+              <label for ="deliveryStatus">Delivery Status</label><br>
+                <select id="deliveryStatus" class = "browser-default custom-select" name="deliveryStatus" style="width: 200px; border:solid; background-color: rgba(126, 125, 125, 0); cursor:pointer;">
+                  <option value="SELECT">[SELECT STATUS]</option>
+                  <option value="PROCESSING">PROCESSING</option>
+                  <option value="DELIVERING">DELIVERING</option>
+                  <option value="DELIVERED">DELIVERED</option>
+                </select>
+            </div>
+
+            <div class = "media-text" id="input">
+              <label for ="paymentStatus">Payment Status</label><br>
+              <select id="paymentStatus" class = "browser-default custom-select" name="paymentStatus" style="width: 200px; border:solid; background-color: rgba(126, 125, 125, 0); cursor:pointer;">
+                <option value="SELECT">[SELECT STATUS]</option>
+                <option value="TO PAY">TO PAY</option>
+                <option value="PAID">PAID</option>
+              </select>
+            </div>
+
+            <div class = "media-text" id="input">
+            <label for ="dateStart">Start Date</label><br>
+              <input type="date" id="dateStart" name="dateStart" >
+            </div>
+            <div class = "media-text" id="input">
+            <label for ="dateEnd">End Date</label><br>
+              <input type="date" id="dateEnd" name="dateEnd" >
+            </div>    
+
+    </div>
+
+    <br>
+    <div class = "media-text" style="margin-bottom:10px;"><button class="btn btn-primary"  id="btn" type="submit">Apply Filter</button></div>
+    </form>
+  </div>
+
+<div class="mt-5 row">
+    {{#each orderCards}}
+        {{> orderCard}}
+    {{/each}}
+</div>
+
+{{> paginator}}
