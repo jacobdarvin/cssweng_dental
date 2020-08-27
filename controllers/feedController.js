@@ -52,6 +52,7 @@ const feedController = {
                         active_session: (req.session.user && req.cookies.user_sid),
                         active_user: req.session.user,
                         title: 'Job Feed | BookMeDental',
+                        filter_route:'/feed-emp',
                         profile_active: true,
                         jobs: data
                     });
@@ -104,6 +105,7 @@ const feedController = {
                     active_session: (req.session.user && req.cookies.user_sid),
                     active_user: req.session.user,
                     title: 'Applicant Feed | BookMeDental',
+                    filter_route:'/feed-app',
                     profile_active: true,
                     jobs: data
                 });
