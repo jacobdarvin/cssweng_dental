@@ -33,7 +33,7 @@ const dashboardController = {
                                     title: 'Dashboard | BookMeDental',
                                     profile_active: true,
                                     applicant_active: true,
-                                    profileData: data
+                                    profileData: data.toObject()
                                 });
                             } else {
                                 res.render(view, {
