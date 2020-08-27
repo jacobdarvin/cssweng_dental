@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const CreateJob = require('../models/CreateJobModel');
+const Job = require('../models/JobModel');
 const Employer = require('../models/EmployerModel');
 const helper = require('../helpers/helper');
 const db = require('../models/db');
@@ -19,26 +19,23 @@ const dashboardEmpController = {
         var software = helper.sanitize(req.body.software);
 
         db.findOne(Employer, {account: req.session.user}, '', function(result){
-            console.log(result.clinicName)
-            console.log(result.clinicAddress.city)
-
-              var job = new CreateJob({
+            console.log("inserting");
+              var job = new Job({
                 _id: new mongoose.Types.ObjectId(),
                 account: req.session.user,
                 placement: req.body.placement,
+                employer: result._id,
                 position: req.body.position,
                 location: req.body.clinic,
-                clinicName: result.clinicName,
-                city: result.clinicAddress.city,
-                state: result.clinicAddress.state,
                 date: req.body.date,
                 description: desc,
                 software: software,
                 experience: req.body.experience
             });
 
-              db.insertOne(CreateJob, job,function (flag){
+              db.insertOne(Job, job,function (flag){
                 if(flag){
+                    console.log("inserted");
                     res.redirect('/dashboard');
                 }
             })

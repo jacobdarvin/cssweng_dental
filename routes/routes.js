@@ -139,12 +139,12 @@ app.get('/dashboard', dashboardController.getDashboard);
 // post job / CREATE
 app.get('/create', dashboardEmpController.getCreateJob);
 // post job / CREATE
-app.post('/create', dashboardEmpController.postCreateJob
-);
+app.post('/create', dashboardEmpController.postCreateJob);
 
 // /feed / FEED
-app.get('/feed', feedController.getFeed);
+app.get('/feed-emp', feedController.getEmpFeed);
 app.get('/feed-app', feedController.getAppFeed);
+app.get('/getIndivJob', feedController.getIndivJob);
 
 // /feed / FEED
 

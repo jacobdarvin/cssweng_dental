@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
-const createJobSchema = mongoose.Schema({
+const JobSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
-    account: {
+    employer: {
         type: mongoose.Types.ObjectId,
-        ref: 'Account'
+        ref: 'Employer'
     },
 
     placement: {
@@ -17,18 +17,6 @@ const createJobSchema = mongoose.Schema({
         type: String,
         enum: ['Front Desk', 'Dental Assistant', 'Dental Hygienist', 'Dentist'],
         required: true,
-    },
-    clinicName: {
-        type: String,
-        required: true
-    },
-    city: {
-        type: String,
-        required: true
-    },
-    state: {
-        type: String,
-        required: true
     },
     location: {
         type: String,
@@ -53,4 +41,4 @@ const createJobSchema = mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model('CreateJob', createJobSchema);
+module.exports = mongoose.model('Job', JobSchema);
