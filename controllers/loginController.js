@@ -29,7 +29,6 @@ const loginController = {
         db.findOne(Account, { accEmail: email }, '', function (user) {
             if (user) {
                 bcrypt.compare(password, user.password, function (err, equal) {
-              
                     if (equal) {
                         req.session.user = user._id;
                         req.session.accType = user.accType;

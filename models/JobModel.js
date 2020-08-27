@@ -6,6 +6,10 @@ const JobSchema = mongoose.Schema({
         type: mongoose.Types.ObjectId,
         ref: 'Employer'
     },
+    applicants: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Applicant'
+    }],
     position: {
         type: String,
         enum: ['Front Desk', 'Dental Assistant', 'Dental Hygienist', 'Dentist'],
@@ -31,7 +35,11 @@ const JobSchema = mongoose.Schema({
     experience: {
         type: String,
         required: true
-    }
+    },
+    created: {
+        type: Date,
+        default: Date.now,
+    },
 })
 
 module.exports = mongoose.model('Job', JobSchema);
