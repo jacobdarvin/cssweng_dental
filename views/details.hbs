@@ -30,8 +30,9 @@
 			<div class="card border m-0 p-2 shadow-sm">
 				<p class="h3">Job Description</p>
 				<p class="description">{{jobData.description}}</p>
-
-				<button type="submit" class="btn btn-primary w-100" style="background-color: #8455ca;">Apply</button>
+				<form action="/postIndivJob" method="post">
+				<button type="submit" class="btn btn-primary w-100" style="background-color: #8455ca;" name="jobId" value="{{jobData._id}}">Apply</button>
+				</form>
 			</div>
 
 			<hr>

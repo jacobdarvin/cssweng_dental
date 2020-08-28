@@ -2,7 +2,9 @@ const db = require('../models/db');
 const sanitize = require('mongo-sanitize');
 
 const Job = require('../models/JobModel');
+const Applicant = require('../models/ApplicantModel');
 const Employer = require('../models/EmployerModel');
+const app = require('../routes/routes');
 
 const feedController = {
 
@@ -52,6 +54,7 @@ const feedController = {
                         active_session: (req.session.user && req.cookies.user_sid),
                         active_user: req.session.user,
                         title: 'Job Feed | BookMeDental',
+                        filter_route:'/feed-emp',
                         profile_active: true,
                         jobs: data
                     });
@@ -61,13 +64,51 @@ const feedController = {
     },
 
     getAppFeed: function (req, res) {
-        db.findMany(Job, {}, '', function(result){
+
+        if (!(req.session.user && req.cookies.user_sid)) {
+            res.redirect('/login');
+            return;
+        }
+        console.log('queries: ' + req.query);
+        // console.log('params: ' + req.params)
+        console.log('getFiltered request');
+
+        let positionQuery = new Array();
+        let placementQuery = new Array();
+
+        let positionStatus = sanitize(req.query.position);
+        let placementStatus = sanitize(req.query.placement);
+
+        let dateStatus = sanitize(req.query.date);
+
+        if(positionStatus) {
+            positionQuery = positionStatus;
+        } else {
+            positionQuery.push('Dentist', 'Dental Hygienist', 'Front Desk', 'Dental Assistant');
+        }
+
+        if(placementStatus) {
+            placementQuery = placementStatus;
+        } else {
+            placementQuery.push('Permanent', 'Temporary');
+        }
+
+        console.log(positionQuery);
+        console.log(placementQuery);
+
+        let query = {
+            position : { $in: positionQuery },
+            placement : { $in : placementQuery}
+        };
+
+        db.findMany(Job, query, '', function(result){
             Employer.populate(result, {path: 'employer', options: {lean: true}}, function (err, data){
                 if (err) throw err;
                 res.render('feed', {
                     active_session: (req.session.user && req.cookies.user_sid),
                     active_user: req.session.user,
                     title: 'Applicant Feed | BookMeDental',
+                    filter_route:'/feed-app',
                     profile_active: true,
                     jobs: data
                 });
@@ -85,6 +126,7 @@ const feedController = {
                         res.render('details',{
                             active_session: (req.session.user && req.cookies.user_sid),
                             active_user: req.session.user,
+                            title: data.placement + ' ' + data.position + ' | ' + 'BookMeDental',
                             profile_active: true,
                             jobData: data.toObject()
                         })
@@ -93,6 +135,28 @@ const feedController = {
             
         })
     },
+
+    postIndivJob: function(req,res) {
+        if (!(req.session.user && req.cookies.user_sid)) {
+            res.redirect('/login');
+            return;
+        }
+
+        // console.log(req.session.accType);
+        // console.log(req.session.user);
+        db.findOne(Applicant, {account: req.session.user}, '_id', function(applicant) {
+            console.log(applicant);
+
+            db.updateOne(Job, {_id: req.body.jobId}, {$push: {applicants: applicant._id}}, function(result) {
+                if(result) {
+                    console.log('jobId: ' + req.body.jobId);
+                    res.redirect('/feed-app');
+                } else res.redirect(`/getIndivJob_id?=${req.body.jobId}`);
+            })
+        })
+        
+
+    }
 };
 // enables to export controller object when called in another .js file
 module.exports = feedController;
