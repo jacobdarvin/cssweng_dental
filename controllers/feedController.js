@@ -26,16 +26,17 @@ const feedController = {
 
         let dateStatus = parseDate(sanitize(req.query.date));
 
-        if(positionStatus) {
-            positionQuery = positionStatus;
-        } else {
+        if(positionStatus == null || positionStatus == 'undefined') {
             positionQuery.push('Dentist', 'Dental Hygienist', 'Front Desk', 'Dental Assistant');
+        } else {
+            positionQuery = positionStatus;
+            positionQuery.push(null);
         }
 
-        if(placementStatus) {
-            placementQuery = placementStatus;
-        } else {
+        if(placementStatus == null || placementStatus == 'undefined') {
             placementQuery.push('Permanent', 'Temporary');
+        } else {
+            placementQuery = placementStatus;
         }
 
         db.findOne(Employer, {account: req.session.user}, '_id', function(emp){
@@ -66,24 +67,25 @@ const feedController = {
                 function(err, results) {
                 console.log(results);
 
+                console.log(placementQuery);
+
                 let selectOptions = new Array();
                 for (let i = 0; i < results.pages; i++) {
                     let nPage = i + 1;
 
                     let options = {
-                        pageLink: "/feed-emp?placement=" + query.placement + "&position=" + query.position + "&page=" + nPage,
+                        pageLink: "/feed-emp?placement=" + placementQuery + "&page=" + nPage,
                         pageNo : nPage,
                         isSelected : (results.page == nPage),
                     };
 
-                    console.log("got here");
                     selectOptions.push(options);
                 }
 
                 //fix this logic
 
                 let prevPageLink = (results.pages != 1) ? "/feed-emp?placement=" + query.placement + "&position=" + query.position + "$date=" + req.query.date + "&page=" + parseInt(results.page) - 1: "";
-                let nextPageLink = (results.page == parseInt(results.limit)) ? "/feed-emp?placement=" + query.placement + "&position=" + query.position + "$date=" + req.query.date + "&page=" + parseInt(results.page) + 1 : "";
+                let nextPageLink = (results.page != parseInt(results.limit)) ? "/feed-emp?placement=" + query.placement + "&position=" + query.position + "$date=" + req.query.date + "&page=" + parseInt(results.page) + 1 : "";
                     
                     res.render('feed', {
                         active_session: (req.session.user && req.cookies.user_sid),
