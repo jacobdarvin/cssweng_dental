@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const mongoosePaginate = require('mongoose-paginate');
 
-var JobSchema = mongoose.Schema({
+const JobSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     employer: {
         type: mongoose.Types.ObjectId,

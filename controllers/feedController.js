@@ -67,11 +67,11 @@ const feedController = {
                 console.log(results);
 
                 let selectOptions = new Array();
-                for (let i = 0; i < results.total; i++) {
+                for (let i = 0; i < results.pages; i++) {
                     let nPage = i + 1;
 
                     let options = {
-                        pageLink: "/feed-emp?placement=" + query.placement + "&position=" + query.position + "$date=" + req.query.date + "&page=" + nPage,
+                        pageLink: "/feed-emp?placement=" + query.placement + "&position=" + query.position + "&page=" + nPage,
                         pageNo : nPage,
                         isSelected : (results.page == nPage),
                     };
@@ -80,8 +80,10 @@ const feedController = {
                     selectOptions.push(options);
                 }
 
-                let prevPageLink = results.hasPrevPage ? "/feed-emp?placement=" + placement + "&position=" + position + "$date=" + req.query.date + "&page=" + results.prevPage : "";
-                let nextPageLink = results.hasPrevPage ? "/feed-emp?placement=" + placement + "&position=" + position + "$date=" + req.query.date + "&page=" + results.nextPage : "";
+                //fix this logic
+
+                let prevPageLink = (results.pages != 1) ? "/feed-emp?placement=" + query.placement + "&position=" + query.position + "$date=" + req.query.date + "&page=" + parseInt(results.page) - 1: "";
+                let nextPageLink = (results.page == parseInt(results.limit)) ? "/feed-emp?placement=" + query.placement + "&position=" + query.position + "$date=" + req.query.date + "&page=" + parseInt(results.page) + 1 : "";
                     
                     res.render('feed', {
                         active_session: (req.session.user && req.cookies.user_sid),
@@ -114,7 +116,6 @@ const feedController = {
                 })
             })
             */
-
         });
     },
 
