@@ -1,0 +1,11 @@
+<br>
+<div id="pagination" style="float:right">
+  <select id="paginator" name="paginator" class="btn btn-primary dropdown-toggle" style="background-color: rgb(52, 58, 64);">
+    {{#each selectOptions}}
+      <option value="{{pageLink}}" {{#if isSelected}} selected {{/if}}>Page {{pageNo}}</option>
+    {{/each}}
+  </select>
+
+  {{#if hasPrev}}<a href="{{prevPageLink}}" class="card-link bg-pill pl-2 pr-2 pt-1 pb-1 rounded">Previous Page</a>{{/if}}
+  {{#if hasNext}}<a href="{{nextPageLink}}" class="card-link bg-pill pl-2 pr-2 pt-1 pb-1 rounded">Next Page</a>{{/if}}
+</div>

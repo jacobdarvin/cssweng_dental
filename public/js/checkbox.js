@@ -64,3 +64,11 @@
                 localStorage.temporary = $(this).is(':checked');
                 console.log($(this).is(':checked'));
             });
+
+            $('#paginator').on('change', function (param) {
+        let url = $(this).val(); // get selected value
+        if (url) { // require a URL
+            window.location = url; // redirect
+        }
+        return false;
+      });

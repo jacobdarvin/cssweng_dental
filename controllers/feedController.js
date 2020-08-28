@@ -1,8 +1,12 @@
+const moment = require('moment');
+
 const db = require('../models/db');
 const sanitize = require('mongo-sanitize');
 
 const Job = require('../models/JobModel');
 const Employer = require('../models/EmployerModel');
+
+const JOB_SELECT = '_id placement position date'
 
 const feedController = {
 
@@ -20,7 +24,7 @@ const feedController = {
         let positionStatus = sanitize(req.query.position);
         let placementStatus = sanitize(req.query.placement);
 
-        let dateStatus = sanitize(req.query.date);
+        let dateStatus = parseDate(sanitize(req.query.date));
 
         if(positionStatus) {
             positionQuery = positionStatus;
@@ -34,17 +38,68 @@ const feedController = {
             placementQuery.push('Permanent', 'Temporary');
         }
 
-        console.log(positionQuery);
-        console.log(placementQuery);
-
         db.findOne(Employer, {account: req.session.user}, '_id', function(emp){
-            
-            let query = {
-                employer : emp._id,
-                position : { $in: positionQuery },
-                placement : { $in : placementQuery}
+
+            let page = sanitize(req.query.page);
+
+            if (page == null) {
+                page = 1;
+            }
+
+            let options = {
+                lean: true,
+                page: page,
+                limit: 2,
+
+                sort: {
+                    dateStatus: -1
+                }
             };
 
+            let query = {
+                employer  : emp._id,
+                position  : { $in: positionQuery },
+                placement : { $in : placementQuery}
+            };
+            
+            Job.paginate(query, options,
+                function(err, results) {
+                console.log(results);
+
+                let selectOptions = new Array();
+                for (let i = 0; i < results.total; i++) {
+                    let nPage = i + 1;
+
+                    let options = {
+                        pageLink: "/feed-emp?placement=" + query.placement + "&position=" + query.position + "$date=" + req.query.date + "&page=" + nPage,
+                        pageNo : nPage,
+                        isSelected : (results.page == nPage),
+                    };
+
+                    console.log("got here");
+                    selectOptions.push(options);
+                }
+
+                let prevPageLink = results.hasPrevPage ? "/feed-emp?placement=" + placement + "&position=" + position + "$date=" + req.query.date + "&page=" + results.prevPage : "";
+                let nextPageLink = results.hasPrevPage ? "/feed-emp?placement=" + placement + "&position=" + position + "$date=" + req.query.date + "&page=" + results.nextPage : "";
+                    
+                    res.render('feed', {
+                        active_session: (req.session.user && req.cookies.user_sid),
+                        active_user: req.session.user,
+                        title: 'Job Feed | BookMeDental',
+                        filter_route:'/feed-emp',
+                        profile_active: true,
+                        jobs: results.docs,
+
+                        //Pagination
+                        selectOptions: selectOptions,
+                        hasPrev: results.hasPrevPage,
+                        hasNext: results.hasNextPage,
+                        prevPageLink: prevPageLink,
+                        nextPageLink: nextPageLink
+                    });
+                })
+            /*
             db.findMany(Job, query, '', function(result){
                 Employer.populate(result, {path: 'employer', options: {lean: true}}, function (err, data){
                         if (err) throw err;
@@ -58,7 +113,9 @@ const feedController = {
                     });
                 })
             })
-        })
+            */
+
+        });
     },
 
     getAppFeed: function (req, res) {
@@ -76,7 +133,7 @@ const feedController = {
         let positionStatus = sanitize(req.query.position);
         let placementStatus = sanitize(req.query.placement);
 
-        let dateStatus = sanitize(req.query.date);
+        let dateStatus = parseDate(sanitize(req.query.date));
 
         if(positionStatus) {
             positionQuery = positionStatus;
@@ -133,5 +190,23 @@ const feedController = {
         })
     },
 };
+
+function parseDate(s) {
+    if (!(moment(s, 'YYYY-MM-DD', true).isValid())) {
+        return null;
+    }
+
+    if (s == null || s === undefined) {
+        return null;
+    }
+
+    var b = s.split(/\D/);
+    let date = new Date(b[0], --b[1], b[2]);
+
+    date.setHours(8, 0, 0, 0);
+
+    return date;
+}
+
 // enables to export controller object when called in another .js file
 module.exports = feedController;
