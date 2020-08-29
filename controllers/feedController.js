@@ -53,7 +53,7 @@ const feedController = {
             let page = sanitize(req.query.page);
 
             if (page == null) {
-                page = 1;
+                page = '1';
             }
 
             let options = {
@@ -61,15 +61,12 @@ const feedController = {
                 page: page,
                 limit: 2,
 
-                sort: {
-                    dateStatus: -1
-                }
             };
 
             let query = {
                 employer  : emp._id,
                 position  : { $in: positionQuery },
-                placement : { $in : placementQuery}
+                placement : { $in : placementQuery},
             };
             
             Job.paginate(query, options,
