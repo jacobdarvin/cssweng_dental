@@ -1,5 +1,7 @@
 # custom
 public/resumes/
+public/avatars/*
+!public/avatars/portrait.png
 
 # Logs
 logs
