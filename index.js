@@ -5,8 +5,7 @@ const exphbs = require('express-handlebars');
 const mongoose = require('mongoose');
 const path = require('path');
 const fs = require('fs');
-const session = require('express-session');                 
-
+const session = require('express-session');
 
 //DATA BASE AND EXPRESS
 const app = express();
@@ -37,6 +36,11 @@ app.engine(
                 if (!input) input = init;
                 return value === input ? ' checked' : '';
             },
+            avatar_found: function (value) {
+                return fs.existsSync(`./public/avatars/${value}`)
+                    ? value
+                    : 'portrait.png';
+            },
         },
     }),
 );
@@ -54,10 +58,12 @@ hbs.registerPartials(__dirname + '/views/partials');
 // app.use(express.static('public'));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// create ./public/resumes directory if it doesn't exists
+// create ./public/resumes directory if it doesn't exist
 const resumesDir = './public/resumes';
 if (!fs.existsSync(resumesDir)) {
-    console.log('resumes folder does not exist! creating ' + resumesDir + '...');
+    console.log(
+        'resumes folder does not exist! creating ' + resumesDir + '...',
+    );
     fs.mkdirSync(resumesDir);
 }
 
