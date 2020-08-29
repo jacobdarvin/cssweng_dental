@@ -150,7 +150,7 @@ const feedController = {
         db.findOne(Applicant, { account: req.session.user }, '_id', function (
             applicant,
         ) {
-            db.findOne(Job, { _id: req.params.id }, '', function (job) {
+            db.findOne(Job, { _id: req.params.jobId }, '', function (job) {
                 if (job) {
                     job.populate('employer').execPopulate(function (err, data) {
                         if (err) throw err;
@@ -187,12 +187,12 @@ const feedController = {
 
             db.updateOne(
                 Job,
-                { _id: req.body.jobId },
+                { _id: req.params.jobId },
                 { $push: { applicants: applicant._id } },
                 function (result) {
                     if (result) {
                         res.redirect('/feed-app');
-                    } else res.redirect(`/jobs/${req.body.jobId}`);
+                    } else res.redirect(`/jobs/${req.params.jobId}`);
                 },
             );
         });
@@ -209,7 +209,7 @@ const feedController = {
             return;
         }
 
-        db.findOne(Job, { _id: req.params.id }, 'applicants', function (job) {
+        db.findOne(Job, { _id: req.params.jobId }, 'applicants', function (job) {
             if (job) {
                 job.populate(
                     {
@@ -225,7 +225,7 @@ const feedController = {
                                 req.session.user && req.cookies.user_sid,
                             active_user: req.session.user,
                             title: 'Applicants | BookMeDental',
-                            filter_route: `/jobs/${req.params.id}/applicants`,
+                            filter_route: `/jobs/${req.params.jobId}/applicants`,
                             profile_active: true,
                             applicants: data.applicants,
                         });
@@ -237,6 +237,10 @@ const feedController = {
             }
         });
     },
+
+    getAppProfile: function(req, res) {
+        
+    }
 };
 
 // enables to export controller object when called in another .js file

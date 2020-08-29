@@ -125,13 +125,13 @@ app.get('/offers', function (req, res) {
 
 
 // /details | JOB
-app.get('/details', function(req, res) {
-    res.render('details', {
-        active_session: req.session.user && req.cookies.user_sid,
-        active_user: req.session.user,
-        title: 'Details | BookMeDental',
-    });
-});
+// app.get('/details', function(req, res) {
+//     res.render('details', {
+//         active_session: req.session.user && req.cookies.user_sid,
+//         active_user: req.session.user,
+//         title: 'Details | BookMeDental',
+//     });
+// });
 // /dashboard-type / DASHBOARD
 app.get('/dashboard', dashboardController.getDashboard);
 // /dashboard-type / DASHBOARD
@@ -144,10 +144,10 @@ app.post('/create', dashboardEmpController.postCreateJob);
 // /feed / FEED
 app.get('/feed-emp', feedController.getEmpFeed);
 app.get('/feed-app', feedController.getAppFeed);
-app.get('/jobs/:id', feedController.getIndivJob);
-app.post('/postIndivJob', feedController.postIndivJob);
-app.get('/jobs/:id/applicants', feedController.getJobApplicants);
-
+app.get('/jobs/:jobId', feedController.getIndivJob);
+app.post('/jobs/:jobId', feedController.postIndivJob); // TODO: fix this route
+app.get('/jobs/:jobId/applicants', feedController.getJobApplicants);
+app.get('/jobs/:jobId/applicants/:appId', feedController.getAppProfile); // TODO: implement this route
 // /feed / FEED
 
 // /register | REGISTER
