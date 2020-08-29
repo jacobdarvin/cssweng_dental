@@ -7,9 +7,8 @@ const Employer = require('../models/EmployerModel');
 const app = require('../routes/routes');
 
 const feedController = {
-
     getEmpFeed: function (req, res) {
-         if (!(req.session.user && req.cookies.user_sid)) {
+        if (!(req.session.user && req.cookies.user_sid)) {
             res.redirect('/login');
             return;
         }
@@ -24,13 +23,18 @@ const feedController = {
 
         let dateStatus = sanitize(req.query.date);
 
-        if(positionStatus) {
+        if (positionStatus) {
             positionQuery = positionStatus;
         } else {
-            positionQuery.push('Dentist', 'Dental Hygienist', 'Front Desk', 'Dental Assistant');
+            positionQuery.push(
+                'Dentist',
+                'Dental Hygienist',
+                'Front Desk',
+                'Dental Assistant',
+            );
         }
 
-        if(placementStatus) {
+        if (placementStatus) {
             placementQuery = placementStatus;
         } else {
             placementQuery.push('Permanent', 'Temporary');
@@ -39,32 +43,37 @@ const feedController = {
         console.log(positionQuery);
         console.log(placementQuery);
 
-        db.findOne(Employer, {account: req.session.user}, '_id', function(emp){
-            
+        db.findOne(Employer, { account: req.session.user }, '_id', function (
+            emp,
+        ) {
             let query = {
-                employer : emp._id,
-                position : { $in: positionQuery },
-                placement : { $in : placementQuery}
+                employer: emp._id,
+                position: { $in: positionQuery },
+                placement: { $in: placementQuery },
             };
 
-            db.findMany(Job, query, '', function(result){
-                Employer.populate(result, {path: 'employer', options: {lean: true}}, function (err, data){
+            db.findMany(Job, query, '', function (result) {
+                Employer.populate(
+                    result,
+                    { path: 'employer', options: { lean: true } },
+                    function (err, data) {
                         if (err) throw err;
                         res.render('feed', {
-                        active_session: (req.session.user && req.cookies.user_sid),
-                        active_user: req.session.user,
-                        title: 'Job Feed | BookMeDental',
-                        filter_route:'/feed-emp',
-                        profile_active: true,
-                        jobs: data
-                    });
-                })
-            })
-        })
+                            active_session:
+                                req.session.user && req.cookies.user_sid,
+                            active_user: req.session.user,
+                            title: 'Job Feed | BookMeDental',
+                            filter_route: '/feed-emp',
+                            profile_active: true,
+                            jobs: data,
+                        });
+                    },
+                );
+            });
+        });
     },
 
     getAppFeed: function (req, res) {
-
         if (!(req.session.user && req.cookies.user_sid)) {
             res.redirect('/login');
             return;
@@ -81,13 +90,18 @@ const feedController = {
 
         let dateStatus = sanitize(req.query.date);
 
-        if(positionStatus) {
+        if (positionStatus) {
             positionQuery = positionStatus;
         } else {
-            positionQuery.push('Dentist', 'Dental Hygienist', 'Front Desk', 'Dental Assistant');
+            positionQuery.push(
+                'Dentist',
+                'Dental Hygienist',
+                'Front Desk',
+                'Dental Assistant',
+            );
         }
 
-        if(placementStatus) {
+        if (placementStatus) {
             placementQuery = placementStatus;
         } else {
             placementQuery.push('Permanent', 'Temporary');
@@ -97,66 +111,92 @@ const feedController = {
         console.log(placementQuery);
 
         let query = {
-            position : { $in: positionQuery },
-            placement : { $in : placementQuery}
+            position: { $in: positionQuery },
+            placement: { $in: placementQuery },
         };
 
-        db.findMany(Job, query, '', function(result){
-            Employer.populate(result, {path: 'employer', options: {lean: true}}, function (err, data){
-                if (err) throw err;
-                res.render('feed', {
-                    active_session: (req.session.user && req.cookies.user_sid),
-                    active_user: req.session.user,
-                    title: 'Applicant Feed | BookMeDental',
-                    filter_route:'/feed-app',
-                    profile_active: true,
-                    jobs: data
-                });
-            });
+        db.findMany(Job, query, '', function (result) {
+            Employer.populate(
+                result,
+                { path: 'employer', options: { lean: true } },
+                function (err, data) {
+                    if (err) throw err;
+                    res.render('feed', {
+                        active_session:
+                            req.session.user && req.cookies.user_sid,
+                        active_user: req.session.user,
+                        title: 'Applicant Feed | BookMeDental',
+                        filter_route: '/feed-app',
+                        profile_active: true,
+                        jobs: data,
+                    });
+                },
+            );
         });
     },
 
-    getIndivJob: function (req,res){
-        db.findOne(Job, {_id: req.query._id}, '', function(result){
-            if(result){
-                result 
-                    .populate('employer')
-                    .execPopulate(function(err,data){
-                        if (err) throw err;
-                        res.render('details',{
-                            active_session: (req.session.user && req.cookies.user_sid),
-                            active_user: req.session.user,
-                            title: data.placement + ' ' + data.position + ' | ' + 'BookMeDental',
-                            profile_active: true,
-                            jobData: data.toObject()
-                        })
-                    })
-            }
-            
-        })
-    },
-
-    postIndivJob: function(req,res) {
+    getIndivJob: function (req, res) {
         if (!(req.session.user && req.cookies.user_sid)) {
             res.redirect('/login');
             return;
         }
 
-        // console.log(req.session.accType);
-        // console.log(req.session.user);
-        db.findOne(Applicant, {account: req.session.user}, '_id', function(applicant) {
+        if (req.session.accType != 'applicant') {
+            res.status(403).send('Forbidden: you are not an applicant');
+            return;
+        }
+
+        db.findOne(Applicant, { account: req.session.user }, '_id', function (
+            applicant,
+        ) {
+            db.findOne(Job, { _id: req.params.id }, '', function (job) {
+                if (job) {
+                    job.populate('employer').execPopulate(function (err, data) {
+                        if (err) throw err;
+                        res.render('details', {
+                            active_session:
+                                req.session.user && req.cookies.user_sid,
+                            active_user: req.session.user,
+                            title:
+                                data.placement +
+                                ' ' +
+                                data.position +
+                                ' | ' +
+                                'BookMeDental',
+                            profile_active: true,
+                            applied: data.applicants.includes(applicant._id),
+                            jobData: data.toObject(),
+                        });
+                    });
+                }
+            });
+        });
+    },
+
+    postIndivJob: function (req, res) {
+        if (!(req.session.user && req.cookies.user_sid)) {
+            res.redirect('/login');
+            return;
+        }
+
+        db.findOne(Applicant, { account: req.session.user }, '_id', function (
+            applicant,
+        ) {
             console.log(applicant);
 
-            db.updateOne(Job, {_id: req.body.jobId}, {$push: {applicants: applicant._id}}, function(result) {
-                if(result) {
-                    console.log('jobId: ' + req.body.jobId);
-                    res.redirect('/feed-app');
-                } else res.redirect(`/getIndivJob_id?=${req.body.jobId}`);
-            })
-        })
-        
-
-    }
+            db.updateOne(
+                Job,
+                { _id: req.body.jobId },
+                { $push: { applicants: applicant._id } },
+                function (result) {
+                    if (result) {
+                        res.redirect('/feed-app');
+                    } else res.redirect(`/jobs/${req.body.jobId}`);
+                },
+            );
+        });
+    },
 };
+
 // enables to export controller object when called in another .js file
 module.exports = feedController;

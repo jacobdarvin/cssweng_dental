@@ -144,7 +144,7 @@ app.post('/create', dashboardEmpController.postCreateJob);
 // /feed / FEED
 app.get('/feed-emp', feedController.getEmpFeed);
 app.get('/feed-app', feedController.getAppFeed);
-app.get('/getIndivJob', feedController.getIndivJob);
+app.get('/jobs/:id', feedController.getIndivJob);
 app.post('/postIndivJob', feedController.postIndivJob);
 
 // /feed / FEED
