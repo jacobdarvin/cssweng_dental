@@ -150,7 +150,9 @@ const feedController = {
         db.findOne(Applicant, { account: req.session.user }, '_id', function (
             applicant,
         ) {
-            db.findOne(Job, { _id: req.params.jobId }, '', function (job) {
+            var sntJobId = sanitize(req.params.jobId);
+
+            db.findOne(Job, { _id: sntJobId }, '', function (job) {
                 if (job) {
                     job.populate('employer').execPopulate(function (err, data) {
                         if (err) throw err;
@@ -183,16 +185,16 @@ const feedController = {
         db.findOne(Applicant, { account: req.session.user }, '_id', function (
             applicant,
         ) {
-            console.log(applicant);
+            var sntJobId = sanitize(req.params.jobId);
 
             db.updateOne(
                 Job,
-                { _id: req.params.jobId },
+                { _id: sntJobId },
                 { $push: { applicants: applicant._id } },
                 function (result) {
                     if (result) {
                         res.redirect('/feed-app');
-                    } else res.redirect(`/jobs/${req.params.jobId}`);
+                    } else res.redirect(`/jobs/${sntJobId}`);
                 },
             );
         });
@@ -209,7 +211,9 @@ const feedController = {
             return;
         }
 
-        db.findOne(Job, { _id: req.params.jobId }, 'applicants', function (job) {
+        var sntJobId = sanitize(req.params.jobId);
+
+        db.findOne(Job, { _id: sntJobId }, 'applicants', function (job) {
             if (job) {
                 job.populate(
                     {
@@ -225,7 +229,7 @@ const feedController = {
                                 req.session.user && req.cookies.user_sid,
                             active_user: req.session.user,
                             title: 'Applicants | BookMeDental',
-                            filter_route: `/jobs/${req.params.jobId}/applicants`,
+                            filter_route: `/jobs/${sntJobId}/applicants`,
                             profile_active: true,
                             applicants: data.applicants,
                         });
@@ -238,9 +242,7 @@ const feedController = {
         });
     },
 
-    getAppProfile: function(req, res) {
-        
-    }
+    getAppProfile: function (req, res) {},
 };
 
 // enables to export controller object when called in another .js file
