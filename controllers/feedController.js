@@ -232,6 +232,7 @@ const feedController = {
                             filter_route: `/jobs/${sntJobId}/applicants`,
                             profile_active: true,
                             applicants: data.applicants,
+                            jobId: sntJobId,
                         });
                     },
                 );
@@ -242,7 +243,45 @@ const feedController = {
         });
     },
 
-    getAppProfile: function (req, res) {},
+    getAppProfile: function (req, res) {
+        if (!(req.session.user && req.cookies.user_sid)) {
+            res.redirect('/login');
+            return;
+        }
+
+        if (req.session.accType != 'employer') {
+            res.status(403).send('Forbidden: you are not an employer');
+            return;
+        }
+
+        var sntAppId = sanitize(req.params.appId);
+        db.findOne(Applicant, { _id: sntAppId }, '', function (applicant) {
+            if (applicant) {
+                applicant.populate(
+                    {
+                        path: 'account',
+                        select: 'accEmail -_id',
+                        options: { lean: true },
+                    },
+                    function (err, result) {
+                        if (err) throw err;
+
+                        res.render('details-app', {
+                            active_session:
+                                req.session.user && req.cookies.user_sid,
+                            active_user: req.session.user,
+                            title: `Applicant ${applicant.fName} ${applicant.lName} | BookMeDental`,
+                            appData: result.toObject(),
+                            profile_active: true,
+                        });
+                    },
+                );
+            } else {
+                res.status(404);
+                next();
+            }
+        });
+    },
 };
 
 // enables to export controller object when called in another .js file
