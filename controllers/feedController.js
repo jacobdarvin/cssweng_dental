@@ -26,17 +26,26 @@ const feedController = {
 
         let dateStatus = parseDate(sanitize(req.query.date));
 
-        if(positionStatus == null || positionStatus == 'undefined') {
+        if(Array.isArray(positionStatus)) {
+            for(let i = 0; i < positionStatus.length; i++) {
+                positionQuery.push(positionStatus[i]);
+            }
+        } else if (positionStatus) {
+            positionQuery.push(positionStatus);
+        } 
+        else {
             positionQuery.push('Dentist', 'Dental Hygienist', 'Front Desk', 'Dental Assistant');
-        } else {
-            positionQuery = positionStatus;
-            positionQuery.push(null);
         }
 
-        if(placementStatus == null || placementStatus == 'undefined') {
+        if(Array.isArray(placementStatus)) {
+            for(let i = 0; i < placementStatus.length; i++) {
+                placementQuery.push(placementStatus[i]);
+            }
+        } else if (placementStatus) {
+            placementQuery.push(placementStatus);
+        } 
+        else {
             placementQuery.push('Permanent', 'Temporary');
-        } else {
-            placementQuery = placementStatus;
         }
 
         db.findOne(Employer, {account: req.session.user}, '_id', function(emp){
@@ -67,14 +76,30 @@ const feedController = {
                 function(err, results) {
                 console.log(results);
 
-                console.log(placementQuery);
+                let selectOptions = new Array()
 
-                let selectOptions = new Array();
+                console.log(placementQuery);
+                console.log(positionQuery);
+
+                let placementLink = "";
+                let positonLink = "";
+
+                for(let i = 0; i < placementQuery.length; i++) {
+                    if(i == 0)
+                        placementLink += "placement=" + placementQuery[i];
+                    else
+                        placementLink += "&placement=" + placementQuery[i];
+                }
+
+                for(let i = 0; i < positionQuery.length; i++) {
+                    positonLink += "&position=" + positionQuery[i];
+                }
+
                 for (let i = 0; i < results.pages; i++) {
                     let nPage = i + 1;
 
                     let options = {
-                        pageLink: "/feed-emp?placement=" + placementQuery + "&page=" + nPage,
+                        pageLink: "/feed-emp?" + placementLink + positonLink + "&page=" + nPage,
                         pageNo : nPage,
                         isSelected : (results.page == nPage),
                     };
@@ -85,7 +110,7 @@ const feedController = {
                 //fix this logic
 
                 let prevPageLink = (results.pages != 1) ? "/feed-emp?placement=" + query.placement + "&position=" + query.position + "$date=" + req.query.date + "&page=" + parseInt(results.page) - 1: "";
-                let nextPageLink = (results.page != parseInt(results.limit)) ? "/feed-emp?placement=" + query.placement + "&position=" + query.position + "$date=" + req.query.date + "&page=" + parseInt(results.page) + 1 : "";
+                let nextPageLink = (results.page == parseInt(results.limit)) ? "/feed-emp?placement=" + query.placement + "&position=" + query.position + "$date=" + req.query.date + "&page=" + parseInt(results.page) + 1 : "";
                     
                     res.render('feed', {
                         active_session: (req.session.user && req.cookies.user_sid),
