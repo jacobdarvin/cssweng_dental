@@ -10,7 +10,7 @@
 		<p class="h1">Job Feed</p>
 		<div id = "jobFeed">
 			{{#each jobs}}
-				{{>jobItem}}
+				{{>jobItem is_employer=../is_employer}}
 			{{/each}}
 		</div>
 		{{!-- <nav aria-label="Page navigation example">

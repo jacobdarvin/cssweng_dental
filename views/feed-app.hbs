@@ -1,7 +1,7 @@
 <style>
-    body {
-        background-color: rgb(245, 245, 245);
-    }
+	body {
+		background-color: rgb(245, 245, 245);
+	}
 </style>
 
 <link rel="stylesheet" type="text/css" href="/css/hover.css" />
@@ -10,58 +10,57 @@
 
 	<div class="col-9 container p-0 pb-2 mb-0">
 		<p class="h1 mb-0">Applicants</p>
-        {{> appItem}}
-        {{> appItem}}
-        {{> appItem}}
-        {{> appItem}}
-    </div>
+		{{#each applicants}}
+			{{> appItem}}
+		{{/each}}
+	</div>
 
 	<div class="col-sm-3 p-0">
 		<p class="h1">Filter</p>
 		<div class="p-3 card border m-0 mb-2">
 			<p class="h5"> Position </p>
 			<div class="form-check">
-			  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-			  <label class="form-check-label" for="defaultCheck1">
-			    Dentist
-			  </label>
+				<input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+				<label class="form-check-label" for="defaultCheck1">
+					Dentist
+				</label>
 			</div>
 			<div class="form-check">
-			  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-			  <label class="form-check-label" for="defaultCheck1">
-			    Dental Assistant
-			  </label>
+				<input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+				<label class="form-check-label" for="defaultCheck1">
+					Dental Assistant
+				</label>
 			</div>
 			<div class="form-check">
-			  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-			  <label class="form-check-label" for="defaultCheck1">
-			    Dental Hygenist
-			  </label>
+				<input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+				<label class="form-check-label" for="defaultCheck1">
+					Dental Hygenist
+				</label>
 			</div>
 			<div class="form-check">
-			  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-			  <label class="form-check-label" for="defaultCheck1">
-			    Front Desk
-			  </label>
+				<input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+				<label class="form-check-label" for="defaultCheck1">
+					Front Desk
+				</label>
 			</div>
 		</div>
 
 		<div class="p-3 card border m-0 mb-2">
 			<p class="h5 mt-2"> Location </p>
 			<div class="form-group">
-		    <label for="exampleFormControlSelect1">Example select</label>
-		    <select class="form-control" id="exampleFormControlSelect1">
-		      <option>1</option>
-		      <option>2</option>
-		      <option>3</option>
-		      <option>4</option>
-		      <option>5</option>
-		    </select>
-		  </div>
+				<label for="exampleFormControlSelect1">Example select</label>
+				<select class="form-control" id="exampleFormControlSelect1">
+					<option>1</option>
+					<option>2</option>
+					<option>3</option>
+					<option>4</option>
+					<option>5</option>
+				</select>
+			</div>
 		</div>
 
 		<a class="btn btn-primary w-100" href="#" role="button">Filter</a>
-		
+
 	</div>
 
 </div>

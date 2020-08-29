@@ -146,6 +146,7 @@ app.get('/feed-emp', feedController.getEmpFeed);
 app.get('/feed-app', feedController.getAppFeed);
 app.get('/jobs/:id', feedController.getIndivJob);
 app.post('/postIndivJob', feedController.postIndivJob);
+app.get('/jobs/:id/applicants', feedController.getJobApplicants);
 
 // /feed / FEED
 

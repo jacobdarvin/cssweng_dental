@@ -1,14 +1,14 @@
-<a href="/jobs/{{_id}}" style="text-decoration: none;">
-<div class="card job border m-1">
-	<div class="p-2">
-		<p class="h1" style="font-size: 18px; padding-top: 5px; padding-left: 5px">{{employer.clinicName}}</p>
-		<hr style="margin-top:-1px; margin-bottom: 10px">
-		<small style="margin-bottom: -1px; padding-left: 5px;">Position: {{position}}</small><br>
-		<small style="margin-bottom: -1px; padding-left: 5px;">Placement: {{placement}}</small><br>
-		{{!-- <small style="margin-bottom: -1px; padding-left: 5px; font-size: 13px">Job Description: {{description}}</small> --}}
+<a href="/jobs/{{_id}}{{#if is_employer}}/applicants{{/if}}" style="text-decoration: none;">
+	<div class="card job border m-1">
+		<div class="p-2">
+			<p class="h1" style="font-size: 18px; padding-top: 5px; padding-left: 5px">{{employer.clinicName}}</p>
+			<hr style="margin-top:-1px; margin-bottom: 10px">
+			<small style="margin-bottom: -1px; padding-left: 5px;">Position: {{position}}</small><br>
+			<small style="margin-bottom: -1px; padding-left: 5px;">Placement: {{placement}}</small><br>
+			{{!-- <small style="margin-bottom: -1px; padding-left: 5px; font-size: 13px">Job Description: {{description}}</small> --}}
+		</div>
+		<div class="card-footer p-1">
+			<small class="text-muted">Date Needed: {{date}}</small>
+		</div>
 	</div>
-	<div class="card-footer p-1">
-      <small class="text-muted">Date Needed: {{date}}</small>
-    </div>
-</div>
 </a>

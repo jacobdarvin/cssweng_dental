@@ -64,6 +64,7 @@ const feedController = {
                             active_user: req.session.user,
                             title: 'Job Feed | BookMeDental',
                             filter_route: '/feed-emp',
+                            is_employer: true,
                             profile_active: true,
                             jobs: data,
                         });
@@ -194,6 +195,46 @@ const feedController = {
                     } else res.redirect(`/jobs/${req.body.jobId}`);
                 },
             );
+        });
+    },
+
+    getJobApplicants: function (req, res, next) {
+        if (!(req.session.user && req.cookies.user_sid)) {
+            res.redirect('/login');
+            return;
+        }
+
+        if (req.session.accType != 'employer') {
+            res.status(403).send('Forbidden: you are not an employer');
+            return;
+        }
+
+        db.findOne(Job, { _id: req.params.id }, 'applicants', function (job) {
+            if (job) {
+                job.populate(
+                    {
+                        path: 'applicants',
+                        select: 'avatar fName lName position',
+                        options: { lean: true },
+                    },
+                    function (err, data) {
+                        if (err) throw err;
+
+                        res.render('feed-app', {
+                            active_session:
+                                req.session.user && req.cookies.user_sid,
+                            active_user: req.session.user,
+                            title: 'Applicants | BookMeDental',
+                            filter_route: `/jobs/${req.params.id}/applicants`,
+                            profile_active: true,
+                            applicants: data.applicants,
+                        });
+                    },
+                );
+            } else {
+                res.status(404);
+                next();
+            }
         });
     },
 };
