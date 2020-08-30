@@ -27,6 +27,7 @@ const dashboardEmpController = {
                 placement: req.body.placement,            
                 position: req.body.position,
                 location: req.body.clinic,
+                clinicName: result.clinicName,
                 date: req.body.date,
                 description: desc,
                 software: software,
