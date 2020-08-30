@@ -147,7 +147,8 @@ app.get('/feed-app', feedController.getAppFeed);
 app.get('/jobs/:jobId', feedController.getIndivJob);
 app.post('/jobs/:jobId', feedController.postIndivJob);
 app.get('/jobs/:jobId/applicants', feedController.getJobApplicants);
-app.get('/jobs/:jobId/applicants/:appId', feedController.getAppProfile);
+app.get('/jobs/:jobId/applicants/:appId', feedController.getAppProfile); // TODO: fix route
+// TODO: implement search applicants feature for employers
 // /feed / FEED
 
 // /register | REGISTER
