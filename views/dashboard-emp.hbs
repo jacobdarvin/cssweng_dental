@@ -1,3 +1,8 @@
+<script type="text/javascript">
+    localStorage.permanent = false;
+    localStorage.temporary = false;
+</script>
+
 <style>
     body {
         background-color: rgb(245, 245, 245);
@@ -47,7 +52,7 @@
                         <span style="font-size: 15px;">Temporary Job Posts</span>
                     </span>
                     <hr />
-                    <a href="#" class="btn btn-primary w-100" style="text-align: left;">View Temporary Job Posts</a>
+                    <a href="/feed-emp?placement=Temporary" onclick="localStorage.temporary = true" class="btn btn-primary w-100" style="text-align: left;">View Temporary Job Posts</a>
                 </div>
             </div>
 
@@ -58,18 +63,7 @@
                         <span style="font-size: 15px;">Permanent Job Posts</span>
                     </span>
                     <hr />
-                    <a href="#" class="btn btn-success w-100" style="text-align: left;">View Permanent Job Posts</a>
-                </div>
-            </div>
-
-            <div class="card border border-info shadow-sm mx-auto mb-4 profile-length" style="width: 100%;">
-                <div class="card-body">
-                    <span class="card-text" style="text-align: left; font-size: 32px;">
-                        2
-                        <span style="font-size: 15px;">Completed Posts</span>
-                    </span>
-                    <hr />
-                    <a href="#" class="btn btn-info w-100" style="text-align: left;">View Completed Posts</a>
+                    <a href="/feed-emp?placement=Permanent" onclick="localStorage.permanent = true" class="btn btn-success w-100" style="text-align: left;">View Permanent Job Posts</a>
                 </div>
             </div>
         </div>
