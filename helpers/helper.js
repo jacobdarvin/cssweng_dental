@@ -57,7 +57,7 @@ const helper = {
         } else if (diff_seconds == week){
             time = 'one week ago'
         } else{
-            time = dateformat(data.created, 'mmm dd, yyyy')
+            time = 'on '+ dateformat(date, 'mmm dd, yyyy')
         }
     
         return time;
