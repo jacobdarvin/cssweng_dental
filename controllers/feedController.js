@@ -8,7 +8,7 @@ const Applicant = require('../models/ApplicantModel');
 const Employer = require('../models/EmployerModel');
 const app = require('../routes/routes');
 
-const JOB_SELECT = '_id placement position date'
+const JOB_SELECT = '_id placement position date';
 
 const feedController = {
     getEmpFeed: function (req, res) {
@@ -27,30 +27,34 @@ const feedController = {
 
         let dateStatus = parseDate(sanitize(req.query.date));
 
-        if(Array.isArray(positionStatus)) {
-            for(let i = 0; i < positionStatus.length; i++) {
+        if (Array.isArray(positionStatus)) {
+            for (let i = 0; i < positionStatus.length; i++) {
                 positionQuery.push(positionStatus[i]);
             }
         } else if (positionStatus) {
             positionQuery.push(positionStatus);
-        } 
-        else {
-            positionQuery.push('Dentist', 'Dental Hygienist', 'Front Desk', 'Dental Assistant');
+        } else {
+            positionQuery.push(
+                'Dentist',
+                'Dental Hygienist',
+                'Front Desk',
+                'Dental Assistant',
+            );
         }
 
-        if(Array.isArray(placementStatus)) {
-            for(let i = 0; i < placementStatus.length; i++) {
+        if (Array.isArray(placementStatus)) {
+            for (let i = 0; i < placementStatus.length; i++) {
                 placementQuery.push(placementStatus[i]);
             }
         } else if (placementStatus) {
             placementQuery.push(placementStatus);
-        } 
-        else {
+        } else {
             placementQuery.push('Permanent', 'Temporary');
         }
 
-        db.findOne(Employer, {account: req.session.user}, '_id', function(emp){
-
+        db.findOne(Employer, { account: req.session.user }, '_id', function (
+            emp,
+        ) {
             let page = sanitize(req.query.page);
 
             if (page == null) {
@@ -58,48 +62,51 @@ const feedController = {
             }
 
             let options = {
+                populate: 'employer',
                 lean: true,
                 page: page,
                 limit: 2,
-
             };
 
             let query = {
-                employer  : emp._id,
-                position  : { $in: positionQuery },
-                placement : { $in : placementQuery},
+                employer: emp._id,
+                position: { $in: positionQuery },
+                placement: { $in: placementQuery },
             };
-            
-            Job.paginate(query, options,
-                function(err, results) {
+
+            Job.paginate(query, options, function (err, results) {
                 console.log(results);
 
-                let selectOptions = new Array()
+                let selectOptions = new Array();
 
                 console.log(placementQuery);
                 console.log(positionQuery);
 
-                let placementLink = "";
-                let positonLink = "";
+                let placementLink = '';
+                let positonLink = '';
 
-                for(let i = 0; i < placementQuery.length; i++) {
-                    if(i == 0)
-                        placementLink += "placement=" + placementQuery[i];
-                    else
-                        placementLink += "&placement=" + placementQuery[i];
+                for (let i = 0; i < placementQuery.length; i++) {
+                    if (i == 0)
+                        placementLink += 'placement=' + placementQuery[i];
+                    else placementLink += '&placement=' + placementQuery[i];
                 }
 
-                for(let i = 0; i < positionQuery.length; i++) {
-                    positonLink += "&position=" + positionQuery[i];
+                for (let i = 0; i < positionQuery.length; i++) {
+                    positonLink += '&position=' + positionQuery[i];
                 }
 
                 for (let i = 0; i < results.pages; i++) {
                     let nPage = i + 1;
 
                     let options = {
-                        pageLink: "/feed-emp?" + placementLink + positonLink + "&page=" + nPage,
-                        pageNo : nPage,
-                        isSelected : (results.page == nPage),
+                        pageLink:
+                            '/feed-emp?' +
+                            placementLink +
+                            positonLink +
+                            '&page=' +
+                            nPage,
+                        pageNo: nPage,
+                        isSelected: results.page == nPage,
                     };
 
                     selectOptions.push(options);
@@ -110,34 +117,48 @@ const feedController = {
                 let nextPageNumber = parseInt(results.page) + 1;
                 let prevPageNumber = parseInt(results.page) - 1;
 
-                let prevPageLink = (results.page != '1') ? "/feed-emp?" + placementLink + positonLink + "&page=" + prevPageNumber: "";
-                let nextPageLink = (results.page != results.pages) ? "/feed-emp?" + placementLink + positonLink + "&page=" + nextPageNumber : "";
-                
+                let prevPageLink =
+                    results.page != '1'
+                        ? '/feed-emp?' +
+                          placementLink +
+                          positonLink +
+                          '&page=' +
+                          prevPageNumber
+                        : '';
+                let nextPageLink =
+                    results.page != results.pages
+                        ? '/feed-emp?' +
+                          placementLink +
+                          positonLink +
+                          '&page=' +
+                          nextPageNumber
+                        : '';
+
                 let hasPrevPage = true;
                 let hasNextPage = true;
 
-                if(prevPageLink) {
+                if (prevPageLink) {
                     hasPrevPage = true;
                 } else {
                     hasPrevPage = false;
                 }
 
-                if(nextPageLink) {
+                if (nextPageLink) {
                     hasNextPage = true;
                 } else {
                     hasNextPage = false;
                 }
 
-                console.log(parseInt(results.page) + 1)
-
+                console.log(parseInt(results.page) + 1);
 
                 res.render('feed', {
-                    active_session: (req.session.user && req.cookies.user_sid),
+                    active_session: req.session.user && req.cookies.user_sid,
                     active_user: req.session.user,
                     title: 'Job Feed | BookMeDental',
-                    filter_route:'/feed-emp',
+                    filter_route: '/feed-emp',
                     profile_active: true,
                     jobs: results.docs,
+                    is_employer: true,
                     employer_active: true,
 
                     //Pagination
@@ -145,14 +166,13 @@ const feedController = {
                     hasPrev: hasPrevPage,
                     hasNext: hasNextPage,
                     prevPageLink: prevPageLink,
-                    nextPageLink: nextPageLink
+                    nextPageLink: nextPageLink,
                 });
-            })
+            });
         });
     },
 
     getAppFeed: function (req, res) {
-
         if (!(req.session.user && req.cookies.user_sid)) {
             res.redirect('/login');
             return;
@@ -172,124 +192,142 @@ const feedController = {
 
         let dateStatus = parseDate(sanitize(req.query.date));
 
-        if(Array.isArray(positionStatus)) {
-            for(let i = 0; i < positionStatus.length; i++) {
+        if (Array.isArray(positionStatus)) {
+            for (let i = 0; i < positionStatus.length; i++) {
                 positionQuery.push(positionStatus[i]);
             }
         } else if (positionStatus) {
             positionQuery.push(positionStatus);
-        } 
-        else {
-            positionQuery.push('Dentist', 'Dental Hygienist', 'Front Desk', 'Dental Assistant');
+        } else {
+            positionQuery.push(
+                'Dentist',
+                'Dental Hygienist',
+                'Front Desk',
+                'Dental Assistant',
+            );
         }
 
-        if(Array.isArray(placementStatus)) {
-            for(let i = 0; i < placementStatus.length; i++) {
+        if (Array.isArray(placementStatus)) {
+            for (let i = 0; i < placementStatus.length; i++) {
                 placementQuery.push(placementStatus[i]);
             }
         } else if (placementStatus) {
             placementQuery.push(placementStatus);
-        } 
-        else {
+        } else {
             placementQuery.push('Permanent', 'Temporary');
         }
 
         let page = sanitize(req.query.page);
 
-            if (page == null) {
-                page = '1';
+        if (page == null) {
+            page = '1';
+        }
+
+        let options = {
+            populate: 'employer',
+            lean: true,
+            page: page,
+            limit: 2,
+        };
+
+        let query = {
+            position: { $in: positionQuery },
+            placement: { $in: placementQuery },
+        };
+
+        Job.paginate(query, options, function (err, results) {
+            console.log(results);
+
+            let selectOptions = new Array();
+
+            console.log(placementQuery);
+            console.log(positionQuery);
+
+            let placementLink = '';
+            let positonLink = '';
+
+            for (let i = 0; i < placementQuery.length; i++) {
+                if (i == 0) placementLink += 'placement=' + placementQuery[i];
+                else placementLink += '&placement=' + placementQuery[i];
             }
 
-            let options = {
-                lean: true,
-                page: page,
-                limit: 2,
+            for (let i = 0; i < positionQuery.length; i++) {
+                positonLink += '&position=' + positionQuery[i];
+            }
 
-            };
+            for (let i = 0; i < results.pages; i++) {
+                let nPage = i + 1;
 
-            let query = {
-                position  : { $in: positionQuery },
-                placement : { $in : placementQuery},
-            };
+                let options = {
+                    pageLink:
+                        '/feed-app?' +
+                        placementLink +
+                        positonLink +
+                        '&page=' +
+                        nPage,
+                    pageNo: nPage,
+                    isSelected: results.page == nPage,
+                };
 
-        Job.paginate(query, options,
-                function(err, results) {
-                console.log(results);
+                selectOptions.push(options);
+            }
 
-                let selectOptions = new Array()
+            //fix this logic
 
-                console.log(placementQuery);
-                console.log(positionQuery);
+            let nextPageNumber = parseInt(results.page) + 1;
+            let prevPageNumber = parseInt(results.page) - 1;
 
-                let placementLink = "";
-                let positonLink = "";
+            let prevPageLink =
+                results.page != '1'
+                    ? '/feed-app?' +
+                      placementLink +
+                      positonLink +
+                      '&page=' +
+                      prevPageNumber
+                    : '';
+            let nextPageLink =
+                results.page != results.pages
+                    ? '/feed-app?' +
+                      placementLink +
+                      positonLink +
+                      '&page=' +
+                      nextPageNumber
+                    : '';
 
-                for(let i = 0; i < placementQuery.length; i++) {
-                    if(i == 0)
-                        placementLink += "placement=" + placementQuery[i];
-                    else
-                        placementLink += "&placement=" + placementQuery[i];
-                }
+            let hasPrevPage = true;
+            let hasNextPage = true;
 
-                for(let i = 0; i < positionQuery.length; i++) {
-                    positonLink += "&position=" + positionQuery[i];
-                }
+            if (prevPageLink) {
+                hasPrevPage = true;
+            } else {
+                hasPrevPage = false;
+            }
 
-                for (let i = 0; i < results.pages; i++) {
-                    let nPage = i + 1;
+            if (nextPageLink) {
+                hasNextPage = true;
+            } else {
+                hasNextPage = false;
+            }
 
-                    let options = {
-                        pageLink: "/feed-app?" + placementLink + positonLink + "&page=" + nPage,
-                        pageNo : nPage,
-                        isSelected : (results.page == nPage),
-                    };
+            console.log(parseInt(results.page) + 1);
 
-                    selectOptions.push(options);
-                }
+            res.render('feed', {
+                active_session: req.session.user && req.cookies.user_sid,
+                active_user: req.session.user,
+                title: 'Job Feed | BookMeDental',
+                filter_route: '/feed-app',
+                profile_active: true,
+                jobs: results.docs,
+                applicant_active: true,
 
-                //fix this logic
-
-                let nextPageNumber = parseInt(results.page) + 1;
-                let prevPageNumber = parseInt(results.page) - 1;
-
-                let prevPageLink = (results.page != '1') ? "/feed-app?" + placementLink + positonLink + "&page=" + prevPageNumber: "";
-                let nextPageLink = (results.page != results.pages) ? "/feed-app?" + placementLink + positonLink + "&page=" + nextPageNumber : "";
-                
-                let hasPrevPage = true;
-                let hasNextPage = true;
-
-                if(prevPageLink) {
-                    hasPrevPage = true;
-                } else {
-                    hasPrevPage = false;
-                }
-
-                if(nextPageLink) {
-                    hasNextPage = true;
-                } else {
-                    hasNextPage = false;
-                }
-
-                console.log(parseInt(results.page) + 1)
-
-
-                res.render('feed', {
-                    active_session: (req.session.user && req.cookies.user_sid),
-                    active_user: req.session.user,
-                    title: 'Job Feed | BookMeDental',
-                    filter_route:'/feed-app',
-                    profile_active: true,
-                    jobs: results.docs,
-                    applicant_active: true,
-
-                    //Pagination
-                    selectOptions: selectOptions,
-                    hasPrev: hasPrevPage,
-                    hasNext: hasNextPage,
-                    prevPageLink: prevPageLink,
-                    nextPageLink: nextPageLink
-                });
-            })
+                //Pagination
+                selectOptions: selectOptions,
+                hasPrev: hasPrevPage,
+                hasNext: hasNextPage,
+                prevPageLink: prevPageLink,
+                nextPageLink: nextPageLink,
+            });
+        });
     },
 
     getIndivJob: function (req, res) {
@@ -331,7 +369,7 @@ const feedController = {
             });
         });
     },
-    
+
     postIndivJob: function (req, res) {
         if (!(req.session.user && req.cookies.user_sid)) {
             res.redirect('/login');
@@ -388,7 +426,7 @@ const feedController = {
                             filter_route: `/jobs/${sntJobId}/applicants`,
                             profile_active: true,
                             applicants: data.applicants,
-                            jobId: sntJobId,
+                            profile_route: `/jobs/${sntJobId}/applicants`,
                         });
                     },
                 );
@@ -441,7 +479,7 @@ const feedController = {
 };
 
 function parseDate(s) {
-    if (!(moment(s, 'YYYY-MM-DD', true).isValid())) {
+    if (!moment(s, 'YYYY-MM-DD', true).isValid()) {
         return null;
     }
 

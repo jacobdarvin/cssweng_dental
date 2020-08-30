@@ -148,6 +148,8 @@ app.get('/dashboard', dashboardController.getDashboard);
 app.get('/create', dashboardEmpController.getCreateJob);
 // post job / CREATE
 app.post('/create', dashboardEmpController.postCreateJob);
+app.get('/search/applicants', dashboardEmpController.getApplicantsFromSearch);
+app.get('/applicants/:appId', dashboardEmpController.getAppProfile); // view applicant from applicant search
 
 // /feed / FEED
 app.get('/feed-emp', feedController.getEmpFeed);
@@ -155,8 +157,7 @@ app.get('/feed-app', feedController.getAppFeed);
 app.get('/jobs/:jobId', feedController.getIndivJob);
 app.post('/jobs/:jobId', feedController.postIndivJob);
 app.get('/jobs/:jobId/applicants', feedController.getJobApplicants);
-app.get('/jobs/:jobId/applicants/:appId', feedController.getAppProfile); // TODO: fix route
-// TODO: implement search applicants feature for employers
+app.get('/jobs/:jobId/applicants/:appId', feedController.getAppProfile); // view applicant from job post's applicants
 // /feed / FEED
 
 // /register | REGISTER
