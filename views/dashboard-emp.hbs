@@ -1,3 +1,8 @@
+<script type="text/javascript">
+    localStorage.permanent = false;
+    localStorage.temporary = false;
+</script>
+
 <style>
     body {
         background-color: rgb(245, 245, 245);
@@ -47,7 +52,7 @@
                         <span style="font-size: 15px;">Temporary Job Posts</span>
                     </span>
                     <hr />
-                    <a href="#" class="btn btn-primary w-100" style="text-align: left;">View Temporary Job Posts</a>
+                    <a href="/feed-emp?placement=Temporary" onclick="localStorage.temporary = true" class="btn btn-primary w-100" style="text-align: left;">View Temporary Job Posts</a>
                 </div>
             </div>
 
@@ -58,18 +63,7 @@
                         <span style="font-size: 15px;">Permanent Job Posts</span>
                     </span>
                     <hr />
-                    <a href="#" class="btn btn-success w-100" style="text-align: left;">View Permanent Job Posts</a>
-                </div>
-            </div>
-
-            <div class="card border border-info shadow-sm mx-auto mb-4 profile-length" style="width: 100%;">
-                <div class="card-body">
-                    <span class="card-text" style="text-align: left; font-size: 32px;">
-                        2
-                        <span style="font-size: 15px;">Completed Posts</span>
-                    </span>
-                    <hr />
-                    <a href="#" class="btn btn-info w-100" style="text-align: left;">View Completed Posts</a>
+                    <a href="/feed-emp?placement=Permanent" onclick="localStorage.permanent = true" class="btn btn-success w-100" style="text-align: left;">View Permanent Job Posts</a>
                 </div>
             </div>
         </div>
@@ -83,25 +77,17 @@
                         <h2>Your Active Job Posts</h2>
                         <a href="/create">+ Create New</a>
 
-                        {{> dashboardJobEmp}}
-
-                        <div class="card border border-primary m-0 mt-2 mb-2">
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    Front desk wanted (temp!) | <br />
-                                    <small> Brichmond Dental </small>
-                                </h5>
-                                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                                <a href="#" class="btn btn-primary">View this job</a>
-                            </div>
-                        </div>
+                        {{> jobItem}}
+                        {{> jobItem}}
 
                         <a href="/feed-emp">View All Jobs</a>
 
                         <hr />
+
                         <h2>Search For Employees</h2>
                         <small>Browse and filter a list of our website's applicants</small>
                         <a href="#" class="btn btn-primary w-100">Search</a>
+
                     </div>
                 </div>
             </div>

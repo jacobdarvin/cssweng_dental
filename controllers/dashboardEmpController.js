@@ -9,7 +9,7 @@ const dashboardEmpController = {
         res.render('create', {
         	active_session: (req.session.user && req.cookies.user_sid),
        		active_user: req.session.user,
-            title: 'Dashboard | BookMeDental',
+            title: 'Post Job | BookMeDental',
             profile_active: true,
         });
     },
@@ -20,6 +20,7 @@ const dashboardEmpController = {
 
         db.findOne(Employer, {account: req.session.user}, '', function(result){
             console.log("inserting");
+
               var job = new Job({
                 _id: new mongoose.Types.ObjectId(),
                 employer: result._id,
@@ -32,7 +33,7 @@ const dashboardEmpController = {
                 experience: req.body.experience
             });
 
-              db.insertOne(Job, job,function (flag){
+            db.insertOne(Job, job, function (flag){
                 if(flag){
                     console.log("inserted");
                     res.redirect('/dashboard');

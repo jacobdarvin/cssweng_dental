@@ -57,7 +57,7 @@
                 <div class="card-body">
                     <span class="card-text" style="text-align: left; font-size: 32px;">
                         12
-                        <span style="font-size: 15px;">Temp Jobs Accepted</span>
+                        <span style="font-size: 15px;">Jobs Applied</span>
                     </span>
                     <hr />
                     <a href="#" class="btn btn-info w-100" style="text-align: left;">100% Response Rate</a>
@@ -94,15 +94,15 @@
                                     </div>
 
                                     <h2>Matching Jobs For You</h2>
-                                    {{>dashboardJob}}
-                                    {{>dashboardJob}}
+                                    {{>jobItem}}
+                                    {{>jobItem}}
+                                    {{>jobItem}}
 
                                     <a href="/feed-app">View All Jobs</a>
 
                                     <hr />
-                                    <h2>Upcoming Temp Opportunities</h2>
-                                    {{>dashboardJob}}
-                                    <small>No upcoming temporary jobs are currently listed for you.</small>
+                                    <h2>Active Applied Jobs</h2>
+                                    {{>jobItem}}
                                 </div>
                             </div>
                         </div>
