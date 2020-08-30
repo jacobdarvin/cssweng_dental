@@ -1,4 +1,5 @@
 const sanitize = require('mongo-sanitize');
+const mongoose = require('mongoose'); 
 const moment = require('moment');
 const dateformat = require('dateformat');
 const fs = require('fs');
@@ -82,9 +83,15 @@ const helper = {
     },
 
     getActiveJobPost: function (emp){
-        var query = Job.find({employer: emp}).sort('-created').limit(2).lean();
-        return query
-       
+        return Job.find({employer: emp}).sort('-created').limit(2).lean();
+    },
+
+    getTempCount: function (emp){
+        return Job.countDocuments({employer: emp, placement: 'Temporary'}).exec();
+    },
+
+    getPermCount: function (emp){
+        return Job.countDocuments({employer: emp, placement: 'Permanent'}).exec();
     }
 };
 
