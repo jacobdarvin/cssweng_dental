@@ -137,6 +137,7 @@ const feedController = {
                     filter_route:'/feed-emp',
                     profile_active: true,
                     jobs: results.docs,
+                    employer_active: true,
 
                     //Pagination
                     selectOptions: selectOptions,
