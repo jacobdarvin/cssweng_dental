@@ -106,40 +106,46 @@ const feedController = {
 
                 //fix this logic
 
-                let prevPageLink = (results.pages != 1) ? "/feed-emp?placement=" + query.placement + "&position=" + query.position + "$date=" + req.query.date + "&page=" + parseInt(results.page) - 1: "";
-                let nextPageLink = (results.page == parseInt(results.limit)) ? "/feed-emp?placement=" + query.placement + "&position=" + query.position + "$date=" + req.query.date + "&page=" + parseInt(results.page) + 1 : "";
-                    
-                    res.render('feed', {
-                        active_session: (req.session.user && req.cookies.user_sid),
-                        active_user: req.session.user,
-                        title: 'Job Feed | BookMeDental',
-                        filter_route:'/feed-emp',
-                        profile_active: true,
-                        jobs: results.docs,
+                let nextPageNumber = parseInt(results.page) + 1;
+                let prevPageNumber = parseInt(results.page) - 1;
 
-                        //Pagination
-                        selectOptions: selectOptions,
-                        hasPrev: results.hasPrevPage,
-                        hasNext: results.hasNextPage,
-                        prevPageLink: prevPageLink,
-                        nextPageLink: nextPageLink
-                    });
-                })
-            /*
-            db.findMany(Job, query, '', function(result){
-                Employer.populate(result, {path: 'employer', options: {lean: true}}, function (err, data){
-                        if (err) throw err;
-                        res.render('feed', {
-                        active_session: (req.session.user && req.cookies.user_sid),
-                        active_user: req.session.user,
-                        title: 'Job Feed | BookMeDental',
-                        filter_route:'/feed-emp',
-                        profile_active: true,
-                        jobs: data
-                    });
-                })
+                let prevPageLink = (results.page != '1') ? "/feed-emp?" + placementLink + positonLink + "&page=" + prevPageNumber: "";
+                let nextPageLink = (results.page != results.pages) ? "/feed-emp?" + placementLink + positonLink + "&page=" + nextPageNumber : "";
+                
+                let hasPrevPage = true;
+                let hasNextPage = true;
+
+                if(prevPageLink) {
+                    hasPrevPage = true;
+                } else {
+                    hasPrevPage = false;
+                }
+
+                if(nextPageLink) {
+                    hasNextPage = true;
+                } else {
+                    hasNextPage = false;
+                }
+
+                console.log(parseInt(results.page) + 1)
+
+
+                res.render('feed', {
+                    active_session: (req.session.user && req.cookies.user_sid),
+                    active_user: req.session.user,
+                    title: 'Job Feed | BookMeDental',
+                    filter_route:'/feed-emp',
+                    profile_active: true,
+                    jobs: results.docs,
+
+                    //Pagination
+                    selectOptions: selectOptions,
+                    hasPrev: hasPrevPage,
+                    hasNext: hasNextPage,
+                    prevPageLink: prevPageLink,
+                    nextPageLink: nextPageLink
+                });
             })
-            */
         });
     },
 
