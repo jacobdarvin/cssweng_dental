@@ -11,7 +11,7 @@ const JOB_SELECT = '_id placement position date'
 const feedController = {
 
     getEmpFeed: function (req, res) {
-         if (!(req.session.user && req.cookies.user_sid)) {
+        if (!(req.session.user && req.cookies.user_sid)) {
             res.redirect('/login');
             return;
         }
@@ -167,39 +167,124 @@ const feedController = {
 
         let dateStatus = parseDate(sanitize(req.query.date));
 
-        if(positionStatus) {
-            positionQuery = positionStatus;
-        } else {
+        if(Array.isArray(positionStatus)) {
+            for(let i = 0; i < positionStatus.length; i++) {
+                positionQuery.push(positionStatus[i]);
+            }
+        } else if (positionStatus) {
+            positionQuery.push(positionStatus);
+        } 
+        else {
             positionQuery.push('Dentist', 'Dental Hygienist', 'Front Desk', 'Dental Assistant');
         }
 
-        if(placementStatus) {
-            placementQuery = placementStatus;
-        } else {
+        if(Array.isArray(placementStatus)) {
+            for(let i = 0; i < placementStatus.length; i++) {
+                placementQuery.push(placementStatus[i]);
+            }
+        } else if (placementStatus) {
+            placementQuery.push(placementStatus);
+        } 
+        else {
             placementQuery.push('Permanent', 'Temporary');
         }
 
-        console.log(positionQuery);
-        console.log(placementQuery);
+        let page = sanitize(req.query.page);
 
-        let query = {
-            position : { $in: positionQuery },
-            placement : { $in : placementQuery}
-        };
+            if (page == null) {
+                page = '1';
+            }
 
-        db.findMany(Job, query, '', function(result){
-            Employer.populate(result, {path: 'employer', options: {lean: true}}, function (err, data){
-                if (err) throw err;
+            let options = {
+                lean: true,
+                page: page,
+                limit: 2,
+
+            };
+
+            let query = {
+                position  : { $in: positionQuery },
+                placement : { $in : placementQuery},
+            };
+
+        Job.paginate(query, options,
+                function(err, results) {
+                console.log(results);
+
+                let selectOptions = new Array()
+
+                console.log(placementQuery);
+                console.log(positionQuery);
+
+                let placementLink = "";
+                let positonLink = "";
+
+                for(let i = 0; i < placementQuery.length; i++) {
+                    if(i == 0)
+                        placementLink += "placement=" + placementQuery[i];
+                    else
+                        placementLink += "&placement=" + placementQuery[i];
+                }
+
+                for(let i = 0; i < positionQuery.length; i++) {
+                    positonLink += "&position=" + positionQuery[i];
+                }
+
+                for (let i = 0; i < results.pages; i++) {
+                    let nPage = i + 1;
+
+                    let options = {
+                        pageLink: "/feed-app?" + placementLink + positonLink + "&page=" + nPage,
+                        pageNo : nPage,
+                        isSelected : (results.page == nPage),
+                    };
+
+                    selectOptions.push(options);
+                }
+
+                //fix this logic
+
+                let nextPageNumber = parseInt(results.page) + 1;
+                let prevPageNumber = parseInt(results.page) - 1;
+
+                let prevPageLink = (results.page != '1') ? "/feed-app?" + placementLink + positonLink + "&page=" + prevPageNumber: "";
+                let nextPageLink = (results.page != results.pages) ? "/feed-app?" + placementLink + positonLink + "&page=" + nextPageNumber : "";
+                
+                let hasPrevPage = true;
+                let hasNextPage = true;
+
+                if(prevPageLink) {
+                    hasPrevPage = true;
+                } else {
+                    hasPrevPage = false;
+                }
+
+                if(nextPageLink) {
+                    hasNextPage = true;
+                } else {
+                    hasNextPage = false;
+                }
+
+                console.log(parseInt(results.page) + 1)
+
+
                 res.render('feed', {
                     active_session: (req.session.user && req.cookies.user_sid),
                     active_user: req.session.user,
-                    title: 'Applicant Feed | BookMeDental',
+                    title: 'Job Feed | BookMeDental',
                     filter_route:'/feed-app',
                     profile_active: true,
-                    jobs: data
+                    jobs: results.docs,
+                    applicant_active: true,
+
+                    //Pagination
+                    selectOptions: selectOptions,
+                    hasPrev: hasPrevPage,
+                    hasNext: hasNextPage,
+                    prevPageLink: prevPageLink,
+                    nextPageLink: nextPageLink
                 });
-            });
-        });
+            })
     },
 
     getIndivJob: function (req,res){
