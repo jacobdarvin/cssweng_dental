@@ -2,6 +2,7 @@ const sanitize = require('mongo-sanitize');
 const moment = require('moment');
 const dateformat = require('dateformat');
 const fs = require('fs');
+const Job = require('../models/JobModel');
 
 const helper = {
     sanitize: function (query) {
@@ -78,6 +79,12 @@ const helper = {
         date.setHours(8, 0, 0, 0);
     
         return date;
+    },
+
+    getActiveJobPost: function (emp){
+        var query = Job.find({employer: emp}).sort('-created').limit(2).lean();
+        return query
+       
     }
 };
 

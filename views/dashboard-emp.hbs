@@ -77,9 +77,10 @@
                         <h2>Your Active Job Posts</h2>
                         <a href="/create">+ Create New</a>
 
-                        {{> jobItem}}
-                        {{> jobItem}}
-
+                        {{#each activeJob}}
+                            {{> jobItem}}
+                        {{/each}}
+                        
                         <a href="/feed-emp">View All Jobs</a>
 
                         <hr />

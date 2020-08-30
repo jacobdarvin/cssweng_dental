@@ -1,6 +1,7 @@
 const db = require('../models/db');
 const Applicant = require('../models/ApplicantModel');
 const Employer = require('../models/EmployerModel');
+const helper = require('../helpers/helper');
 
 const dashboardController = {
     getDashboard: function (req, res, next) {
@@ -35,15 +36,21 @@ const dashboardController = {
                                     profileData: data.toObject()
                                 });
                             } else {
-                                res.render(view, {
-                                    active_session:
-                                    req.session.user && req.cookies.user_sid,
-                                    active_user: req.session.user,
-                                    title: 'Dashboard | BookMeDental',
-                                    profile_active: true,
-                                    employer_active: true,
-                                    profileData: data.toObject()
-                                });
+                                var query = helper.getActiveJobPost(data._id);
+                                query.exec(function(err, result){
+                                    if(err) throw err;
+                                    res.render(view, {
+                                        active_session:
+                                        req.session.user && req.cookies.user_sid,
+                                        active_user: req.session.user,
+                                        title: 'Dashboard | BookMeDental',
+                                        profile_active: true,
+                                        employer_active: true,
+                                        profileData: data.toObject(),
+                                        activeJob: result
+                                    });
+                                })
+                               
                             }
                         });
                 } else {
