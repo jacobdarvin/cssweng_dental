@@ -3,6 +3,7 @@ const Job = require('../models/JobModel');
 const Employer = require('../models/EmployerModel');
 const Applicant = require('../models/ApplicantModel');
 const helper = require('../helpers/helper');
+const pagination = require('../helpers/pagination');
 const db = require('../models/db');
 const sanitize = require('mongo-sanitize');
 
@@ -57,28 +58,58 @@ const dashboardEmpController = {
             return;
         }
 
-        db.findMany(
-            Applicant,
-            { account: { $exists: true } },
-            'avatar fName lName position',
-            function (applicants) {
-                if (applicants) {
-                    res.render('feed-app', {
-                        active_session:
-                            req.session.user && req.cookies.user_sid,
-                        active_user: req.session.user,
-                        title: 'Applicants | BookMeDental',
-                        filter_route: req.path,
-                        profile_active: true,
-                        applicants: applicants,
-                        profile_route: `/applicants`,
-                    });
-                } else {
-                    res.status(404);
-                    next();
-                }
-            },
+        let positionQuery = pagination.initQueryArray(
+            sanitize(req.query.position),
+            ['Dentist', 'Dental Hygienist', 'Front Desk', 'Dental Assistant'],
         );
+
+        let page = sanitize(req.query.page);
+        if (page == null) page = '1';
+
+        let options = { lean: true, page: page, limit: 6 };
+
+        let query = {
+            account: { $exists: true },
+            position: { $in: positionQuery },
+        };
+
+        Applicant.paginate(query, options, function (err, results) {
+            if (err) throw err;
+            let route = '/search/applicants';
+            
+            let positionLink = pagination.createQueryLink(
+                positionQuery,
+                'position',
+            );
+            
+            let queryLinks = [];
+            queryLinks.push(positionLink);
+            
+            const {
+                selectOptions,
+                prevPageLink,
+                nextPageLink,
+                hasPrevPage,
+                hasNextPage,
+            } = pagination.configPagination(results, route, queryLinks);
+
+            res.render('feed-app', {
+                active_session: req.session.user && req.cookies.user_sid,
+                active_user: req.session.user,
+                title: 'Applicants | BookMeDental',
+                filter_route: route,
+                profile_active: true,
+                applicants: results.docs,
+                profile_route: `/applicants`,
+
+                // Pagination
+                selectOptions: selectOptions,
+                hasPrev: hasPrevPage,
+                hasNext: hasNextPage,
+                prevPageLink: prevPageLink,
+                nextPageLink: nextPageLink,
+            });
+        });
     },
 
     getAppProfile: function (req, res) {
