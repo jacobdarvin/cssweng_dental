@@ -57,7 +57,7 @@ const feedController = {
             let options = {
                 lean: true,
                 page: page,
-                limit: 2,
+                limit: 4,
 
             };
 
@@ -196,7 +196,7 @@ const feedController = {
             let options = {
                 lean: true,
                 page: page,
-                limit: 2,
+                limit: 4,
 
             };
 
