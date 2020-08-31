@@ -41,6 +41,9 @@ app.engine(
                     ? value
                     : 'portrait.png';
             },
+            match: function (v1, v2, options) {
+                return v1 == v2 ? options.fn(this) : options.inverse(this);
+            },
         },
     }),
 );
