@@ -152,7 +152,6 @@ const validation = {
                 .notEmpty()
                 .withMessage('First name is required.')
                 .trim(),
-
             check('lname')
                 .trim()
                 .notEmpty()
@@ -166,7 +165,7 @@ const validation = {
             check('house')
                 .trim()
                 .notEmpty()
-                .withMessage('House number is required.')
+                .withMessage('House number is required.').bail()
                 .isNumeric()
                 .withMessage('Invalid input.')
                 .trim(),
@@ -191,7 +190,7 @@ const validation = {
             check('years')
                 .trim()
                 .notEmpty()
-                .withMessage('Empty field. Please fill this out.')
+                .withMessage('Empty field. Please fill this out.').bail()
                 .isNumeric()
                 .withMessage('Invalid input.')
                 .trim(),
