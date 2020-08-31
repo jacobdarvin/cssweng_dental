@@ -48,7 +48,7 @@
             <div class="card border border-primary shadow-sm mx-auto mb-4 profile-length" style="width: 100%;">
                 <div class="card-body">
                     <span class="card-text" style="text-align: left; font-size: 32px;">
-                        4
+                        {{temp}}
                         <span style="font-size: 15px;">Temporary Job Posts</span>
                     </span>
                     <hr />
@@ -59,7 +59,7 @@
             <div class="card border border-success shadow-sm mx-auto mb-4 profile-length" style="width: 100%;">
                 <div class="card-body">
                     <span class="card-text" style="text-align: left; font-size: 32px;">
-                        2
+                        {{perma}}
                         <span style="font-size: 15px;">Permanent Job Posts</span>
                     </span>
                     <hr />
@@ -77,8 +77,9 @@
                         <h2>Your Active Job Posts</h2>
                         <a href="/create">+ Create New</a>
 
-                        {{> jobItem}}
-                        {{> jobItem}}
+                        {{#each activeJob}}
+                            {{> jobItem}}
+                        {{/each}}
 
                         <a href="/feed-emp">View All Jobs</a>
 
