@@ -37,6 +37,11 @@ app.engine(
                 if (!input) input = init;
                 return value === input ? ' checked' : '';
             },
+            checkbox : function (value, input){
+                if(input){
+                    return input.includes(value) ? ' checked' : '';
+                }
+            }
         },
     }),
 );

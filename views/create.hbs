@@ -25,11 +25,11 @@
                 <div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
               <label class="btn w-100 btn-secondary active">
                 <i class="fas fa-user" style="font-size: 42px"></i> <br>
-                <input type="radio" name="placement" id="Permanent" autocomplete="off" value="Permanent" checked>Permanent
+                <input type="radio" name="placement" id="Permanent" value="Permanent" {{check "Permanent" input.placement "Permanent"}}>Permanent
               </label>
               <label class="btn w-100 btn-secondary">
                 <i class="fas fa-user-nurse" style="font-size: 42px"></i> <br>
-                <input type="radio" name="placement" id="Temporary" autocomplete="off" value="Temporary">Temporary
+                <input type="radio" name="placement" id="Temporary" value="Temporary" {{check "Temporary" input.placement "Permanent"}}>Temporary
             </div>
         </div>
     </div>
@@ -41,19 +41,19 @@
             <div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
           <label class="btn w-100 btn-secondary active">
             <i class="fas fa-user" style="font-size: 42px"></i> <br>
-            <input type="radio" name="position" id="frontdesk" autocomplete="off" value="Front Desk" checked> Front Desk
+            <input type="radio" name="position" id="frontdesk" value="Front Desk" {{check "Front Desk" input.position "Front Desk"}}> Front Desk
           </label>
           <label class="btn w-100 btn-secondary">
             <i class="fas fa-user-nurse" style="font-size: 42px"></i> <br>
-            <input type="radio" name="position" id="dentalass" autocomplete="off" value="Dental Assistant"> Dental Assistant
+            <input type="radio" name="position" id="dentalass" value="Dental Assistant" {{check "Dental Assistant" input.position "Front Desk"}}> Dental Assistant
           </label>
           <label class="btn w-100 btn-secondary">
             <i class="fas fa-user-ninja" style="font-size: 42px"></i> <br>
-            <input type="radio" name="position" id="dentalhyg" autocomplete="off" value="Dental Hygienist"> Dental Hygienist
+            <input type="radio" name="position" id="dentalhyg" value="Dental Hygienist" {{check "Dental Hygienist" input.position "Front Desk"}}> Dental Hygienist
           </label>
           <label class="btn w-100 btn-secondary">
             <i class="fas fa-user-md" style="font-size: 42px"></i> <br>
-            <input type="radio" name="position" id="dental" autocomplete="off" value="Dentist"> Dentist
+            <input type="radio" name="position" id="dental" value="Dentist" {{check "Dentist" input.position "Front Desk"}}> Dentist
           </label>
         </div>
             </div>
@@ -74,6 +74,7 @@
             <br>
             <label for="example-datetime-local-input">Date Needed</label>
             <input class="form-control" type="date" id="date" name="date" required>
+            <p style="color: red; margin-top: 3px">{{dateError}}</p>
         </div>
     </div>
 
@@ -83,7 +84,7 @@
             <p style="font-style: italic; font-size: 16px; margin-top: -16px;">Write a quick description about this job</p>
             <div class="card-text">
                 <label>Job Description</label><br />
-                <textarea class="w-100 border" id="jobdescription" name="jobdescription" style="height: 8em;" required></textarea>
+                <textarea class="w-100 border" id="jobdescription" name="jobdescription" style="height: 8em;" required>{{input.jobdescription}}</textarea>
         </div>
     </div>
 </div>
@@ -93,16 +94,16 @@
             <div class="card-title" style="font-size: 42px;">Optional Filters</div>
             <div class="card-title">
                             <label for="clinic_con_name">Software Proficiency</label>
-                            <input type="text" class="form-control" id="software" name="software" aria-describedby="emailHelp" placeholder="List down your needed softwares..." />
+                            <input type="text" class="form-control" id="software" name="software" aria-describedby="emailHelp" placeholder="List down your needed softwares..." value="{{input.software}}"/>
                            <br>
                 <div class="card-text">
                 <label for="inputGroupSelect04">Experience</label>
                 <div class="input-group">
                   <select class="custom-select" id="experience" name="experience" aria-label="Example select with button addon">
-                    <option value="Less than a Year" selected>Less than a Year</option>
-                    <option value="1 Year">1 Year</option>
-                    <option value="More than a Year">More than a Year </option>
-                    <option value="5 Years or More">5 Years or More</option>
+                    <option value="Less than a Year"  {{select "Less than a Year" input.experience}}>Less than a Year</option>
+                    <option value="1 Year" {{select "1 Year" input.experience}}>1 Year</option>
+                    <option value="More than a Year" {{select "More than a Year" input.experience}}>More than a Year </option>
+                    <option value="5 Years or More" {{select "5 Years or More" input.experience}}>5 Years or More</option>
                   </select>
                 </div>
                 </div>

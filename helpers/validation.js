@@ -194,24 +194,18 @@ const validation = {
                 .trim(),
 
             check('programs')
-                .trim()
                 .notEmpty()
-                .withMessage('Empty field. Please fill this out.')
-                .customSanitizer(value => value.split(',')),
-            check('programs.*').trim(),
+                .withMessage('Empty field. Please fill this out.'),
+            
+            check('specialties')
+                .notEmpty()
+                .withMessage('Empty field. Please fill this out.'),
 
             check('language')
                 .trim()
                 .notEmpty()
                 .withMessage('Empty field. Please fill this out.')
                 .trim(),
-
-            check('specialties')
-                .trim()
-                .notEmpty()
-                .withMessage('Empty field. Please fill this out.')
-                .customSanitizer(value => value.split(',')),
-            check('specialties.*').trim(),
 
             check('payrate')
                 .trim()
@@ -270,6 +264,7 @@ const validation = {
                 ),
         ];
     },
+
 };
 
 module.exports = validation;
