@@ -1,12 +1,33 @@
+const Job = require('../models/JobModel');
+
 const dashboardAppController = {
-    // render log-in page when client requests '/' defined in routes.js
-    getAppDashboard: function (req, res) {
-        res.render('dashboard-app', {
-        	active_session: (req.session.user && req.cookies.user_sid),
-       		active_user: req.session.user,
-            title: 'Dashboard | BookMeDental',
-            profile_active: true,
-        });
+    createSearchJobRoute: function (appDoc) {
+        return `/feed-app?placement=${appDoc.placement.replace(
+            ' Work',
+            '',
+        )}&position=${appDoc.position}`;
+    },
+
+    getJobMatchCount: function (appDoc) {
+        return Job.countDocuments({
+            placement: appDoc.placement.replace(' Work', ''),
+            position: appDoc.position,
+        }).exec();
+    },
+
+    getMatchingJobs: function (appDoc) {
+        return Job.find(
+            {
+                placement: appDoc.placement.replace(' Work', ''),
+                position: appDoc.position,
+            },
+            'employer position placement date',
+        )
+            .populate('employer')
+            .sort('-created')
+            .limit(3)
+            .lean()
+            .exec();
     },
 };
 

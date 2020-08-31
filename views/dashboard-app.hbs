@@ -46,11 +46,11 @@
             <div class="card border shadow-sm mx-auto mb-4 profile-length" style="width: 100%;">
                 <div class="card-body">
                     <span class="card-text" style="text-align: left; font-size: 32px;">
-                        0
+                        {{job_match_count}}
                         <span style="font-size: 15px;">Matching Jobs Near You</span>
                     </span>
                     <hr />
-                    <a href="#" class="btn btn-primary w-100">Search Jobs</a>
+                    <a href="{{search_job_route}}" class="btn btn-primary w-100">Search Jobs</a>
                 </div>
             </div>
             <div class="card border shadow-sm mx-auto mb-4 profile-length" style="width: 100%;">
@@ -94,10 +94,9 @@
                                     </div>
 
                                     <h2>Matching Jobs For You</h2>
+                                    {{#each matching_jobs}}
                                     {{>jobItem}}
-                                    {{>jobItem}}
-                                    {{>jobItem}}
-
+                                    {{/each}}
                                     <a href="/feed-app">View All Jobs</a>
 
                                     <hr />
