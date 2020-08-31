@@ -44,6 +44,11 @@ app.engine(
             match: function (v1, v2, options) {
                 return v1 == v2 ? options.fn(this) : options.inverse(this);
             },
+            capitalize: function (value) {
+                return value
+                    ? value.charAt(0).toUpperCase() + value.slice(1)
+                    : '';
+            },
         },
     }),
 );

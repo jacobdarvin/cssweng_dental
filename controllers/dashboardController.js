@@ -31,12 +31,7 @@ const dashboardController = {
                                 active_user: req.session.user,
                                 title: 'Dashboard | BookMeDental',
                                 profile_active: true,
-                                accType:
-                                    // capitalize first letter, e.g. applicant -> Applicant
-                                    req.session.accType
-                                        .charAt(0)
-                                        .toUpperCase() +
-                                    req.session.accType.slice(1),
+                                accType: req.session.accType,
                                 profileData: data.toObject(),
                             });
                         });

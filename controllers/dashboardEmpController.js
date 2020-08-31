@@ -14,6 +14,9 @@ const dashboardEmpController = {
             active_user: req.session.user,
             title: 'Post Job | BookMeDental',
             profile_active: true,
+
+            // navbar indicator
+            accType: req.session.accType,
         });
     },
 
@@ -76,15 +79,15 @@ const dashboardEmpController = {
         Applicant.paginate(query, options, function (err, results) {
             if (err) throw err;
             let route = '/search/applicants';
-            
+
             let positionLink = pagination.createQueryLink(
                 positionQuery,
                 'position',
             );
-            
+
             let queryLinks = [];
             queryLinks.push(positionLink);
-            
+
             const {
                 selectOptions,
                 prevPageLink,

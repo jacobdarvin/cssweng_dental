@@ -154,7 +154,10 @@ const feedController = {
                     filter_route: '/feed-emp',
                     profile_active: true,
                     jobs: results.docs,
-                    employer_active: true,
+                    // employer_active: true,
+                    
+                    // navbar indicator
+                    accType: req.session.accType,
 
                     //Pagination
                     selectOptions: selectOptions,
@@ -311,7 +314,10 @@ const feedController = {
                 filter_route: '/feed-app',
                 profile_active: true,
                 jobs: results.docs,
-                applicant_active: true,
+                // applicant_active: true,
+
+                // navbar indicator
+                accType: req.session.accType,
 
                 //Pagination
                 selectOptions: selectOptions,
