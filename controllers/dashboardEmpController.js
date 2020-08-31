@@ -115,7 +115,6 @@ const dashboardEmpController = {
         });
     },
 
-    // TODO: modify
     getAppProfile: function (req, res) {
         if (!(req.session.user && req.cookies.user_sid)) {
             res.redirect('/login');
@@ -146,6 +145,9 @@ const dashboardEmpController = {
                             title: `Applicant ${applicant.fName} ${applicant.lName} | BookMeDental`,
                             appData: result.toObject(),
                             profile_active: true,
+
+                            // additional config
+                            from: 'search',
                         });
                     },
                 );

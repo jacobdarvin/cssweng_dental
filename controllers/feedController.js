@@ -155,7 +155,7 @@ const feedController = {
                     profile_active: true,
                     jobs: results.docs,
                     // employer_active: true,
-                    
+
                     // navbar indicator
                     accType: req.session.accType,
 
@@ -528,6 +528,9 @@ const feedController = {
                             title: `Applicant ${applicant.fName} ${applicant.lName} | BookMeDental`,
                             appData: result.toObject(),
                             profile_active: true,
+
+                            // additional config
+                            from: 'jobs',
                         });
                     },
                 );
