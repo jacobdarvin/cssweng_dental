@@ -93,7 +93,11 @@ mongoose.connect(url, options, err => {
 //404 error.
 
 app.use(function (req, res) {
-    res.render('404');
+    res.render('404', {
+        active_session: req.session.user && req.cookies.user_sid,
+        active_user: req.session.user,
+        title: '404 Page Not Found | BookMeDental',
+    });
 });
 
 // binds the server to a specific port
