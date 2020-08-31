@@ -152,6 +152,7 @@ const validation = {
                 .notEmpty()
                 .withMessage('First name is required.')
                 .trim(),
+
             check('lname')
                 .trim()
                 .notEmpty()
@@ -162,6 +163,7 @@ const validation = {
                 .notEmpty()
                 .withMessage('Street address is required.')
                 .trim(),
+
             check('house')
                 .trim()
                 .notEmpty()

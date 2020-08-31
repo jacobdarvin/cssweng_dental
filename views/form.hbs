@@ -210,18 +210,133 @@
                 </div>
                 <div class="form-group" style="margin-top: 20px;">
                     <label for="dentalprograms">What dental programs(s) are you proficient?</label>
+                    <!--
                     <input type="text" class="form-control" id="programs" name="programs" name="dentalprograms"
                         placeholder="List down any programs..." value="{{input.programs}}" />
-                    <p style="font-style: italic; font-size: 12px;">Separate dental programs with a comma.</p>
+                    -->
+                    <div class="container ">
+                        <div class="form-check col w-100" >
+                          <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                          <label class="col form-check-label" for="defaultCheck1">
+                            Dentrix
+                          </label>
+                        </div>
+
+                        <div class="form-check col w-100" >
+                          <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                          <label class="col form-check-label" for="defaultCheck1">
+                            Easy Dental
+                          </label>
+                        </div>
+
+                        <div class="form-check col w-100">
+                          <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                          <label class="col form-check-label" for="defaultCheck1">
+                            Eaglesoft
+                          </label>
+                        </div>
+
+                        <div class="form-check col w-100">
+                          <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                          <label class="col form-check-label" for="defaultCheck1">
+                            Open Dental
+                          </label>
+                        </div>
+                    </div>
+
                     <p style="color: red;">
                         {{details.programsError}}
                     </p>
                 </div>
+                <hr>
                 <div class="form-group" style="margin-top: 10px;">
                     <label for="workspecialties">List down any specialties you have work experience with</label>
+                    <!--
                     <input type="text" class="form-control" id="specialties" name="specialties"
                         placeholder="List down your specialties..." value="{{input.specialties}}" />
-                    <p style="font-style: italic; font-size: 12px;">Separate your specialties with a comma.</p>
+                    -->
+                    <div class=" container">
+                        <div class="form-check col w-100" >
+                          <input class="form-check-input" type="checkbox" value="General Dentistry" id="generaldentistry">
+                          <label class="col form-check-label" for="generaldentistry">
+                            General Dentistry
+                          </label>
+                        </div>
+
+                        <div class="form-check col w-100" >
+                          <input class="form-check-input" type="checkbox" value="Endodentistry" id="endodentistry">
+                          <label class="col form-check-label" for="endodentistry">
+                            Endodontistry
+                          </label>
+                        </div>
+
+                        <div class="form-check col w-100">
+                          <input class="form-check-input" type="checkbox" value="Periodontistry" id="periodontistry">
+                          <label class="col form-check-label" for="periodontistry">
+                            Periodontistry
+                          </label>
+                        </div>
+
+                        <div class="form-check col w-100">
+                          <input class="form-check-input" type="checkbox" value="Oral Surgery" id="oralsurgery">
+                          <label class="col form-check-label" for="oralsurgery">
+                            Oral Surgery
+                          </label>
+                        </div>
+                    </div>
+
+                    <div class=" container">
+                        <div class="form-check col w-100" >
+                          <input class="form-check-input" type="checkbox" value="Anesthesiology" id="anesthesiology">
+                          <label class="col form-check-label" for="anesthesiology">
+                            Anesthesiology
+                          </label>
+                        </div>
+
+                        <div class="form-check col w-100" >
+                          <input class="form-check-input" type="checkbox" value="Dental Hygiene" id="dentalhygiene">
+                          <label class="col form-check-label" for="dentalhygiene">
+                            Dental Hygiene
+                          </label>
+                        </div>
+
+                        <div class="form-check col w-100">
+                          <input class="form-check-input" type="checkbox" value="Office Management" id="officemanagement">
+                          <label class="col form-check-label" for="officemanagement">
+                            Office Management
+                          </label>
+                        </div>
+
+                        <div class="form-check col w-100">
+                          <input class="form-check-input" type="checkbox" value="Receptionist" id="receptionist">
+                          <label class="col form-check-label" for="receptionist">
+                            Receptionist
+                          </label>
+                        </div>
+                    </div>
+
+                    <div class=" container">
+                        <div class="form-check col w-100" >
+                          <input class="form-check-input" type="checkbox" value="Insurance Billing" id="insurancebilling">
+                          <label class="col form-check-label" for="insurancebilling">
+                            Insurance Billing
+                          </label>
+                        </div>
+
+                        <div class="form-check col w-100" >
+                          <input class="form-check-input" type="checkbox" value="Dental Assisting" id="dentalassisting">
+                          <label class="col form-check-label" for="dentalassisting">
+                            Dental Assisting
+                          </label>
+                        </div>
+                    </div>
+
+                    <hr>
+                    <p style="color: red;">
+                        {{details.programsError}}
+                    </p>
+
+                    <p style="font-style: italic; font-size: 12px;">Please answer this part truthfully.</p>
                     <p style="color: red;">
                         {{details.specialtiesError}}
                     </p>
@@ -387,7 +502,7 @@
                 </div>
                 <br />
                 <br />
-                <button type="submit" class="btn btn-primary w-100" style="background-color: #8455ca;">Save</button>
+                <button type="submit" class="btn btn-primary w-100">Save</button>
             </div>
         </div>
     </div>

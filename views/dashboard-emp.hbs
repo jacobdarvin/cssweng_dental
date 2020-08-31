@@ -1,3 +1,8 @@
+<script type="text/javascript">
+    localStorage.permanent = false;
+    localStorage.temporary = false;
+</script>
+
 <style>
     body {
         background-color: rgb(245, 245, 245);
@@ -24,14 +29,14 @@
             <div class="card shadow-sm mx-auto profile-length" style="width: 100%;">
                 <div class="card-body">
                     <span class="card-text" style="text-align: left; font-size: 32px;">
-                        DBA Dental
+                        {{profileData.clinicName}} 
                     </span>
                     <hr />
-                    <span class="card-text" style="text-align: left;"> <i class="fas fa-location-arrow" style="color: #8455ca;">&nbsp;</i> Beaverly Hills, CA </span>
+                    <span class="card-text" style="text-align: left;"> <i class="fas fa-location-arrow" style="color: #8455ca;">&nbsp;</i> {{profileData.clinicAddress.city}}, {{profileData.clinicAddress.state}} </span>
                     <br />
-                    <span class="card-text" style="text-align: left;"> <i class="far fa-envelope" style="color: #8455ca;">&nbsp;</i> pamtidalgo@hotmail.com </span>
+                    <span class="card-text" style="text-align: left;"> <i class="far fa-envelope" style="color: #8455ca;">&nbsp;</i> {{profileData.clinicContactEmails.[0]}}</span>
                     <br />
-                    <span class="card-text" style="text-align: left;"> <i class="fas fa-phone" style="color: #8455ca;">&nbsp;</i> (+63) 09176565612 </span>
+                    <span class="card-text" style="text-align: left;"> <i class="fas fa-phone" style="color: #8455ca;">&nbsp;</i> {{profileData.clinicPhone}} </span>
                     <br />
                     <br />
                     <a href="#">Edit Profile</a>
@@ -43,33 +48,22 @@
             <div class="card border border-primary shadow-sm mx-auto mb-4 profile-length" style="width: 100%;">
                 <div class="card-body">
                     <span class="card-text" style="text-align: left; font-size: 32px;">
-                        4
+                        {{temp}}
                         <span style="font-size: 15px;">Temporary Job Posts</span>
                     </span>
                     <hr />
-                    <a href="#" class="btn btn-primary w-100" style="text-align: left;">View Temporary Job Posts</a>
+                    <a href="/feed-emp?placement=Temporary" onclick="localStorage.temporary = true" class="btn btn-primary w-100" style="text-align: left;">View Temporary Job Posts</a>
                 </div>
             </div>
 
             <div class="card border border-success shadow-sm mx-auto mb-4 profile-length" style="width: 100%;">
                 <div class="card-body">
                     <span class="card-text" style="text-align: left; font-size: 32px;">
-                        2
+                        {{perma}}
                         <span style="font-size: 15px;">Permanent Job Posts</span>
                     </span>
                     <hr />
-                    <a href="#" class="btn btn-success w-100" style="text-align: left;">View Permanent Job Posts</a>
-                </div>
-            </div>
-
-            <div class="card border border-info shadow-sm mx-auto mb-4 profile-length" style="width: 100%;">
-                <div class="card-body">
-                    <span class="card-text" style="text-align: left; font-size: 32px;">
-                        2
-                        <span style="font-size: 15px;">Completed Posts</span>
-                    </span>
-                    <hr />
-                    <a href="#" class="btn btn-info w-100" style="text-align: left;">View Completed Posts</a>
+                    <a href="/feed-emp?placement=Permanent" onclick="localStorage.permanent = true" class="btn btn-success w-100" style="text-align: left;">View Permanent Job Posts</a>
                 </div>
             </div>
         </div>
@@ -83,25 +77,18 @@
                         <h2>Your Active Job Posts</h2>
                         <a href="/create">+ Create New</a>
 
-                        {{> dashboardJobEmp}}
+                        {{#each activeJob}}
+                            {{> jobItem}}
+                        {{/each}}
 
-                        <div class="card border border-primary m-0 mt-2 mb-2">
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    Front desk wanted (temp!) | <br />
-                                    <small> Brichmond Dental </small>
-                                </h5>
-                                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                                <a href="#" class="btn btn-primary">View this job</a>
-                            </div>
-                        </div>
-
-                        <a href="/feed">View All Jobs</a>
+                        <a href="/feed-emp">View All Jobs</a>
 
                         <hr />
+
                         <h2>Search For Employees</h2>
                         <small>Browse and filter a list of our website's applicants</small>
                         <a href="#" class="btn btn-primary w-100">Search</a>
+
                     </div>
                 </div>
             </div>

@@ -1,0 +1,10 @@
+<br>
+<div id="pagination" style="float:right">
+	{{#if hasPrev}}<a href="{{prevPageLink}}" class="card-link bg-pill pl-2 pr-2 pt-1 pb-1 rounded"><i class="fas fa-caret-left"></i> Previous</a>{{/if}}
+ 	<select id="paginator" name="paginator" class="btn btn-primary dropdown-toggle">
+    {{#each selectOptions}}
+     	<option value="{{pageLink}}" {{#if isSelected}} selected {{/if}}>Page {{pageNo}}</option>
+    {{/each}}
+  	</select>
+  	{{#if hasNext}}<a href="{{nextPageLink}}" class="card-link bg-pill pl-2 pr-2 pt-1 pb-1 rounded">Next <i class="fas fa-caret-right"></i></a>{{/if}}
+</div>

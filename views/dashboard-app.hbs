@@ -25,16 +25,16 @@
                 <img src="/imgs/portrait.png" style="width: inherit;" />
                 <div class="card-body">
                     <span class="card-text" style="text-align: left; font-size: 32px;">
-                        Pam Tidalgo
+                        {{profileData.fName}} {{profileData.lName}}
                         <br />
-                        <span style="font-size: 22px;">Front Desk</span>
+                        <span style="font-size: 22px;">{{profileData.position}}</span>
                     </span>
                     <hr />
-                    <span class="card-text" style="text-align: left;"> <i class="fas fa-location-arrow" style="color: #8455ca;">&nbsp;</i> Beaverly Hills, CA </span>
+                    <span class="card-text" style="text-align: left;"> <i class="fas fa-location-arrow" style="color: #8455ca;">&nbsp;</i> {{profileData.city}}, {{profileData.state}} </span>
                     <br />
-                    <span class="card-text" style="text-align: left;"> <i class="far fa-envelope" style="color: #8455ca;">&nbsp;</i> pamtidalgo@hotmail.com </span>
+                    <span class="card-text" style="text-align: left;"> <i class="far fa-envelope" style="color: #8455ca;">&nbsp;</i> {{profileData.account.accEmail}} </span>
                     <br />
-                    <span class="card-text" style="text-align: left;"> <i class="fas fa-phone" style="color: #8455ca;">&nbsp;</i> (+63) 09176565612 </span>
+                    <span class="card-text" style="text-align: left;"> <i class="fas fa-phone" style="color: #8455ca;">&nbsp;</i> {{profileData.phone}} </span>
                     <br />
                     <br />
                     <a href="#">Edit Profile</a>
@@ -57,7 +57,7 @@
                 <div class="card-body">
                     <span class="card-text" style="text-align: left; font-size: 32px;">
                         12
-                        <span style="font-size: 15px;">Temp Jobs Accepted</span>
+                        <span style="font-size: 15px;">Jobs Applied</span>
                     </span>
                     <hr />
                     <a href="#" class="btn btn-info w-100" style="text-align: left;">100% Response Rate</a>
@@ -72,37 +72,43 @@
                         <div class="card shadow-sm mx-auto profile-length" style="height: 100%;">
                             <div class="card-body">
                                 <div class="card-title" style="font-size: 42px; font-weight: 800;">Dashboard</div>
-                                <hr />
+                               
                                 <div class="container">
-                                    <div class="row">
-                                        <div class="col">
-                                            <span class="card-text">
-                                                Temporary Availability <br />
-                                                <b>M</b> <b>W</b> Tu <b>Th</b> F Sa <b>Su</b>
+                                     <hr />
+                                    <div class="row m-0">
+                                        <div class="col border m-1 card p-1 shadow-sm">
+                                            <span class="card-text my-auto">
+                                                <b>2 Employer Hire Requests</b> <br />
+                                                <small><a href="#">View Requests</a></small>
                                             </span>
                                         </div>
-                                        <div class="col">
-                                            <span class="card-text"> Permanent Availability <br /> </span>
+                                        <div class="col border m-1 card p-1 shadow-sm">
+                                            <span class="card-text my-auto">
+                                                <b>2 Employer Contact Requests</b> <br />
+                                                <small><a href="#">View Requests</a></small>
+                                            </span>
                                         </div>
-                                        <div class="col">
-                                            <span class="card-text">
+                                        <div class="col border m-1 card p-1 shadow-sm">
+                                            <span class="card-text my-auto">
                                                 Hourly Wage <br />
-                                                <b>$50 / hour</b> <br />
+                                                <b>{{profileData.rate}} / hour</b> <br />
                                                 <small><a href="#">Update</a></small>
                                             </span>
                                         </div>
                                     </div>
 
-                                    <h2>Matching Jobs For You</h2>
-                                    {{>dashboardJob}}
-                                    {{>dashboardJob}}
+                                     <hr />
 
-                                    <a href="/offers">View All Jobs</a>
+                                    <h2>Matching Jobs For You</h2>
+                                    {{>jobItem}}
+                                    {{>jobItem}}
+                                    {{>jobItem}}
+
+                                    <a href="/feed-app">View All Jobs</a>
 
                                     <hr />
-                                    <h2>Upcoming Temp Opportunities</h2>
-                                    {{>dashboardJob}}
-                                    <small>No upcoming temporary jobs are currently listed for you.</small>
+                                    <h2>Active Applied Jobs</h2>
+                                    {{>jobItem}}
                                 </div>
                             </div>
                         </div>

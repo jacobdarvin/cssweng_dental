@@ -19,6 +19,7 @@ const loginController = {
 
         if (email.trim() == '' || password == '') {
             res.render('login', {
+                input: req.body,
                 title: 'Login | BookMeDental',
                 login_active: true,
                 loginErrorMessage: 'Please input your email and password!',
@@ -33,7 +34,6 @@ const loginController = {
                         if (equal) {
                             req.session.user = user._id;
                             req.session.accType = user.accType;
-
                             res.redirect('/dashboard');
                         } else {
                             res.render('login', {
