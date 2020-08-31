@@ -6,9 +6,8 @@ const sanitize = require('mongo-sanitize');
 const Job = require('../models/JobModel');
 const Applicant = require('../models/ApplicantModel');
 const Employer = require('../models/EmployerModel');
-const app = require('../routes/routes');
+const pagination = require('../helpers/pagination');
 
-const JOB_SELECT = '_id placement position date';
 
 const feedController = {
     getEmpFeed: function (req, res) {
@@ -25,7 +24,6 @@ const feedController = {
         let positionStatus = sanitize(req.query.position);
         let placementStatus = sanitize(req.query.placement);
 
-        let dateStatus = parseDate(sanitize(req.query.date));
 
         if (Array.isArray(positionStatus)) {
             for (let i = 0; i < positionStatus.length; i++) {
@@ -190,7 +188,6 @@ const feedController = {
         let positionStatus = sanitize(req.query.position);
         let placementStatus = sanitize(req.query.placement);
 
-        let dateStatus = parseDate(sanitize(req.query.date));
 
         if (Array.isArray(positionStatus)) {
             for (let i = 0; i < positionStatus.length; i++) {
@@ -409,27 +406,70 @@ const feedController = {
 
         db.findOne(Job, { _id: sntJobId }, 'applicants', function (job) {
             if (job) {
-                job.populate(
-                    {
-                        path: 'applicants',
-                        select: 'avatar fName lName position',
-                        options: { lean: true },
-                    },
-                    function (err, data) {
-                        if (err) throw err;
-
-                        res.render('feed-app', {
-                            active_session:
-                                req.session.user && req.cookies.user_sid,
-                            active_user: req.session.user,
-                            title: 'Applicants | BookMeDental',
-                            filter_route: `/jobs/${sntJobId}/applicants`,
-                            profile_active: true,
-                            applicants: data.applicants,
-                            profile_route: `/jobs/${sntJobId}/applicants`,
-                        });
-                    },
+                let positionQuery = pagination.initQueryArray(
+                    sanitize(req.query.position),
+                    [
+                        'Dentist',
+                        'Dental Hygienist',
+                        'Front Desk',
+                        'Dental Assistant',
+                    ],
                 );
+
+                let page = sanitize(req.query.page);
+                if (page == null) page = '1';
+
+                let options = {
+                    select: 'avatar fName lName position',
+                    lean: true,
+                    page: page,
+                    limit: 6,
+                };
+
+                let query = {
+                    account: { $exists: true },
+                    _id: { $in: job.applicants },
+                    position: { $in: positionQuery },
+                };
+
+                Applicant.paginate(query, options, function (err, results) {
+                    if (err) throw err;
+                    let route = `/jobs/${sntJobId}/applicants`;
+
+                    let positionLink = pagination.createQueryLink(
+                        positionQuery,
+                        'position',
+                    );
+
+                    let queryLinks = [];
+                    queryLinks.push(positionLink);
+
+                    const {
+                        selectOptions,
+                        prevPageLink,
+                        nextPageLink,
+                        hasPrevPage,
+                        hasNextPage,
+                    } = pagination.configPagination(results, route, queryLinks);
+
+                    res.render('feed-app', {
+                        active_session:
+                            req.session.user && req.cookies.user_sid,
+                        active_user: req.session.user,
+                        title: 'Applicants | BookMeDental',
+                        filter_route: route,
+                        profile_active: true,
+                        applicants: results.docs,
+                        profile_route: `/jobs/${sntJobId}/applicants`,
+
+                        // Pagination
+                        selectOptions: selectOptions,
+                        hasPrev: hasPrevPage,
+                        hasNext: hasNextPage,
+                        prevPageLink: prevPageLink,
+                        nextPageLink: nextPageLink,
+                    });
+                });
             } else {
                 res.status(404);
                 next();
