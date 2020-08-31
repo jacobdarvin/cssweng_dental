@@ -168,6 +168,8 @@ const validation = {
                 .trim()
                 .notEmpty()
                 .withMessage('House number is required.')
+                .isNumeric()
+                .withMessage('Invalid input.')
                 .trim(),
             check('city')
                 .notEmpty()
@@ -181,6 +183,10 @@ const validation = {
                 .trim()
                 .notEmpty()
                 .withMessage('Zip is required.')
+                .isNumeric()
+                .withMessage('Invalid input.')
+                .isAlphanumeric()
+                .withMessage('Invalid input.')
                 .trim(),
             check('phone')
                 .trim()
@@ -191,6 +197,10 @@ const validation = {
                 .trim()
                 .notEmpty()
                 .withMessage('Empty field. Please fill this out.')
+                .isNumeric()
+                .withMessage('Invalid input.')
+                .isAlphanumeric()
+                .withMessage('Invalid input.')
                 .trim(),
 
             check('programs')
