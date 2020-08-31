@@ -163,7 +163,6 @@ const validation = {
                 .notEmpty()
                 .withMessage('Street address is required.')
                 .trim(),
-
             check('house')
                 .trim()
                 .notEmpty()
@@ -183,10 +182,6 @@ const validation = {
                 .trim()
                 .notEmpty()
                 .withMessage('Zip is required.')
-                .isNumeric()
-                .withMessage('Invalid input.')
-                .isAlphanumeric()
-                .withMessage('Invalid input.')
                 .trim(),
             check('phone')
                 .trim()
@@ -199,18 +194,13 @@ const validation = {
                 .withMessage('Empty field. Please fill this out.')
                 .isNumeric()
                 .withMessage('Invalid input.')
-                .isAlphanumeric()
-                .withMessage('Invalid input.')
                 .trim(),
-
             check('programs')
                 .notEmpty()
                 .withMessage('Empty field. Please fill this out.'),
-            
             check('specialties')
                 .notEmpty()
                 .withMessage('Empty field. Please fill this out.'),
-
             check('language')
                 .trim()
                 .notEmpty()
@@ -232,6 +222,8 @@ const validation = {
                 .withMessage(
                     "Empty field. If you selected 'Temporary Work', please fill this out.",
                 )
+                .isNumeric()
+                .withMessage('Invalid input.')
                 .trim(),
             check('date')
                 .custom((value, { req, location, path }) => {

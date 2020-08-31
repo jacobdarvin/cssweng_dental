@@ -37,7 +37,6 @@ const formController = {
             for (let i = 0; i < errors.length; i++)
                 details[errors[i].param + 'Error'] = errors[i].msg;
             
-            console.log(req.body);
             res.render('form', {
                 input: req.body,
                 details: details,
