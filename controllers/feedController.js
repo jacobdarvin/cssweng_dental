@@ -8,7 +8,6 @@ const Applicant = require('../models/ApplicantModel');
 const Employer = require('../models/EmployerModel');
 const pagination = require('../helpers/pagination');
 
-
 const feedController = {
     getEmpFeed: function (req, res) {
         if (!(req.session.user && req.cookies.user_sid)) {
@@ -23,7 +22,6 @@ const feedController = {
 
         let positionStatus = sanitize(req.query.position);
         let placementStatus = sanitize(req.query.placement);
-
 
         if (Array.isArray(positionStatus)) {
             for (let i = 0; i < positionStatus.length; i++) {
@@ -156,7 +154,6 @@ const feedController = {
                     filter_route: '/feed-emp',
                     profile_active: true,
                     jobs: results.docs,
-                    is_employer: true,
                     employer_active: true,
 
                     //Pagination
@@ -187,7 +184,6 @@ const feedController = {
 
         let positionStatus = sanitize(req.query.position);
         let placementStatus = sanitize(req.query.placement);
-
 
         if (Array.isArray(positionStatus)) {
             for (let i = 0; i < positionStatus.length; i++) {
@@ -327,26 +323,38 @@ const feedController = {
         });
     },
 
-    getIndivJob: function (req, res) {
+    getIndivJob: function (req, res, next) {
         if (!(req.session.user && req.cookies.user_sid)) {
             res.redirect('/login');
             return;
         }
+        var sntJobId = sanitize(req.params.jobId);
 
-        if (req.session.accType != 'applicant') {
-            res.status(403).send('Forbidden: you are not an applicant');
-            return;
-        }
+        db.findOne(Job, { _id: sntJobId }, '', function (job) {
+            if (job) {
+                var url;
 
-        db.findOne(Applicant, { account: req.session.user }, '_id', function (
-            applicant,
-        ) {
-            var sntJobId = sanitize(req.params.jobId);
+                if (req.session.accType == 'applicant') {
+                    url = `/jobs/${job._id}`;
+                } else if (req.session.accType == 'employer') {
+                    url = `/jobs/${job._id}/applicants`;
+                }
 
-            db.findOne(Job, { _id: sntJobId }, '', function (job) {
-                if (job) {
-                    job.populate('employer').execPopulate(function (err, data) {
+                job.populate(
+                    { path: 'employer', options: { lean: true } },
+                    async function (err, data) {
                         if (err) throw err;
+
+                        var applied;
+
+                        if (req.session.accType == 'applicant') {
+                            var applicant = await Applicant.findOne(
+                                { account: req.session.user },
+                                '_id',
+                            ).exec();
+                            applied = data.applicants.includes(applicant._id);
+                        }
+
                         res.render('details', {
                             active_session:
                                 req.session.user && req.cookies.user_sid,
@@ -358,12 +366,19 @@ const feedController = {
                                 ' | ' +
                                 'BookMeDental',
                             profile_active: true,
-                            applied: data.applicants.includes(applicant._id),
                             jobData: data.toObject(),
+
+                            // additional config
+                            accType: req.session.accType,
+                            url,
+                            applied,
                         });
-                    });
-                }
-            });
+                    },
+                );
+            } else {
+                res.status(404);
+                next();
+            }
         });
     },
 

@@ -112,6 +112,7 @@ const dashboardEmpController = {
         });
     },
 
+    // TODO: modify
     getAppProfile: function (req, res) {
         if (!(req.session.user && req.cookies.user_sid)) {
             res.redirect('/login');

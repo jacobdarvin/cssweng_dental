@@ -30,10 +30,18 @@
 			<div class="card border m-0 p-2 shadow-sm">
 				<p class="h3">Job Description</p>
 				<p class="description">{{jobData.description}}</p>
-				<form action="/jobs/{{jobData._id}}" method="post">
+				{{#match accType 'applicant'}}
+				<form action="{{url}}" method="POST">
 					<button type="submit" class="btn btn-primary w-100" style="background-color: #8455ca;"
 						{{#if applied}}disabled{{/if}}>Apply</button>
 				</form>
+				{{/match}}
+
+				{{#match accType 'employer'}}
+				<a href="{{url}}" style="text-decoration: none;">
+					<button class="btn btn-primary w-100" style="background-color: #8455ca;">View Applicants</button>
+				</a>
+				{{/match}}
 			</div>
 
 			<hr>
@@ -58,10 +66,8 @@
 					</div>
 				</div>
 				<hr>
-				<h2>Applicant Details</h2>
-				<div id="employers-table"></div>
 			</div>
-            
+
 		</div>
 
 		<div class="col-sm-3 pr-0 pl-1">
@@ -86,5 +92,3 @@
 		</div>
 	</div>
 </div>
-
-<script src="/js/adminTables.js"></script>
