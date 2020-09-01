@@ -1,4 +1,5 @@
 const Job = require('../models/JobModel');
+const Applicant = require('../models/ApplicantModel');
 
 const dashboardAppController = {
     createSearchJobRoute: function (appDoc) {
@@ -28,6 +29,25 @@ const dashboardAppController = {
             .limit(3)
             .lean()
             .exec();
+    },
+
+    getAppliedJobs: function (app_id) {
+        return Applicant.findById(app_id, 'appliedJobs')
+            .populate({
+                path: 'appliedJobs',
+                select: 'employer placement position date',
+                options: { limit: 3, lean: true },
+                populate: {
+                    path: 'employer',
+                    select: 'clinicName',
+                    options: { lean: true },
+                },
+            })
+            .exec();
+    },
+
+    getAppliedJobsCount: function (app_id) {
+        return Job.countDocuments({ applicants: app_id }).exec();
     },
 };
 

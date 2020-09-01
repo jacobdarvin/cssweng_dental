@@ -40,13 +40,21 @@ const dashboardController = {
                                 renderOptions.search_job_route = dac.createSearchJobRoute(
                                     data,
                                 );
+
                                 dac.getJobMatchCount(data)
                                     .then(n => {
-                                        renderOptions.job_match_count = n;
+                                        renderOptions.matching_jobs_count = n;
                                         return dac.getMatchingJobs(data);
                                     })
-                                    .then(docs => {
-                                        renderOptions.matching_jobs = docs;
+                                    .then(jobs => {
+                                        renderOptions.matching_jobs = jobs;
+                                        return dac.getAppliedJobsCount(data._id)
+                                    }).then(n => {
+                                        renderOptions.applied_jobs_count = n;
+                                        return dac.getAppliedJobs(data._id);
+                                    })
+                                    .then(appData => {
+                                        renderOptions.applied_jobs = appData.appliedJobs;
                                         res.render(view, renderOptions);
                                     })
                                     .catch(err => {

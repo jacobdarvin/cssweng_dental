@@ -46,7 +46,7 @@
             <div class="card border shadow-sm mx-auto mb-4 profile-length" style="width: 100%;">
                 <div class="card-body">
                     <span class="card-text" style="text-align: left; font-size: 32px;">
-                        {{job_match_count}}
+                        {{matching_jobs_count}}
                         <span style="font-size: 15px;">Matching Jobs Near You</span>
                     </span>
                     <hr />
@@ -56,7 +56,7 @@
             <div class="card border shadow-sm mx-auto mb-4 profile-length" style="width: 100%;">
                 <div class="card-body">
                     <span class="card-text" style="text-align: left; font-size: 32px;">
-                        12
+                        {{applied_jobs_count}}
                         <span style="font-size: 15px;">Jobs Applied</span>
                     </span>
                     <hr />
@@ -101,7 +101,9 @@
 
                                     <hr />
                                     <h2>Active Applied Jobs</h2>
+                                    {{#each applied_jobs}}
                                     {{>jobItem}}
+                                    {{/each}}
                                 </div>
                             </div>
                         </div>
