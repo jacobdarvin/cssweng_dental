@@ -209,10 +209,16 @@ const validation = {
             check('payrate')
                 .trim()
                 .custom((value, { req, location, path }) => {
+                    var val = value
+                    let isnum = /^\d+$/.test(val);
                     if (req.body.placement == 'Permanent Work') {
                         return true;
                     }
 
+                    else if(req.body.placement == 'Temporary Work' && isnum == false){
+                        return false
+                    }
+                    
                     // return false if placement is temp and payrate is empty
                     return !(
                         req.body.placement == 'Temporary Work' && value == ''
@@ -221,8 +227,6 @@ const validation = {
                 .withMessage(
                     "Empty field. If you selected 'Temporary Work', please fill this out.",
                 )
-                .isNumeric()
-                .withMessage('Invalid input.')
                 .trim(),
             check('date')
                 .custom((value, { req, location, path }) => {
