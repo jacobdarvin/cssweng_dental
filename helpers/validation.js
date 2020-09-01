@@ -211,7 +211,12 @@ const validation = {
                 .custom((value, { req, location, path }) => {
                     var val = value
                     let isnum = /^\d+$/.test(val);
-                    if(req.body.placement == 'Temporary Work' && isnum == false){
+
+                    if (req.body.placement == 'Permanent Work') {
+                        return true;
+                    }
+
+                    else if(req.body.placement == 'Temporary Work' && isnum == false){
                         return false
                     }
                 })
