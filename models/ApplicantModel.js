@@ -5,7 +5,7 @@ const applicantSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     account: {
         type: mongoose.Types.ObjectId,
-        ref: 'Account'
+        ref: 'Account',
     },
     fName: {
         type: String,
@@ -42,7 +42,7 @@ const applicantSchema = mongoose.Schema({
     position: {
         type: String,
         enum: ['Front Desk', 'Dental Assistant', 'Dental Hygienist', 'Dentist'],
-        required: true
+        required: true,
     },
     yearExp: {
         type: Number,
@@ -53,7 +53,7 @@ const applicantSchema = mongoose.Schema({
         required: true,
     },
     language: {
-        type: String, 
+        type: String,
         required: true,
     },
     specialties: {
@@ -77,20 +77,21 @@ const applicantSchema = mongoose.Schema({
         required: true,
     },
     profile: {
-        type: String, 
+        type: String,
         required: true,
     },
     avatar: {
         type: String,
-        default: "portrait.png"
+        default: 'portrait.png',
     },
     resume: {
-        type: String
+        type: String,
     },
     feedback: {
         type: String,
         required: true,
-    }
+    },
+    appliedJobs: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Job' }],
 });
 
 applicantSchema.plugin(mongoosePaginate);

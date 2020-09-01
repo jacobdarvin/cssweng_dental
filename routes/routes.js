@@ -1,13 +1,13 @@
 // IMPORT
-const express = require('express');                         //EXPRESS
-const session = require('express-session');                 //EXPRESS-SESSIONS
-const database = require('../models/db.js');                //CONNECT DB
+const express = require('express'); //EXPRESS
+const session = require('express-session'); //EXPRESS-SESSIONS
+const database = require('../models/db.js'); //CONNECT DB
 
-const cookieParser = require('cookie-parser');              //COOKIES
-const bodyParser = require('body-parser');                  //BODY PARSING
+const cookieParser = require('cookie-parser'); //COOKIES
+const bodyParser = require('body-parser'); //BODY PARSING
 
-const validation = require('../helpers/validation.js');     //FORM VALIDATION
-var multer = require('multer');                             //FILE UPLOAD
+const validation = require('../helpers/validation.js'); //FORM VALIDATION
+var multer = require('multer'); //FILE UPLOAD
 // IMPORT
 
 // import module `controller` from `./controllers/controller.js`
@@ -29,7 +29,6 @@ const loginController = require('../controllers/loginController');
 
 const adminController = require('../controllers/adminController');
 const formController = require('../controllers/formController');
-
 
 //MULTER INIT
 var storage = multer.diskStorage({
@@ -123,9 +122,8 @@ app.get('/offers', function (req, res) {
 });
 // /home | HOME
 
-
 // /details | JOB
-app.get('/details', function(req, res) {
+app.get('/details', function (req, res) {
     res.render('details', {
         active_session: req.session.user && req.cookies.user_sid,
         active_user: req.session.user,
@@ -133,7 +131,7 @@ app.get('/details', function(req, res) {
     });
 });
 
-app.get('/details-app', function(req, res) {
+app.get('/details-app', function (req, res) {
     res.render('details-app', {
         active_session: req.session.user && req.cookies.user_sid,
         active_user: req.session.user,
@@ -168,7 +166,6 @@ app.post(
     registerController.postRegister,
 );
 // /register | REGISTER
-
 
 //login | LOGIN
 app.get('/login', loginController.getLogIn);
