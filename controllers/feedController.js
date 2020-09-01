@@ -405,7 +405,18 @@ const feedController = {
                 { $push: { applicants: applicant._id } },
                 function (result) {
                     if (result) {
-                        res.redirect('/feed-app');
+                        db.updateOne(
+                            Applicant,
+                            { _id: applicant._id },
+                            { $push: { appliedJobs: sntJobId } },
+                            function (result) {
+                                if (result) {
+                                    res.redirect('/feed-app');
+                                } else {
+                                    res.redirect(`/jobs/${sntJobId}`);
+                                }
+                            },
+                        );
                     } else res.redirect(`/jobs/${sntJobId}`);
                 },
             );
