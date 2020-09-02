@@ -5,6 +5,7 @@ const Job = require('../models/JobModel');
 const Applicant = require('../models/ApplicantModel');
 const Employer = require('../models/EmployerModel');
 const pagination = require('../helpers/pagination');
+const sanitize = require('mongo-sanitize');
 
 const feedController = {
     getEmpFeed: function (req, res) {
@@ -544,8 +545,6 @@ const feedController = {
                             title: `Applicant ${applicant.fName} ${applicant.lName} | BookMeDental`,
                             appData: result.toObject(),
                             profile_active: true,
-                            jobData: data.toObject(),
-                            date: helper.formatDate(data.created),
 
                             // additional config
                             from: 'jobs',
