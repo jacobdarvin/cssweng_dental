@@ -369,7 +369,7 @@ const feedController = {
 
                         res.render('details', {
                             active_session:
-                                req.session.user && req.cookies.user_sid,
+                            req.session.user && req.cookies.user_sid,
                             active_user: req.session.user,
                             title:
                                 data.placement +
@@ -379,6 +379,7 @@ const feedController = {
                                 'BookMeDental',
                             profile_active: true,
                             jobData: data.toObject(),
+                            date: helper.formatDate(data.created),
 
                             // additional config
                             accType: req.session.accType,
