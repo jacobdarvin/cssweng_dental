@@ -22,7 +22,7 @@
     <div class="row">
         <div class="col-sm-3 p-1">
             <div class="card shadow-sm mx-auto profile-length" style="width: 100%;">
-                <img src="/imgs/portrait.png" style="width: inherit;" />
+                <img src="/avatars/{{avatar_found profileData.avatar}}" style="width: inherit;" />
                 <div class="card-body">
                     <span class="card-text" style="text-align: left; font-size: 32px;">
                         {{profileData.fName}} {{profileData.lName}}
@@ -46,17 +46,17 @@
             <div class="card border shadow-sm mx-auto mb-4 profile-length" style="width: 100%;">
                 <div class="card-body">
                     <span class="card-text" style="text-align: left; font-size: 32px;">
-                        0
+                        {{matching_jobs_count}}
                         <span style="font-size: 15px;">Matching Jobs Near You</span>
                     </span>
                     <hr />
-                    <a href="#" class="btn btn-primary w-100">Search Jobs</a>
+                    <a href="{{search_job_route}}" class="btn btn-primary w-100">Search Jobs</a>
                 </div>
             </div>
             <div class="card border shadow-sm mx-auto mb-4 profile-length" style="width: 100%;">
                 <div class="card-body">
                     <span class="card-text" style="text-align: left; font-size: 32px;">
-                        12
+                        {{applied_jobs_count}}
                         <span style="font-size: 15px;">Jobs Applied</span>
                     </span>
                     <hr />
@@ -100,15 +100,16 @@
                                      <hr />
 
                                     <h2>Matching Jobs For You</h2>
+                                    {{#each matching_jobs}}
                                     {{>jobItem}}
-                                    {{>jobItem}}
-                                    {{>jobItem}}
-
+                                    {{/each}}
                                     <a href="/feed-app">View All Jobs</a>
 
                                     <hr />
                                     <h2>Active Applied Jobs</h2>
+                                    {{#each applied_jobs}}
                                     {{>jobItem}}
+                                    {{/each}}
                                 </div>
                             </div>
                         </div>

@@ -1,16 +1,16 @@
 <style>
-    body {
-        background-color: rgb(245, 245, 245);
-    }
+	body {
+		background-color: rgb(245, 245, 245);
+	}
 </style>
 
 <div class="container mb-4 p-0" style="margin-top: 5em; display: flex">
 
 	<div class="col-sm-9 m-0">
 		<p class="h1">Job Feed</p>
-		<div id = "jobFeed">
+		<div id="jobFeed">
 			{{#each jobs}}
-				{{>jobItem}}
+			{{>jobItem}}
 			{{/each}}
 		</div>
 
@@ -23,64 +23,66 @@
 
 		<form method="GET" action="{{filter_route}}">
 
-		<div class="p-3 card border m-0 mb-2">
-			<p class="h5"> Placement Type </p>
+			<div class="p-3 card border m-0 mb-2">
+				<p class="h5"> Placement Type </p>
 
-			<div class="form-check">
-			  <input class="form-check-input" type="checkbox" name="placement" value="Permanent" id="permanent">
-			  <label class="form-check-label" for="defaultCheck1">
-			    Permanent Work
-			  </label>
+				<div class="form-check">
+					<input class="form-check-input" type="checkbox" name="placement" value="Permanent" id="permanent">
+					<label class="form-check-label" for="defaultCheck1">
+						Permanent Work
+					</label>
+				</div>
+
+				<div class="form-check">
+					<input class="form-check-input" type="checkbox" name="placement" value="Temporary" id="temporary">
+					<label class="form-check-label" for="defaultCheck1">
+						Temporary Work
+					</label>
+				</div>
+
 			</div>
 
-			<div class="form-check">
-			  <input class="form-check-input" type="checkbox" name="placement" value="Temporary" id="temporary">
-			  <label class="form-check-label" for="defaultCheck1">
-			    Temporary Work
-			  </label>
+			<div class="p-3 card border m-0 mb-2">
+				<p class="h5"> Position </p>
+
+				<div class="form-check">
+					<input class="form-check-input" type="checkbox" name="position" value="Dentist" id="dentist">
+					<label class="form-check-label" value="dentist" name="position" for="dentistStatus">
+						Dentist
+					</label>
+				</div>
+
+				<div class="form-check">
+					<input class="form-check-input" type="checkbox" name="position" value="Dental Assistant"
+						id="dentass">
+					<label class="form-check-label" value="dentass" name="position" for="dentalAssStatus">
+						Dental Assistant
+					</label>
+				</div>
+				<div class="form-check">
+					<input class="form-check-input" type="checkbox" name="position" value="Dental Hygienist"
+						id="denthyg">
+					<label class="form-check-label" value="dentalhyg" name="position" for="dentalHygStatus">
+						Dental Hygienist
+					</label>
+				</div>
+				<div class="form-check">
+					<input class="form-check-input" type="checkbox" name="position" value="Front Desk" id="frontdesk">
+					<label class="form-check-label" name="frontdesk" for="fontDeskStatus">
+						Front Desk
+					</label>
+				</div>
+
 			</div>
 
-		</div>
-
-		<div class="p-3 card border m-0 mb-2">
-			<p class="h5"> Position </p>
-
-			<div class="form-check">
-			  <input class="form-check-input" type="checkbox" name="position" value="Dentist" id="dentist">
-			  <label class="form-check-label" value="dentist" name="position" for="dentistStatus">
-			    Dentist
-			  </label>
+			<div class="p-3 card border m-0 mb-2">
+				<p class="h5 mt-2"> Date Needed </p>
+				<div class="form-group">
+					<input class="form-control" type="date" id="date" name="date">
+				</div>
 			</div>
 
-			<div class="form-check">
-			  <input class="form-check-input" type="checkbox" name="position" value="Dental Assistant" id="dentass">
-			  <label class="form-check-label" value="dentass" name="position" for="dentalAssStatus">
-			    Dental Assistant
-			  </label>
-			</div>
-			<div class="form-check">
-			  <input class="form-check-input" type="checkbox" name="position" value="Dental Hygienist" id="denthyg">
-			  <label class="form-check-label" value="dentalhyg" name="position" for="dentalHygStatus">
-			    Dental Hygienist
-			  </label>
-			</div>
-			<div class="form-check">
-			  <input class="form-check-input" type="checkbox" name="position" value="Front Desk" id="frontdesk">
-			  <label class="form-check-label" name="frontdesk" for="fontDeskStatus">
-			    Front Desk
-			  </label>
-			</div>
-
-		</div>
-
-		<div class="p-3 card border m-0 mb-2">
-			<p class="h5 mt-2"> Date Needed </p>
-			<div class="form-group">
-            <input class="form-control" type="date" id="date" name="date">
-		  </div>
-		</div>
-
-		<button id="filter" class="btn btn-primary w-100"  role="button" type="submit">Filter</button>
+			<button id="filter" class="btn btn-primary w-100" role="button" type="submit">Filter</button>
 
 		</form>
 

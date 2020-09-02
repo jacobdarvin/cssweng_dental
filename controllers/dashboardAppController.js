@@ -1,12 +1,53 @@
+const Job = require('../models/JobModel');
+const Applicant = require('../models/ApplicantModel');
+
 const dashboardAppController = {
-    // render log-in page when client requests '/' defined in routes.js
-    getAppDashboard: function (req, res) {
-        res.render('dashboard-app', {
-        	active_session: (req.session.user && req.cookies.user_sid),
-       		active_user: req.session.user,
-            title: 'Dashboard | BookMeDental',
-            profile_active: true,
-        });
+    createSearchJobRoute: function (appDoc) {
+        return `/feed-app?placement=${appDoc.placement.replace(
+            ' Work',
+            '',
+        )}&position=${appDoc.position}`;
+    },
+
+    getJobMatchCount: function (appDoc) {
+        return Job.countDocuments({
+            placement: appDoc.placement.replace(' Work', ''),
+            position: appDoc.position,
+        }).exec();
+    },
+
+    getMatchingJobs: function (appDoc) {
+        return Job.find(
+            {
+                placement: appDoc.placement.replace(' Work', ''),
+                position: appDoc.position,
+            },
+            'employer position placement date',
+        )
+            .populate('employer')
+            .sort('-created')
+            .limit(3)
+            .lean()
+            .exec();
+    },
+
+    getAppliedJobs: function (app_id) {
+        return Applicant.findById(app_id, 'appliedJobs')
+            .populate({
+                path: 'appliedJobs',
+                select: 'employer placement position date',
+                options: { limit: 3, lean: true },
+                populate: {
+                    path: 'employer',
+                    select: 'clinicName',
+                    options: { lean: true },
+                },
+            })
+            .exec();
+    },
+
+    getAppliedJobsCount: function (app_id) {
+        return Job.countDocuments({ applicants: app_id }).exec();
     },
 };
 

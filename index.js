@@ -5,8 +5,7 @@ const exphbs = require('express-handlebars');
 const mongoose = require('mongoose');
 const path = require('path');
 const fs = require('fs');
-const session = require('express-session');                 
-
+const session = require('express-session');
 
 //DATA BASE AND EXPRESS
 const app = express();
@@ -37,6 +36,19 @@ app.engine(
                 if (!input) input = init;
                 return value === input ? ' checked' : '';
             },
+            avatar_found: function (value) {
+                return fs.existsSync(`./public/avatars/${value}`)
+                    ? value
+                    : 'portrait.png';
+            },
+            match: function (v1, v2, options) {
+                return v1 == v2 ? options.fn(this) : options.inverse(this);
+            },
+            capitalize: function (value) {
+                return value
+                    ? value.charAt(0).toUpperCase() + value.slice(1)
+                    : '';
+            },
             checkbox : function (value, input){
                 if(input){
                     return input.includes(value) ? ' checked' : '';
@@ -59,10 +71,12 @@ hbs.registerPartials(__dirname + '/views/partials');
 // app.use(express.static('public'));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// create ./public/resumes directory if it doesn't exists
+// create ./public/resumes directory if it doesn't exist
 const resumesDir = './public/resumes';
 if (!fs.existsSync(resumesDir)) {
-    console.log('resumes folder does not exist! creating ' + resumesDir + '...');
+    console.log(
+        'resumes folder does not exist! creating ' + resumesDir + '...',
+    );
     fs.mkdirSync(resumesDir);
 }
 
@@ -84,7 +98,11 @@ mongoose.connect(url, options, err => {
 //404 error.
 
 app.use(function (req, res) {
-    res.render('404');
+    res.render('404', {
+        active_session: req.session.user && req.cookies.user_sid,
+        active_user: req.session.user,
+        title: '404 Page Not Found | BookMeDental',
+    });
 });
 
 // binds the server to a specific port

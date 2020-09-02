@@ -1,15 +1,15 @@
 <style>
-    body {
-        background-color: rgb(245, 245, 245);
-    }
+	body {
+		background-color: rgb(245, 245, 245);
+	}
 
-    .title {
-    	font-size: 42px;
-    }
+	.title {
+		font-size: 42px;
+	}
 
-    .flex-row{
-	    display: flex;
-	    flex-wrap: wrap;
+	.flex-row {
+		display: flex;
+		flex-wrap: wrap;
 	}
 </style>
 
@@ -30,8 +30,18 @@
 			<div class="card border m-0 p-2 shadow-sm">
 				<p class="h3">Job Description</p>
 				<p class="description">{{jobData.description}}</p>
+				{{#match accType 'applicant'}}
+				<form action="{{url}}" method="POST">
+					<button type="submit" class="btn btn-primary w-100" style="background-color: #8455ca;"
+						{{#if applied}}disabled{{/if}}>Apply</button>
+				</form>
+				{{/match}}
 
-				{{!-- <button type="submit" class="btn btn-primary w-100" style="background-color: #8455ca;">Apply</button> --}}
+				{{#match accType 'employer'}}
+				<a href="{{url}}" style="text-decoration: none;">
+					<button class="btn btn-primary w-100" style="background-color: #8455ca;">View Applicants</button>
+				</a>
+				{{/match}}
 			</div>
 
 		
@@ -56,29 +66,29 @@
 					</div>
 				</div>
 				<hr>
-				<h2>Applicant Details</h2>
-				<div id="employers-table"></div>
 			</div>
-            
+
 		</div>
 
 		<div class="col-sm-3 pr-0 pl-1">
 			<div class="card border shadow-sm mx-auto profile-length h-100" style="width: 100%;">
-                <div class="card-body">
-                    <span class="card-text" style="text-align: left; font-size: 32px;">
-                        {{jobData.employer.clinicName}}
-                    </span>
-                    <hr />
-                    <span class="card-text" style="text-align: left;"> <i class="fas fa-location-arrow" style="color: #8455ca;">&nbsp;</i> {{jobData.employer.clinicAddress.city}}, {{jobData.employer.clinicAddress.state}} </span>
-                    <br />
-                    <span class="card-text" style="text-align: left;"> <i class="far fa-envelope" style="color: #8455ca;">&nbsp;</i> {{jobData.employer.clinicContactEmails.[0]}} </span>
-                    <br />
-                    <span class="card-text" style="text-align: left;"> <i class="fas fa-phone" style="color: #8455ca;">&nbsp;</i> {{jobData.employer.clinicPhone}} </span>
-                    <br />
-                </div>
-            </div>
+				<div class="card-body">
+					<span class="card-text" style="text-align: left; font-size: 32px;">
+						{{jobData.employer.clinicName}}
+					</span>
+					<hr />
+					<span class="card-text" style="text-align: left;"> <i class="fas fa-location-arrow"
+							style="color: #8455ca;">&nbsp;</i> {{jobData.employer.clinicAddress.city}},
+						{{jobData.employer.clinicAddress.state}} </span>
+					<br />
+					<span class="card-text" style="text-align: left;"> <i class="far fa-envelope"
+							style="color: #8455ca;">&nbsp;</i> {{jobData.employer.clinicContactEmails.[0]}} </span>
+					<br />
+					<span class="card-text" style="text-align: left;"> <i class="fas fa-phone"
+							style="color: #8455ca;">&nbsp;</i> {{jobData.employer.clinicPhone}} </span>
+					<br />
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
-
-<script src="/js/adminTables.js"></script>
