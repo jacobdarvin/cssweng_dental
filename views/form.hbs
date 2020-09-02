@@ -210,21 +210,132 @@
                 </div>
                 <div class="form-group" style="margin-top: 20px;">
                     <label for="dentalprograms">What dental programs(s) are you proficient?</label>
+                    <!--
                     <input type="text" class="form-control" id="programs" name="programs" name="dentalprograms"
                         placeholder="List down any programs..." value="{{input.programs}}" />
-                    <p style="font-style: italic; font-size: 12px;">Separate dental programs with a comma.</p>
-                    <p style="color: red;">
+                    -->
+                    <div class="container ">
+                        <div class="form-check col w-100" >
+                          <input class="form-check-input" type="checkbox" value="Dentrix" id="defaultCheck1" name="programs" {{checkbox "Dentrix" input.programs}}>
+                          <label class="col form-check-label" for="defaultCheck1">
+                            Dentrix
+                          </label>
+                        </div>
+
+                        <div class="form-check col w-100" >
+                          <input class="form-check-input" type="checkbox" value="Easy Dental" id="defaultCheck1" name="programs" {{checkbox "Easy Dental" input.programs}}>
+                          <label class="col form-check-label" for="defaultCheck1">
+                            Easy Dental
+                          </label>
+                        </div>
+
+                        <div class="form-check col w-100">
+                          <input class="form-check-input" type="checkbox" value="Eaglesoft" id="defaultCheck1" name="programs" {{checkbox "Eaglesoft" input.programs}}>
+                          <label class="col form-check-label" for="defaultCheck1">
+                            Eaglesoft
+                          </label>
+                        </div>
+
+                        <div class="form-check col w-100">
+                          <input class="form-check-input" type="checkbox" value="Open Dental" id="defaultCheck1" name="programs" {{checkbox "Open Dental" input.programs}}>
+                          <label class="col form-check-label" for="defaultCheck1">
+                            Open Dental
+                          </label>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                  <p style="color: red;">
                         {{details.programsError}}
                     </p>
-                </div>
                 <div class="form-group" style="margin-top: 10px;">
                     <label for="workspecialties">List down any specialties you have work experience with</label>
+                    <!--
                     <input type="text" class="form-control" id="specialties" name="specialties"
                         placeholder="List down your specialties..." value="{{input.specialties}}" />
-                    <p style="font-style: italic; font-size: 12px;">Separate your specialties with a comma.</p>
+                    -->
+                    <div class=" container">
+                        <div class="form-check col w-100" >
+                          <input class="form-check-input" type="checkbox" value="General Dentistry" id="generaldentistry" name="specialties" {{checkbox "General Dentistry" input.specialties}}>
+                          <label class="col form-check-label" for="generaldentistry">
+                            General Dentistry
+                          </label>
+                        </div>
+
+                        <div class="form-check col w-100" >
+                          <input class="form-check-input" type="checkbox" value="Endodentistry" id="endodentistry" name="specialties" {{checkbox "Endodentistry" input.specialties}}>
+                          <label class="col form-check-label" for="endodentistry">
+                            Endodontistry
+                          </label>
+                        </div>
+
+                        <div class="form-check col w-100">
+                          <input class="form-check-input" type="checkbox" value="Periodontistry" id="periodontistry" name="specialties" {{checkbox "Periodontistry" input.specialties}}>
+                          <label class="col form-check-label" for="periodontistry">
+                            Periodontistry
+                          </label>
+                        </div>
+
+                        <div class="form-check col w-100">
+                          <input class="form-check-input" type="checkbox" value="Oral Surgery" id="oralsurgery" name="specialties" {{checkbox "Oral Surgery" input.specialties}}>
+                          <label class="col form-check-label" for="oralsurgery">
+                            Oral Surgery
+                          </label>
+                        </div>
+                    </div>
+
+                    <div class=" container">
+                        <div class="form-check col w-100" >
+                          <input class="form-check-input" type="checkbox" value="Anesthesiology" id="anesthesiology" name="specialties" {{checkbox "Anesthesiology" input.specialties}}>
+                          <label class="col form-check-label" for="anesthesiology">
+                            Anesthesiology
+                          </label>
+                        </div>
+
+                        <div class="form-check col w-100" >
+                          <input class="form-check-input" type="checkbox" value="Dental Hygiene" id="dentalhygiene" name="specialties" {{checkbox "Dental Hygiene" input.specialties}}>
+                          <label class="col form-check-label" for="dentalhygiene">
+                            Dental Hygiene
+                          </label>
+                        </div>
+
+                        <div class="form-check col w-100">
+                          <input class="form-check-input" type="checkbox" value="Office Management" id="officemanagement" name="specialties" {{checkbox "Office Management" input.specialties}}>
+                          <label class="col form-check-label" for="officemanagement">
+                            Office Management
+                          </label>
+                        </div>
+
+                        <div class="form-check col w-100">
+                          <input class="form-check-input" type="checkbox" value="Receptionist" id="receptionist" name="specialties" {{checkbox "Receptionist" input.specialties}}>
+                          <label class="col form-check-label" for="receptionist">
+                            Receptionist
+                          </label>
+                        </div>
+                    </div>
+
+                    <div class=" container">
+                        <div class="form-check col w-100" >
+                          <input class="form-check-input" type="checkbox" value="Insurance Billing" id="insurancebilling" name="specialties" {{checkbox "Insurance Billing" input.specialties}}>
+                          <label class="col form-check-label" for="insurancebilling">
+                            Insurance Billing
+                          </label>
+                        </div>
+
+                        <div class="form-check col w-100" >
+                          <input class="form-check-input" type="checkbox" value="Dental Assisting" id="dentalassisting" name="specialties" {{checkbox "Dental Assisting" input.specialties}}>
+                          <label class="col form-check-label" for="dentalassisting">
+                            Dental Assisting
+                          </label>
+                        </div>
+                    </div>
+
+                    <hr>
                     <p style="color: red;">
                         {{details.specialtiesError}}
                     </p>
+
+                    <p style="font-style: italic; font-size: 12px;">Please answer this part truthfully.</p>
                 </div>
             </div>
         </div>
@@ -310,7 +421,7 @@
 
                 <p style="font-style: italic; font-size: 12px;">Consider including things not found on your resume (e.g.
                     hobbies, interests, goals). Market yourself.</p>
-                <p style="color: red;">
+                <p style="color: red; margin-top: -10px">
                     {{details.shortprofileError}}
                 </p>
                 <label>Profile Photo</label><br />
@@ -341,16 +452,15 @@
                     <div>
                         <div class="col" style="padding-left: 150px;">
                             <p><input type="file" id="resume" name="resume"
-                                    accept="application/pdf, text/plain, application/msword, image/jpeg, image/png"
-                                    value="{{input.resume}}" required /></p>
+                                    accept="application/pdf"
+                                    value="{{input.resume}}" required/></p>
                         </div>
-
                         <div class="col" style="max-width: 30em;">
-                            <p style="font-size: small;">Format of resume should be in PDF(.pdf), Word(.doc,.docx),
-                                plain text (.txt), or image (.jpg, .png)</p>
+                            <p style="font-size: small;">Accepted format of resume should be in PDF(.pdf) only</p>
                         </div>
                     </div>
                 </div>
+                <p style="color: red;" id="resume_error"></p>
             </div>
         </div>
     </div>
@@ -370,7 +480,7 @@
                         {{#if input.useragreement}}checked{{/if}} />
                     <p style="font-style: italic; font-size: 14px;">I have read, understand and agree to the Candidate
                         Agreement, Terms and Conditions, and Privacy Policy</p>
-                    <p style="color: red;">
+                    <p style="color: red; margin-left: -20px;">
                         {{details.useragreementError}}</p>
                 </div>
                 <label>Last Question! How did you hear about us?</label>
@@ -395,3 +505,19 @@
 
 
 <script src="/js/dropdown-populator.js"></script>
+
+<script>
+    var file = document.getElementById('resume');
+
+    file.onchange = function(e) {
+    var ext = this.value.match(/\.([^\.]+)$/)[1];
+    switch (ext) {
+        case 'pdf':
+        document.getElementById('resume_error').innerHTML = ''
+        break;
+        default:
+        document.getElementById('resume_error').innerHTML = 'The file that you are trying to upload is not a pdf. Try again.'
+        this.value = '';
+    }
+    };
+</script>

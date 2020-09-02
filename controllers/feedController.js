@@ -1,7 +1,5 @@
-const moment = require('moment');
-
+const helper = require('../helpers/helper');
 const db = require('../models/db');
-const sanitize = require('mongo-sanitize');
 
 const Job = require('../models/JobModel');
 const Applicant = require('../models/ApplicantModel');
@@ -20,11 +18,14 @@ const feedController = {
         let positionQuery = new Array();
         let placementQuery = new Array();
 
-        let positionStatus = sanitize(req.query.position);
-        let placementStatus = sanitize(req.query.placement);
+        let positionStatus = helper.sanitize(req.query.position);
+        let placementStatus = helper.sanitize(req.query.placement);
 
-        if (Array.isArray(positionStatus)) {
-            for (let i = 0; i < positionStatus.length; i++) {
+
+        let dateStatus = helper.parseDate(helper.sanitize(req.query.date));
+
+        if(Array.isArray(positionStatus)) {
+            for(let i = 0; i < positionStatus.length; i++) {
                 positionQuery.push(positionStatus[i]);
             }
         } else if (positionStatus) {
@@ -48,10 +49,10 @@ const feedController = {
             placementQuery.push('Permanent', 'Temporary');
         }
 
-        db.findOne(Employer, { account: req.session.user }, '_id', function (
-            emp,
-        ) {
-            let page = sanitize(req.query.page);
+
+        db.findOne(Employer, {account: req.session.user}, '_id', function(emp){
+
+            let page = helper.sanitize(req.query.page);
 
             if (page == null) {
                 page = '1';
@@ -61,7 +62,8 @@ const feedController = {
                 populate: 'employer',
                 lean: true,
                 page: page,
-                limit: 2,
+                limit: 4,
+
             };
 
             let query = {
@@ -185,11 +187,14 @@ const feedController = {
         let positionQuery = new Array();
         let placementQuery = new Array();
 
-        let positionStatus = sanitize(req.query.position);
-        let placementStatus = sanitize(req.query.placement);
+        let positionStatus = helper.sanitize(req.query.position);
+        let placementStatus = helper.sanitize(req.query.placement);
 
-        if (Array.isArray(positionStatus)) {
-            for (let i = 0; i < positionStatus.length; i++) {
+
+        let dateStatus = helper.parseDate(helper.sanitize(req.query.date));
+
+        if(Array.isArray(positionStatus)) {
+            for(let i = 0; i < positionStatus.length; i++) {
                 positionQuery.push(positionStatus[i]);
             }
         } else if (positionStatus) {
@@ -213,7 +218,7 @@ const feedController = {
             placementQuery.push('Permanent', 'Temporary');
         }
 
-        let page = sanitize(req.query.page);
+        let page = helper.sanitize(req.query.page);
 
         if (page == null) {
             page = '1';
@@ -223,7 +228,7 @@ const feedController = {
             populate: 'employer',
             lean: true,
             page: page,
-            limit: 2,
+            limit: 4,
         };
 
         let query = {
@@ -509,7 +514,7 @@ const feedController = {
         });
     },
 
-    getAppProfile: function (req, res) {
+    getAppProfile: function (req, res, next) {
         if (!(req.session.user && req.cookies.user_sid)) {
             res.redirect('/login');
             return;
@@ -539,6 +544,8 @@ const feedController = {
                             title: `Applicant ${applicant.fName} ${applicant.lName} | BookMeDental`,
                             appData: result.toObject(),
                             profile_active: true,
+                            jobData: data.toObject(),
+                            date: helper.formatDate(data.created),
 
                             // additional config
                             from: 'jobs',
@@ -552,23 +559,6 @@ const feedController = {
         });
     },
 };
-
-function parseDate(s) {
-    if (!moment(s, 'YYYY-MM-DD', true).isValid()) {
-        return null;
-    }
-
-    if (s == null || s === undefined) {
-        return null;
-    }
-
-    var b = s.split(/\D/);
-    let date = new Date(b[0], --b[1], b[2]);
-
-    date.setHours(8, 0, 0, 0);
-
-    return date;
-}
 
 // enables to export controller object when called in another .js file
 module.exports = feedController;

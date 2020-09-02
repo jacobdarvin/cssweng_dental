@@ -49,6 +49,11 @@ app.engine(
                     ? value.charAt(0).toUpperCase() + value.slice(1)
                     : '';
             },
+            checkbox : function (value, input){
+                if(input){
+                    return input.includes(value) ? ' checked' : '';
+                }
+            }
         },
     }),
 );

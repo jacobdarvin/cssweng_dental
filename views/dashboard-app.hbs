@@ -72,26 +72,32 @@
                         <div class="card shadow-sm mx-auto profile-length" style="height: 100%;">
                             <div class="card-body">
                                 <div class="card-title" style="font-size: 42px; font-weight: 800;">Dashboard</div>
-                                <hr />
+                               
                                 <div class="container">
-                                    <div class="row">
-                                        <div class="col">
-                                            <span class="card-text">
-                                                Temporary Availability <br />
-                                                <b>M</b> <b>W</b> Tu <b>Th</b> F Sa <b>Su</b>
+                                     <hr />
+                                    <div class="row m-0">
+                                        <div class="col border m-1 card p-1 shadow-sm">
+                                            <span class="card-text my-auto">
+                                                <b>2 Employer Hire Requests</b> <br />
+                                                <small><a href="#">View Requests</a></small>
                                             </span>
                                         </div>
-                                        <div class="col">
-                                            <span class="card-text"> Permanent Availability <br /> </span>
+                                        <div class="col border m-1 card p-1 shadow-sm">
+                                            <span class="card-text my-auto">
+                                                <b>2 Employer Contact Requests</b> <br />
+                                                <small><a href="#">View Requests</a></small>
+                                            </span>
                                         </div>
-                                        <div class="col">
-                                            <span class="card-text">
+                                        <div class="col border m-1 card p-1 shadow-sm">
+                                            <span class="card-text my-auto">
                                                 Hourly Wage <br />
                                                 <b>{{profileData.rate}} / hour</b> <br />
                                                 <small><a href="#">Update</a></small>
                                             </span>
                                         </div>
                                     </div>
+
+                                     <hr />
 
                                     <h2>Matching Jobs For You</h2>
                                     {{#each matching_jobs}}

@@ -33,10 +33,12 @@ const formController = {
             errors = errors.errors;
 
             var details = {};
+            console.log(req.body)
 
             for (let i = 0; i < errors.length; i++)
                 details[errors[i].param + 'Error'] = errors[i].msg;
-            console.log(req.body);
+            
+            console.log(details)
             res.render('form', {
                 input: req.body,
                 details: details,
@@ -64,9 +66,7 @@ const formController = {
             const zip = helper.sanitize(req.body.zip);
             const phone = helper.sanitize(req.body.phone);
             const years = helper.sanitize(req.body.years);
-            const programs = helper.sanitize(req.body.programs);
             const language = helper.sanitize(req.body.language);
-            const specialties = helper.sanitize(req.body.specialties);
             const shortprofile = helper.sanitize(req.body.shortprofile);
 
 
@@ -97,9 +97,9 @@ const formController = {
                     phone: phone,
                     position: position,
                     yearExp: years,
-                    dentalProg: programs,
+                    dentalProg: req.body.programs,
                     language: language,
-                    specialties: specialties,
+                    specialties: req.body.specialties,
                     placement: placement,
                     rate: payrate,
                     availability: availability,
@@ -111,7 +111,7 @@ const formController = {
                 var newName = applicant.account;
                 var fileName = helper.renameResume(req, newName);
                 applicant.resume = fileName;
-
+              
                 db.insertOne(Applicant, applicant, function (flag) {
                     if (flag) {
                         res.redirect('/dashboard');
@@ -119,7 +119,7 @@ const formController = {
                 });
             }
 
-            //user uploaded his/her own avatar
+            // user uploaded his/her own avatar
             else {
                 var applicant = new Applicant({
                     _id: new mongoose.Types.ObjectId(),
@@ -134,9 +134,9 @@ const formController = {
                     phone: phone,
                     position: position,
                     yearExp: years,
-                    dentalProg: programs,
+                    dentalProg:  req.body.programs,
                     language: language,
-                    specialties: specialties,
+                    specialties:  req.body.specialties,
                     placement: placement,
                     rate: payrate,
                     availability: availability,
@@ -186,9 +186,6 @@ const formController = {
                 details[`${errors[i].param.replace(/\[\d\]/g, '')}Error`] =
                     errors[i].msg;
             }
-            // console.log(details);
-            // console.log(req.body);
-            
             res.render('form-emp', {
                 inputs: req.body,
                 details: details,
@@ -211,11 +208,6 @@ const formController = {
                     
                 }
             }
-            console.log(o)
-            
-
-            // console.log(req.body);
-
             var employer = {
                 _id: new mongoose.Types.ObjectId(),
                 account: req.session.user,

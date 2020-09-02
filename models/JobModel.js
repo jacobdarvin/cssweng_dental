@@ -26,6 +26,10 @@ const JobSchema = mongoose.Schema({
         enum: ['Main Clinic'],
         required: true
     },
+    clinicName: {
+        type: String,
+        required: true
+    },
     date: {
         type: String,
         required: true
