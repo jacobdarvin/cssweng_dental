@@ -152,7 +152,6 @@ const validation = {
                 .notEmpty()
                 .withMessage('First name is required.')
                 .trim(),
-
             check('lname')
                 .trim()
                 .notEmpty()
@@ -163,11 +162,12 @@ const validation = {
                 .notEmpty()
                 .withMessage('Street address is required.')
                 .trim(),
-
             check('house')
                 .trim()
                 .notEmpty()
-                .withMessage('House number is required.')
+                .withMessage('House number is required.').bail()
+                .isNumeric()
+                .withMessage('Invalid input.')
                 .trim(),
             check('city')
                 .notEmpty()
@@ -190,36 +190,46 @@ const validation = {
             check('years')
                 .trim()
                 .notEmpty()
-                .withMessage('Empty field. Please fill this out.')
+                .withMessage('Empty field. Please fill this out.').bail()
+                .isNumeric()
+                .withMessage('Invalid input.')
                 .trim(),
-
             check('programs')
-                .trim()
                 .notEmpty()
-                .withMessage('Empty field. Please fill this out.')
-                .customSanitizer(value => value.split(',')),
-            check('programs.*').trim(),
-
+                .withMessage('Empty field. Please fill this out.'),
+            check('specialties')
+                .notEmpty()
+                .withMessage('Empty field. Please fill this out.'),
             check('language')
                 .trim()
                 .notEmpty()
                 .withMessage('Empty field. Please fill this out.')
                 .trim(),
 
-            check('specialties')
-                .trim()
-                .notEmpty()
-                .withMessage('Empty field. Please fill this out.')
-                .customSanitizer(value => value.split(',')),
-            check('specialties.*').trim(),
-
             check('payrate')
                 .trim()
                 .custom((value, { req, location, path }) => {
+                    var val = value
+                    let isnum = /^\d+$/.test(val);
+
                     if (req.body.placement == 'Permanent Work') {
                         return true;
                     }
 
+                    else if(req.body.placement == 'Temporary Work' && isnum == false){
+                        return false
+                    }
+                })
+                .withMessage(
+                    "Invalid input. Please try again.",
+                )
+                .custom((value, { req, location, path }) => {
+                    var val = value
+                    let isnum = /^\d+$/.test(val);
+                    if (req.body.placement == 'Permanent Work') {
+                        return true;
+                    }
+                    
                     // return false if placement is temp and payrate is empty
                     return !(
                         req.body.placement == 'Temporary Work' && value == ''
@@ -270,6 +280,7 @@ const validation = {
                 ),
         ];
     },
+
 };
 
 module.exports = validation;
