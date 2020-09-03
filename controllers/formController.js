@@ -17,14 +17,17 @@ const citiesAndStates = JSON.parse(buffer);
 
 const formController = {
     getApplicantReg: function (req, res) {
-        res.render('form', {
-            active_session: req.session.user && req.cookies.user_sid,
-            active_user: req.session.user,
-            title: 'Sign Up | BookMeDental',
-            register_active: true,
-
-            states: Object.keys(citiesAndStates).sort(),
-        });
+        if (!req.session.user) res.redirect('/register');
+        else{
+            res.render('form', {
+                active_session: req.session.user && req.cookies.user_sid,
+                active_user: req.session.user,
+                title: 'Sign Up | BookMeDental',
+                register_active: true,
+    
+                states: Object.keys(citiesAndStates).sort(),
+            });
+        }
     },
     postApplicantReg: function (req, res) {
         var errors = validationResult(req);
@@ -164,14 +167,17 @@ const formController = {
         }
     },
     getFormEmp: function (req, res) {
-        res.render('form-emp', {
-            active_session: req.session.user && req.cookies.user_sid,
-            active_user: req.session.user,
-            title: 'Sign Up | BookMeDental',
-            login_active: true,
+        if (!req.session.user) res.redirect('/register');
+        else{
+            res.render('form-emp', {
+                active_session: req.session.user && req.cookies.user_sid,
+                active_user: req.session.user,
+                title: 'Sign Up | BookMeDental',
+                login_active: true,
 
-            states: Object.keys(citiesAndStates).sort(),
-        });
+                states: Object.keys(citiesAndStates).sort(),
+            });
+        }
     },
     postFormEmp: function (req, res) {
         var errors = validationResult(req);
