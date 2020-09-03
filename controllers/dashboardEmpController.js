@@ -5,7 +5,6 @@ const Applicant = require('../models/ApplicantModel');
 const helper = require('../helpers/helper');
 const pagination = require('../helpers/pagination');
 const db = require('../models/db');
-const sanitize = require('mongo-sanitize');
 
 const dashboardEmpController = {
     getCreateJob: function (req, res) {
@@ -84,11 +83,11 @@ const dashboardEmpController = {
         }
 
         let positionQuery = pagination.initQueryArray(
-            sanitize(req.query.position),
+            helper.sanitize(req.query.position),
             ['Dentist', 'Dental Hygienist', 'Front Desk', 'Dental Assistant'],
         );
 
-        let page = sanitize(req.query.page);
+        let page = helper.sanitize(req.query.page);
         if (page == null) page = '1';
 
         let options = { lean: true, page: page, limit: 6 };
@@ -148,7 +147,7 @@ const dashboardEmpController = {
             return;
         }
 
-        var sntAppId = sanitize(req.params.appId);
+        var sntAppId = helper.sanitize(req.params.appId);
         db.findOne(Applicant, { _id: sntAppId }, '', function (applicant) {
             if (applicant) {
                 applicant.populate(
