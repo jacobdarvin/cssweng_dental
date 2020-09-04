@@ -113,6 +113,14 @@ app.get('/features', function (req, res) {
     });
 });
 
+app.get('/terms', function (req, res) {
+    res.render('terms', {
+        active_session: req.session.user && req.cookies.user_sid,
+        active_user: req.session.user,
+        title: 'Terms & Conditions | BookMeDental',
+    });
+});
+
 app.get('/offers', function (req, res) {
     res.render('offers', {
         active_session: req.session.user && req.cookies.user_sid,
