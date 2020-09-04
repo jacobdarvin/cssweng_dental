@@ -151,7 +151,7 @@ app.get('/dashboard', dashboardController.getDashboard);
 // /dashboard-type / DASHBOARD
 
 // post job / CREATE
-app.get('/create', dashboardEmpController.getCreateJob);
+app.get('/create/:jobId', dashboardEmpController.getCreateJob);
 // post job / CREATE
 app.post('/create', dashboardEmpController.postCreateJob);
 app.get('/search/applicants', dashboardEmpController.getApplicantsFromSearch);
