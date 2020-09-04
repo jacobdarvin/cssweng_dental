@@ -1,12 +1,44 @@
+<!-- To Do: 
+    Sprint 2:
+    - Added description button which collapses a description. Use the posts id to use this functionality. No js fiddling required.
+    - Added placeholder for address of clinic
+    - Added time place holder "created five minutes ago".
+    please change this to the time of the creation of the item
+-->
+
 <a href="/jobs/{{_id}}" style="text-decoration: none;">
-	<div class="card job border m-1">
+	<div class="card job border m-0 mb-2">
 		<div class="p-2">
-			<p class="h1" style="font-size: 18px; padding-top: 5px; padding-left: 5px">{{employer.clinicName}}</p>
+			<p class="h1 p-0 mb-0" style="font-size: 18px; padding-top: 5px;">{{employer.clinicName}} <small>10 Brighton St. Address</small></p>
+
+			<small>Created 5 minutes ago</small>
+
 			<hr style="margin-top:-1px; margin-bottom: 10px">
-			<small style="margin-bottom: -1px; padding-left: 5px;">Position: {{position}}</small><br>
-			<small style="margin-bottom: -1px; padding-left: 5px;">Placement: {{placement}}</small><br>
-			{{!-- <small style="margin-bottom: -1px; padding-left: 5px; font-size: 13px">Job Description: {{description}}</small> --}}
+
+			<small style="color: black; margin-bottom: -1px;">Position: {{position}}</small><br>
+
+			<small style="color: black; margin-bottom: -1px; ">Placement: {{placement}}</small><br>
+
+			<a data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+				   <small>Show Description</small>
+			</a>
+
+			<a href="/jobs/{{_id}}">
+				   <small>View Job</small>
+			</a>
+			<!--
+			<div class="m-0 p-0">
+				<small style="margin-bottom: -1px; padding-left: 5px; font-size: 13px; color: black">{{description}}</small> 
+			</div>
+			-->
+			<div class="collapse " id="collapseExample"> <hr>
+		    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+			</div>
+
 		</div>
+
+		
+
 		<div class="card-footer p-1">
 			<small class="text-muted">Date Needed: {{date}}</small>
 		</div>

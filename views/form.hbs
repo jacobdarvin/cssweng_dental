@@ -1,3 +1,11 @@
+<!-- To Do: 
+    Sprint 2:
+    - Add alert if they really want to leave the forms after registering -ira
+
+    Sprint 3:
+    - Merge account owner and clinic contact instead of clinic contact, account owner nalang si contact -ira
+-->
+
 <style>
     body {
         background-color: rgb(245, 245, 245);
@@ -497,7 +505,7 @@
                 </div>
                 <br />
                 <br />
-                <button type="submit" class="btn btn-primary w-100">Save</button>
+                <button type="submit" class="btn btn-primary w-100">SUBMIT</button>
             </div>
         </div>
     </div>
@@ -510,14 +518,14 @@
     var file = document.getElementById('resume');
 
     file.onchange = function(e) {
-    var ext = this.value.match(/\.([^\.]+)$/)[1];
-    switch (ext) {
-        case 'pdf':
-        document.getElementById('resume_error').innerHTML = ''
-        break;
-        default:
-        document.getElementById('resume_error').innerHTML = 'The file that you are trying to upload is not a pdf. Try again.'
-        this.value = '';
-    }
+        var ext = this.value.match(/\.([^\.]+)$/)[1];
+        switch (ext) {
+            case 'pdf':
+            document.getElementById('resume_error').innerHTML = ''
+            break;
+            default:
+            document.getElementById('resume_error').innerHTML = 'The file that you are trying to upload is not a pdf. Try again.'
+            this.value = '';
+        }
     };
 </script>
