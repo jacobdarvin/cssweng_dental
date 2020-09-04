@@ -232,7 +232,7 @@
             <div class="card-text">
 
                 <div class="form-group" style="margin-top: 10px;">
-                    <label for="clinic_program">What type of software does this clinic use?</label>
+                    <label for="clinic_programs">What type of software does this clinic use?</label>
                     <!--
                     <input type="text" class="form-control" id="clinic_program" name="clinic_program"
                         placeholder="List down any programs..." value="{{inputs.clinic_program}}" />
@@ -240,39 +240,39 @@
                     -->
                     <div class="container ">
                         <div class="form-check col w-100" >
-                          <input class="form-check-input" type="checkbox" value="Dentrix" id="defaultCheck1" name="programs" {{checkbox "Dentrix" input.programs}}>
+                          <input class="form-check-input" type="checkbox" value="Dentrix" id="defaultCheck1" name="clinic_programs" {{checkbox "Dentrix" inputs.clinic_programs}}>
                           <label class="col form-check-label" for="defaultCheck1">
                             Dentrix
                           </label>
                         </div>
 
                         <div class="form-check col w-100" >
-                          <input class="form-check-input" type="checkbox" value="Easy Dental" id="defaultCheck1" name="programs" {{checkbox "Easy Dental" input.programs}}>
+                          <input class="form-check-input" type="checkbox" value="Easy Dental" id="defaultCheck1" name="clinic_programs" {{checkbox "Easy Dental" inputs.clinic_programs}}>
                           <label class="col form-check-label" for="defaultCheck1">
                             Easy Dental
                           </label>
                         </div>
 
                         <div class="form-check col w-100">
-                          <input class="form-check-input" type="checkbox" value="Eaglesoft" id="defaultCheck1" name="programs" {{checkbox "Eaglesoft" input.programs}}>
+                          <input class="form-check-input" type="checkbox" value="Eaglesoft" id="defaultCheck1" name="clinic_programs" {{checkbox "Eaglesoft" inputs.clinic_programs}}>
                           <label class="col form-check-label" for="defaultCheck1">
                             Eaglesoft
                           </label>
                         </div>
 
                         <div class="form-check col w-100">
-                          <input class="form-check-input" type="checkbox" value="Open Dental" id="defaultCheck1" name="programs" {{checkbox "Open Dental" input.programs}}>
+                          <input class="form-check-input" type="checkbox" value="Open Dental" id="defaultCheck1" name="clinic_programs" {{checkbox "Open Dental" inputs.clinic_programs}}>
                           <label class="col form-check-label" for="defaultCheck1">
                             Open Dental
                           </label>
                         </div>
                     </div>
 
-                    <p style="color: red;">{{details.clinic_programError}}</p>
+                    <p style="color: red;">{{details.clinic_programsError}}</p>
                 </div>
 
                 <div class="form-group" style="margin-top: 10px;">
-                    <label for="clinic_speciality">Office Specialty</label>
+                    <label for="clinic_specialties">Office Specialty</label>
                     <!--
                     <input type="text" class="form-control" id="clinic_speciality" name="clinic_specialty"
                         placeholder="List down any specialties..." value="{{inputs.clinic_specialty}}" />
@@ -281,28 +281,28 @@
 
                     <div class=" container">
                         <div class="form-check col w-100" >
-                          <input class="form-check-input" type="checkbox" value="General Dentistry" id="generaldentistry" name="specialties" {{checkbox "General Dentistry" input.specialties}}>
+                          <input class="form-check-input" type="checkbox" value="General Dentistry" id="generaldentistry" name="clinic_specialties" {{checkbox "General Dentistry" inputs.clinic_specialties}}>
                           <label class="col form-check-label" for="generaldentistry">
                             General Dentistry
                           </label>
                         </div>
 
                         <div class="form-check col w-100" >
-                          <input class="form-check-input" type="checkbox" value="Endodentistry" id="endodentistry" name="specialties" {{checkbox "Endodentistry" input.specialties}}>
+                          <input class="form-check-input" type="checkbox" value="Endodentistry" id="endodentistry" name="clinic_specialties" {{checkbox "Endodentistry" inputs.clinic_specialties}}>
                           <label class="col form-check-label" for="endodentistry">
                             Endodontistry
                           </label>
                         </div>
 
                         <div class="form-check col w-100">
-                          <input class="form-check-input" type="checkbox" value="Periodontistry" id="periodontistry" name="specialties" {{checkbox "Periodontistry" input.specialties}}>
+                          <input class="form-check-input" type="checkbox" value="Periodontistry" id="periodontistry" name="clinic_specialties" {{checkbox "Periodontistry" inputs.clinic_specialties}}>
                           <label class="col form-check-label" for="periodontistry">
                             Periodontistry
                           </label>
                         </div>
 
                         <div class="form-check col w-100">
-                          <input class="form-check-input" type="checkbox" value="Oral Surgery" id="oralsurgery" name="specialties" {{checkbox "Oral Surgery" input.specialties}}>
+                          <input class="form-check-input" type="checkbox" value="Oral Surgery" id="oralsurgery" name="clinic_specialties" {{checkbox "Oral Surgery" inputs.clinic_specialties}}>
                           <label class="col form-check-label" for="oralsurgery">
                             Oral Surgery
                           </label>
@@ -311,28 +311,28 @@
 
                     <div class=" container">
                         <div class="form-check col w-100" >
-                          <input class="form-check-input" type="checkbox" value="Anesthesiology" id="anesthesiology" name="specialties" {{checkbox "Anesthesiology" input.specialties}}>
+                          <input class="form-check-input" type="checkbox" value="Anesthesiology" id="anesthesiology" name="clinic_specialties" {{checkbox "Anesthesiology" inputs.clinic_specialties}}>
                           <label class="col form-check-label" for="anesthesiology">
                             Anesthesiology
                           </label>
                         </div>
 
                         <div class="form-check col w-100" >
-                          <input class="form-check-input" type="checkbox" value="Dental Hygiene" id="dentalhygiene" name="specialties" {{checkbox "Dental Hygiene" input.specialties}}>
+                          <input class="form-check-input" type="checkbox" value="Dental Hygiene" id="dentalhygiene" name="clinic_specialties" {{checkbox "Dental Hygiene" inputs.clinic_specialties}}>
                           <label class="col form-check-label" for="dentalhygiene">
                             Dental Hygiene
                           </label>
                         </div>
 
                         <div class="form-check col w-100">
-                          <input class="form-check-input" type="checkbox" value="Office Management" id="officemanagement" name="specialties" {{checkbox "Office Management" input.specialties}}>
+                          <input class="form-check-input" type="checkbox" value="Office Management" id="officemanagement" name="clinic_specialties" {{checkbox "Office Management" inputs.clinic_specialties}}>
                           <label class="col form-check-label" for="officemanagement">
                             Office Management
                           </label>
                         </div>
 
                         <div class="form-check col w-100">
-                          <input class="form-check-input" type="checkbox" value="Receptionist" id="receptionist" name="specialties" {{checkbox "Receptionist" input.specialties}}>
+                          <input class="form-check-input" type="checkbox" value="Receptionist" id="receptionist" name="clinic_specialties" {{checkbox "Receptionist" inputs.clinic_specialties}}>
                           <label class="col form-check-label" for="receptionist">
                             Receptionist
                           </label>
@@ -341,20 +341,20 @@
 
                     <div class=" container">
                         <div class="form-check col w-100" >
-                          <input class="form-check-input" type="checkbox" value="Insurance Billing" id="insurancebilling" name="specialties" {{checkbox "Insurance Billing" input.specialties}}>
+                          <input class="form-check-input" type="checkbox" value="Insurance Billing" id="insurancebilling" name="clinic_specialties" {{checkbox "Insurance Billing" inputs.clinic_specialties}}>
                           <label class="col form-check-label" for="insurancebilling">
                             Insurance Billing
                           </label>
                         </div>
 
                         <div class="form-check col w-100" >
-                          <input class="form-check-input" type="checkbox" value="Dental Assisting" id="dentalassisting" name="specialties" {{checkbox "Dental Assisting" input.specialties}}>
+                          <input class="form-check-input" type="checkbox" value="Dental Assisting" id="dentalassisting" name="clinic_specialties" {{checkbox "Dental Assisting" inputs.clinic_specialties}}>
                           <label class="col form-check-label" for="dentalassisting">
                             Dental Assisting
                           </label>
                         </div>
                     </div>
-                    <p style="color: red;">{{details.clinic_specialtyError}}</p>
+                    <p style="color: red;">{{details.clinic_specialtiesError}}</p>
                 </div>
 
                 <div class="form-group" style="margin-top: 10px;">
