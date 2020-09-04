@@ -1,3 +1,9 @@
+<!--
+	Sprint 2:
+		- Added Temporary Type to profiles shown on this feed
+		- Please allow sorting for applicant placement type here as well. thanks !
+-->
+
 <style>
 	body {
 		background-color: rgb(245, 245, 245);
@@ -7,8 +13,8 @@
 <link rel="stylesheet" type="text/css" href="/css/hover.css" />
 
 <div class="container mb-4 p-0" style="margin-top: 5em; display: flex">
-	<div class="col-9 container p-0 pb-2 mb-0">
-		<p class="h1 mb-0">Applicants</p>
+	<div class="col-9 m-0">
+		<p class="h1">Applicants</p>
 		{{#each applicants}}
 		{{> appItem profile_route=../profile_route}}
 		{{/each}}
@@ -18,7 +24,26 @@
 
 	<div class="col-sm-3 p-0">
 		<p class="h1">Filter</p>
-		<form class="container" action="{{filter_route}}" method="get">
+		<form class="container" action="{{filter_route}}" method="GET">
+			<div class="p-3 card border m-0 mb-2">
+				<p class="h5"> Placement Type </p>
+
+				<div class="form-check">
+					<input class="form-check-input" type="checkbox" name="placement" value="Permanent" id="permanent">
+					<label class="form-check-label" for="defaultCheck1">
+						Permanent Work
+					</label>
+				</div>
+
+				<div class="form-check">
+					<input class="form-check-input" type="checkbox" name="placement" value="Temporary" id="temporary">
+					<label class="form-check-label" for="defaultCheck1">
+						Temporary Work
+					</label>
+				</div>
+
+			</div>
+
 			<div class="p-3 card border m-0 mb-2">
 				<p class="h5"> Position </p>
 				<div class="form-check">
