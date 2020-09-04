@@ -9,20 +9,16 @@
 <a href="/jobs/{{_id}}" style="text-decoration: none;">
 	<div class="card job border m-0 mb-2">
 		<div class="p-2">
-			<p class="h1 p-0 mb-0" style="font-size: 18px; padding-top: 5px;">{{employer.clinicName}} <small>10 Brighton St. Address</small></p>
-
-			<small>Created 5 minutes ago</small>
+			<p class=" p-0 mb-0" style="font-size: 18px; padding-top: 5px;">{{placement}} <b>{{position}}</b> at <b>{{employer.clinicName}}</b>
+				<br>
+			<small>Posted 5 minutes ago</small>
 
 			<hr style="margin-top:-1px; margin-bottom: 10px">
-
-			<small style="color: black; margin-bottom: -1px;">Position: {{position}}</small><br>
-
-			<small style="color: black; margin-bottom: -1px; ">Placement: {{placement}}</small><br>
 
 			<a data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
 				   <small>Show Description</small>
 			</a>
-
+			 | 
 			<a href="/jobs/{{_id}}">
 				   <small>View Job</small>
 			</a>
