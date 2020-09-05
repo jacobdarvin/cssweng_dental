@@ -76,6 +76,24 @@
 			</div>
 
 			<div class="p-3 card border m-0 mb-2">
+				<p class="h5"> Location </p>
+                    <label for="clinic_state">State</label>
+                       	<select name="clinic_state" class="form-control" id="clinic_state" onchange="populateCities(this.value, 'clinic_city')">
+							<option value="">--Select a state--</option>
+                                {{#each states}}
+							<option value="{{this}}" {{select this ../inputs.clinic_state}}>{{this}}</option>
+                                {{/each}}
+						</select>
+                     <label for="clinic_city">City</label>
+                       	<select name="clinic_city" class="form-control" id="clinic_city">
+                        <option value="">--Select a city--</option>
+                        		{{#each cities}}
+                        <option value="{{this}}" {{select this ../inputs.clinic_city}}>{{this}}</option>
+                        {{/each}}
+                    </select>
+			</div>
+
+			<div class="p-3 card border m-0 mb-2">
 				<p class="h5 mt-2"> Date Needed </p>
 				<div class="form-group">
 					<input class="form-control" type="date" id="date" name="date">
@@ -88,3 +106,5 @@
 
 	</div>
 </div>
+
+<script src="/js/dropdown-populator.js"></script>

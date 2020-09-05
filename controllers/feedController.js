@@ -7,6 +7,15 @@ const Employer = require('../models/EmployerModel');
 const pagination = require('../helpers/pagination');
 const sanitize = require('mongo-sanitize');
 
+const fs = require('fs');
+const path = require('path');
+
+
+const buffer = fs.readFileSync(
+    path.resolve(__dirname, '../public/json/us_cities_and_states.json'),
+);
+const citiesAndStates = JSON.parse(buffer);
+
 const feedController = {
     getEmpFeed: function (req, res) {
         if (!(req.session.user && req.cookies.user_sid)) {
@@ -22,6 +31,11 @@ const feedController = {
         let positionStatus = helper.sanitize(req.query.position);
         let placementStatus = helper.sanitize(req.query.placement);
 
+        let stateQuery = new Array();
+        let cityQuery = new Array();
+
+        let stateStatus = helper.sanitize(req.query.clinic_state);
+        let cityStatus = helper.sanitize(req.query.clinic_city);
 
         let dateStatus = helper.parseDate(helper.sanitize(req.query.date));
 
@@ -50,6 +64,31 @@ const feedController = {
             placementQuery.push('Permanent', 'Temporary');
         }
 
+        if(stateStatus == undefined || stateStatus == '') {
+            stateQuery = (Object.keys(citiesAndStates).sort());
+        } else {
+            stateQuery.push(stateStatus);
+        }
+
+        if(cityStatus == undefined || cityStatus == '') {
+            
+            cityQueryLoad = new Array();
+
+            cityQueryLoad = (Object.values(citiesAndStates).sort());
+
+            for(let i = 0; i < cityQueryLoad.length; i++) {
+                for(let j = 0; j < cityQueryLoad[i].length; j++) {
+                    cityQuery.push(cityQueryLoad[i][j]);
+                }
+            }
+            
+        } else {
+            cityQuery.push(cityStatus);
+        }
+
+        console.log(stateQuery);
+        console.log(cityQuery);
+
 
         db.findOne(Employer, {account: req.session.user}, '_id', function(emp){
 
@@ -71,6 +110,9 @@ const feedController = {
                 employer: emp._id,
                 position: { $in: positionQuery },
                 placement: { $in: placementQuery },
+
+                //clinic_city :  { $in: cityQuery },
+                //clinic_state: { $in: stateQuery }
             };
 
             Job.paginate(query, options, function (err, results) {
@@ -157,9 +199,12 @@ const feedController = {
                     filter_route: '/feed-emp',
                     profile_active: true,
                     jobs: results.docs,
-                    date_c: toString(helper.formatDate(results.docs.created)),
-                    // employer_active: true,
 
+                    //cities and states
+                    states: Object.keys(citiesAndStates).sort(),
+                    cities: req.body.clinic_state
+                    ? citiesAndStates[req.body.clinic_state].sort()
+                    : '',
                     // navbar indicator
                     accType: req.session.accType,
 
