@@ -1,11 +1,11 @@
 const helper = require('../helpers/helper');
 const db = require('../models/db');
+const fs = require('fs');
 
 const Job = require('../models/JobModel');
 const Applicant = require('../models/ApplicantModel');
 const Employer = require('../models/EmployerModel');
 const pagination = require('../helpers/pagination');
-const sanitize = require('mongo-sanitize');
 
 const feedController = {
     getEmpFeed: function (req, res) {
@@ -352,7 +352,7 @@ const feedController = {
             res.redirect('/login');
             return;
         }
-        var sntJobId = sanitize(req.params.jobId);
+        var sntJobId = helper.sanitize(req.params.jobId);
 
         db.findOne(Job, { _id: sntJobId }, '', function (job) {
             if (job) {
@@ -380,6 +380,7 @@ const feedController = {
                         }
 
                         console.log(data)
+                        helper.updatePostedDate();
                         res.render('details', {
                             active_session:
                             req.session.user && req.cookies.user_sid,
@@ -417,13 +418,14 @@ const feedController = {
         db.findOne(Applicant, { account: req.session.user }, '_id', function (
             applicant,
         ) {
-            var sntJobId = sanitize(req.params.jobId);
+            var sntJobId = helper.sanitize(req.params.jobId);
 
             db.updateOne(
                 Job,
                 { _id: sntJobId },
                 { $push: { applicants: applicant._id } },
                 function (result) {
+                    helper.updatePostedDate()
                     if (result) {
                         db.updateOne(
                             Applicant,
@@ -454,12 +456,12 @@ const feedController = {
             return;
         }
 
-        var sntJobId = sanitize(req.params.jobId);
+        var sntJobId = helper.sanitize(req.params.jobId);
 
         db.findOne(Job, { _id: sntJobId }, 'applicants', function (job) {
             if (job) {
                 let positionQuery = pagination.initQueryArray(
-                    sanitize(req.query.position),
+                    helper.sanitize(req.query.position),
                     [
                         'Dentist',
                         'Dental Hygienist',
@@ -468,7 +470,7 @@ const feedController = {
                     ],
                 );
 
-                let page = sanitize(req.query.page);
+                let page = helper.sanitize(req.query.page);
                 if (page == null) page = '1';
 
                 let options = {
@@ -540,7 +542,7 @@ const feedController = {
             return;
         }
 
-        var sntAppId = sanitize(req.params.appId);
+        var sntAppId = helper.sanitize(req.params.appId);
         db.findOne(Applicant, { _id: sntAppId }, '', function (applicant) {
             if (applicant) {
                 applicant.populate(
@@ -554,7 +556,7 @@ const feedController = {
 
                         res.render('details-app', {
                             active_session:
-                                req.session.user && req.cookies.user_sid,
+                            req.session.user && req.cookies.user_sid,
                             active_user: req.session.user,
                             title: `Applicant ${applicant.fName} ${applicant.lName} | BookMeDental`,
                             appData: result.toObject(),
@@ -571,6 +573,13 @@ const feedController = {
             }
         });
     },
+
+    getAppResume : function (req, res){
+        var resumePath = "./public/resumes/" + req.params.resume;
+        if (fs.existsSync(resumePath)) {
+            res.download(resumePath, "hello.pdf");
+        }
+    }
 };
 
 // enables to export controller object when called in another .js file
