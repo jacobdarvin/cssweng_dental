@@ -70,6 +70,9 @@ const dashboardEmpController = {
                 description: desc,
                 software: req.body.software,
                 experience: req.body.experience,
+
+                clinic_city:    result.clinicAddress.city,
+                clinic_state:   result.clinicAddress.state
             });
 
             db.insertOne(Job, job, function (flag) {
@@ -136,9 +139,6 @@ const dashboardEmpController = {
                 profile_active: true,
                 applicants: results.docs,
                 profile_route: `/applicants`,
-
-                // navbar indicator
-                accType: req.session.accType,
 
                 // Pagination
                 selectOptions: selectOptions,

@@ -8,11 +8,9 @@
     body {
         background-color: rgb(245, 245, 245);
     }
-
     form label {
         font-weight: bold;
     }
-
     textarea {
         resize: none;
     }
@@ -67,12 +65,28 @@
     <!-- CLINIC LOCATION -->
     <div class="card shadow-sm border mx-auto" style="width: 50rem; margin-bottom: 2rem;">
         <div class="card-body">
-            <label for="example-datetime-local-input">Date Needed</label>
+            <div class="card-title" style="font-size: 42px;">Clinic Details</div>
+            <p style="font-style: italic; font-size: 16px; margin-top: -16px;">Please confirm the following location details for your job.</p>
+            <div class="card-text" style="margin-bottom: -20px; border: 1px solid rgb(173, 169, 169); padding-left: 10px;">
+                <p class="h3" style="margin-top: 14px"> {{emp.clinicName}} </p>
+                <p class="mb-0"> Clinic Address: {{emp.clinicAddress.houseNo}} {{emp.clinicAddress.street}}</p>
+                <p> Location: {{emp.clinicAddress.city}}, {{emp.clinicAddress.state}}</p>
+                <!--
+                <label for="inputGroupSelect04">Clinic</label>
+                <div class="input-group">
+                    <select class="custom-select" id="clinic" name="clinic" aria-label="Example select with button addon">
+                        <option value="Main Clinic" selected>Main Clinic</option>
+                    </select>
+                </div>
+                -->
+            </div>
+            <br>
+            <label for="example-datetime-local-input" style="margin-top: 10px">Date Needed</label>
             <input class="form-control" type="date" id="date" name="date" required>
             <p style="color: red; margin-top: 3px">{{dateError}}</p>
         </div>
     </div>
-    
+
     <div class="card shadow-sm border mx-auto" style="width: 50rem; margin-bottom: 2rem;">
         <div class="card-body">
             <div class="card-title" style="font-size: 42px;">Job Details</div>
