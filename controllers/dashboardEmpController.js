@@ -8,22 +8,20 @@ const db = require('../models/db');
 
 const dashboardEmpController = {
     getCreateJob: function (req, res) {
-        
         var empId = helper.sanitize(req.params.jobId);
-        db.findOne(Employer, {_id: empId}, '', function(result){
-            if(result){
+        db.findOne(Employer, { _id: empId }, '', function (result) {
+            if (result) {
                 res.render('create', {
                     active_session: req.session.user && req.cookies.user_sid,
                     active_user: req.session.user,
                     title: 'Post Job | BookMeDental',
                     profile_active: true,
                     emp: result.toObject(),
-        
+
                     // navbar indicator
                     accType: req.session.accType,
                 });
-            }
-            else{
+            } else {
                 res.render('404', {
                     active_session: req.session.user && req.cookies.user_sid,
                     active_user: req.session.user,
@@ -45,44 +43,45 @@ const dashboardEmpController = {
         );
         var now = Date.now();
 
-
-        if (input < now){
+        if (input < now) {
             res.render('create', {
-                active_session: (req.session.user && req.cookies.user_sid),
+                active_session: req.session.user && req.cookies.user_sid,
                 active_user: req.session.user,
                 title: 'Post Job | BookMeDental',
                 profile_active: true,
                 input: req.body,
-                dateError: 'Invalid date. Please enter a date that comes after the date today.'
+                dateError:
+                    'Invalid date. Please enter a date that comes after the date today.',
             });
-        }
-        else{
-            db.findOne(Employer, {account: req.session.user}, '', function(result){
-            console.log("inserting");
-    
-            var job = new Job({
-                _id: new mongoose.Types.ObjectId(),
-                employer: result._id,
-                placement: req.body.placement,
-                position: req.body.position,
-                clinicName: result.clinicName,
-                date: req.body.date,
-                description: desc,
-                software: req.body.software,
-                experience: req.body.experience,
-                posted: "just then",
-                clinic_city:    result.clinicAddress.city,
-                clinic_state:   result.clinicAddress.state
-            });
+        } else {
+            db.findOne(Employer, { account: req.session.user }, '', function (
+                result,
+            ) {
+                console.log('inserting');
 
-            db.insertOne(Job, job, function (flag) {
-                if (flag) {
-                    console.log('inserted');
-                    helper.updatePostedDate();
-                    res.redirect('/dashboard');
-                }
+                var job = new Job({
+                    _id: new mongoose.Types.ObjectId(),
+                    employer: result._id,
+                    placement: req.body.placement,
+                    position: req.body.position,
+                    clinicName: result.clinicName,
+                    date: req.body.date,
+                    description: desc,
+                    software: req.body.software,
+                    experience: req.body.experience,
+                    posted: 'just then',
+                    clinic_city: result.clinicAddress.city,
+                    clinic_state: result.clinicAddress.state,
+                });
+
+                db.insertOne(Job, job, function (flag) {
+                    if (flag) {
+                        console.log('inserted');
+                        helper.updatePostedDate();
+                        res.redirect('/dashboard');
+                    }
+                });
             });
-          });
         }
     },
 
@@ -97,6 +96,11 @@ const dashboardEmpController = {
             return;
         }
 
+        let placementQuery = pagination.initQueryArray(
+            helper.sanitize(req.query.placement),
+            ['Permanent Work', 'Temporary Work'],
+        );
+        
         let positionQuery = pagination.initQueryArray(
             helper.sanitize(req.query.position),
             ['Dentist', 'Dental Hygienist', 'Front Desk', 'Dental Assistant'],
@@ -110,12 +114,17 @@ const dashboardEmpController = {
         let query = {
             account: { $exists: true },
             position: { $in: positionQuery },
+            placement: { $in: placementQuery },
         };
 
         Applicant.paginate(query, options, function (err, results) {
             if (err) throw err;
             let route = '/search/applicants';
 
+            let placementLink = pagination.createQueryLink(
+                placementQuery,
+                'placement',
+            );
             let positionLink = pagination.createQueryLink(
                 positionQuery,
                 'position',
@@ -123,6 +132,7 @@ const dashboardEmpController = {
 
             let queryLinks = [];
             queryLinks.push(positionLink);
+            queryLinks.push(placementLink);
 
             const {
                 selectOptions,
@@ -193,7 +203,6 @@ const dashboardEmpController = {
             }
         });
     },
-
 };
 
 // enables to export controller object when called in another .js file

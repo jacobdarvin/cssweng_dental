@@ -583,6 +583,7 @@ const feedController = {
 
         db.findOne(Job, { _id: sntJobId }, 'applicants', function (job) {
             if (job) {
+                let placementQuery = pagination.initQueryArray(helper.sanitize(req.query.placement), ['Permanent Work', 'Temporary Work'])
                 let positionQuery = pagination.initQueryArray(
                     helper.sanitize(req.query.position),
                     [
@@ -607,12 +608,14 @@ const feedController = {
                     account: { $exists: true },
                     _id: { $in: job.applicants },
                     position: { $in: positionQuery },
+                    placement: { $in: placementQuery },
                 };
 
                 Applicant.paginate(query, options, function (err, results) {
                     if (err) throw err;
                     let route = `/jobs/${sntJobId}/applicants`;
 
+                    let placementLink = pagination.createQueryLink(placementQuery, 'placement');
                     let positionLink = pagination.createQueryLink(
                         positionQuery,
                         'position',
@@ -620,7 +623,7 @@ const feedController = {
 
                     let queryLinks = [];
                     queryLinks.push(positionLink);
-
+                    queryLinks.push(placementLink);
                     const {
                         selectOptions,
                         prevPageLink,
