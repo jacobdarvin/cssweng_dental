@@ -36,6 +36,8 @@
                     <br />
                     <span class="card-text" style="text-align: left;"> <i class="fas fa-phone" style="color: #8455ca;">&nbsp;</i> {{profileData.phone}} </span>
                     <br />
+                    <span class="card-text" style="text-align: left;"> <i class="fas fa-business-time" style="color: #8455ca;">&nbsp;</i> {{profileData.placement}} </span>
+                    <br />
                     <br />
                     <a href="#">Edit Profile</a>
                 </div>
@@ -88,16 +90,22 @@
                                                 <small><a href="#">View Requests</a></small>
                                             </span>
                                         </div>
+                                        {{#ifEquals profileData.placement "Temporary Work"}}
                                         <div class="col border m-1 card p-1 shadow-sm">
                                             <span class="card-text my-auto">
                                                 Hourly Wage <br />
-                                                <b>{{profileData.rate}} / hour</b> <br />
+                                                <b>$ {{profileData.rate}} / hour</b> <br />
                                                 <small><a href="#">Update</a></small>
                                             </span>
                                         </div>
+                                        {{/ifEquals}}
                                     </div>
 
-                                     <hr />
+                                    <hr />
+                                    <h2>Description</h2>
+                                    <p>{{profileData.profile}}</p>
+                                    <a href="#">Edit Description</a>
+                                    <hr />
 
                                     <h2>Matching Jobs For You</h2>
                                     {{#each matching_jobs}}

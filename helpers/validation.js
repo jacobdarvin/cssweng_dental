@@ -204,23 +204,13 @@ const validation = {
 
             check('payrate')
                 .trim()
+                .isNumeric()
+                .withMessage(
+                    "Invalid input. Please try again.",
+                )
                 .custom((value, { req, location, path }) => {
-                    var val = value;
-                    let isnum = /^\d+$/.test(val);
+                    var val = value
 
-                    if (req.body.placement == 'Permanent Work') {
-                        return true;
-                    } else if (
-                        req.body.placement == 'Temporary Work' &&
-                        isnum == false
-                    ) {
-                        return false;
-                    }
-                })
-                .withMessage('Invalid input. Please try again.')
-                .custom((value, { req, location, path }) => {
-                    var val = value;
-                    let isnum = /^\d+$/.test(val);
                     if (req.body.placement == 'Permanent Work') {
                         return true;
                     }

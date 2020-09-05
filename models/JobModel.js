@@ -45,6 +45,9 @@ const JobSchema = mongoose.Schema({
         type: Date,
         default: Date.now,
     },
+    posted: {
+        type: String,
+    },
     clinic_city: {
         type: String,
         default: "",
@@ -53,7 +56,6 @@ const JobSchema = mongoose.Schema({
         type: String,
         default: "",
     },
-    
 })
 
 JobSchema.plugin(mongoosePaginate);

@@ -22,7 +22,7 @@ const dashboardAppController = {
                 placement: appDoc.placement.replace(' Work', ''),
                 position: appDoc.position,
             },
-            'employer position placement date',
+            'employer position placement date posted clinic_city clinic_state',
         )
             .populate('employer')
             .sort('-created')
@@ -35,7 +35,7 @@ const dashboardAppController = {
         return Applicant.findById(app_id, 'appliedJobs')
             .populate({
                 path: 'appliedJobs',
-                select: 'employer placement position date',
+                select: 'employer placement position date posted clinic_city clinic_state',
                 options: { limit: 3, lean: true },
                 populate: {
                     path: 'employer',

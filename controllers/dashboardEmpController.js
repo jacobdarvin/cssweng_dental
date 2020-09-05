@@ -59,7 +59,7 @@ const dashboardEmpController = {
         else{
             db.findOne(Employer, {account: req.session.user}, '', function(result){
             console.log("inserting");
-          
+    
             var job = new Job({
                 _id: new mongoose.Types.ObjectId(),
                 employer: result._id,
@@ -70,7 +70,7 @@ const dashboardEmpController = {
                 description: desc,
                 software: req.body.software,
                 experience: req.body.experience,
-
+                posted: "just then",
                 clinic_city:    result.clinicAddress.city,
                 clinic_state:   result.clinicAddress.state
             });
@@ -78,6 +78,7 @@ const dashboardEmpController = {
             db.insertOne(Job, job, function (flag) {
                 if (flag) {
                     console.log('inserted');
+                    helper.updatePostedDate();
                     res.redirect('/dashboard');
                 }
             });

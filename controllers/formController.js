@@ -50,7 +50,6 @@ const formController = {
             errors = errors.errors;
 
             var details = {};
-            console.log(req.body)
 
             for (let i = 0; i < errors.length; i++)
                 details[errors[i].param + 'Error'] = errors[i].msg;
@@ -173,6 +172,7 @@ const formController = {
 
                 db.insertOne(Applicant, applicant, function (flag) {
                     if (flag) {
+                        helper.updatePostedDate();
                         res.redirect('/dashboard');
                     }
                 });
@@ -271,6 +271,7 @@ const formController = {
 
             db.insertOne(Employer, employer, function (flag) {
                 if (flag) {
+                    helper.updatePostedDate();
                     res.redirect('/dashboard');
                 }
             });

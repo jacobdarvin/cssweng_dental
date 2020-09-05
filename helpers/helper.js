@@ -4,6 +4,7 @@ const moment = require('moment');
 const dateformat = require('dateformat');
 const fs = require('fs');
 const Job = require('../models/JobModel');
+const db = require('../models/db');
 
 const helper = {
     sanitize: function (query) {
@@ -43,13 +44,13 @@ const helper = {
         if (diff_seconds < 30) {
             time = 'just then';
         } else if (diff_seconds < minute) {
-            time = delta + ' seconds ago';
+            time = diff_seconds + ' seconds ago';
         } else if (diff_seconds < 2 * minute) {
-            time = 'a minute ago.';
+            time = 'a minute ago';
         } else if (diff_seconds < hour) {
             time = Math.floor(diff_seconds / minute) + ' minutes ago';
         } else if (Math.floor(diff_seconds / hour) == 1) {
-            time = '1 hour ago.';
+            time = '1 hour ago';
         } else if (diff_seconds < day) {
             time = Math.floor(diff_seconds / hour) + ' hours ago';
         } else if (diff_seconds == day) {
@@ -57,10 +58,21 @@ const helper = {
         } else if (diff_seconds < day * 7) {
             time = Math.floor(diff_seconds / day) + ' days ago';
         } else if (diff_seconds == week) {
-            time = 'one week ago';
+            time = '1 week ago'; 
+        } else if (diff_seconds == week * 2){
+        	time = '2 weeks ago'; 
+		} else if (diff_seconds == week * 3){
+        	time = '3 weeks ago'; 
+		} else if (diff_seconds == week * 4){
+        	time = '1 month ago'; 
+		} else if ((diff_seconds > week) && (diff_seconds < week * 2)) {
+			time = 'more than 1 week ago' 
+        } else if ((diff_seconds > week) && (diff_seconds < week * 4)) {
+			time = 'more than ' + Math.floor(diff_seconds / week) + ' weeks ago' 
         } else {
             time = 'on ' + dateformat(date, 'mmm dd, yyyy');
         }
+
 
         return time;
     },
@@ -83,6 +95,7 @@ const helper = {
     },
 
     getActiveJobPost: function (emp) {
+        //this.updatePostedDate();
         return Job.find({ employer: emp })
             .populate('employer')
             .sort('-created')
@@ -103,6 +116,23 @@ const helper = {
             placement: 'Permanent',
         }).exec();
     },
+
+    updatePostedDate: function (){
+        var yes;
+        var self = this;
+        // yes = this.formatDate("2020-09-05T04:49:10.324+00:00");
+        // console.log(yes);
+       Job.find({}, function(err, results){
+           results.forEach(function(jobs){
+            //     yes = self.formatDate(jobs.created)
+            //     console.log(yes);
+            //    console.log(jobs.created);
+            //   db.updateOne(Job,{_id: jobs._id}, {posted: self.formatDate(jobs.created)}, function(res){}).exec();
+                Job.updateOne({_id: jobs._id}, {posted: self.formatDate(jobs.created)}).exec();
+           })
+
+       })
+    }
 };
 
 module.exports = helper;

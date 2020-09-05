@@ -5,7 +5,6 @@ const Job = require('../models/JobModel');
 const Applicant = require('../models/ApplicantModel');
 const Employer = require('../models/EmployerModel');
 const pagination = require('../helpers/pagination');
-const sanitize = require('mongo-sanitize');
 
 const fs = require('fs');
 const path = require('path');
@@ -21,6 +20,14 @@ const feedController = {
         if (!(req.session.user && req.cookies.user_sid)) {
             res.redirect('/login');
             return;
+        }
+
+        if (req.session.accType != 'employer') {
+            res.render('404', {
+                active_session: req.session.user && req.cookies.user_sid,
+                active_user: req.session.user,
+                title: '404 Page Not Found | BookMeDental',
+            });
         }
 
         console.log('getFiltered request');
@@ -114,7 +121,7 @@ const feedController = {
                 clinic_city : { $in: cityQuery },
                 clinic_state: { $in: stateQuery }
             };
-
+            helper.updatePostedDate();
             Job.paginate(query, options, function (err, results) {
                 console.log(results);
 
@@ -247,8 +254,11 @@ const feedController = {
         }
 
         if (req.session.accType != 'applicant') {
-            res.status(403).send('Forbidden: you are not an applicant');
-            return;
+           res.render('404', {
+                    active_session: req.session.user && req.cookies.user_sid,
+                    active_user: req.session.user,
+                    title: '404 Page Not Found | BookMeDental',
+                });
         }
         console.log('getFiltered request');
 
@@ -334,6 +344,7 @@ const feedController = {
             clinic_state: { $in: stateQuery }
         };
 
+        helper.updatePostedDate();
         Job.paginate(query, options, function (err, results) {
             console.log(results);
 
@@ -459,7 +470,7 @@ const feedController = {
             res.redirect('/login');
             return;
         }
-        var sntJobId = sanitize(req.params.jobId);
+        var sntJobId = helper.sanitize(req.params.jobId);
 
         db.findOne(Job, { _id: sntJobId }, '', function (job) {
             if (job) {
@@ -487,6 +498,7 @@ const feedController = {
                         }
 
                         console.log(data)
+                        helper.updatePostedDate();
                         res.render('details', {
                             active_session:
                             req.session.user && req.cookies.user_sid,
@@ -524,13 +536,14 @@ const feedController = {
         db.findOne(Applicant, { account: req.session.user }, '_id', function (
             applicant,
         ) {
-            var sntJobId = sanitize(req.params.jobId);
+            var sntJobId = helper.sanitize(req.params.jobId);
 
             db.updateOne(
                 Job,
                 { _id: sntJobId },
                 { $push: { applicants: applicant._id } },
                 function (result) {
+                    helper.updatePostedDate()
                     if (result) {
                         db.updateOne(
                             Applicant,
@@ -557,16 +570,21 @@ const feedController = {
         }
 
         if (req.session.accType != 'employer') {
-            res.status(403).send('Forbidden: you are not an employer');
-            return;
+            // res.status(403).send('Forbidden: you are not an employer');
+            // return;
+            res.render('404', {
+                active_session: req.session.user && req.cookies.user_sid,
+                active_user: req.session.user,
+                title: '404 Page Not Found | BookMeDental',
+            });
         }
 
-        var sntJobId = sanitize(req.params.jobId);
+        var sntJobId = helper.sanitize(req.params.jobId);
 
         db.findOne(Job, { _id: sntJobId }, 'applicants', function (job) {
             if (job) {
                 let positionQuery = pagination.initQueryArray(
-                    sanitize(req.query.position),
+                    helper.sanitize(req.query.position),
                     [
                         'Dentist',
                         'Dental Hygienist',
@@ -575,7 +593,7 @@ const feedController = {
                     ],
                 );
 
-                let page = sanitize(req.query.page);
+                let page = helper.sanitize(req.query.page);
                 if (page == null) page = '1';
 
                 let options = {
@@ -643,11 +661,16 @@ const feedController = {
         }
 
         if (req.session.accType != 'employer') {
-            res.status(403).send('Forbidden: you are not an employer');
-            return;
+            // res.status(403).send('Forbidden: you are not an employer');
+            // return;
+            res.render('404', {
+                active_session: req.session.user && req.cookies.user_sid,
+                active_user: req.session.user,
+                title: '404 Page Not Found | BookMeDental',
+            });
         }
 
-        var sntAppId = sanitize(req.params.appId);
+        var sntAppId = helper.sanitize(req.params.appId);
         db.findOne(Applicant, { _id: sntAppId }, '', function (applicant) {
             if (applicant) {
                 applicant.populate(
@@ -661,7 +684,7 @@ const feedController = {
 
                         res.render('details-app', {
                             active_session:
-                                req.session.user && req.cookies.user_sid,
+                            req.session.user && req.cookies.user_sid,
                             active_user: req.session.user,
                             title: `Applicant ${applicant.fName} ${applicant.lName} | BookMeDental`,
                             appData: result.toObject(),
@@ -678,6 +701,17 @@ const feedController = {
             }
         });
     },
+
+    getAppResume : function (req, res){
+        var resumePath = "./public/resumes/" + req.params.resume;
+
+        db.findOne(Applicant, {resume: req.params.resume}, '', function(result){
+            var resumeFile = result.fName + "_" + result.lName + ".pdf"
+            if (fs.existsSync(resumePath)) {
+                res.download(resumePath, resumeFile);
+            }
+        })
+    }
 };
 
 // enables to export controller object when called in another .js file
