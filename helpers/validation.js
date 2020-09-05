@@ -98,19 +98,13 @@ const validation = {
                 .withMessage('Clinic name is required.')
                 .trim(),
 
-            check('clinic_program')
-                .trim()
-                .notEmpty()
-                .withMessage('Clinic software field is required.')
-                .customSanitizer(value => value.split(',')),
-            check('clinic_program.*').trim(),
+            check('clinic_programs')
+                .exists()
+                .withMessage('Please check at least one software.'),
 
-            check('clinic_specialty')
-                .trim()
-                .notEmpty()
-                .withMessage('Clinic specialty field is required.')
-                .customSanitizer(value => value.split(',')),
-            check('clinic_specialty.*').trim(),
+            check('clinic_specialties')
+                .exists()
+                .withMessage('Please check at least one specialty.'),
 
             check('clinic_services')
                 .trim()
@@ -165,7 +159,8 @@ const validation = {
             check('house')
                 .trim()
                 .notEmpty()
-                .withMessage('House number is required.').bail()
+                .withMessage('House number is required.')
+                .bail()
                 .isNumeric()
                 .withMessage('Invalid input.')
                 .trim(),
@@ -190,7 +185,8 @@ const validation = {
             check('years')
                 .trim()
                 .notEmpty()
-                .withMessage('Empty field. Please fill this out.').bail()
+                .withMessage('Empty field. Please fill this out.')
+                .bail()
                 .isNumeric()
                 .withMessage('Invalid input.')
                 .trim(),
@@ -218,7 +214,7 @@ const validation = {
                     if (req.body.placement == 'Permanent Work') {
                         return true;
                     }
-                    
+
                     // return false if placement is temp and payrate is empty
                     return !(
                         req.body.placement == 'Temporary Work' && value == ''
@@ -269,7 +265,6 @@ const validation = {
                 ),
         ];
     },
-
 };
 
 module.exports = validation;

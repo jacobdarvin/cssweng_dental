@@ -206,6 +206,7 @@ const formController = {
         }
     },
     postFormEmp: function (req, res) {
+        console.log(req.body)
         var errors = validationResult(req);
 
         if (!errors.isEmpty()) {
@@ -213,6 +214,7 @@ const formController = {
 
             var details = {};
 
+            
             for (let i = 0; i < errors.length; i++) {
                 // remove array indices for wildcard checks
                 details[`${errors[i].param.replace(/\[\d\]/g, '')}Error`] =
@@ -257,8 +259,8 @@ const formController = {
                 },
                 clinicPhone: o.clinic_phone,
                 clinicName: o.clinic_name,
-                clinicProgram: o.clinic_program,
-                clinicSpecialties: o.clinic_specialty,
+                clinicProgram: o.clinic_programs,
+                clinicSpecialties: o.clinic_specialties,
                 clinicServices: o.clinic_services,
 
                 clinicContactName: o.clinic_con_name,
