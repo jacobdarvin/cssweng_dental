@@ -413,6 +413,7 @@ const feedController = {
                             applied = data.applicants.includes(applicant._id);
                         }
 
+                        console.log(data)
                         res.render('details', {
                             active_session:
                             req.session.user && req.cookies.user_sid,

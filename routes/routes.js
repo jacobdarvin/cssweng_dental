@@ -79,7 +79,7 @@ app.use((req, res, next) => {
 });
 
 app.get('/cities', formController.getCities);
-app.get('/form', formController.getApplicantReg);
+app.get('/form/:fappId', formController.getApplicantReg);
 app.post(
     '/form',
     uploadFilter,
@@ -87,7 +87,7 @@ app.post(
     formController.postApplicantReg,
 );
 
-app.get('/form-emp', formController.getFormEmp);
+app.get('/form-emp/:fempId', formController.getFormEmp);
 app.post(
     '/form-emp',
     validation.formEmpValidation(),
@@ -155,7 +155,7 @@ app.get('/dashboard', dashboardController.getDashboard);
 // /dashboard-type / DASHBOARD
 
 // post job / CREATE
-app.get('/create', dashboardEmpController.getCreateJob);
+app.get('/create/:jobId', dashboardEmpController.getCreateJob);
 // post job / CREATE
 app.post('/create', dashboardEmpController.postCreateJob);
 app.get('/search/applicants', dashboardEmpController.getApplicantsFromSearch);

@@ -21,11 +21,6 @@ const JobSchema = mongoose.Schema({
         enum: ['Front Desk', 'Dental Assistant', 'Dental Hygienist', 'Dentist'],
         required: true,
     },
-    location: {
-        type: String,
-        enum: ['Main Clinic'],
-        required: true
-    },
     clinicName: {
         type: String,
         required: true
@@ -39,7 +34,7 @@ const JobSchema = mongoose.Schema({
         required: true
     },
     software: {
-        type: String,
+        type: [String],
         default: "None"
     },
     experience: {

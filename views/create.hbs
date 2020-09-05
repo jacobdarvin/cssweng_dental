@@ -67,21 +67,6 @@
     <!-- CLINIC LOCATION -->
     <div class="card shadow-sm border mx-auto" style="width: 50rem; margin-bottom: 2rem;">
         <div class="card-body">
-        <!--
-            <div class="card-title" style="font-size: 42px;">Clinic Details</div>
-            <p style="font-style: italic; font-size: 16px; margin-top: -16px;">Please confirm the following location details for your job.</p>
-            <div class="card-text">
-                <p class="h3"> Darvin Clinic Inc. </p>
-                <p class="mb-0"> 10 Brighton St. Hillsborough Alabang Village </p>
-                <p> 1771 | San Fransisco California </p>
-                <label for="inputGroupSelect04">Clinic</label>
-                <div class="input-group">
-                    <select class="custom-select" id="clinic" name="clinic" aria-label="Example select with button addon">
-                        <option value="Main Clinic" selected>Main Clinic</option>
-                    </select>
-                </div>
-            </div>
-        -->
             <label for="example-datetime-local-input">Date Needed</label>
             <input class="form-control" type="date" id="date" name="date" required>
             <p style="color: red; margin-top: 3px">{{dateError}}</p>
@@ -106,28 +91,28 @@
                             <label for="clinic_con_name">Software Proficiency</label>
                             <div class="container ">
                                 <div class="form-check col w-100" >
-                                  <input class="form-check-input" type="checkbox" value="Dentrix" id="defaultCheck1" name="programs" {{checkbox "Dentrix" input.programs}}>
+                                  <input class="form-check-input" type="checkbox" value="Dentrix" id="defaultCheck1" name="software" {{checkbox "Dentrix" input.programs}}>
                                   <label class="col form-check-label" for="defaultCheck1">
                                     Dentrix
                                   </label>
                                 </div>
 
                                 <div class="form-check col w-100" >
-                                  <input class="form-check-input" type="checkbox" value="Easy Dental" id="defaultCheck1" name="programs" {{checkbox "Easy Dental" input.programs}}>
+                                  <input class="form-check-input" type="checkbox" value="Easy Dental" id="defaultCheck1" name="software" {{checkbox "Easy Dental" input.programs}}>
                                   <label class="col form-check-label" for="defaultCheck1">
                                     Easy Dental
                                   </label>
                                 </div>
 
                                 <div class="form-check col w-100">
-                                  <input class="form-check-input" type="checkbox" value="Eaglesoft" id="defaultCheck1" name="programs" {{checkbox "Eaglesoft" input.programs}}>
+                                  <input class="form-check-input" type="checkbox" value="Eaglesoft" id="defaultCheck1" name="software" {{checkbox "Eaglesoft" input.programs}}>
                                   <label class="col form-check-label" for="defaultCheck1">
                                     Eaglesoft
                                   </label>
                                 </div>
 
                                 <div class="form-check col w-100">
-                                  <input class="form-check-input" type="checkbox" value="Open Dental" id="defaultCheck1" name="programs" {{checkbox "Open Dental" input.programs}}>
+                                  <input class="form-check-input" type="checkbox" value="Open Dental" id="defaultCheck1" name="software" {{checkbox "Open Dental" input.programs}}>
                                   <label class="col form-check-label" for="defaultCheck1">
                                     Open Dental
                                   </label>
