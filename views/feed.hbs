@@ -79,14 +79,14 @@
 				<p class="h5"> Location </p>
                     <label for="clinic_state">State</label>
                        	<select name="clinic_state" class="form-control" id="clinic_state" onchange="populateCities(this.value, 'clinic_city')">
-							<option value="">--Select a state--</option>
+							<option value="">All States</option>
                                 {{#each states}}
 							<option value="{{this}}" {{select this ../inputs.clinic_state}}>{{this}}</option>
                                 {{/each}}
 						</select>
                      <label for="clinic_city">City</label>
                        	<select name="clinic_city" class="form-control" id="clinic_city">
-                        <option value="">--Select a city--</option>
+                        <option value="">All Cities</option>
                         		{{#each cities}}
                         <option value="{{this}}" {{select this ../inputs.clinic_city}}>{{this}}</option>
                         {{/each}}
