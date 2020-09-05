@@ -1,2 +1,2 @@
 $('#form').areYouSure();
-$('#form-emp').areYouSure();
+$('#form').addClass('dirty');
