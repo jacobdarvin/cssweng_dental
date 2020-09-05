@@ -126,6 +126,9 @@ const dashboardEmpController = {
                 applicants: results.docs,
                 profile_route: `/applicants`,
 
+                // navbar indicator
+                accType: req.session.accType,
+
                 // Pagination
                 selectOptions: selectOptions,
                 hasPrev: hasPrevPage,

@@ -109,6 +109,10 @@ app.get('/features', function (req, res) {
         active_session: req.session.user && req.cookies.user_sid,
         active_user: req.session.user,
         title: 'Features | BookMeDental',
+        
+        // navbar indicator
+        accType: req.session.accType,
+
         features_active: true,
     });
 });

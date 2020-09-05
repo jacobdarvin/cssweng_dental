@@ -157,6 +157,7 @@ const feedController = {
                     filter_route: '/feed-emp',
                     profile_active: true,
                     jobs: results.docs,
+                    date_c: toString(helper.formatDate(results.docs.created)),
                     // employer_active: true,
 
                     // navbar indicator

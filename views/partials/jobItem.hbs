@@ -10,8 +10,9 @@
 	<div class="card job border m-0 mb-2">
 		<div class="p-2">
 			<p class=" p-0 mb-0" style="font-size: 18px; padding-top: 5px;">{{placement}} <b>{{position}}</b> at <b>{{employer.clinicName}}</b>
-				<br>
-			<small>Posted 5 minutes ago</small>
+			<small>{{employer.clinicAddress.city}}, {{employer.clinicAddress.state}}</small>
+			<br>
+			<small>Posted {{created}}</small> | 
 
 			<hr style="margin-top:-1px; margin-bottom: 10px">
 

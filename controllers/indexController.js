@@ -6,6 +6,10 @@ const indexController = {
         	active_session: (req.session.user && req.cookies.user_sid),
        		active_user: req.session.user,
             title: 'Home | BookMeDental',
+
+            // navbar indicator
+            accType: req.session.accType,
+
             home_active: true,
         });
     },
