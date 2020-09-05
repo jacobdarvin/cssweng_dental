@@ -23,6 +23,13 @@ const dashboardEmpController = {
                     accType: req.session.accType,
                 });
             }
+            else{
+                res.render('404', {
+                    active_session: req.session.user && req.cookies.user_sid,
+                    active_user: req.session.user,
+                    title: '404 Page Not Found | BookMeDental',
+                });
+            }
         });
     },
 

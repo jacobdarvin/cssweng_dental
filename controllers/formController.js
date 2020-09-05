@@ -6,6 +6,7 @@ const path = require('path');
 const db = require('../models/db');
 const Applicant = require('../models/ApplicantModel');
 const Employer = require('../models/EmployerModel');
+const Account = require('../models/AccountModel');
 
 const helper = require('../helpers/helper');
 
@@ -17,15 +18,28 @@ const citiesAndStates = JSON.parse(buffer);
 
 const formController = {
     getApplicantReg: function (req, res) {
-        if (!req.session.user) res.redirect('/register');
+        if (!req.session.user) {
+            res.redirect('/register')
+        }
         else{
-            res.render('form', {
-                active_session: req.session.user && req.cookies.user_sid,
-                active_user: req.session.user,
-                title: 'Sign Up | BookMeDental',
-                register_active: true,
-    
-                states: Object.keys(citiesAndStates).sort(),
+            db.findOne(Account, {_id: req.params.fappId}, '', function(result){
+            if(result){
+                res.render('form', {
+                    active_session: req.session.user && req.cookies.user_sid,
+                    active_user: req.session.user,
+                    title: 'Sign Up | BookMeDental',
+                    register_active: true,
+        
+                    states: Object.keys(citiesAndStates).sort(),
+                });
+            }
+            else{
+                res.render('404', {
+                    active_session: req.session.user && req.cookies.user_sid,
+                    active_user: req.session.user,
+                    title: '404 Page Not Found | BookMeDental',
+                });
+            }
             });
         }
     },
@@ -167,15 +181,28 @@ const formController = {
         }
     },
     getFormEmp: function (req, res) {
-        if (!req.session.user) res.redirect('/register');
+        if (!req.session.user) {
+            res.redirect('/register')
+        }
         else{
-            res.render('form-emp', {
-                active_session: req.session.user && req.cookies.user_sid,
-                active_user: req.session.user,
-                title: 'Sign Up | BookMeDental',
-                login_active: true,
-
-                states: Object.keys(citiesAndStates).sort(),
+            db.findOne(Account, {_id: req.params.fempId}, '', function(result){
+            if(result){
+                res.render('form-emp', {
+                    active_session: req.session.user && req.cookies.user_sid,
+                    active_user: req.session.user,
+                    title: 'Sign Up | BookMeDental',
+                    register_active: true,
+        
+                    states: Object.keys(citiesAndStates).sort(),
+                });
+            }
+            else{
+                res.render('404', {
+                    active_session: req.session.user && req.cookies.user_sid,
+                    active_user: req.session.user,
+                    title: '404 Page Not Found | BookMeDental',
+                });
+            }
             });
         }
     },

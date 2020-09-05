@@ -50,8 +50,8 @@ const registerController = {
                         req.session.user = account._id;
                         req.session.accType = account.accType;
                         
-                        if (options == 'applicant') res.redirect('/form');
-                        else res.redirect('/form-emp');
+                        if (options == 'applicant') res.redirect('/form/'+account._id);
+                        else res.redirect('/form-emp/' + account._id);
                     }
                 });
             });
