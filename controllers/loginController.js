@@ -34,6 +34,7 @@ const loginController = {
                         if (equal) {
                             req.session.user = user._id;
                             req.session.accType = user.accType;
+                            helper.updatePostedDate();
                             res.redirect('/dashboard');
                         } else {
                             res.render('login', {

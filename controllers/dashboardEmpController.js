@@ -70,11 +70,13 @@ const dashboardEmpController = {
                 description: desc,
                 software: req.body.software,
                 experience: req.body.experience,
+                posted: "just then"
             });
 
             db.insertOne(Job, job, function (flag) {
                 if (flag) {
                     console.log('inserted');
+                    helper.updatePostedDate();
                     res.redirect('/dashboard');
                 }
             });

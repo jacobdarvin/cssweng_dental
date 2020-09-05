@@ -1,6 +1,7 @@
 const db = require('../models/db');
 const Applicant = require('../models/ApplicantModel');
 const Employer = require('../models/EmployerModel');
+const Job = require('../models/JobModel');
 const dac = require('./dashboardAppController');
 const helper = require('../helpers/helper');
 
@@ -26,7 +27,7 @@ const dashboardController = {
                 view = 'dashboard-emp';
                 model = Employer;
             }
-
+            helper.updatePostedDate();
             db.findOne(model, { account: req.session.user }, '', function (
                 result,
             ) {
@@ -90,6 +91,7 @@ const dashboardController = {
                             }
                         });
                 } else {
+                    helper.updatePostedDate();
                     res.redirect(
                         req.session.accType == 'applicant'
                             ? '/form/' + req.session.user

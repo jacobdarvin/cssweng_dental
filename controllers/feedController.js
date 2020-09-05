@@ -14,6 +14,14 @@ const feedController = {
             return;
         }
 
+        if (req.session.accType != 'employer') {
+            res.render('404', {
+                active_session: req.session.user && req.cookies.user_sid,
+                active_user: req.session.user,
+                title: '404 Page Not Found | BookMeDental',
+            });
+        }
+
         console.log('getFiltered request');
 
         let positionQuery = new Array();
@@ -72,7 +80,7 @@ const feedController = {
                 position: { $in: positionQuery },
                 placement: { $in: placementQuery },
             };
-
+            helper.updatePostedDate();
             Job.paginate(query, options, function (err, results) {
                 console.log(results);
 
@@ -180,8 +188,11 @@ const feedController = {
         }
 
         if (req.session.accType != 'applicant') {
-            res.status(403).send('Forbidden: you are not an applicant');
-            return;
+           res.render('404', {
+                    active_session: req.session.user && req.cookies.user_sid,
+                    active_user: req.session.user,
+                    title: '404 Page Not Found | BookMeDental',
+                });
         }
         console.log('getFiltered request');
 
@@ -237,6 +248,7 @@ const feedController = {
             placement: { $in: placementQuery },
         };
 
+        helper.updatePostedDate();
         Job.paginate(query, options, function (err, results) {
             console.log(results);
 

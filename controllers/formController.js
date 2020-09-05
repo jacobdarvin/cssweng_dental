@@ -174,6 +174,7 @@ const formController = {
 
                 db.insertOne(Applicant, applicant, function (flag) {
                     if (flag) {
+                        helper.updatePostedDate();
                         res.redirect('/dashboard');
                     }
                 });
@@ -270,6 +271,7 @@ const formController = {
 
             db.insertOne(Employer, employer, function (flag) {
                 if (flag) {
+                    helper.updatePostedDate();
                     res.redirect('/dashboard');
                 }
             });

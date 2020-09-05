@@ -45,6 +45,9 @@ const JobSchema = mongoose.Schema({
         type: Date,
         default: Date.now,
     },
+    posted: {
+        type: String,
+    }
 })
 
 JobSchema.plugin(mongoosePaginate);
