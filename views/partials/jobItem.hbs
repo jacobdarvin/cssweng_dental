@@ -9,10 +9,10 @@
 <a href="/jobs/{{_id}}" style="text-decoration: none;">
 	<div class="card job border m-0 mb-2">
 		<div class="p-2">
-			<p class=" p-0 mb-0" style="font-size: 18px; padding-top: 5px;">{{placement}} <b>{{position}}</b> at <b>{{employer.clinicName}}</b>
-			<small>({{employer.clinicAddress.city}}, {{employer.clinicAddress.state}})</small>
+			<p class=" p-0 mb-0" style="font-size: 18px; padding-top: 5px;"><b>{{position}}</b> at <b>{{employer.clinicName}}</b>
+			<small>({{clinic_city}}, {{clinic_state}})</small>
 			<br>
-			<small>Posted {{posted}}</small>
+			<small><i class="far fa-clock" style="color: gray;"></i> {{posted}}    <i class="fas fa-business-time" style="color: gray; margin-left: 10px"></i> {{placement}}</i></small>
 
 			<hr style="margin-top:-1px; margin-bottom: 10px">
 
