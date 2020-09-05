@@ -9,6 +9,13 @@ p {
    color: #55595c; 
 }
 
+a {
+    transition: 0.3s;
+}
+
+a:hover {
+}
+
 .h1 {
     font-weight: 800;
     color: #2f353e;

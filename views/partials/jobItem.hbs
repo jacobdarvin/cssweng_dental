@@ -9,20 +9,17 @@
 <a href="/jobs/{{_id}}" style="text-decoration: none;">
 	<div class="card job border m-0 mb-2">
 		<div class="p-2">
-			<p class="h1 p-0 mb-0" style="font-size: 18px; padding-top: 5px;">{{employer.clinicName}} <small>10 Brighton St. Address</small></p>
-
-			<small>Created 5 minutes ago</small>
+			<p class=" p-0 mb-0" style="font-size: 18px; padding-top: 5px;">{{placement}} <b>{{position}}</b> at <b>{{employer.clinicName}}</b>
+			<small>{{employer.clinicAddress.city}}, {{employer.clinicAddress.state}}</small>
+			<br>
+			<small>Created 5 minutes ago <!--{{created}} --></small> | 
 
 			<hr style="margin-top:-1px; margin-bottom: 10px">
 
-			<small style="color: black; margin-bottom: -1px;">Position: {{position}}</small><br>
-
-			<small style="color: black; margin-bottom: -1px; ">Placement: {{placement}}</small><br>
-
-			<a data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+			<a data-toggle="collapse" href="#a{{_id}}" role="button" aria-expanded="false" aria-controls="{{_id}}">
 				   <small>Show Description</small>
 			</a>
-
+			 | 
 			<a href="/jobs/{{_id}}">
 				   <small>View Job</small>
 			</a>
@@ -31,8 +28,8 @@
 				<small style="margin-bottom: -1px; padding-left: 5px; font-size: 13px; color: black">{{description}}</small> 
 			</div>
 			-->
-			<div class="collapse " id="collapseExample"> <hr>
-		    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+			<div class="collapse " id="a{{_id}}"> 
+		    	{{description}}
 			</div>
 
 		</div>

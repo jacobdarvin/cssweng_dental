@@ -8,21 +8,33 @@ const db = require('../models/db');
 
 const dashboardEmpController = {
     getCreateJob: function (req, res) {
-        res.render('create', {
-            active_session: req.session.user && req.cookies.user_sid,
-            active_user: req.session.user,
-            title: 'Post Job | BookMeDental',
-            profile_active: true,
-
-            // navbar indicator
-            accType: req.session.accType,
+        
+        var empId = helper.sanitize(req.params.jobId);
+        db.findOne(Employer, {_id: empId}, '', function(result){
+            if(result){
+                res.render('create', {
+                    active_session: req.session.user && req.cookies.user_sid,
+                    active_user: req.session.user,
+                    title: 'Post Job | BookMeDental',
+                    profile_active: true,
+                    emp: result.toObject(),
+        
+                    // navbar indicator
+                    accType: req.session.accType,
+                });
+            }
+            else{
+                res.render('404', {
+                    active_session: req.session.user && req.cookies.user_sid,
+                    active_user: req.session.user,
+                    title: '404 Page Not Found | BookMeDental',
+                });
+            }
         });
     },
 
     postCreateJob: function (req, res) {
         var desc = helper.sanitize(req.body.jobdescription);
-        var software = helper.sanitize(req.body.software);
-
 
         //check date if valid
         var [year, month, day] = req.body.date.split('-');
@@ -47,18 +59,20 @@ const dashboardEmpController = {
         else{
             db.findOne(Employer, {account: req.session.user}, '', function(result){
             console.log("inserting");
-
+          
             var job = new Job({
                 _id: new mongoose.Types.ObjectId(),
                 employer: result._id,
                 placement: req.body.placement,
                 position: req.body.position,
-                location: req.body.clinic,
                 clinicName: result.clinicName,
                 date: req.body.date,
                 description: desc,
-                software: software,
+                software: req.body.software,
                 experience: req.body.experience,
+
+                clinic_city:    result.clinicAddress.city,
+                clinic_state:   result.clinicAddress.state
             });
 
             db.insertOne(Job, job, function (flag) {

@@ -92,8 +92,8 @@ const dashboardController = {
                 } else {
                     res.redirect(
                         req.session.accType == 'applicant'
-                            ? '/form'
-                            : '/form-emp',
+                            ? '/form/' + req.session.user
+                            : '/form-emp/' + req.session.user ,
                     );
                 }
             });

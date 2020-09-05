@@ -7,6 +7,15 @@ const Employer = require('../models/EmployerModel');
 const pagination = require('../helpers/pagination');
 const sanitize = require('mongo-sanitize');
 
+const fs = require('fs');
+const path = require('path');
+
+
+const buffer = fs.readFileSync(
+    path.resolve(__dirname, '../public/json/us_cities_and_states.json'),
+);
+const citiesAndStates = JSON.parse(buffer);
+
 const feedController = {
     getEmpFeed: function (req, res) {
         if (!(req.session.user && req.cookies.user_sid)) {
@@ -22,6 +31,11 @@ const feedController = {
         let positionStatus = helper.sanitize(req.query.position);
         let placementStatus = helper.sanitize(req.query.placement);
 
+        let stateQuery = new Array();
+        let cityQuery = new Array();
+
+        let stateStatus = helper.sanitize(req.query.clinic_state);
+        let cityStatus = helper.sanitize(req.query.clinic_city);
 
         let dateStatus = helper.parseDate(helper.sanitize(req.query.date));
 
@@ -50,6 +64,31 @@ const feedController = {
             placementQuery.push('Permanent', 'Temporary');
         }
 
+        if(stateStatus == undefined || stateStatus == '') {
+            stateQuery = (Object.keys(citiesAndStates).sort());
+        } else {
+            stateQuery.push(stateStatus);
+        }
+
+        if(cityStatus == undefined || cityStatus == '') {
+            
+            cityQueryLoad = new Array();
+
+            cityQueryLoad = (Object.values(citiesAndStates).sort());
+
+            for(let i = 0; i < cityQueryLoad.length; i++) {
+                for(let j = 0; j < cityQueryLoad[i].length; j++) {
+                    cityQuery.push(cityQueryLoad[i][j]);
+                }
+            }
+            
+        } else {
+            cityQuery.push(cityStatus);
+        }
+
+        console.log(stateQuery);
+        console.log(cityQuery);
+
 
         db.findOne(Employer, {account: req.session.user}, '_id', function(emp){
 
@@ -71,6 +110,9 @@ const feedController = {
                 employer: emp._id,
                 position: { $in: positionQuery },
                 placement: { $in: placementQuery },
+
+                clinic_city : { $in: cityQuery },
+                clinic_state: { $in: stateQuery }
             };
 
             Job.paginate(query, options, function (err, results) {
@@ -84,6 +126,9 @@ const feedController = {
                 let placementLink = '';
                 let positonLink = '';
 
+                let cityLink = '';
+                let stateLink = '';
+
                 for (let i = 0; i < placementQuery.length; i++) {
                     if (i == 0)
                         placementLink += 'placement=' + placementQuery[i];
@@ -94,6 +139,18 @@ const feedController = {
                     positonLink += '&position=' + positionQuery[i];
                 }
 
+                if(stateStatus == null) {
+                    cityLink = '&clinic_city=';
+                } else {
+                    cityLink = '&clinic_city=' + cityStatus;
+                }
+
+                if(cityStatus == null) {
+                    stateLink = '&clinic_state=';
+                } else {
+                    stateLink = '&clinic_state=' + stateStatus;
+                }
+
                 for (let i = 0; i < results.pages; i++) {
                     let nPage = i + 1;
 
@@ -102,6 +159,8 @@ const feedController = {
                             '/feed-emp?' +
                             placementLink +
                             positonLink +
+                            stateLink +
+                            cityLink +
                             '&page=' +
                             nPage,
                         pageNo: nPage,
@@ -121,6 +180,8 @@ const feedController = {
                         ? '/feed-emp?' +
                           placementLink +
                           positonLink +
+                          stateLink +
+                          cityLink +
                           '&page=' +
                           prevPageNumber
                         : '';
@@ -129,6 +190,8 @@ const feedController = {
                         ? '/feed-emp?' +
                           placementLink +
                           positonLink +
+                          stateLink +
+                          cityLink +
                           '&page=' +
                           nextPageNumber
                         : '';
@@ -157,8 +220,12 @@ const feedController = {
                     filter_route: '/feed-emp',
                     profile_active: true,
                     jobs: results.docs,
-                    // employer_active: true,
 
+                    //cities and states
+                    states: Object.keys(citiesAndStates).sort(),
+                    cities: req.body.clinic_state
+                    ? citiesAndStates[req.body.clinic_state].sort()
+                    : '',
                     // navbar indicator
                     accType: req.session.accType,
 
@@ -191,6 +258,11 @@ const feedController = {
         let positionStatus = helper.sanitize(req.query.position);
         let placementStatus = helper.sanitize(req.query.placement);
 
+        let stateQuery = new Array();
+        let cityQuery = new Array();
+
+        let stateStatus = helper.sanitize(req.query.clinic_state);
+        let cityStatus = helper.sanitize(req.query.clinic_city);
 
         let dateStatus = helper.parseDate(helper.sanitize(req.query.date));
 
@@ -219,6 +291,28 @@ const feedController = {
             placementQuery.push('Permanent', 'Temporary');
         }
 
+        if(stateStatus == undefined || stateStatus == '') {
+            stateQuery = (Object.keys(citiesAndStates).sort());
+        } else {
+            stateQuery.push(stateStatus);
+        }
+
+        if(cityStatus == undefined || cityStatus == '') {
+            
+            cityQueryLoad = new Array();
+
+            cityQueryLoad = (Object.values(citiesAndStates).sort());
+
+            for(let i = 0; i < cityQueryLoad.length; i++) {
+                for(let j = 0; j < cityQueryLoad[i].length; j++) {
+                    cityQuery.push(cityQueryLoad[i][j]);
+                }
+            }
+            
+        } else {
+            cityQuery.push(cityStatus);
+        }
+
         let page = helper.sanitize(req.query.page);
 
         if (page == null) {
@@ -235,6 +329,9 @@ const feedController = {
         let query = {
             position: { $in: positionQuery },
             placement: { $in: placementQuery },
+
+            clinic_city : { $in: cityQuery },
+            clinic_state: { $in: stateQuery }
         };
 
         Job.paginate(query, options, function (err, results) {
@@ -257,6 +354,18 @@ const feedController = {
                 positonLink += '&position=' + positionQuery[i];
             }
 
+            if(stateStatus == null) {
+                cityLink = '&clinic_city=';
+            } else {
+                cityLink = '&clinic_city=' + cityStatus;
+            }
+
+            if(cityStatus == null) {
+                stateLink = '&clinic_state=';
+            } else {
+                stateLink = '&clinic_state=' + stateStatus;
+            }
+
             for (let i = 0; i < results.pages; i++) {
                 let nPage = i + 1;
 
@@ -265,6 +374,8 @@ const feedController = {
                         '/feed-app?' +
                         placementLink +
                         positonLink +
+                        stateLink +
+                        cityLink +
                         '&page=' +
                         nPage,
                     pageNo: nPage,
@@ -284,6 +395,8 @@ const feedController = {
                     ? '/feed-app?' +
                       placementLink +
                       positonLink +
+                      stateLink +
+                        cityLink +
                       '&page=' +
                       prevPageNumber
                     : '';
@@ -292,6 +405,8 @@ const feedController = {
                     ? '/feed-app?' +
                       placementLink +
                       positonLink +
+                      stateLink +
+                        cityLink +
                       '&page=' +
                       nextPageNumber
                     : '';
@@ -320,8 +435,12 @@ const feedController = {
                 filter_route: '/feed-app',
                 profile_active: true,
                 jobs: results.docs,
-                // applicant_active: true,
 
+                //cities and states
+                states: Object.keys(citiesAndStates).sort(),
+                cities: req.body.clinic_state
+                ? citiesAndStates[req.body.clinic_state].sort()
+                : '',
                 // navbar indicator
                 accType: req.session.accType,
 
@@ -367,6 +486,7 @@ const feedController = {
                             applied = data.applicants.includes(applicant._id);
                         }
 
+                        console.log(data)
                         res.render('details', {
                             active_session:
                             req.session.user && req.cookies.user_sid,
