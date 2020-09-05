@@ -59,7 +59,7 @@ const dashboardEmpController = {
         else{
             db.findOne(Employer, {account: req.session.user}, '', function(result){
             console.log("inserting");
-          
+    
             var job = new Job({
                 _id: new mongoose.Types.ObjectId(),
                 employer: result._id,
