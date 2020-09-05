@@ -1,6 +1,5 @@
 const helper = require('../helpers/helper');
 const db = require('../models/db');
-const fs = require('fs');
 
 const Job = require('../models/JobModel');
 const Applicant = require('../models/ApplicantModel');
@@ -571,8 +570,13 @@ const feedController = {
         }
 
         if (req.session.accType != 'employer') {
-            res.status(403).send('Forbidden: you are not an employer');
-            return;
+            // res.status(403).send('Forbidden: you are not an employer');
+            // return;
+            res.render('404', {
+                active_session: req.session.user && req.cookies.user_sid,
+                active_user: req.session.user,
+                title: '404 Page Not Found | BookMeDental',
+            });
         }
 
         var sntJobId = helper.sanitize(req.params.jobId);
@@ -657,8 +661,13 @@ const feedController = {
         }
 
         if (req.session.accType != 'employer') {
-            res.status(403).send('Forbidden: you are not an employer');
-            return;
+            // res.status(403).send('Forbidden: you are not an employer');
+            // return;
+            res.render('404', {
+                active_session: req.session.user && req.cookies.user_sid,
+                active_user: req.session.user,
+                title: '404 Page Not Found | BookMeDental',
+            });
         }
 
         var sntAppId = helper.sanitize(req.params.appId);
@@ -695,9 +704,13 @@ const feedController = {
 
     getAppResume : function (req, res){
         var resumePath = "./public/resumes/" + req.params.resume;
-        if (fs.existsSync(resumePath)) {
-            res.download(resumePath, "hello.pdf");
-        }
+
+        db.findOne(Applicant, {resume: req.params.resume}, '', function(result){
+            var resumeFile = result.fName + "_" + result.lName + ".pdf"
+            if (fs.existsSync(resumePath)) {
+                res.download(resumePath, resumeFile);
+            }
+        })
     }
 };
 
