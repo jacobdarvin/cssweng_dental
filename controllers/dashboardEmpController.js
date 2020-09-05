@@ -70,7 +70,9 @@ const dashboardEmpController = {
                 description: desc,
                 software: req.body.software,
                 experience: req.body.experience,
-                posted: "just then"
+                posted: "just then",
+                clinic_city:    result.clinicAddress.city,
+                clinic_state:   result.clinicAddress.state
             });
 
             db.insertOne(Job, job, function (flag) {

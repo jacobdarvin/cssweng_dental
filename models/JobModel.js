@@ -47,7 +47,15 @@ const JobSchema = mongoose.Schema({
     },
     posted: {
         type: String,
-    }
+    },
+    clinic_city: {
+        type: String,
+        default: "",
+    },
+    clinic_state: {
+        type: String,
+        default: "",
+    },
 })
 
 JobSchema.plugin(mongoosePaginate);
