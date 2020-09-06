@@ -598,7 +598,7 @@ const feedController = {
                 if (page == null) page = '1';
 
                 let options = {
-                    select: 'avatar fName lName position',
+                    select: 'avatar fName lName placement position',
                     lean: true,
                     page: page,
                     limit: 6,
