@@ -705,16 +705,6 @@ const feedController = {
         });
     },
 
-    getAppResume : function (req, res){
-        var resumePath = "./public/resumes/" + req.params.resume;
-
-        db.findOne(Applicant, {resume: req.params.resume}, '', function(result){
-            var resumeFile = result.fName + "_" + result.lName + ".pdf"
-            if (fs.existsSync(resumePath)) {
-                res.download(resumePath, resumeFile);
-            }
-        })
-    }
 };
 
 // enables to export controller object when called in another .js file
