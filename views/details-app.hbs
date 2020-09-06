@@ -43,6 +43,10 @@
 
             <div class="card border m-0 mt-4 p-2 shadow-sm">
                 <div class="row flex-row">
+                     <div class="col">
+                        <b>Placement Type</b> <br>
+                        <small>{{appData.placement}}</small>
+                    </div>
                     <div class="col">
                         <b>Position</b> <br>
                         <small>{{appData.position}}</small>
@@ -55,6 +59,12 @@
                         <b>Experience</b> <br>
                         <small>{{appData.yearExp}} Years of Experience</small>
                     </div>
+                    {{#ifEquals appData.placement "Temporary Work"}}
+                    <div class="col">
+                        <b>Wage</b> <br>
+                        <small>$ {{appData.rate}} / hour</small>
+                    </div>
+                    {{/ifEquals}}
                 </div>
             </div>
 
