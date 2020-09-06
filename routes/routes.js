@@ -168,7 +168,7 @@ app.get('/jobs/:jobId', feedController.getIndivJob);
 app.post('/jobs/:jobId', feedController.postIndivJob);
 app.get('/jobs/:jobId/applicants', feedController.getJobApplicants);
 app.get('/jobs/:jobId/applicants/:appId', feedController.getAppProfile); // view applicant from job post's applicants
-app.get('/getAppResume/:resume', feedController.getAppResume);
+app.get('/getAppResume/:resume', dashboardEmpController.getAppResume);
 // /feed / FEED
 
 // /register | REGISTER

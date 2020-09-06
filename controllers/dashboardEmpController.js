@@ -5,6 +5,7 @@ const Applicant = require('../models/ApplicantModel');
 const helper = require('../helpers/helper');
 const pagination = require('../helpers/pagination');
 const db = require('../models/db');
+const fs = require('fs');
 
 const dashboardEmpController = {
     getCreateJob: function (req, res) {
@@ -203,6 +204,17 @@ const dashboardEmpController = {
             }
         });
     },
+
+    getAppResume : function (req, res){
+        var resumePath = "./public/resumes/" + req.params.resume;
+
+        db.findOne(Applicant, {resume: req.params.resume}, '', function(result){
+            var resumeFile = result.fName + "_" + result.lName + ".pdf"
+            if (fs.existsSync(resumePath)) {
+                res.download(resumePath, resumeFile);
+            }
+        })
+    }
 };
 
 // enables to export controller object when called in another .js file
