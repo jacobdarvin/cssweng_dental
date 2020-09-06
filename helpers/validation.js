@@ -204,25 +204,36 @@ const validation = {
 
             check('payrate')
                 .trim()
-                .isNumeric()
-                .withMessage(
-                    "Invalid input. Please try again.",
-                )
+                // .isNumeric()
+                // .withMessage(
+                //     "Invalid input. Please try again.",
+                // )
+                // .bail()
                 .custom((value, { req, location, path }) => {
-                    var val = value
+                    // var val = value;
 
-                    if (req.body.placement == 'Permanent Work') {
-                        return true;
-                    }
+                    // if (req.body.placement == 'Permanent Work') {
+                    //     return true;
+                    // }
 
                     // return false if placement is temp and payrate is empty
-                    return !(
-                        req.body.placement == 'Temporary Work' && value == ''
+                    // return !(
+                    //     req.body.placement == 'Temporary Work' && value == ''
+                    // );
+
+                    return (
+                        req.body.placement == 'Permanent Work' ||
+                        (req.body.placement == 'Temporary Work' && value != '' && !Number.isNaN(Number(value)))
                     );
                 })
-                .withMessage(
-                    "Empty field. If you selected 'Temporary Work', please fill this out.",
-                )
+                // .withMessage(
+                //     "Empty field. If you selected 'Temporary Work', please fill this out.",
+                // )
+                .withMessage('Empty field. Please try again.')
+                // .bail()
+                // .notEmpty()
+                // .isNumeric()
+                // .withMessage('Please input a number.')
                 .trim(),
             check('date')
                 .custom((value, { req, location, path }) => {
