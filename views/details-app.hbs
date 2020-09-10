@@ -34,14 +34,17 @@
             <div class="card border m-0 p-2 shadow-sm">
                 <p class="h3">Description</p>
                 <p class="description">{{appData.profile}}</p>
+                   <hr>
+                    <button type="button" class="border col btn btn-success mb-1" data-toggle="modal" data-target="#hireModal">{{#match from 'jobs'}}Send Hire Request{{/match}}{{#match from 'search'}}Send Contact Request{{/match}}</button>
+                    {{#match from 'jobs'}}
+                    <button type="button" class="border col btn btn-danger" data-toggle="modal" data-target="#declineModal">Decline Application</button>
+                    {{/match}}
 
-                <button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#exampleModal"
-                    style="background-color: #8455ca;">{{#match from 'jobs'}}Send Hire Request{{/match}}{{#match from 'search'}}Send Contact Request{{/match}}</button>
             </div>
 
             <hr>
 
-            <div class="card border m-0 mt-4 p-2 shadow-sm">
+            <div class="card border m-0 mt-4 p-2 shadow-sm border">
                 <div class="row flex-row">
                      <div class="col">
                         <b>Placement Type</b> <br>
@@ -86,7 +89,6 @@
                     <br />
                     <hr>
                      <i class="fas fa-file" style="color: #8455ca; margin-left: 5px;">&nbsp;</i><a href="/getAppResume/{{appData.resume}}" class="card-text" style="text-align: left; margin-left: 10px;">Download Resume </a>
-                    <br />
                 </div>
             </div>
         </div>
@@ -95,24 +97,51 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+<div class="modal fade border" id="hireModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">You are about to send a <b>{{#match from 'jobs'}}Hire{{/match}} {{#match from 'search'}}Contact{{/match}} Request</b> to <b>{{appData.fName}}</b></h5>
+        <h5 class="modal-title" id="exampleModalLabel">You are about to send a <b class="text-success">{{#match from 'jobs'}}Hire{{/match}} {{#match from 'search'}}Contact{{/match}} Request</b> to <b>{{appData.fName}} {{appData.lName}}</b></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <div class="form-group">
-            <label for="exampleFormControlTextarea1">Attach a Custom Message</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Ex: Hey {{appData.fName}}, we'll set a meeting for you. Respond to this if you're interested. We're usually open from 9-5."></textarea>
+            <input class="form-control" type="text" placeholder="Subject">
+            <br>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Body"></textarea>
         </div>
+        <small><i>Your clinic's contact details will be automatically attached to this request.</i></small>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Confirm {{#match from 'jobs'}}Hire{{/match}} {{#match from 'search'}}Contact{{/match}} Request</button>
+        <button type="button" class="btn btn-success">Confirm {{#match from 'jobs'}}Hire{{/match}} {{#match from 'search'}}Contact{{/match}} Request</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade border" id="declineModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">You are about to <b class="text-danger">Decline</b> <b>{{appData.fName}} {{appData.lName}}'s</b> application</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+            <small>Optional reasons</small>
+            <textarea class="form-control mt-1" id="exampleFormControlTextarea1" rows="3" placeholder="Body"></textarea>
+        </div>
+        <small><i>Your clinic's contact details will be automatically attached to this request.</i></small>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger">Decline Application</button>
       </div>
     </div>
   </div>
