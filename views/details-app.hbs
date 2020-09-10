@@ -36,7 +36,7 @@
                 <p class="description">{{appData.profile}}</p>
 
                 <button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#exampleModal"
-                    style="background-color: #8455ca;">{{#match from 'jobs'}}Send Hire Request{{/match}}{{#match from 'search'}}Contact{{/match}}</button>
+                    style="background-color: #8455ca;">{{#match from 'jobs'}}Send Hire Request{{/match}}{{#match from 'search'}}Send Contact Request{{/match}}</button>
             </div>
 
             <hr>
@@ -99,7 +99,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">You are about to send a Hire Request to <b>{{appData.fName}}</b></h5>
+        <h5 class="modal-title" id="exampleModalLabel">You are about to send a <b>{{#match from 'jobs'}}Hire{{/match}} {{#match from 'search'}}Contact{{/match}} Request</b> to <b>{{appData.fName}}</b></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -107,12 +107,12 @@
       <div class="modal-body">
         <div class="form-group">
             <label for="exampleFormControlTextarea1">Attach a Custom Message</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Ex: Hey {{appData.fName}}, we'll set a meeting for you. Respond to this if you're interested. We're usually open from 9-5."></textarea>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary">Confirm Hire Request</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Confirm {{#match from 'jobs'}}Hire{{/match}} {{#match from 'search'}}Contact{{/match}} Request</button>
       </div>
     </div>
   </div>
