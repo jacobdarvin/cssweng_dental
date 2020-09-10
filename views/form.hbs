@@ -77,14 +77,15 @@
 <form class="dirty" id="form" method="POST" action="/form" enctype="multipart/form-data">
     <div class="card mx-auto border shadow-sm" style="width: 50rem; margin-bottom: 2rem;">
         <div class="card-body">
-            <div class="card-title" style="font-size: 42px;">Contact Information</div>
+            <div class="card-title" style="font-size: 42px;">Contact Information<span class="text-danger"> *</span></div>
             <p style="font-style: italic; font-size: 16px; margin-top: -16px;">Tell us about yourself and how we can
                 contact you.</p>
+            <small class="text-danger">* Required fields</small>
             <div class="card-text">
                 <div class="form-group">
                     <div class="row">
                         <div class="col pr-2">
-                            <label for="fname">First Name</label>
+                            <label for="fname">First Name<span class="text-danger"> *</span></label>
                             <input type="text" class="form-control" id="fname" name="fname" aria-describedby="emailHelp"
                                 placeholder="First Name" value="{{input.fname}}" />
                             <p style="color: red;">
@@ -92,7 +93,7 @@
                             </p>
                         </div>
                         <div class="col pl-2">
-                            <label for="lname">Last Name</label>
+                            <label for="lname">Last Name<span class="text-danger"> *</span></label>
                             <input type="text" class="form-control" id="lname" name="lname" aria-describedby="emailHelp"
                                 placeholder="Last Name" value="{{input.lname}}" />
                             <p style="color: red;">
@@ -103,7 +104,7 @@
                     <div class="form-group">
                         <div class="row">
                             <div class="col-8 pr-2" style="margin-top: 15px;">
-                                <label for="streetaddress">Street Address</label>
+                                <label for="streetaddress">Street Address<span class="text-danger"> *</span></label>
                                 <input type="text" class="form-control" id="streetAdd" name="streetAdd"
                                     aria-describedby="emailHelp" placeholder="Street Address"
                                     value="{{input.streetAdd}}" />
@@ -112,7 +113,7 @@
                                 </p>
                             </div>
                             <div class="col-4 pl-2" style="margin-top: 15px;">
-                                <label for="house">House No.</label>
+                                <label for="house">House No.<span class="text-danger"> *</span></label>
                                 <input type="text" class="form-control" id="house" name="house"
                                     aria-describedby="emailHelp" placeholder="House No." value="{{input.house}}" />
                                 <p style="color: red;">
@@ -124,7 +125,7 @@
                     <div class="form-group">
                         <div class="row">
                             <div class="col-6 pr-1">
-                                <label for="state">State</label>
+                                <label for="state">State<span class="text-danger"> *</span></label>
                                 <select name="state" class="form-control" id="state"
                                     onchange="populateCities(this.value, 'city')">
                                     <option value="">--Select a state--</option>
@@ -138,7 +139,7 @@
                                 </p>
                             </div>
                             <div class="col-4 pl-1 pr-1">
-                                <label for="city">City</label>
+                                <label for="city">City<span class="text-danger"> *</span></label>
                                 <select name="city" class="form-control" id="city">
                                     <option value="">--Select a city--</option>
                                     {{#each cities}}
@@ -151,7 +152,7 @@
                                 </p>
                             </div>
                             <div class="col-2 pl-1">
-                                <label for="zip">Zip</label>
+                                <label for="zip">Zip<span class="text-danger"> *</span></label>
                                 <input type="text" class="form-control" id="zip" name="zip" aria-describedby="emailHelp"
                                     placeholder="Zip" value="{{input.zip}}" />
                                 <p style="color: red;">
@@ -161,7 +162,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="phone">Phone</label>
+                        <label for="phone">Phone<span class="text-danger"> *</span></label>
                         <input type="text" class="form-control" id="phone" name="phone" placeholder="(555) 555-1234"
                             value="{{input.phone}}" />
                         <p style="color: red;">
@@ -175,11 +176,11 @@
 
     <div class="card mx-auto border shadow-sm" style="width: 50rem; margin-bottom: 2rem;">
         <div class="card-body">
-            <div class="card-title" style="font-size: 42px;">Qualifications</div>
+            <div class="card-title" style="font-size: 42px;">Qualifications<span class="text-danger"> *</span></div>
             <p style="font-style: italic; font-size: 16px; margin-top: -16px;">Select the position that you're seeking
                 and tell us about your experiences.</p>
             <div class="card-text">
-                <label>Position</label>
+                <label>Position<span class="text-danger"> *</span></label>
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="position" id="exampleRadios1" value="Front Desk"
                         {{check "Front Desk" input.position "Front Desk"}} />
@@ -201,7 +202,7 @@
                     <p style="margin-bottom: -3px;">Dentist</p>
                 </div>
                 <div class="col-4" style="margin-left: -15px; margin-top: 10px;">
-                    <label for="yearsofexperience">Years of Experience?</label>
+                    <label for="yearsofexperience">Years of Experience?<span class="text-danger"> *</span></label>
                     <input type="text" class="form-control" id="years" name="years" aria-describedby="emailHelp"
                         placeholder="Years of experience" value="{{input.years}}" />
                     <p style="color: red;">
@@ -209,7 +210,7 @@
                     </p>
                 </div>
                 <div class="form-group" style="margin-top: 20px;">
-                    <label for="language">What second language do you speak fluently?</label>
+                    <label for="language">What second language do you speak fluently?<span class="text-danger"> *</span></label>
                     <input type="text" class="form-control" id="language" name="language"
                         placeholder="List down your second language..." value="{{input.language}}" />
                     <p style="color: red;">
@@ -217,7 +218,7 @@
                     </p>
                 </div>
                 <div class="form-group" style="margin-top: 20px;">
-                    <label for="dentalprograms">What dental programs(s) are you proficient?</label>
+                    <label for="dentalprograms">What dental programs(s) are you proficient?<span class="text-danger"> *</span></label>
                     <!--
                     <input type="text" class="form-control" id="programs" name="programs" name="dentalprograms"
                         placeholder="List down any programs..." value="{{input.programs}}" />
@@ -257,7 +258,7 @@
                         {{details.programsError}}
                     </p>
                 <div class="form-group" style="margin-top: 10px;">
-                    <label for="workspecialties">List down any specialties you have work experience with</label>
+                    <label for="workspecialties">List down any specialties you have work experience with<span class="text-danger"> *</span></label>
                     <!--
                     <input type="text" class="form-control" id="specialties" name="specialties"
                         placeholder="List down your specialties..." value="{{input.specialties}}" />
@@ -351,11 +352,11 @@
 
     <div class="card mx-auto border shadow-sm" style="width: 50rem; margin-bottom: 2rem;">
         <div class="card-body">
-            <div class="card-title" style="font-size: 42px;">Placement Preferences</div>
+            <div class="card-title" style="font-size: 42px;">Placement Preferences<span class="text-danger"> *</span></div>
             <p style="font-style: italic; font-size: 16px; margin-top: -16px;">Tell us about your work preferences so we
                 can help you find great opportunities.</p>
             <div class="card-text">
-                <label>What type of placement are you seeking?</label>
+                <label>What type of placement are you seeking?<span class="text-danger"> *</span></label>
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="placement" id="placement" value="Permanent Work"
                         {{check "Permanent Work" input.placement "Permanent Work"}} />
@@ -366,7 +367,7 @@
                     <input class="form-check-input" type="radio" name="placement" id="placement" value="Temporary Work"
                         style="margin-left: -138.3px;" {{check "Temporary Work" input.placement "Permanent Work"}} />
                     <div class="col-5 temp showrate" style="margin-left: -35px; margin-top: -5px;">
-                        <label for="payrate">Desired pay rate per hour?</label>
+                        <label for="payrate">Desired pay rate per hour?<span class="text-danger"> *</span></label>
                         <input type="text" class="form-control" id="payrate" name="payrate" placeholder="$/hr..."
                             value="{{input.payrate}}" style="margin-bottom: 10px;" />
                         <p style="color: red;">
@@ -376,7 +377,7 @@
                 </div>
 
 
-                <label>When are you available for placement?</label>
+                <label>When are you available for placement?<span class="text-danger"> *</span></label>
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="availability" id="availability"
                         value="Available immediately"
@@ -398,7 +399,7 @@
                         </p>
                     </div>
                 </div>
-                <label>How far are you willing to travel for work?</label>
+                <label>How far are you willing to travel for work?<span class="text-danger"> *</span></label>
                 <br />
                 <div class="dropdown">
                     <select id="travel" name="travel"
@@ -418,11 +419,11 @@
 
     <div class="card mx-auto border shadow-sm" style="width: 50rem; margin-bottom: 2rem;">
         <div class="card-body">
-            <div class="card-title" style="font-size: 42px;">Additional Profile Information</div>
+            <div class="card-title" style="font-size: 42px;">Additional Profile Information<span class="text-danger"> *</span></div>
             <p style="font-style: italic; font-size: 16px; margin-top: -16px;">Provide more information that can help
                 you to stand out among other applicants.</p>
             <div class="card-text">
-                <label>Short Personal Profile</label><br />
+                <label>Short Personal Profile<span class="text-danger"> *</span></label><br />
                 <textarea class="w-100" id="shortprofile" name="shortprofile"
                     style="height: 8em;">{{input.shortprofile}}</textarea>
 
@@ -450,7 +451,7 @@
                     </div>
                 </div>
 
-                <label>Resume</label><br />
+                <label>Resume<span class="text-danger"> *</span></label><br />
                 <p style="font-style: normal; font-size: 14px; margin-top: -5px;">Include only the most relevant
                     information on your resume.</p>
 
@@ -475,7 +476,7 @@
 
     <div class="card mx-auto border shadow-sm" style="width: 50rem; margin-bottom: 2rem;">
         <div class="card-body">
-            <div class="card-title" style="font-size: 42px;">Candidate Agreement</div>
+            <div class="card-title" style="font-size: 42px;">Candidate Agreement<span class="text-danger"> *</span></div>
             <p style="font-style: italic; font-size: 16px; margin-top: -16px;">Please read and familiarize yourself with
                 our agreement and conditions.</p>
             <div class="card-text">
