@@ -34,8 +34,8 @@ a:hover {
 }
 
 .btn-primary {
-    background-color: #8455ca;
-    border-color: #285e8e;
+    background-color: #8455ca !important;
+    border-color: #285e8e !important;
 }
 
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
@@ -92,6 +92,10 @@ a:hover {
 .job:hover {
     border: 1;
     border-color: #96bfff !important;
+}
+
+.modal-footer {
+    justify-content: flex-start !important;
 }
 
 @media only screen and (max-width: 726px) {

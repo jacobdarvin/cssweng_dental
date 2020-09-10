@@ -1,6 +1,5 @@
 <!-- To Do: 
-    Sprint 2:
-    - Changed office speciality and software selection to checkbox, please use this instead for getting data. -darvin
+    Sprint 3: Other submission text box
 -->
 
 <style>
@@ -51,7 +50,7 @@
         cursor: pointer;
     }
 </style>
-<p class="h1 shrink" style="font-size: 70px; text-align: center; color: #8455ca; margin-top: 4rem;">
+<p class="h1 shrink gradient-text" style="font-size: 70px; text-align: center; margin-top: 4rem;">
     BookMeDental
     <i class="fas fa-tooth"></i>
 </p>
@@ -280,7 +279,7 @@
                 </div>
 
                 <div class="form-group" style="margin-top: 10px;">
-                    <label for="clinic_specialties">Office Specialty<span class="text-danger"> *</span></label>
+                    <label for="clinic_specialties">Clinic Specialty<span class="text-danger"> *</span></label>
                     <!--
                     <input type="text" class="form-control" id="clinic_speciality" name="clinic_specialty"
                         placeholder="List down any specialties..." value="{{inputs.clinic_specialty}}" />
@@ -333,9 +332,9 @@
                         </div>
 
                         <div class="form-check col w-100">
-                          <input class="form-check-input" type="checkbox" value="Office Management" id="officemanagement" name="clinic_specialties" {{checkbox "Office Management" inputs.clinic_specialties}}>
-                          <label class="col form-check-label" for="officemanagement">
-                            Office Management
+                          <input class="form-check-input" type="checkbox" value="Clinic Management" id="Clinicmanagement" name="clinic_specialties" {{checkbox "Clinic Management" inputs.clinic_specialties}}>
+                          <label class="col form-check-label" for="Clinicmanagement">
+                            Clinic Management
                           </label>
                         </div>
 
@@ -373,7 +372,7 @@
                 </div>
 
                 <div class="form-group" style="margin-top: 10px;">
-                    <label for="clinic_services">Which services does this office offer?<span class="text-danger"> *</span></label>
+                    <label for="clinic_services">Which services does this clinic offer?<span class="text-danger"> *</span></label>
                     <input type="text" class="form-control" id="clinic_services" name="clinic_services"
                         placeholder="List down any services..." value="{{inputs.clinic_services}}" />
                     <small>Separate clinic services with a comma.</small>
