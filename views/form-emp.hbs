@@ -59,20 +59,21 @@
 <form class="dirty" id="form" action="/form-emp" method="POST">
     <div class="card mx-auto border shadow-sm" style="width: 50rem; margin-bottom: 2rem;">
         <div class="card-body">
-            <div class="card-title" style="font-size: 42px;">Account Owner Information</div>
+            <div class="card-title" style="font-size: 42px;">Account Owner Information<span class="text-danger"> *</span></div>
             <p style="font-style: italic; font-size: 16px; margin-top: -16px;">Tell us about yourself and how we can
                 contact you.</p>
+            <small class="text-danger">* Required fields</small>
             <div class="card-text">
                 <div class="form-group">
                     <div class="row">
                         <div class="col">
-                            <label for="fname">First Name</label>
+                            <label for="fname">First Name<span class="text-danger"> *</span></label>
                             <input type="text" class="form-control" id="fname" name="fname" aria-describedby="emailHelp"
                                 placeholder="First Name" value="{{inputs.fname}}" />
                             <p style="color: red;">{{details.fnameError}}</p>
                         </div>
                         <div class="col">
-                            <label for="lname">Last Name</label>
+                            <label for="lname">Last Name<span class="text-danger"> *</span></label>
                             <input type="text" class="form-control" id="lname" name="lname" aria-describedby="emailHelp"
                                 placeholder="Last Name" value="{{inputs.lname}}" />
                             <p style="color: red;">{{details.lnameError}}</p>
@@ -82,7 +83,7 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col">
-                            <label for="title">Title</label>
+                            <label for="title">Title<span class="text-danger"> *</span></label>
                             <input type="text" class="form-control" id="title" name="title" aria-describedby="emailHelp"
                                 placeholder="Title" value="{{inputs.title}}" />
                             <p style="color: red;">{{details.titleError}}</p>
@@ -92,7 +93,7 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col">
-                            <label for="phone">Phone</label>
+                            <label for="phone">Phone<span class="text-danger"> *</span></label>
                             <input type="text" class="form-control" id="phone" name="phone" aria-describedby="emailHelp"
                                 placeholder="Phone" value="{{inputs.phone}}" />
                             <p style="color: red;">{{details.phoneError}}</p>
@@ -102,7 +103,7 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col">
-                            <label for="blname">Business Legal Name</label>
+                            <label for="blname">Business Legal Name<span class="text-danger"> *</span></label>
                             <input type="text" class="form-control" id="blname" name="blname"
                                 aria-describedby="emailHelp" placeholder="Business Legal Name"
                                 value="{{inputs.blname}}" />
@@ -116,20 +117,20 @@
     <!-- CLINIC LOCATION -->
     <div class="card mx-auto border shadow-sm" style="width: 50rem; margin-bottom: 2rem;">
         <div class="card-body">
-            <div class="card-title" style="font-size: 42px;">Clinic Location</div>
+            <div class="card-title" style="font-size: 42px;">Clinic Location<span class="text-danger"> *</span></div>
             <p style="font-style: italic; font-size: 16px; margin-top: -16px;">Tell us about your clinic.</p>
             <div class="card-text">
                 <div class="form-group">
                     <div class="row">
                         <div class="col-8">
-                            <label for="clinic_street">Clinic Street Address</label>
+                            <label for="clinic_street">Clinic Street Address<span class="text-danger"> *</span></label>
                             <input type="text" class="form-control" id="clinic_street" name="clinic_street"
                                 aria-describedby="emailHelp" placeholder="Street Address"
                                 value="{{inputs.clinic_street}}" />
                             <p style="color: red;">{{details.clinic_streetError}}</p>
                         </div>
                         <div class="col-4">
-                            <label for="clinic_no">No.</label>
+                            <label for="clinic_no">No.<span class="text-danger"> *</span></label>
                             <input type="text" class="form-control" id="clinic_no" name="clinic_no"
                                 aria-describedby="emailHelp" placeholder="No." value="{{inputs.clinic_no}}" />
                             <p style="color: red;">{{details.clinic_noError}}</p>
@@ -139,7 +140,7 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-6">
-                            <label for="clinic_state">State</label>
+                            <label for="clinic_state">State<span class="text-danger"> *</span></label>
                             <select name="clinic_state" class="form-control" id="clinic_state"
                                 onchange="populateCities(this.value, 'clinic_city')">
                                 <option value="">--Select a state--</option>
@@ -150,7 +151,7 @@
                             <p style="color: red;">{{details.clinic_stateError}}</p>
                         </div>
                         <div class="col-4">
-                            <label for="clinic_city">City</label>
+                            <label for="clinic_city">City<span class="text-danger"> *</span></label>
                             <select name="clinic_city" class="form-control" id="clinic_city">
                                 <option value="">--Select a city--</option>
                                 {{#each cities}}
@@ -160,7 +161,7 @@
                             <p style="color: red;">{{details.clinic_cityError}}</p>
                         </div>
                         <div class="col-2">
-                            <label for="clinic_zip">Zip</label>
+                            <label for="clinic_zip">Zip<span class="text-danger"> *</span></label>
                             <input type="text" class="form-control" id="clinic_zip" name="clinic_zip"
                                 aria-describedby="emailHelp" placeholder="Zip" value="{{inputs.clinic_zip}}" />
                             <p style="color: red;">{{details.clinic_zipError}}</p>
@@ -168,13 +169,13 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="clinic_phone">Clinic Phone</label>
+                    <label for="clinic_phone">Clinic Phone<span class="text-danger"> *</span></label>
                     <input type="text" class="form-control" id="clinic_phone" name="clinic_phone"
                         placeholder="(555) 555-1234" value="{{inputs.clinic_phone}}" />
                     <p style="color: red;">{{details.clinic_phoneError}}</p>
                 </div>
                 <div class="form-group" style="margin-top: 10px;">
-                    <label for="clinic_name">Clinic Name</label>
+                    <label for="clinic_name">Clinic Name<span class="text-danger"> *</span></label>
                     <input type="text" class="form-control" id="clinic_name" name="clinic_name"
                         placeholder="Clinic Name" value="{{inputs.clinic_name}}" />
                     <p style="color: red;">{{details.clinic_nameError}}</p>
@@ -185,12 +186,12 @@
     <!-- CLINIC CONTACT -->
     <div class="card mx-auto border shadow-sm" style="width: 50rem; margin-bottom: 2rem;">
         <div class="card-body">
-            <div class="card-title" style="font-size: 42px;">Clinic Contact</div>
+            <div class="card-title" style="font-size: 42px;">Clinic Contact<span class="text-danger"> *</span></div>
             <div class="card-title">
                 <div class="form-group">
                     <div class="row">
                         <div class="col">
-                            <label for="clinic_con_name">Name</label>
+                            <label for="clinic_con_name">Name<span class="text-danger"> *</span></label>
                             <input type="text" class="form-control" id="clinic_con_name" name="clinic_con_name"
                                 aria-describedby="emailHelp" placeholder="Full Name"
                                 value="{{inputs.clinic_con_name}}" />
@@ -201,7 +202,7 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col">
-                            <label for="clinic_con_title">Title</label>
+                            <label for="clinic_con_title">Title<span class="text-danger"> *</span></label>
                             <input type="text" class="form-control" id="clinic_con_title" name="clinic_con_title"
                                 aria-describedby="emailHelp" placeholder="Title" value="{{inputs.clinic_con_title}}" />
                             <p style="color: red;">{{details.clinic_con_titleError}}</p>
@@ -211,7 +212,7 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col">
-                            <label for="clinic_con_email">Email/s </label>
+                            <label for="clinic_con_email">Email/s<span class="text-danger"> *</span></label>
                             <input type="text" class="form-control" id="clinic_con_email" name="clinic_con_email"
                                 aria-describedby="emailHelp" placeholder="Email" value="{{inputs.clinic_con_email}}" />
                         </div>
@@ -226,13 +227,13 @@
     <!-- ADDITIONAL DETAILS -->
     <div class="card mx-auto border shadow-sm" style="width: 50rem; margin-bottom: 2rem;">
         <div class="card-body">
-            <div class="card-title" style="font-size: 42px;">Additional Details</div>
+            <div class="card-title" style="font-size: 42px;">Additional Details<span class="text-danger"> *</span></div>
             <p style="font-style: italic; font-size: 16px; margin-top: -16px;">Anything we need to know about your
                 clinic?</p>
             <div class="card-text">
 
                 <div class="form-group" style="margin-top: 10px;">
-                    <label for="clinic_programs">What type of software does this clinic use?</label>
+                    <label for="clinic_programs">What type of software does this clinic use?<span class="text-danger"> *</span></label>
                     <!--
                     <input type="text" class="form-control" id="clinic_program" name="clinic_program"
                         placeholder="List down any programs..." value="{{inputs.clinic_program}}" />
@@ -266,13 +267,20 @@
                             Open Dental
                           </label>
                         </div>
+
+                        <div class="form-check col w-100" >
+                          <input class="form-check-input" type="checkbox" value="Other" id="defaultCheck1" name="clinic_programs">
+                          <label class="col form-check-label" for="defaultCheck1">
+                            Other
+                          </label>
+                        </div>
                     </div>
 
                     <p style="color: red;">{{details.clinic_programsError}}</p>
                 </div>
 
                 <div class="form-group" style="margin-top: 10px;">
-                    <label for="clinic_specialties">Office Specialty</label>
+                    <label for="clinic_specialties">Office Specialty<span class="text-danger"> *</span></label>
                     <!--
                     <input type="text" class="form-control" id="clinic_speciality" name="clinic_specialty"
                         placeholder="List down any specialties..." value="{{inputs.clinic_specialty}}" />
@@ -353,12 +361,19 @@
                             Dental Assisting
                           </label>
                         </div>
+
+                        <div class="form-check col w-100" >
+                          <input class="form-check-input" type="checkbox" value="Other" id="defaultCheck1" name="clinic_programs">
+                          <label class="col form-check-label" for="defaultCheck1">
+                            Other
+                          </label>
+                        </div>
                     </div>
                     <p style="color: red;">{{details.clinic_specialtiesError}}</p>
                 </div>
 
                 <div class="form-group" style="margin-top: 10px;">
-                    <label for="clinic_services">Which services does this office offer?</label>
+                    <label for="clinic_services">Which services does this office offer?<span class="text-danger"> *</span></label>
                     <input type="text" class="form-control" id="clinic_services" name="clinic_services"
                         placeholder="List down any services..." value="{{inputs.clinic_services}}" />
                     <small>Separate clinic services with a comma.</small>
@@ -370,7 +385,7 @@
     <!-- AGREEMENT -->
     <div class="card mx-auto border shadow-sm" style="width: 50rem; margin-bottom: 2rem;">
         <div class="card-body">
-            <div class="card-title" style="font-size: 42px;">Employer Agreement</div>
+            <div class="card-title" style="font-size: 42px;">Employer Agreement<span class="text-danger"> *</span></div>
             <div class="card-text">
                 <textarea class="w-100" id="candidateagreement" style="margin-bottom: 10px;" disabled>
  Put your candidate agreement and policy here...
