@@ -5,7 +5,6 @@ const Job = require('../models/JobModel');
 const dac = require('./dashboardAppController');
 const helper = require('../helpers/helper');
 
-
 const dashboardController = {
     getDashboard: function (req, res, next) {
         // If there's no active session, redirect to login
@@ -40,54 +39,66 @@ const dashboardController = {
                             renderOptions.profileData = data.toObject();
 
                             if (view == 'dashboard-app') {
-                                renderOptions.search_job_route = dac.createSearchJobRoute(
-                                    data,
-                                );
+                                Promise.all([
+                                    dac.createSearchJobRoute(data),
+                                    dac.getJobMatchCount(data),
+                                    dac.getMatchingJobs(data),
+                                    dac.getAppliedJobsCount(data._id),
+                                    dac.getAppliedJobs(data._id),
+                                ])
+                                    .then(results => {
+                                        const [
+                                            searchJobRoute,
+                                            nMatchingJobs,
+                                            matchingJobs,
+                                            nAppliedJobs,
+                                            appData,
+                                        ] = results;
 
-                                dac.getJobMatchCount(data)
-                                    .then(n => {
-                                        renderOptions.matching_jobs_count = n;
-                                        return dac.getMatchingJobs(data);
-                                    })
-                                    .then(jobs => {
-                                        renderOptions.matching_jobs = jobs;
-                                        return dac.getAppliedJobsCount(data._id)
-                                    }).then(n => {
-                                        renderOptions.applied_jobs_count = n;
-                                        return dac.getAppliedJobs(data._id);
-                                    })
-                                    .then(appData => {
-                                        renderOptions.applied_jobs = appData.appliedJobs;
+                                        renderOptions.search_job_route = searchJobRoute;
+                                        renderOptions.matching_jobs_count = nMatchingJobs;
+                                        renderOptions.matching_jobs = matchingJobs;
+                                        renderOptions.applied_jobs_count = nAppliedJobs;
+                                        renderOptions.applied_jobs =
+                                            appData.appliedJobs;
+
                                         res.render(view, renderOptions);
                                     })
-                                    .catch(err => {
-                                        console.log(err);
+                                    .catch(error => {
+                                        console.log(error);
                                         res.status(404);
                                         next();
                                     });
                             } else {
                                 var query = helper.getActiveJobPost(data._id);
-                                query.exec(function(err, result){
-                                    if(err) throw err;
-                                    helper.getPermCount(data._id).then(function(perm_count){
-                                        helper.getTempCount(data._id).then(function(temp_count){
-                                            res.render(view, {
-                                                active_session:
-                                                req.session.user && req.cookies.user_sid,
-                                                active_user: req.session.user,
-                                                title: 'Dashboard | BookMeDental',
-                                                profile_active: true,
-//                                                 employer_active: true,
-                                                accType: req.session.accType,
-                                                profileData: data.toObject(),
-                                                activeJob: result,
-                                                temp: temp_count,
-                                                perma: perm_count
-                                            });
-                                        })
-                                    })
-                                })
-                               
+                                query.exec(function (err, result) {
+                                    if (err) throw err;
+                                    helper
+                                        .getPermCount(data._id)
+                                        .then(function (perm_count) {
+                                            helper
+                                                .getTempCount(data._id)
+                                                .then(function (temp_count) {
+                                                    res.render(view, {
+                                                        active_session:
+                                                            req.session.user &&
+                                                            req.cookies
+                                                                .user_sid,
+                                                        active_user:
+                                                            req.session.user,
+                                                        title:
+                                                            'Dashboard | BookMeDental',
+                                                        // profile_active: true,
+                                                        accType:
+                                                            req.session.accType,
+                                                        profileData: data.toObject(),
+                                                        activeJob: result,
+                                                        temp: temp_count,
+                                                        perma: perm_count,
+                                                    });
+                                                });
+                                        });
+                                });
                             }
                         });
                 } else {
@@ -95,7 +106,7 @@ const dashboardController = {
                     res.redirect(
                         req.session.accType == 'applicant'
                             ? '/form/' + req.session.user
-                            : '/form-emp/' + req.session.user ,
+                            : '/form-emp/' + req.session.user,
                     );
                 }
             });
