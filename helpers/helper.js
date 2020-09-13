@@ -42,7 +42,7 @@ const helper = {
         var time;
 
         if (diff_seconds < 30) {
-            time = 'just then';
+            time = 'just now';
         } else if (diff_seconds < minute) {
             time = diff_seconds + ' seconds ago';
         } else if (diff_seconds < 2 * minute) {
