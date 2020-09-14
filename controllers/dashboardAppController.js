@@ -45,6 +45,8 @@ const dashboardAppController = {
     getAppliedJobsCount: function (app_id) {
         return Job.countDocuments({ applicants: app_id }).exec();
     },
+
+    // TODO: edit profile
 };
 
 // enables to export controller object when called in another .js file
