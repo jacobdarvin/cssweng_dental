@@ -101,10 +101,34 @@ const validation = {
             check('clinic_programs')
                 .exists()
                 .withMessage('Please check at least one software.'),
+            check('software_other_text')
+                .trim()
+                .if(body('clinic_programs').exists())
+                .if(
+                    (value, { req }) =>
+                        req.body.clinic_programs == 'Other' ||
+                        req.body.clinic_programs.includes('Other'),
+                )
+                .notEmpty()
+                .withMessage('Please fill this out.')
+                .customSanitizer(value => value.split(',')),
+            check('software_other_text.*').trim(),
 
             check('clinic_specialties')
                 .exists()
                 .withMessage('Please check at least one specialty.'),
+            check('clinicspecialty_other_text')
+                .trim()
+                .if(body('clinic_specialties').exists())
+                .if(
+                    (value, { req }) =>
+                        req.body.clinic_specialties == 'Other' ||
+                        req.body.clinic_specialties.includes('Other'),
+                )
+                .notEmpty()
+                .withMessage('Please fill this out.')
+                .customSanitizer(value => value.split(',')),
+            check('clinicspecialty_other_text.*').trim(),
 
             check('clinic_services')
                 .trim()

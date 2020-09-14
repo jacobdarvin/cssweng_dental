@@ -264,6 +264,29 @@ const formController = {
                     
                 }
             }
+
+            var progs = req.body.clinic_programs;
+            
+            if(progs == 'Other') {
+                progs = req.body.software_other_text;
+            }
+            else if(progs.includes('Other')) {
+                progs = progs.concat(req.body.software_other_text);
+                var i = progs.indexOf('Other');
+                progs.splice(i, 1);
+            }
+
+            var specs = req.body.clinic_specialties;
+
+            if(specs == 'Other') {
+                specs = req.body.clinicspecialty_other_text;
+            }
+            else if(specs.includes('Other')) {
+                specs = specs.concat(req.body.clinicspecialty_other_text);
+                var i = specs.indexOf('Other');
+                specs.splice(i, 1);
+            }
+
             var employer = {
                 _id: new mongoose.Types.ObjectId(),
                 account: req.session.user,
@@ -281,8 +304,8 @@ const formController = {
                 },
                 clinicPhone: o.clinic_phone,
                 clinicName: o.clinic_name,
-                clinicProgram: o.clinic_programs,
-                clinicSpecialties: o.clinic_specialties,
+                clinicProgram: progs,
+                clinicSpecialties: specs,
                 clinicServices: o.clinic_services,
 
                 clinicContactName: o.clinic_con_name,
