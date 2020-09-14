@@ -2,6 +2,7 @@
 
 body {
     font-family: 'Nunito Sans', sans-serif;
+    background-color: #F8FCFF;
     
 }
 
@@ -24,7 +25,7 @@ a:hover {
 .gradient-text {
     /*background: -webkit-linear-gradient(18deg, rgba(110,231,128,1) 0%, rgba(0,212,255,1) 100%);*/
 
-    background: -webkit-linear-gradient(20deg, rgba(123,31,162,1) 0%, rgba(150,193,255,1) 100%);
+    background: -webkit-linear-gradient(18deg, rgba(40,70,105,1) 0%, rgba(73,150,241,1) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -34,8 +35,12 @@ a:hover {
 }
 
 .btn-primary {
-    background-color: #8455ca !important;
+    background-color: #33699E !important;
     border-color: #285e8e !important;
+}
+
+.icon-color {
+    color: #33699E !important;
 }
 
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
@@ -50,10 +55,8 @@ a:hover {
     padding-top: 7rem;
     padding-bottom: 5rem;
 
-    /*background: rgb(110,231,128);*/
-    /*background: linear-gradient(18deg, rgba(110,231,128,1) 0%, rgba(0,212,255,1) 100%);*/
-
-    background: linear-gradient(20deg, rgba(123,31,162,1) 0%, rgba(150,193,255,1) 100%);
+    background: linear-gradient(18deg, rgba(40,70,105,1) 0%, rgba(73,150,241,1) 100%);
+    /*background: linear-gradient(20deg, rgba(123,31,162,1) 0%, rgba(150,193,255,1) 100%);*/
 
     background-position: center;
     background-repeat: no-repeat;
@@ -67,7 +70,7 @@ a:hover {
     padding-top: 7rem;
 
     background: rgb(123,31,162);
-    background: linear-gradient(180deg, rgba(123,31,162,1) 0%, rgba(150,193,255,1) 85%, rgba(255,255,255,1) 85%);
+    background: linear-gradient(18deg, rgba(40,70,105,1) 0%, rgba(73,150,241,1) 100%);
 
     background-position: center;
     background-repeat: no-repeat;
