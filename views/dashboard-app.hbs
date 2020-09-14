@@ -39,7 +39,7 @@
                     <span class="card-text" style="text-align: left;"> <i class="fas fa-business-time" style="color: #8455ca;">&nbsp;</i> {{profileData.placement}} </span>
                     <br />
                     <br />
-                    <a href="#">Edit Profile</a>
+                    <li><a href="" data-toggle="modal" data-target="#modalEdit">Edit Profile</a></li>
                 </div>
             </div>
 
@@ -104,7 +104,7 @@
                                     <hr />
                                     <h2>Description</h2>
                                     <p>{{profileData.profile}}</p>
-                                    <a href="#">Edit Description</a>
+                                    <a href="" data-toggle="modal" data-target="#modalEditDesc">Edit Description</a>
                                     <hr />
 
                                     <h2>Matching Jobs For You</h2>
@@ -126,4 +126,183 @@
             </div>
         </div>
     </div>
+</div>
+<!-- Modal -->
+<div class="modal fade border" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalCenterTitle">Edit Profile</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="card-text">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col pr-2">
+                            <label for="fname">First Name<span class="text-danger"> *</span></label>
+                            <input type="text" class="form-control" id="fname" name="fname" aria-describedby="emailHelp"
+                                placeholder="First Name" value="{{profileData.fName}}" />
+                            <p style="color: red;">
+                                {{details.fnameError}}
+                            </p>
+                        </div>
+                        <div class="col pl-2">
+                            <label for="lname">Last Name<span class="text-danger"> *</span></label>
+                            <input type="text" class="form-control" id="lname" name="lname" aria-describedby="emailHelp"
+                                placeholder="Last Name" value="{{profileData.lName}}" />
+                            <p style="color: red;">
+                                {{details.lnameError}}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-8 pr-2" style="margin-top: 15px;">
+                                <label for="streetaddress">Street Address<span class="text-danger"> *</span></label>
+                                <input type="text" class="form-control" id="streetAdd" name="streetAdd"
+                                    aria-describedby="emailHelp" placeholder="Street Address"
+                                    value="{{profileData.streetAdd}}" />
+                                <p style="color: red;">
+                                    {{details.streetAddError}}
+                                </p>
+                            </div>
+                            <div class="col-4 pl-2" style="margin-top: 15px;">
+                                <label for="house">House No.<span class="text-danger"> *</span></label>
+                                <input type="text" class="form-control" id="house" name="house"
+                                    aria-describedby="emailHelp" placeholder="House No." value="{{profileData.houseNo}}" />
+                                <p style="color: red;">
+                                    {{details.houseError}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-6 pr-1">
+                                <label for="state">State<span class="text-danger"> *</span></label>
+                                <select name="state" class="form-control" id="state"
+                                    onchange="populateCities(this.value, 'city')">
+                                    <option value="">{{profileData.state}}</option>
+                                    {{#each states}}
+                                    <option value="{{this}}" {{select this ../input.state}}>{{this}}</option>
+                                    {{/each}}
+                                </select>
+
+                                <p style="color: red;">
+                                    {{details.stateError}}
+                                </p>
+                            </div>
+                            <div class="col-4 pl-1 pr-1">
+                                <label for="city">City<span class="text-danger"> *</span></label>
+                                <select name="city" class="form-control" id="city">
+                                    <option value="">{{profileData.city}}</option>
+                                    {{#each cities}}
+                                    <option value="{{this}}" {{select this ../input.city}}>{{this}}</option>
+                                    {{/each}}
+                                </select>
+
+                                <p style="color: red;">
+                                    {{details.cityError}}
+                                </p>
+                            </div>
+                            <div class="col-2 pl-1">
+                                <label for="zip">Zip<span class="text-danger"> *</span></label>
+                                <input type="text" class="form-control" id="zip" name="zip" aria-describedby="emailHelp"
+                                    placeholder="Zip" value="{{profileData.zip}}" />
+                                <p style="color: red;">
+                                    {{details.zipError}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone<span class="text-danger"> *</span></label>
+                        <input type="text" class="form-control" id="phone" name="phone" placeholder="(555) 555-1234"
+                            value="{{profileData.phone}}" />
+                        <p style="color: red;">
+                            {{details.phoneError}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-text">
+                <label>Position<span class="text-danger"> *</span></label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="position" id="exampleRadios1" value="Front Desk"
+                        {{check "Front Desk" input.position "Front Desk"}} />
+                    <p style="margin-bottom: -3px;">Front Desk</p>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="position" id="exampleRadios2"
+                        value="Dental Assistant" {{check "Dental Assistant" input.position "Front Desk"}} />
+                    <p style="margin-bottom: -3px;">Dental Assistant</p>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="position" id="exampleRadios3"
+                        value="Dental Hygienist" {{check "Dental Hygienist" input.position "Front Desk"}} />
+                    <p style="margin-bottom: -3px;">Dental Hygienist</p>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="position" id="exampleRadios3" value="Dentist"
+                        {{check "Dentist" input.position "Front Desk"}} />
+                    <p style="margin-bottom: -3px;">Dentist</p>
+                </div>
+                <hr>
+                <label>Placement<span class="text-danger"> *</span></label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="placement" id="placement" value="Permanent Work"
+                        {{check "Permanent Work" input.placement "Permanent Work"}} />
+                    <p style="margin-bottom: -3px;">Permanent Work</p>
+                </div>
+                <div class="form-check">
+                    <label style="font-weight: 10; color: rgb(97, 95, 95);">Temporary Work</label>
+                    <input class="form-check-input" type="radio" name="placement" id="placement" value="Temporary Work"
+                        style="margin-left: -138.3px;" {{check "Temporary Work" input.placement "Permanent Work"}} />
+                    <div class="col-5 temp showrate" style="margin-left: -35px; margin-top: -5px;">
+                        <label for="payrate">Desired pay rate per hour?<span class="text-danger"> *</span></label>
+                        <input type="text" class="form-control" id="payrate" name="payrate" placeholder="$/hr..."
+                            value="{{profileData.payrate}}" style="margin-bottom: 10px;" />
+                        <p style="color: red;">
+                            {{details.payrateError}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Discard Changes</button>
+        <button type="button" class="btn btn-primary">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade border" id="modalEditDesc" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Description</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+            <textarea class="form-control mt-1" id="exampleFormControlTextarea1" rows="6">{{profileData.profile}}</textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save Description</button>
+      </div>
+    </div>
+  </div>
 </div>
