@@ -97,6 +97,28 @@ const formController = {
                 payrate = 0;
             }
 
+            var progs = req.body.programs;
+            
+            if(progs == 'Other') {
+                progs = req.body.software_other_text;
+            }
+            else if(progs.includes('Other')) {
+                progs = progs.concat(req.body.software_other_text);
+                var i = progs.indexOf('Other');
+                progs.splice(i, 1);
+            }
+
+            var specs = req.body.specialties;
+
+            if(specs == 'Other') {
+                specs = req.body.clinicspecialty_other_text;
+            }
+            else if(specs.includes('Other')) {
+                specs = specs.concat(req.body.clinicspecialty_other_text);
+                var i = specs.indexOf('Other');
+                specs.splice(i, 1);
+            }
+
             //user used default avatar
             if (!req.files['avatar']) {
                 var applicant = new Applicant({
@@ -112,9 +134,9 @@ const formController = {
                     phone: phone,
                     position: position,
                     yearExp: years,
-                    dentalProg: req.body.programs,
+                    dentalProg: progs,
                     language: language,
-                    specialties: req.body.specialties,
+                    specialties: specs,
                     placement: placement,
                     rate: payrate,
                     availability: availability,
@@ -149,9 +171,9 @@ const formController = {
                     phone: phone,
                     position: position,
                     yearExp: years,
-                    dentalProg:  req.body.programs,
+                    dentalProg:  progs,
                     language: language,
-                    specialties:  req.body.specialties,
+                    specialties:  specs,
                     placement: placement,
                     rate: payrate,
                     availability: availability,

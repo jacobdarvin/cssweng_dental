@@ -1,4 +1,4 @@
-const { check } = require('express-validator');
+const { check, body } = require('express-validator');
 const Account = require('../models/AccountModel');
 
 const validation = {
@@ -191,11 +191,41 @@ const validation = {
                 .withMessage('Invalid input.')
                 .trim(),
             check('programs')
+                .exists()
+                .withMessage(
+                    'Empty field. Please check at least one software.',
+                ),
+            check('software_other_text')
+                .trim()
+                .if(body('programs').exists())
+                .if(
+                    (value, { req }) =>
+                        req.body.programs == 'Other' ||
+                        req.body.programs.includes('Other'),
+                )
                 .notEmpty()
-                .withMessage('Empty field. Please fill this out.'),
+                .withMessage('Please fill this out.')
+                .customSanitizer(value => value.split(',')),
+            check('software_other_text.*').trim(),
+
             check('specialties')
+                .exists()
+                .withMessage(
+                    'Empty field. Please check at least one specialty.',
+                ),
+            check('clinicspecialty_other_text')
+                .trim()
+                .if(body('specialties').exists())
+                .if(
+                    (value, { req }) =>
+                        req.body.specialties == 'Other' ||
+                        req.body.specialties.includes('Other'),
+                )
                 .notEmpty()
-                .withMessage('Empty field. Please fill this out.'),
+                .withMessage('Please fill this out.')
+                .customSanitizer(value => value.split(',')),
+            check('clinicspecialty_other_text.*').trim(),
+
             check('language')
                 .trim()
                 .notEmpty()
@@ -204,36 +234,15 @@ const validation = {
 
             check('payrate')
                 .trim()
-                // .isNumeric()
-                // .withMessage(
-                //     "Invalid input. Please try again.",
-                // )
-                // .bail()
                 .custom((value, { req, location, path }) => {
-                    // var val = value;
-
-                    // if (req.body.placement == 'Permanent Work') {
-                    //     return true;
-                    // }
-
-                    // return false if placement is temp and payrate is empty
-                    // return !(
-                    //     req.body.placement == 'Temporary Work' && value == ''
-                    // );
-
                     return (
                         req.body.placement == 'Permanent Work' ||
-                        (req.body.placement == 'Temporary Work' && value != '' && !Number.isNaN(Number(value)))
+                        (req.body.placement == 'Temporary Work' &&
+                            value != '' &&
+                            !Number.isNaN(Number(value)))
                     );
                 })
-                // .withMessage(
-                //     "Empty field. If you selected 'Temporary Work', please fill this out.",
-                // )
                 .withMessage('Empty field. Please try again.')
-                // .bail()
-                // .notEmpty()
-                // .isNumeric()
-                // .withMessage('Please input a number.')
                 .trim(),
             check('date')
                 .custom((value, { req, location, path }) => {
