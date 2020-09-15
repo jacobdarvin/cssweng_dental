@@ -112,7 +112,7 @@ const dashboardEmpController = {
 
         let page = helper.sanitize(req.query.page);
         if (page == null) page = '1';
-
+        
         let options = { lean: true, page: page, limit: 6 };
 
         let query = {

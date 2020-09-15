@@ -117,16 +117,9 @@ const helper = {
     },
 
     updatePostedDate: function (){
-        var yes;
         var self = this;
-        // yes = this.formatDate("2020-09-05T04:49:10.324+00:00");
-        // console.log(yes);
        Job.find({}, function(err, results){
            results.forEach(function(jobs){
-            //     yes = self.formatDate(jobs.created)
-            //     console.log(yes);
-            //    console.log(jobs.created);
-            //   db.updateOne(Job,{_id: jobs._id}, {posted: self.formatDate(jobs.created)}, function(res){}).exec();
                 Job.updateOne({_id: jobs._id}, {posted: self.formatDate(jobs.created)}).exec();
            })
 
