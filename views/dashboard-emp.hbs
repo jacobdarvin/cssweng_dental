@@ -38,8 +38,9 @@
                     <br />
                     <span class="card-text" style="text-align: left;"> <i class="fas fa-phone icon-color">&nbsp;</i> {{profileData.clinicPhone}} </span>
                     <br />
-                    <br />
-                    <li><a href="" data-toggle="modal" data-target="#modalEdit">Edit Profile</a></li>
+                  
+                    <hr />
+                    <i class="fas fa-user-edit icon-color"></i><a href="" data-toggle="modal" data-target="#modalEdit" style="margin-left: 10px;">Edit Clinic Profile</a>
                 </div>
             </div>
 
@@ -111,7 +112,7 @@
 
         <form>
           <div class="form-group">
-            <label>Clinic Name</label>
+            <label>Clinic Name <span class="text-danger"> *</span></label>
             <input type="" value="{{profileData.clinicName}}" class="form-control" id="" aria-describedby="" placeholder="{{profileData.clinicName}}">
           </div>
 
@@ -176,7 +177,7 @@
       </div>
       <div class="modal-footer">
 
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Discard Changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" >Discard Changes</button>
         <button type="button" class="btn btn-primary">Save</button>
       </div>
     </div>
