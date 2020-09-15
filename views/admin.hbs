@@ -69,7 +69,7 @@
 <script src="/js/adminTables.js"></script>
 
 <!-- Modal -->
-<div class="modal fade" id="admin_employerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal " id="admin_employerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -82,8 +82,45 @@
         
       </pre>
       <div class="modal-footer">
-        <button type="button" style="display: inline-block;" class="w-100 btn btn-success">Approve Status</button>
-        <button type="button" style="display: inline-block;" class="w-100 btn btn-danger" data-dismiss="modal">Decline Status</button>
+        <button type="button" style="display: inline-block;" class="w-100 btn btn-success" data-toggle="modal" data-target="#admin_confirmApprove">Approve Status</button>
+        <button type="button" style="display: inline-block;" class="w-100 btn btn-danger"  data-toggle="modal" data-target="#admin_confirmDecline">Decline Status</button>
+        <button type="button" style="display: inline-block;" class="w-100 btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal " id="admin_confirmApprove" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="admin_confirmApproveTitle"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" style="display: inline-block;" class="w-100 btn btn-success">Confirm Approval</button>
+        <button type="button" style="display: inline-block;" class="w-100 btn btn-secondary" data-dismiss="modal">Go Back</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal " id="admin_confirmDecline" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="admin_confirmDeclineTitle"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" style="display: inline-block;" class="w-100 btn btn-danger">Decline Status</button>
+        <button type="button" style="display: inline-block;" class="w-100 btn btn-secondary" data-dismiss="modal">Go Back</button>
       </div>
     </div>
   </div>

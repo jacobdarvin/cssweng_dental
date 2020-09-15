@@ -26,6 +26,9 @@ var employersTable = new Tabulator('#employers-table', {
         "<hr>" +
         "<b>Account Created:   </b>" + rowData.created + "<br>" +
         "<b>Account Status:    </b>" + "<font color =" + statusColor + ">" + showStatus + "</font>";
+
+        document.getElementById("admin_confirmApproveTitle").innerHTML = "Confirm Employer Status Approval for " + "<b>" + rowData.clinicName + "</b>";
+        document.getElementById("admin_confirmDeclineTitle").innerHTML = "Confirm Employer Status Declination for " + "<b>" + rowData.clinicName + "</b>";
     },
 
     resizableRows: false,
