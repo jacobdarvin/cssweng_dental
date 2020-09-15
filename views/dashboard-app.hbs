@@ -22,8 +22,9 @@
 <div class="container mb-4 p-0" style="margin-top: 6rem;">
     <div class="row">
         <div class="col-sm-3 p-1">
-            <div class="card shadow-sm mx-auto profile-length" style="width: 100%;">
-                <img src="/avatars/{{avatar_found profileData.avatar}}" style="width: inherit;" />
+            <div class="card shadow-sm mx-auto profile-length">
+                <img src="/avatars/{{avatar_found profileData.avatar}}"
+                    style="object-fit: cover; width: auto; height: 256px; position: relative;" />
                 <div class="card-body">
                     <span class="card-text" style="text-align: left; font-size: 32px;">
                         {{profileData.fName}} {{profileData.lName}}
@@ -31,17 +32,18 @@
                         <span style="font-size: 22px;">{{profileData.position}}</span>
                     </span>
                     <hr />
-                    <span class="card-text" style="text-align: left;"> <i class="fas fa-location-arrow"
-                            style="color: #8455ca;">&nbsp;</i> {{profileData.city}}, {{profileData.state}} </span>
+                    <span class="card-text" style="text-align: left;"> <i
+                            class="fas fa-location-arrow icon-color">&nbsp;</i> {{profileData.city}},
+                        {{profileData.state}} </span>
                     <br />
-                    <span class="card-text" style="text-align: left;"> <i class="far fa-envelope"
-                            style="color: #8455ca;">&nbsp;</i> {{profileData.account.accEmail}} </span>
+                    <span class="card-text" style="text-align: left;"> <i class="far fa-envelope icon-color">&nbsp;</i>
+                        {{profileData.account.accEmail}} </span>
                     <br />
-                    <span class="card-text" style="text-align: left;"> <i class="fas fa-phone"
-                            style="color: #8455ca;">&nbsp;</i> {{profileData.phone}} </span>
+                    <span class="card-text" style="text-align: left;"> <i class="fas fa-phone icon-color">&nbsp;</i>
+                        {{profileData.phone}} </span>
                     <br />
-                    <span class="card-text" style="text-align: left;"> <i class="fas fa-business-time"
-                            style="color: #8455ca;">&nbsp;</i> {{profileData.placement}} </span>
+                    <span class="card-text" style="text-align: left;"> <i
+                            class="fas fa-business-time icon-color">&nbsp;</i> {{profileData.placement}} </span>
                     <br />
                     <br />
                     <li><a href="" data-toggle="modal" data-target="#modalEdit">Edit Profile</a></li>

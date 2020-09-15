@@ -37,7 +37,7 @@
 							<button type="submit" style="pointer-events: none;" class="btn btn-primary w-100" disabled>Awaiting Employer Response</button>
 						</span>
 					{{else}}
-						<button type="submit" class="btn btn-primary w-100" style="background-color: #8455ca;">Apply</button>
+						<button type="submit" class="btn btn-primary w-100">Apply</button>
 					{{/if}}
 						<hr>
 						<button type="button" class="btn btn-success w-100" data-toggle="modal" data-target="#acceptModal">View Accepted Response</button>
@@ -47,7 +47,7 @@
 
 				{{#match accType 'employer'}}
 				<a href="{{url}}" style="text-decoration: none;">
-					<button class="btn btn-primary w-100" style="background-color: #8455ca;">View Applicants</button>
+					<button class="btn btn-primary w-100"><i class="fas fa-list"></i> View Your Applicants</button>
 				</a>
 				{{/match}}
 			</div>
@@ -68,10 +68,12 @@
 						<b>Experience</b> <br>
 						<small>At least {{jobData.experience}} of Experience</small>
 					</div>
+					{{#ifEquals jobData.placement "Temporary"}}
 					<div class="col">
 						<b>Date Needed</b> <br>
-						<small>{{jobData.date}}</small>
+						<small><b>{{jobData.date_start}}</b> to <b>{{jobData.date_end}}</b></small>
 					</div>
+					{{/ifEquals}}
 				</div>
 				<hr>
 			</div>
@@ -85,15 +87,12 @@
 						{{jobData.employer.clinicName}}
 					</span>
 					<hr />
-					<span class="card-text" style="text-align: left;"> <i class="fas fa-location-arrow"
-							style="color: #8455ca;">&nbsp;</i> {{jobData.employer.clinicAddress.city}},
+					<span class="card-text" style="text-align: left;"> <i class="fas fa-location-arrow icon-color">&nbsp;</i> {{jobData.employer.clinicAddress.city}},
 						{{jobData.employer.clinicAddress.state}} </span>
 					<br />
-					<span class="card-text" style="text-align: left;"> <i class="far fa-envelope"
-							style="color: #8455ca;">&nbsp;</i> {{jobData.employer.clinicContactEmails.[0]}} </span>
+					<span class="card-text" style="text-align: left;"> <i class="far fa-envelope icon-color">&nbsp;</i> {{jobData.employer.clinicContactEmails.[0]}} </span>
 					<br />
-					<span class="card-text" style="text-align: left;"> <i class="fas fa-phone"
-							style="color: #8455ca;">&nbsp;</i> {{jobData.employer.clinicPhone}} </span>
+					<span class="card-text" style="text-align: left;"> <i class="fas fa-phone icon-color">&nbsp;</i> {{jobData.employer.clinicPhone}} </span>
 					<br />
 				</div>
 			</div>
@@ -123,9 +122,9 @@
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary">Mark as Read</button>
 
-		<span> <i class="fas fa-location-arrow" style="color: #8455ca;"></i> {{jobData.employer.clinicAddress.city}}, {{jobData.employer.clinicAddress.state}} </span>
-		<span> <i class="far fa-envelope" style="color: #8455ca;"></i> {{jobData.employer.clinicContactEmails.[0]}} </span>
-		<span> <i class="fas fa-phone" style="color: #8455ca;"></i> {{jobData.employer.clinicPhone}} </span>
+		<span> <i class="fas fa-location-arrow icon-color"></i> {{jobData.employer.clinicAddress.city}}, {{jobData.employer.clinicAddress.state}} </span>
+		<span> <i class="far fa-envelope icon-color"></i> {{jobData.employer.clinicContactEmails.[0]}} </span>
+		<span> <i class="fas fa-phone icon-color"></i> {{jobData.employer.clinicPhone}} </span>
       </div>
     </div>
   </div>
@@ -153,9 +152,9 @@
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary">Mark as Read</button>
         
-		<span> <i class="fas fa-location-arrow" style="color: #8455ca;"></i> {{jobData.employer.clinicAddress.city}}, {{jobData.employer.clinicAddress.state}} </span>
-		<span> <i class="far fa-envelope" style="color: #8455ca;"></i> {{jobData.employer.clinicContactEmails.[0]}} </span>
-		<span> <i class="fas fa-phone" style="color: #8455ca;"></i> {{jobData.employer.clinicPhone}} </span>
+		<span> <i class="fas fa-location-arrow icon-color"></i> {{jobData.employer.clinicAddress.city}}, {{jobData.employer.clinicAddress.state}} </span>
+		<span> <i class="far fa-envelope icon-color"></i> {{jobData.employer.clinicContactEmails.[0]}} </span>
+		<span> <i class="fas fa-phone icon-color"></i> {{jobData.employer.clinicPhone}} </span>
       </div>
     </div>
   </div>

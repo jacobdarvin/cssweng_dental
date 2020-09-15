@@ -15,7 +15,7 @@ const dashboardEmpController = {
                 res.render('create', {
                     active_session: req.session.user && req.cookies.user_sid,
                     active_user: req.session.user,
-                    title: 'Post Job | BookMeDental',
+                    title: 'Create Job | BookMeDental',
                     profile_active: true,
                     emp: result.toObject(),
 
@@ -36,23 +36,47 @@ const dashboardEmpController = {
         var desc = helper.sanitize(req.body.jobdescription);
 
         //check date if valid
-        var [year, month, day] = req.body.date.split('-');
+        var [year, month, day] = req.body.date_start.split('-');
+
         var input = Date.UTC(
             Number(year),
             Number(month) - 1, // parameter month starts at 0
             Number(day),
         );
+
+        var [year, month, day] = req.body.date_end.split('-');
+
+        var input_end = Date.UTC(
+            Number(year),
+            Number(month) - 1, // parameter month starts at 0
+            Number(day),
+        );
+
         var now = Date.now();
 
         if (input < now) {
             res.render('create', {
                 active_session: req.session.user && req.cookies.user_sid,
                 active_user: req.session.user,
-                title: 'Post Job | BookMeDental',
+                title: 'Create Job | BookMeDental',
                 profile_active: true,
+                accType: req.session.accType,
+
                 input: req.body,
                 dateError:
                     'Invalid date. Please enter a date that comes after the date today.',
+            });
+        } else if (input_end <= input) {
+            res.render('create', {
+                active_session: req.session.user && req.cookies.user_sid,
+                active_user: req.session.user,
+                title: 'Create Job | BookMeDental',
+                profile_active: true,
+                accType: req.session.accType,
+
+                input_end: req.body,
+                dateError:
+                    'Invalid date. Please enter a date that comes after the start date.',
             });
         } else {
             db.findOne(Employer, { account: req.session.user }, '', function (
@@ -66,7 +90,10 @@ const dashboardEmpController = {
                     placement: req.body.placement,
                     position: req.body.position,
                     clinicName: result.clinicName,
-                    date: req.body.date,
+
+                    date_start: req.body.date_start,
+                    date_end: req.body.date_end,
+
                     description: desc,
                     software: req.body.software,
                     experience: req.body.experience,
