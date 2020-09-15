@@ -4,7 +4,7 @@ var employersTable = new Tabulator('#employers-table', {
 
         $("#admin_employerModal").modal();
         rowData = row.getData();
-        
+
         document.getElementById("empModalTitle").innerHTML = "Managing for " + "<b>" + rowData.clinicName + "</b>";
 
         let showStatus = "";
@@ -20,7 +20,7 @@ var employersTable = new Tabulator('#employers-table', {
         document.getElementById("empModalBody").innerHTML = 
         "Account Details <br>" + 
         "<b>Account Name:      </b>" + rowData.first + " " + rowData.last + "<br>" +
-        "<b>Account Email:     </b>" + rowData.accEmail + "<br>" + 
+        "<b>Account Email:     </b>" + '<a href="mailto:rowData.accEmail">' + rowData.accEmail + "</a>" + "<br>" + 
         "<b>Account Phone:     </b>" + rowData.phone + "<br>" +
         "<b>Clinic Name:       </b>" + rowData.clinicName + "<br>" +
         "<hr>" +
