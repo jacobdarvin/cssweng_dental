@@ -34,8 +34,6 @@ function dateDefault() {
     let output = year+'-'+month+'-'+day;
     let output_end = year+'-'+month+'-'+day_end;
 
-    document.getElementById('date').defaultValue = output;
-
     document.getElementById('date_start').defaultValue = output;
     document.getElementById('date_end').defaultValue = output_end;
 }
@@ -53,7 +51,7 @@ window.onload = dateDefault;
     }
 </style>
 <p class="h1 shrink gradient-text" style="font-size: 70px; text-align: center; margin-top: 4rem;">
-    Post Job
+    Create a Job
     <i class="fas fa-tooth"></i>
 </p>
 <!-- OWNER INFORMATION -->
@@ -122,8 +120,7 @@ window.onload = dateDefault;
             <div class="row">
 
                 <div class="col" id="date_perm">
-                    <small>Date Needed</small><br>
-                    <input class="form-control w-100" type="date" id="date" name="date">
+                    <small><i>Date range not available for permanent job postings</i></small>
                 </div>
 
                 <div id="date_range" class="w-100" style="display: none;">

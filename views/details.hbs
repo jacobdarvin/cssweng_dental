@@ -47,7 +47,7 @@
 
 				{{#match accType 'employer'}}
 				<a href="{{url}}" style="text-decoration: none;">
-					<button class="btn btn-primary w-100">View Applicants</button>
+					<button class="btn btn-primary w-100"><i class="fas fa-list"></i> View Your Applicants</button>
 				</a>
 				{{/match}}
 			</div>
@@ -68,10 +68,12 @@
 						<b>Experience</b> <br>
 						<small>At least {{jobData.experience}} of Experience</small>
 					</div>
+					{{#ifEquals jobData.placement "Temporary"}}
 					<div class="col">
 						<b>Date Needed</b> <br>
-						<small>{{jobData.date}}</small>
+						<small><b>{{jobData.date_start}}</b> to <b>{{jobData.date_end}}</b></small>
 					</div>
+					{{/ifEquals}}
 				</div>
 				<hr>
 			</div>
