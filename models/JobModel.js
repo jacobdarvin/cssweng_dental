@@ -25,10 +25,21 @@ const JobSchema = mongoose.Schema({
         type: String,
         required: true
     },
+
     date: {
         type: String,
         required: true
     },
+
+    date_start: {
+        type: String,
+        required: true
+    },
+    date_end: {
+        type: String,
+        required: true
+    },
+
     description: {
         type: String,
         required: true

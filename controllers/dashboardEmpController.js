@@ -37,11 +37,13 @@ const dashboardEmpController = {
 
         //check date if valid
         var [year, month, day] = req.body.date.split('-');
+
         var input = Date.UTC(
             Number(year),
             Number(month) - 1, // parameter month starts at 0
             Number(day),
         );
+        
         var now = Date.now();
 
         if (input < now) {
@@ -66,7 +68,12 @@ const dashboardEmpController = {
                     placement: req.body.placement,
                     position: req.body.position,
                     clinicName: result.clinicName,
+
                     date: req.body.date,
+
+                    date_start: req.body.date_start,
+                    date_end: req.body.date_end,
+
                     description: desc,
                     software: req.body.software,
                     experience: req.body.experience,

@@ -75,8 +75,7 @@
                     <hr />
                     <div class="container">
                         <h2>Your Active Job Posts</h2>
-                        <a href="/create/{{profileData._id}}">+ Create New</a>
-
+                        <a type="button" class="btn btn-primary w-100 mb-2" href="/create/{{profileData._id}}"> <i class="fas fa-plus-circle"></i> Create New</a>
                         {{#each activeJob}}
                             {{> jobItem}}
                         {{/each}}
@@ -87,7 +86,7 @@
 
                         <h2>Search For Employees</h2>
                         <small>Browse and filter a list of our website's applicants</small>
-                        <a href="/search/applicants" class="btn btn-primary w-100">Search</a>
+                        <a href="/search/applicants" class="btn btn-primary w-100"><i class="fas fa-search"></i> Search</a>
 
                     </div>
                 </div>
