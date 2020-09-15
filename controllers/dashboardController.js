@@ -82,7 +82,7 @@ const dashboardController = {
                                                 profileData: data.toObject(),
                                                 activeJob: result,
                                                 temp: temp_count,
-                                                perma: perm_count
+                                                perma: perm_count,
                                             });
                                         })
                                     })

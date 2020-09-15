@@ -95,7 +95,6 @@ const helper = {
     },
 
     getActiveJobPost: function (emp) {
-        //this.updatePostedDate();
         return Job.find({ employer: emp })
             .populate('employer')
             .sort('-created')

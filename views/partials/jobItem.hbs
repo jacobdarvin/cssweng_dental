@@ -1,18 +1,10 @@
-<!-- To Do: 
-    Sprint 2:
-    - Added description button which collapses a description. Use the posts id to use this functionality. No js fiddling required.
-    - Added placeholder for address of clinic
-    - Added time place holder "created five minutes ago".
-    please change this to the time of the creation of the item
--->
-
 <a href="/jobs/{{_id}}" style="text-decoration: none;">
 	<div class="card job border m-0 mb-2">
 		<div class="p-2">
 			<p class=" p-0 mb-0" style="font-size: 18px; padding-top: 5px;"><b>{{position}}</b> at <b>{{employer.clinicName}}</b>
 			<small>({{clinic_city}}, {{clinic_state}})</small>
 			<br>
-			<small><i class="far fa-clock" style="color: gray;"></i> {{posted}}    <i class="fas fa-business-time" style="color: gray; margin-left: 10px"></i> {{placement}}</i></small>
+			<small><i class="far fa-clock" style="color: gray;"></i> {{posted}}    <i class="fas fa-business-time" style="color: gray; margin-left: 10px"></i> {{placement}}    {{#match accType 'employer'}}<i class="fas fa-user-tie" style="color: gray; margin-left: 10px"></i>    {{app_count}}{{/match}}</small>
 
 			<hr style="margin-top:-1px; margin-bottom: 10px">
 

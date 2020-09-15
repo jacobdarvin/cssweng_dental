@@ -79,7 +79,7 @@
                         <a href="/create/{{profileData._id}}">+ Create New</a>
 
                         {{#each activeJob}}
-                            {{> jobItem}}
+                            {{> jobItem app_count = this.applicants.length accType = ../accType}}
                         {{/each}}
 
                         <a href="/feed-emp">View Your Active Jobs</a>

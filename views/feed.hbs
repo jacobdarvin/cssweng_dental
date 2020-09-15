@@ -10,7 +10,7 @@
 		<p class="h1">Job Feed</p>
 		<div id="jobFeed">
 			{{#each jobs}}
-			{{>jobItem}}
+			{{>jobItem app_count = this.applicants.length accType = ../accType}}
 			{{/each}}
 		</div>
 
