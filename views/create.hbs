@@ -62,6 +62,19 @@
         </div>
             </div>
     </div>
+
+    <!-- JOB DETAILS -->
+     <div class="card shadow-sm border mx-auto" style="width: 50rem; margin-bottom: 2rem;">
+        <div class="card-body">
+            <div class="card-title" style="font-size: 42px;">Job Details</div>
+            <p style="font-style: italic; font-size: 16px; margin-top: -16px;">Write a quick description about this job</p>
+            <div class="card-text">
+                <label>Job Description</label><br />
+                <textarea class="w-100 border" id="jobdescription" name="jobdescription" style="height: 8em;" required>{{input.jobdescription}}</textarea>
+             </div>
+        </div>
+    </div>  
+
     <!-- CLINIC LOCATION -->
     <div class="card shadow-sm border mx-auto" style="width: 50rem; margin-bottom: 2rem;">
         <div class="card-body">
@@ -87,20 +100,10 @@
         </div>
     </div>
 
-    <div class="card shadow-sm border mx-auto" style="width: 50rem; margin-bottom: 2rem;">
-        <div class="card-body">
-            <div class="card-title" style="font-size: 42px;">Job Details</div>
-            <p style="font-style: italic; font-size: 16px; margin-top: -16px;">Write a quick description about this job</p>
-            <div class="card-text">
-                <label>Job Description</label><br />
-                <textarea class="w-100 border" id="jobdescription" name="jobdescription" style="height: 8em;" required>{{input.jobdescription}}</textarea>
-        </div>
-    </div>
-</div>
     <!-- CLINIC CONTACT -->
     <div class="card shadow-sm border mx-auto" style="width: 50rem; margin-bottom: 2rem;">
         <div class="card-body">
-            <div class="card-title" style="font-size: 42px;">Optional Filters</div>
+            <div class="card-title" style="font-size: 42px;">Additional Job Requirements</div>
             <div class="card-title">
                             <label for="clinic_con_name">Software Proficiency</label>
                             <div class="container ">
@@ -137,7 +140,7 @@
                             -->
                            <br>
                 <div class="card-text">
-                <label for="inputGroupSelect04">Experience</label>
+                <label for="inputGroupSelect04">Years of Experience</label>
                 <div class="input-group">
                   <select class="custom-select" id="experience" name="experience" aria-label="Example select with button addon">
                     <option value="Less than a Year"  {{select "Less than a Year" input.experience}}>Less than a Year</option>

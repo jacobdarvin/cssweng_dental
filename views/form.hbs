@@ -159,12 +159,32 @@
                     </div>
                     <div class="form-group">
                         <label for="phone">Phone<span class="text-danger"> *</span></label>
-                        <input type="text" class="form-control" id="phone" name="phone" placeholder="(555) 555-1234"
+                        <input type="text" class="form-control" id="phone" name="phone" placeholder="(555) 555-1234" style="margin-bottom: 35px;"
                             value="{{input.phone}}" />
                         <p style="color: red;">
                             {{details.phoneError}}
                         </p>
                     </div>
+                    <div class="form-group">
+                          <label>Profile Photo</label><br />
+                        <p style="font-style: normal; font-size: 14px;">Profile photo is not required. But feel free to upload
+                            your photo so employers can virtually see you.</p>
+
+                        <div class="container form-upload"
+                            style="justify-content: center; align-items: center; text-align: center;">
+                            <img class="img-circle" id="output" src="/imgs/portrait.png" style="margin-left: 2px;" />
+                            <div>
+                                <div class="col" style="padding-left: 150px;">
+                                    <p class="mx-auto w-100">
+                                        <input type="file" id="avatar" name="avatar" accept="image/jpeg, image/png"
+                                            value="{{input.avatar}}"
+                                            onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])" />
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -214,7 +234,7 @@
                     </p>
                 </div>
                 <div class="form-group" style="margin-top: 20px;">
-                    <label for="dentalprograms">What dental programs(s) are you proficient?<span class="text-danger"> *</span></label>
+                    <label for="dentalprograms">What software(s) are you proficient?<span class="text-danger"> *</span></label>
                     <!--
                     <input type="text" class="form-control" id="programs" name="programs" name="dentalprograms"
                         placeholder="List down any programs..." value="{{input.programs}}" />
@@ -351,8 +371,6 @@
                     <p style="color: red;">
                         {{details.specialtiesError}}
                     </p>
-
-                    <p style="font-style: italic; font-size: 12px;">Please answer this part truthfully.</p>
                 </div>
             </div>
         </div>
@@ -441,23 +459,7 @@
                 <p style="color: red; margin-top: -10px">
                     {{details.shortprofileError}}
                 </p>
-                <label>Profile Photo</label><br />
-                <p style="font-style: normal; font-size: 14px;">Profile photo is not required. But feel free to upload
-                    your photo so employers can virtually see you.</p>
-
-                <div class="container form-upload"
-                    style="justify-content: center; align-items: center; text-align: center;">
-                    <img class="img-circle" id="output" src="/imgs/portrait.png" style="margin-left: 2px;" />
-                    <div>
-                        <div class="col" style="padding-left: 150px;">
-                            <p class="mx-auto w-100">
-                                <input type="file" id="avatar" name="avatar" accept="image/jpeg, image/png"
-                                    value="{{input.avatar}}"
-                                    onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])" />
-                            </p>
-                        </div>
-                    </div>
-                </div>
+              
 
                 <label>Resume<span class="text-danger"> *</span></label><br />
                 <p style="font-style: normal; font-size: 14px; margin-top: -5px;">Include only the most relevant
