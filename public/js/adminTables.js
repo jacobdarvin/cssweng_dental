@@ -1,4 +1,33 @@
 var employersTable = new Tabulator('#employers-table', {
+
+    rowClick: function(e, row) {
+
+        $("#admin_employerModal").modal();
+        rowData = row.getData();
+        
+        document.getElementById("empModalTitle").innerHTML = "Managing for " + "<b>" + rowData.clinicName + "</b>";
+
+        let showStatus = "";
+
+        if(rowData.accStatus == true) {
+            statusColor = "green"
+            showStatus = "Verified";
+        } else {
+            statusColor = "red"
+            showStatus = "Unverified";
+        }
+
+        document.getElementById("empModalBody").innerHTML = 
+        "Account Details <br>" + 
+        "<b>Account Name:      </b>" + rowData.first + " " + rowData.last + "<br>" +
+        "<b>Account Email:     </b>" + rowData.accEmail + "<br>" + 
+        "<b>Account Phone:     </b>" + rowData.phone + "<br>" +
+        "<b>Clinic Name:       </b>" + rowData.clinicName + "<br>" +
+        "<hr>" +
+        "<b>Account Created:   </b>" + rowData.created + "<br>" +
+        "<b>Account Status:    </b>" + "<font color =" + statusColor + ">" + showStatus + "</font>";
+    },
+
     resizableRows: false,
     resizableColumns: true,
     pagination: 'local',

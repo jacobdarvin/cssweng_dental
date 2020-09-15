@@ -57,9 +57,7 @@
     </div>
 </nav>
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 mb-3 border-bottom">
-        <h1 style="font-size: 40px;">Admin Dashboard</h1>
-    </div>
+    <h1 class="pt-4" style="font-size: 40px;">Admin Dashboard</h1>
     <div class="alert alert-warning" role="alert"><i class="fas fa-bell"></i> While you were gone one (1) new clinic/s were recently registered.</div>
     <h3>Employers</h1>
     <div id="employers-table"></div>
@@ -69,3 +67,24 @@
 </main>
 
 <script src="/js/adminTables.js"></script>
+
+<!-- Modal -->
+<div class="modal fade" id="admin_employerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="empModalTitle"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <pre class="modal-body" id="empModalBody">
+        
+      </pre>
+      <div class="modal-footer">
+        <button type="button" style="display: inline-block;" class="w-100 btn btn-success">Approve Status</button>
+        <button type="button" style="display: inline-block;" class="w-100 btn btn-danger" data-dismiss="modal">Decline Status</button>
+      </div>
+    </div>
+  </div>
+</div>
