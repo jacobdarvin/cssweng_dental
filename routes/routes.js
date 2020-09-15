@@ -79,6 +79,7 @@ app.use((req, res, next) => {
     next();
 });
 
+app.get('/states', formController.getStates);
 app.get('/cities', formController.getCities);
 app.get('/form/:fappId', formController.getApplicantReg);
 app.post(

@@ -32,7 +32,7 @@
                         <span style="font-size: 22px;">{{profileData.position}}</span>
                     </span>
                     <hr />
-                    <span class="card-text" style="text-align: left;"> <i
+                    <span class="card-text" style="text-align: left;" id="city-state"> <i
                             class="fas fa-location-arrow icon-color">&nbsp;</i> {{profileData.city}},
                         {{profileData.state}} </span>
                     <br />
@@ -146,7 +146,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form>
+                <form id="form-edit-profile" action="/dashboard/applicant/{{profileData._id}}/edit-profile">
                     <div class="card-text">
                         <div class="form-group">
                             <div class="row">
@@ -198,10 +198,10 @@
                                         <label for="state">State<span class="text-danger"> *</span></label>
                                         <select name="state" class="form-control" id="state"
                                             onchange="populateCities(this.value, 'city')">
-                                            <option value="">{{profileData.state}}</option>
-                                            {{#each states}}
+                                            {{!-- <option value="">{{profileData.state}}</option> --}}
+                                            {{!-- {{#each states}}
                                             <option value="{{this}}" {{select this ../input.state}}>{{this}}</option>
-                                            {{/each}}
+                                            {{/each}} --}}
                                         </select>
 
                                         <p style="color: red;">
@@ -211,10 +211,10 @@
                                     <div class="col-4 pl-1 pr-1">
                                         <label for="city">City<span class="text-danger"> *</span></label>
                                         <select name="city" class="form-control" id="city">
-                                            <option value="">{{profileData.city}}</option>
-                                            {{#each cities}}
+                                            {{!-- <option value="">{{profileData.city}}</option> --}}
+                                            {{!-- {{#each cities}}
                                             <option value="{{this}}" {{select this ../input.city}}>{{this}}</option>
-                                            {{/each}}
+                                            {{/each}} --}}
                                         </select>
 
                                         <p style="color: red;">
@@ -327,8 +327,9 @@
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="/js/dropdown-populator.js"></script>
 <script>
-
+    // --------EDIT DESCRIPTION--------
     // disable submit when textarea is empty
     $('#form-edit-description textarea').on('keyup', e => {
         var input = e.delegateTarget.value.trim();
@@ -369,5 +370,48 @@
 
         });
     });
+    // --------EDIT DESCRIPTION--------
 
+    // --------EDIT PROFILE--------
+
+    $(document).ready(() => {
+        // initialize state and city dropdowns
+
+        const [defaultCity, defaultState] = $('#city-state').text().replace(/\s/g, '').split(',');
+
+        var $state = $('#form-edit-profile #state');
+        var $city = $('#form-edit-profile #city');
+
+        $.get('/states', (data, status) => {
+            if (status === 'success') {
+                $state.append($('<option/>', { value: '', html: '--Select a state--' }));
+                for (const state of data) {
+                    $state.append($('<option/>', { value: state, html: state, selected: defaultState === state }));
+                }
+
+            } else {
+                console.log('error while getting states');
+            }
+        })
+
+        $.get(`/cities?state=${defaultState}`, (data, status) => {
+            if (status === 'success') {
+                $city.append($('<option/>', { value: '', html: '--Select a city--' }));
+                for (const city of data) {
+                    $city.append($('<option/>', { value: city, html: city, selected: defaultCity === city }));
+                }
+
+            }
+            else {
+                console.log('error while getting cities');
+            }
+        })
+    })
+
+    // TODO: show error messages in one textbox (above form) after AJAX resolves
+    // TODO: onclick of edit profile, populate modal fields based on applicant data
+    // TODO: payrate textfield toggle
+    // TODO: fix labels
+    // TODO: add onsubmit listener that validates inputs via AJAX
+    // --------EDIT PROFILE--------
 </script>

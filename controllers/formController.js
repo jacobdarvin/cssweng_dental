@@ -322,10 +322,17 @@ const formController = {
             });
         }
     },
+
+    // --------CITIES AND STATES API--------
     getCities: function (req, res) {
         if (req.query.state) res.send(citiesAndStates[req.query.state].sort());
         else res.send('');
     },
+    
+    getStates: function(req, res) {
+        res.send(Object.keys(citiesAndStates).sort());
+    }
+    // --------CITIES AND STATES API--------
 };
 
 module.exports = formController;
