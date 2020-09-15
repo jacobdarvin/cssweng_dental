@@ -1,3 +1,4 @@
+const db = require('../models/db');
 const Job = require('../models/JobModel');
 const Applicant = require('../models/ApplicantModel');
 
@@ -46,7 +47,21 @@ const dashboardAppController = {
         return Job.countDocuments({ applicants: app_id }).exec();
     },
 
-    // TODO: edit profile
+    // edit applicant description
+    postEditDescription: function (req, res) {
+        var profile = req.body.profile.trim();
+        db.updateOne(
+            Applicant,
+            { _id: req.params.appId },
+            { profile },
+            result => {
+                if (result) res.send({ profile });
+                else res.status(500).send('An error occurred in the server.');
+            },
+        );
+    },
+
+    // TODO: edit applicant profile
 };
 
 // enables to export controller object when called in another .js file

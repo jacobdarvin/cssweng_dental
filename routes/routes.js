@@ -16,6 +16,7 @@ const indexController = require('../controllers/indexController');
 //DASHBOARD CONTROLLER
 const dashboardController = require('../controllers/dashboardController');
 const dashboardEmpController = require('../controllers/dashboardEmpController');
+const dashboardAppController = require('../controllers/dashboardAppController');
 //DASHBOARD CONTROLLER
 
 //FEED CONTROLLER
@@ -152,6 +153,7 @@ app.get('/details-app', function (req, res) {
 });
 // /dashboard-type / DASHBOARD
 app.get('/dashboard', dashboardController.getDashboard);
+app.post('/dashboard/applicant/:appId/edit-description', dashboardAppController.postEditDescription);
 // /dashboard-type / DASHBOARD
 
 // post job / CREATE
