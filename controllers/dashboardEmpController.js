@@ -221,30 +221,14 @@ const dashboardEmpController = {
     },
 
     updateClinicProfile: function (req, res){
-        console.log("yes");
-        // var errors = validationResult(req);
-
-        // if (!errors.isEmpty()) {
-        //     errors = errors.errors;
-
-        //     var details = {};
-
-        //     for (let i = 0; i < errors.length; i++)
-        //         details[errors[i].param + 'Error'] = errors[i].msg;
-            
-        //     res.render('dashboard-emp', {})
-        // }
-
-
-
         var email = helper.sanitize(req.body.clinic_email);
         var phone = helper.sanitize(req.body.clinic_phone);
 
-        console.log(email);
-        console.log(phone);
-
-        // helper.updatePostedDate();
-        // res.redirect('/dashboard');
+        db.updateOne(Employer, {account: req.session.user}, {clinicContactEmails: email, clinicPhone: phone}, function(result){
+            if(result){
+                res.redirect('/dashboard');
+            }
+        })
     }
 };
 
