@@ -21,6 +21,7 @@
 
       document.getElementById('empTable').style.display = "block";
       document.getElementById('appTable').style.display = "none";
+      document.getElementById('jobTable').style.display = "none";
 
     } else if (tab == 'applicants') {
       document.getElementById(lastActive).className =
@@ -31,7 +32,18 @@
 
       document.getElementById('empTable').style.display = "none";
       document.getElementById('appTable').style.display = "block";
+      document.getElementById('jobTable').style.display = "none";
 
+    } else if (tab == 'jobs') {
+      document.getElementById(lastActive).className =
+      document.getElementById(lastActive).className.replace( /(?:^|\s)active(?!\S)/g , '' );
+
+      document.getElementById(typeTab).className += " active";
+      lastActive = typeTab;
+
+      document.getElementById('empTable').style.display = "none";
+      document.getElementById('appTable').style.display = "none";
+      document.getElementById('jobTable').style.display = "block";
     } else if (tab == 'general') {
       document.getElementById(lastActive).className =
       document.getElementById(lastActive).className.replace( /(?:^|\s)active(?!\S)/g , '' );
@@ -41,6 +53,7 @@
 
       document.getElementById('empTable').style.display = "block";
       document.getElementById('appTable').style.display = "block";
+      document.getElementById('jobTable').style.display = "block";
     }
   }
 
@@ -72,8 +85,8 @@
                     List of Applicants
                 </a>
             </li>
-            <li class="nav-item" onclick="tabCheck('jobs')">
-                <a class="nav-link" href="#">
+            <li class="nav-item">
+                <a class="nav-link" id="jobTab" onclick="tabCheck('jobs', 'jobTab')" href="#">
                     <span data-feather="users"></span>
                     List of Posted Jobs
                 </a>
@@ -103,17 +116,26 @@
     </div>
 </nav>
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+
     <h1 class="pt-4" style="font-size: 40px;">General Overview</h1>
     <div class="alert alert-warning" role="alert"><i class="fas fa-bell"></i> While you were gone one (1) new clinic/s were recently registered.</div>
 
     <div id="empTable">
       <h3>Employers</h3>
       <div id="employers-table"></div>
+      <hr>
     </div>
-<hr>
+
     <div id="appTable">
       <h3>Applicants</h3>
       <div id="applicants-table"></div>
+      <hr>
+    </div>
+
+    <div id="jobTable">
+      <h3>Jobs</h3>
+      <div id="jobs-table"></div>
+      <hr>
     </div>
 
 </main>

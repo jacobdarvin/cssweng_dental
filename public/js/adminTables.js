@@ -34,7 +34,7 @@ var employersTable = new Tabulator('#employers-table', {
     resizableRows: false,
     resizableColumns: true,
     pagination: 'local',
-    paginationSize: 6,
+    paginationSize: 8,
     layout: 'fitColumns',
     index: '_id',
     columns: [
@@ -100,7 +100,7 @@ var applicantsTable = new Tabulator('#applicants-table', {
     resizableRows: false,
     resizableColumns: true,
     pagination: 'local',
-    paginationSize: 6,
+    paginationSize: 8,
     layout: 'fitColumns',
     index: '_id',
     columns: [
@@ -120,5 +120,26 @@ var applicantsTable = new Tabulator('#applicants-table', {
     ],
 });
 
+var jobsTable = new Tabulator('#jobs-table', {
+    resizableRows: false,
+    resizableColumns: true,
+    pagination: 'local',
+    paginationSize: 8,
+    layout: 'fitColumns',
+    index: '_id',
+    columns: [
+
+        { title: 'Clinic Name', field: 'clinicName' },
+        { title: 'Placement', field: 'placement' },
+        { title: 'Position', field: 'position' },
+        { title: 'Clinic City', field: 'clinic_city' },
+        { title: 'Clinic State', field: 'clinic_state' },
+        { title: 'Created', field: 'created' },
+        { title: 'Job ID', field: '_id' },
+        
+    ],
+});
+
+jobsTable.setData('/jobs');
 employersTable.setData('/employers');
 applicantsTable.setData('/applicants');

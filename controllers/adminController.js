@@ -1,5 +1,6 @@
 const Applicant = require('../models/ApplicantModel');
 const Employer = require('../models/EmployerModel');
+const Job = require('../models/JobModel');
 
 const adminController = {
     getAdmin: function (req, res) {
@@ -70,6 +71,41 @@ const adminController = {
                     data.push({ _id, accEmail, fName, lName, phone,
                                 position, placement, streetAdd, houseNo,
                                 city, state, zip });
+
+                res.send(data);
+            })
+            .catch(err => res.send(err));
+    },
+    getJobList: function(req, res) {
+        Job.find(
+            { employer: { $exists: true} },
+            '_id applicants placement position clinicName clinic_city clinic_state created',
+        )
+            .populate('employer')
+            .exec()
+            .then(docs => {
+                var data = [];
+
+                for (const {
+                    _id,
+                    applicants,
+                    placement,
+                    position,
+                    clinicName,
+                    clinic_city,
+                    clinic_state,
+                    created,
+                    date_start,
+                    date_end,
+                    description,
+                    software,
+                    experience,
+                    posted,
+                } of docs)
+                    data.push({_id, applicants, placement, position,
+                                clinicName, clinic_city, clinic_state, created,
+                                date_start, date_end, description, software,
+                                experience, posted});
 
                 res.send(data);
             })
