@@ -52,7 +52,8 @@ const dashboardController = {
                                     .then(jobs => {
                                         renderOptions.matching_jobs = jobs;
                                         return dac.getAppliedJobsCount(data._id)
-                                    }).then(n => {
+                                    })
+                                    .then(n => {
                                         renderOptions.applied_jobs_count = n;
                                         return dac.getAppliedJobs(data._id);
                                     })

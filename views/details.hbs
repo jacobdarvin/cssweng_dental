@@ -33,19 +33,22 @@
 				{{#match accType 'applicant'}}
 				<form action="{{url}}" method="POST">
 					{{#if applied}}
+						{{#if await}}
 						<span tabindex="0" data-toggle="tooltip" data-placement="right" title="The employer is currently reviewing your application">
 							<button type="submit" style="pointer-events: none;" class="btn btn-primary w-100" disabled>Awaiting Employer Response</button>
 						</span>
-					{{else}}
-						<button type="submit" class="btn btn-primary w-100">Apply</button>
-					{{/if}}
-						<hr>
+						{{else}}
 						{{#match type 'hire'}}
 							<button type="button" class="btn btn-success w-100" data-toggle="modal" data-target="#acceptModal">View Accepted Response</button>
 						{{/match}}
 						{{#match type 'decline'}}
 							<button type="button" class="btn btn-danger w-100"  data-toggle="modal" data-target="#declineModal">View Declined Response</button>
 						{{/match}}
+						{{/if}}
+					{{else}}
+						<button type="submit" class="btn btn-primary w-100">Apply</button>
+					{{/if}}
+						<hr>
 				</form>
 				{{/match}}
 

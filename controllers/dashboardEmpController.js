@@ -207,18 +207,18 @@ const dashboardEmpController = {
 
         var sntAppId = helper.sanitize(req.params.appId);
         db.findOne(Response, {accEmpId: req.session.user, applicantId: sntAppId}, '', function (response){
-            if(response){
-                db.findOne(Applicant, { _id: sntAppId }, '', function (applicant) {
-                    if (applicant) {
-                        applicant.populate(
-                            {
-                                path: 'account',
-                                select: 'accEmail -_id',
-                                options: { lean: true },
-                            },
-                            function (err, result) {
-                                if (err) throw err;
-        
+            db.findOne(Applicant, { _id: sntAppId }, '', function (applicant) {
+                if (applicant) {
+                    applicant.populate(
+                        {
+                            path: 'account',
+                            select: 'accEmail -_id',
+                            options: { lean: true },
+                        },
+                        function (err, result) {
+                            if (err) throw err;
+
+                            if(response){
                                 res.render('details-app', {
                                     active_session:
                                     req.session.user && req.cookies.user_sid,
@@ -233,25 +233,7 @@ const dashboardEmpController = {
                                     // additional config
                                     from: 'search',
                                 });
-                            },
-                        );
-                    } else {
-                        res.status(404);
-                        next();
-                    }
-                });
-            } else{
-                db.findOne(Applicant, { _id: sntAppId }, '', function (applicant) {
-                    if (applicant) {
-                        applicant.populate(
-                            {
-                                path: 'account',
-                                select: 'accEmail -_id',
-                                options: { lean: true },
-                            },
-                            function (err, result) {
-                                if (err) throw err;
-        
+                            } else{
                                 res.render('details-app', {
                                     active_session:
                                     req.session.user && req.cookies.user_sid,
@@ -266,15 +248,14 @@ const dashboardEmpController = {
                                     // additional config
                                     from: 'search',
                                 });
-                            },
-                        );
-                    } else {
-                        res.status(404);
-                        next();
-                    }
-                });
-            }
-
+                            }                            
+                        },
+                    );
+                } else {
+                    res.status(404);
+                    next();
+                }
+            });
         })
        
 
