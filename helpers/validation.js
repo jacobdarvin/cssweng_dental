@@ -71,6 +71,9 @@ const validation = {
                 .trim()
                 .notEmpty()
                 .withMessage('House number is required.')
+                .bail()
+                .isNumeric()
+                .withMessage('Please input a number')
                 .trim(),
             check('clinic_city')
                 .notEmpty()
@@ -84,6 +87,9 @@ const validation = {
                 .trim()
                 .notEmpty()
                 .withMessage('Zip is required.')
+                .bail()
+                .isNumeric()
+                .withMessage('Please input a number')
                 .trim(),
 
             check('clinic_phone')
@@ -200,6 +206,9 @@ const validation = {
                 .trim()
                 .notEmpty()
                 .withMessage('Zip is required.')
+                .bail()
+                .isNumeric()
+                .withMessage('Please input a number')
                 .trim(),
             check('phone')
                 .trim()
@@ -347,6 +356,9 @@ const validation = {
                 .trim()
                 .notEmpty()
                 .withMessage('Zip: field is required')
+                .bail()
+                .isNumeric()
+                .withMessage('Zip: please input a number')
                 .trim(),
             check('phone')
                 .trim()
