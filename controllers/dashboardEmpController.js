@@ -206,7 +206,7 @@ const dashboardEmpController = {
         }
 
         var sntAppId = helper.sanitize(req.params.appId);
-        db.findOne(Response, {accEmpId: req.session.user, applicantId: sntAppId}, '', function (response){
+        db.findOne(Response, {accEmpId: req.session.user, applicantId: sntAppId, type: 'contact'}, '', function (response){
             db.findOne(Applicant, { _id: sntAppId }, '', function (applicant) {
                 if (applicant) {
                     applicant.populate(
