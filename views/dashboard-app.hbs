@@ -95,7 +95,7 @@
                                             <span class="card-text my-auto">
                                                 Hourly Wage <br />
                                                 <b>$ {{profileData.rate}} / hour</b> <br />
-                                                <small><a href="#">Update</a></small>
+                                                <small><a href="" data-toggle="modal" data-target="#modalUpdateWage">Update</a></small>
                                             </span>
                                         </div>
                                         {{/ifEquals}}
@@ -284,7 +284,6 @@
   </div>
 </div>
 
-
 <div class="modal fade border" id="modalEditDesc" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
@@ -297,6 +296,36 @@
       <div class="modal-body">
         <div class="form-group">
             <textarea class="form-control mt-1" id="exampleFormControlTextarea1" rows="6">{{profileData.profile}}</textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save Description</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade border" id="modalUpdateWage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content modal-sm">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Update Wage</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">$</span>
+              </div>
+              <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="{{profileData.rate}}" value="{{profileData.rate}}">
+              <div class="input-group-append">
+                <span class="input-group-text">/ hr</span>
+              </div>
+            </div>
         </div>
       </div>
       <div class="modal-footer">
