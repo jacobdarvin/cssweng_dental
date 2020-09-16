@@ -85,6 +85,14 @@ var applicantsTable = new Tabulator('#applicants-table', {
         "<b>Phone:       </b>" + rowData.phone + "<br>" +
         "<b>Placement:   </b>" + rowData.placement + "<br>" +
         "<b>Position:    </b>" + rowData.position + "<br>" +
+        "<hr>" +
+        "Account Address <br>" + 
+        "<b>Street:      </b>" + rowData.streetAdd + "<br>" +
+        "<b>House No:    </b>" + rowData.houseNo + "<br>" +
+        "<b>City:        </b>" + rowData.city + "<br>" +
+        "<b>State:       </b>" + rowData.state + "<br>" +
+        "<b>Zip:         </b>" + rowData.zip + "<br>" +
+
         "<hr>";
         let showStatus = "";
     },
@@ -103,6 +111,12 @@ var applicantsTable = new Tabulator('#applicants-table', {
         { title: 'ID', field: '_id' },
         { title: 'Placement', field: 'placement' },
         { title: 'Position', field: 'position' },
+
+        { title: 'Street', field: 'streetAdd' },
+        { title: 'House No.', field: 'houseNo' },
+        { title: 'City', field: 'city' },
+        { title: 'State', field: 'state' },
+        { title: 'Zip', field: 'zip' },
     ],
 });
 
