@@ -127,7 +127,7 @@ var jobsTable = new Tabulator('#jobs-table', {
         $("#admin_jobModal").modal();
         rowData = row.getData();
 
-        document.getElementById("jobModalTitle").innerHTML = "Managing for " + "<b>" + rowData.clinicName + "</b>";
+        document.getElementById("jobModalTitle").innerHTML = "Managing job for " + "<b>" + rowData.clinicName + "</b>";
 
         document.getElementById("jobModalBody").innerHTML = 
         "Job Details <br>" + 
