@@ -229,7 +229,6 @@ const dashboardEmpController = {
                                     type: 'contact',
                                     response: true,
         
-        
                                     // additional config
                                     from: 'search',
                                 });
@@ -242,9 +241,7 @@ const dashboardEmpController = {
                                     appData: result.toObject(),
                                     profile_active: true,
                                     type: 'contact',
-                                    response: false,
-        
-        
+                                  
                                     // additional config
                                     from: 'search',
                                 });
