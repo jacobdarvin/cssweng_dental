@@ -4,6 +4,19 @@
     - Changed Software proficiency in optional filters to checkbox, please use this instead!
 -->
 <script>
+
+function checkRadio() {
+    if (document.getElementById('Permanent').checked) {
+        document.getElementById('date_perm').style.display = 'block';
+        document.getElementById('date_range').style.display = 'none'
+
+    } else  {
+        document.getElementById('date_perm').style.display = 'none';
+        document.getElementById('date_range').style.display = 'inline-flex';
+    }
+}
+
+
 function placementCheck() {
     if (document.getElementById('Permanent').checked) {
         document.getElementById('date_perm').style.display = 'block';
@@ -38,7 +51,10 @@ function dateDefault() {
     document.getElementById('date_end').defaultValue = output_end;
 }
 
-window.onload = dateDefault;
+window.onload = function(){
+    dateDefault();
+    checkRadio();
+}
 
 </script>
 
@@ -56,7 +72,6 @@ window.onload = dateDefault;
 </p>
 <!-- OWNER INFORMATION -->
 <form action="/create" method="POST">
-
     <div class="card shadow-sm border mx-auto" style="width: 50rem; margin-bottom: 2rem;">
         <div class="card-body">
             <div class="card-title" style="font-size: 42px;">Placement</div>
@@ -162,28 +177,28 @@ window.onload = dateDefault;
                             <label for="clinic_con_name">Software Proficiency</label>
                             <div class="container ">
                                 <div class="form-check col w-100" >
-                                  <input class="form-check-input" type="checkbox" value="Dentrix" id="defaultCheck1" name="software" {{checkbox "Dentrix" input.programs}}>
+                                  <input class="form-check-input" type="checkbox" value="Dentrix" id="Dentrix" name="software" {{checkbox "Dentrix" input.software}}>
                                   <label class="col form-check-label" for="defaultCheck1">
                                     Dentrix
                                   </label>
                                 </div>
 
                                 <div class="form-check col w-100" >
-                                  <input class="form-check-input" type="checkbox" value="Easy Dental" id="defaultCheck1" name="software" {{checkbox "Easy Dental" input.programs}}>
+                                  <input class="form-check-input" type="checkbox" value="Easy Dental" id="Easy Dental" name="software" {{checkbox "Easy Dental" input.software}}>
                                   <label class="col form-check-label" for="defaultCheck1">
                                     Easy Dental
                                   </label>
                                 </div>
 
                                 <div class="form-check col w-100">
-                                  <input class="form-check-input" type="checkbox" value="Eaglesoft" id="defaultCheck1" name="software" {{checkbox "Eaglesoft" input.programs}}>
+                                  <input class="form-check-input" type="checkbox" value="Eaglesoft" id="Eaglesoft" name="software" {{checkbox "Eaglesoft" input.software}}>
                                   <label class="col form-check-label" for="defaultCheck1">
                                     Eaglesoft
                                   </label>
                                 </div>
 
                                 <div class="form-check col w-100">
-                                  <input class="form-check-input" type="checkbox" value="Open Dental" id="defaultCheck1" name="software" {{checkbox "Open Dental" input.programs}}>
+                                  <input class="form-check-input" type="checkbox" value="Open Dental" id="Open Dental" name="software" {{checkbox "Open Dental" input.software}}>
                                   <label class="col form-check-label" for="defaultCheck1">
                                     Open Dental
                                   </label>

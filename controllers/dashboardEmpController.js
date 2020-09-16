@@ -59,7 +59,7 @@ const dashboardEmpController = {
                 res.render('create', {
                     active_session: req.session.user && req.cookies.user_sid,
                     active_user: req.session.user,
-                    title: 'Post Job | BookMeDental',
+                    title: 'Create Job | BookMeDental',
                     profile_active: true,
                     input: req.body,
                     emp: result.toObject(),
@@ -76,7 +76,7 @@ const dashboardEmpController = {
                     profile_active: true,
                     accType: req.session.accType,
                     emp: result.toObject(),
-                    input_end: req.body,
+                    input: req.body,
                     dateError:
                         'Invalid date. Please enter a date that comes after the start date.',
                 });

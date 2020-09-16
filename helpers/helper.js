@@ -55,8 +55,14 @@ const helper = {
             time = Math.floor(diff_seconds / hour) + ' hours ago';
         } else if (diff_seconds == day) {
             time = 'yesterday';
-        } else if (diff_seconds < day * 7) {
-            time = Math.floor(diff_seconds / day) + ' days ago';
+        } else if (diff_seconds < day * 7){
+            var temp = Math.floor(diff_seconds / day);
+
+            if (temp == 1){
+                time = '1 day ago'
+            } else{
+                time = Math.floor(diff_seconds / day) + ' days ago';
+            }
         } else if (diff_seconds == week) {
             time = '1 week ago'; 
         } else if (diff_seconds == week * 2){
