@@ -276,6 +276,23 @@ const validation = {
                 ),
         ];
     },
+
+    // updateClinicProfileValidation: function (){
+    //     return [
+    //         check('clinic_email.*')
+    //             .trim()
+    //             .isEmail()
+    //             .withMessage('Please enter valid email addresses.')
+    //             .bail()
+    //             .trim()
+    //             .normalizeEmail(),
+    //         check('clinic_phone')
+    //             .trim()
+    //             .isMobilePhone('en-US')
+    //             .withMessage('Please enter a valid US phone number.')
+    //             .trim(),
+    //     ];
+    // }
 };
 
 module.exports = validation;

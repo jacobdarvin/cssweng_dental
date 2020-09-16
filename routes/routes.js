@@ -154,6 +154,9 @@ app.get('/details-app', function (req, res) {
 app.get('/dashboard', dashboardController.getDashboard);
 // /dashboard-type / DASHBOARD
 
+// /updateClinicProfile
+app.post('/updateClinicProfile', dashboardEmpController.updateClinicProfile);
+
 // post job / CREATE
 app.get('/create/:jobId', dashboardEmpController.getCreateJob);
 // post job / CREATE

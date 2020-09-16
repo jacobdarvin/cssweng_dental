@@ -6,6 +6,7 @@ const helper = require('../helpers/helper');
 const pagination = require('../helpers/pagination');
 const db = require('../models/db');
 const fs = require('fs');
+const { validationResult } = require('express-validator');
 
 const dashboardEmpController = {
     getCreateJob: function (req, res) {
@@ -112,7 +113,7 @@ const dashboardEmpController = {
 
         let page = helper.sanitize(req.query.page);
         if (page == null) page = '1';
-        
+
         let options = { lean: true, page: page, limit: 6 };
 
         let query = {
@@ -217,6 +218,33 @@ const dashboardEmpController = {
                 res.download(resumePath, resumeFile);
             }
         })
+    },
+
+    updateClinicProfile: function (req, res){
+        console.log("yes");
+        // var errors = validationResult(req);
+
+        // if (!errors.isEmpty()) {
+        //     errors = errors.errors;
+
+        //     var details = {};
+
+        //     for (let i = 0; i < errors.length; i++)
+        //         details[errors[i].param + 'Error'] = errors[i].msg;
+            
+        //     res.render('dashboard-emp', {})
+        // }
+
+
+
+        var email = helper.sanitize(req.body.clinic_email);
+        var phone = helper.sanitize(req.body.clinic_phone);
+
+        console.log(email);
+        console.log(phone);
+
+        // helper.updatePostedDate();
+        // res.redirect('/dashboard');
     }
 };
 
