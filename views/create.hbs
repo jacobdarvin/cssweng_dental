@@ -1,9 +1,5 @@
-<!-- To Do: 
-    Sprint 2:
-    - Changed clinic Location to clinic details to present the one and only clinic represented by the employer account. Please present details using hbs
-    - Changed Software proficiency in optional filters to checkbox, please use this instead!
--->
 <script>
+
 function placementCheck() {
     if (document.getElementById('Permanent').checked) {
         document.getElementById('date_perm').style.display = 'block';
@@ -14,6 +10,7 @@ function placementCheck() {
         document.getElementById('date_range').style.display = 'inline-flex';
     }
 }
+
 function dateDefault() {
     var dateObj = new Date();
     let month = dateObj.getMonth() + 1;
@@ -50,6 +47,7 @@ window.onload = dateDefault;
         font-weight: bold;
     }
 </style>
+
 <p class="h1 shrink gradient-text" style="font-size: 70px; text-align: center; margin-top: 4rem;">
     Create a Job
     <i class="fas fa-tooth"></i>

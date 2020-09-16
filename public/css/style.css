@@ -30,6 +30,12 @@ a:hover {
     -webkit-text-fill-color: transparent;
 }
 
+.gradient-text-gold {
+    background: -webkit-linear-gradient(219deg, rgba(253,245,165,1) 0%, rgba(188,156,87,1) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
 .h3 {
     font-weight: 800 !important;
 }
@@ -70,7 +76,7 @@ a:hover {
     padding-top: 7rem;
 
     background: rgb(123,31,162);
-    background: linear-gradient(18deg, rgba(40,70,105,1) 0%, rgba(73,150,241,1) 100%);
+    background: linear-gradient(180deg, rgba(46,93,148,1) 0%, rgba(73,150,241,1) 80%, rgba(255,255,255,1) 80%);
 
     background-position: center;
     background-repeat: no-repeat;
