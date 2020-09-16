@@ -1,5 +1,11 @@
 <link href="css/sidebar.css" rel="stylesheet" />
 
+<style>
+    body {
+        background-color: white;
+    }
+</style>
+
 <script type="text/javascript">
   //Responsive Side Tabbing
 
@@ -104,7 +110,7 @@
       <h3>Employers</h3>
       <div id="employers-table"></div>
     </div>
-
+<hr>
     <div id="appTable">
       <h3>Applicants</h3>
       <div id="applicants-table"></div>
@@ -114,7 +120,7 @@
 
 <script src="/js/adminTables.js"></script>
 
-<!-- Modal -->
+<!-- APP Modal --><!-- APP Modal --><!-- APP Modal --><!-- APP Modal --><!-- APP Modal -->
 <div class="modal fade" id="admin_employerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -135,6 +141,30 @@
     </div>
   </div>
 </div>
+<!-- APP Modal --><!-- APP Modal --><!-- APP Modal --><!-- APP Modal --><!-- APP Modal -->
+
+<!-- EMP Modal --><!-- EMP Modal --><!-- EMP Modal --><!-- EMP Modal --><!-- EMP Modal -->
+<div class="modal fade" id="admin_applicantModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="appModalTitle"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <pre class="modal-body" id="appModalBody">
+        
+      </pre>
+      <div class="modal-footer">
+        <button type="button" style="display: inline-block;" class="w-100 btn btn-primary" data-toggle="modal" data-target="#admin_confirmApprove">Edit Account</button>
+        <button type="button" style="display: inline-block;" class="w-100 btn btn-danger"  data-toggle="modal" data-target="#admin_confirmDecline">Delete Account</button>
+        <button type="button" style="display: inline-block;" class="w-100 btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- EMP Modal --><!-- EMP Modal --><!-- EMP Modal --><!-- EMP Modal --><!-- EMP Modal -->
 
 <!-- Modal -->
 <div class="modal fade" id="admin_confirmApprove" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

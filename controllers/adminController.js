@@ -46,7 +46,7 @@ const adminController = {
         // only get Applicants who have completed the form
         Applicant.find(
             { account: { $exists: true } },
-            'account fName lName phone',
+            '_id account fName lName phone position placement',
         )
             .populate('account')
             .exec()
@@ -54,12 +54,16 @@ const adminController = {
                 var data = [];
 
                 for (const {
+                    _id,
                     account: { accEmail },
                     fName,
                     lName,
                     phone,
+                    position,
+                    placement,
                 } of docs)
-                    data.push({ accEmail, fName, lName, phone });
+                    data.push({ _id, accEmail, fName, lName, phone,
+                                position, placement });
 
                 res.send(data);
             })

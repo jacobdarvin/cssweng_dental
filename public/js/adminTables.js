@@ -69,6 +69,26 @@ var employersTable = new Tabulator('#employers-table', {
 });
 
 var applicantsTable = new Tabulator('#applicants-table', {
+    rowClick: function(e, row) {
+        $("#admin_applicantModal").modal();
+        rowData = row.getData();
+
+        console.log(rowData);
+
+        document.getElementById("appModalTitle").innerHTML = "Managing account for " + "<b>" + rowData.fName + ' ' + rowData.lName + "</b>";
+
+        document.getElementById("appModalBody").innerHTML = 
+        "Account Details <br>" + 
+        "<b>ID:          </b>" + rowData._id + "<br>" +
+        "<b>Full Name:   </b>" + rowData.fName + " " + rowData.lName + "<br>" +
+        "<b>Email:       </b>" + '<a href="mailto:rowData.accEmail">' + rowData.accEmail + "</a>" + "<br>" + 
+        "<b>Phone:       </b>" + rowData.phone + "<br>" +
+        "<b>Placement:   </b>" + rowData.placement + "<br>" +
+        "<b>Position:    </b>" + rowData.position + "<br>" +
+        "<hr>";
+        let showStatus = "";
+    },
+
     resizableRows: false,
     resizableColumns: true,
     pagination: 'local',
@@ -76,12 +96,13 @@ var applicantsTable = new Tabulator('#applicants-table', {
     layout: 'fitColumns',
     index: '_id',
     columns: [
-        //Define Table Columns
-
         { title: 'First Name', field: 'fName' },
         { title: 'Last Name', field: 'lName' },
         { title: 'Applicant email', field: 'accEmail' },
         { title: 'Contact', field: 'phone' },
+        { title: 'ID', field: '_id' },
+        { title: 'Placement', field: 'placement' },
+        { title: 'Position', field: 'position' },
     ],
 });
 
