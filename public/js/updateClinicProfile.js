@@ -1,6 +1,5 @@
 $(document).ready(function() {
-    $('#hello').text("plssss")
-    
+ 
 /* jquery.validate plagin added using cdn. Go to jqueryvalidation.org to see what methods are provided */
 /* Create custom validation method */
 jQuery.validator.addMethod("multiemail", function (value, element) {
@@ -18,7 +17,7 @@ jQuery.validator.addMethod("multiemail", function (value, element) {
     return valid;
 }, "Invalid email format: please use a comma to separate multiple email addresses.");
 
-$("form").validate({
+$("#clinicProfile").validate({
 	rules: {
         clinic_phone: {
             required: true,

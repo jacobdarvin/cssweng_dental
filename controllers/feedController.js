@@ -8,6 +8,7 @@ const pagination = require('../helpers/pagination');
 
 const fs = require('fs');
 const path = require('path');
+const { SSL_OP_NO_TLSv1_1 } = require('constants');
 
 
 const buffer = fs.readFileSync(
@@ -663,7 +664,7 @@ const feedController = {
                         profile_route: `/jobs/${sntJobId}/applicants`,
 
                         warn: resultWarn,
-
+                
                         // Pagination
                         selectOptions: selectOptions,
                         hasPrev: hasPrevPage,

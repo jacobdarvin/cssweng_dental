@@ -111,34 +111,31 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
-      
+        <!-- use method="post" to send your form to server -->
+        <form class="form-horizontal" id="clinicProfile" method="post" action="/updateClinicProfile">
 
-<!-- use method="post" to send your form to server -->
+            <div class="form-group">
+                <label for="clinic_email">Email/s<span class="text-danger"> *</span><span><small style="margin-left: 5px;">(Separate email addresses with a comma)</small></span></label>
+                <div class="col-xs-5">  
+                    <input type="text" class="form-control" id="clinic_email" name="clinic_email" placeholder="{{profileData.clinicContactEmails.[0]}}" required/>
+                </div>
+                
+                <div class="col-sm-7"></div>
+            </div>
 
-<form class="form-horizontal" method="post" action="/updateClinicProfile">
+            <div class="form-group">
+                <label for="clinic_phone">Clinic Phone<span class="text-danger"> *</span></label>
+                <div class="col-xs-5">  
+                    <input type="text" class="form-control" id="clinic_phone" name="clinic_phone" placeholder="{{profileData.phone}}" required/>
+                </div>
+                <div class="col-sm-7"></div>
+            </div>
 
-	<div class="form-group">
-        <label for="clinic_email">Email/s<span class="text-danger"> *</span><span><small style="margin-left: 5px;">(Separate email addresses with a comma)</small></span></label>
-        <div class="col-xs-5">  
-            <input type="text" class="form-control" id="clinic_email" name="clinic_email" placeholder="{{profileData.clinicContactEmails.[0]}}" required/>
-        </div>
-        
-        <div class="col-sm-7"></div>
-	</div>
-
-    <div class="form-group">
-        <label for="clinic_phone">Clinic Phone<span class="text-danger"> *</span></label>
-        <div class="col-xs-5">  
-            <input type="text" class="form-control" id="clinic_phone" name="clinic_phone" placeholder="{{profileData.phone}}" required/>
-        </div>
-        <div class="col-sm-7"></div>
-    </div>
-
-<div class="modal-footer">
-    <button type="button" class="btn btn-secondary" data-dismiss="modal" >Discard Changes</button>
-    <button type="submit" class="btn btn-primary" id="saveBtn">Save</button>
-</div>
-	</form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" >Discard Changes</button>
+                <button type="submit" class="btn btn-primary" id="saveBtn">Save</button>
+            </div>
+        </form>
       </div>
     </div>
   </div>

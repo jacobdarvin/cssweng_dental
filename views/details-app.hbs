@@ -89,7 +89,7 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade border" id="hireModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+{{!-- <div class="modal fade border" id="hireModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -109,6 +109,39 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-success">Confirm {{#match from 'jobs'}}Hire{{/match}} {{#match from 'search'}}Contact{{/match}} Request</button>
+      </div>
+    </div>
+  </div>
+</div> --}}
+
+<div class="modal fade border" id="hireModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="myModalLabel">You are about to send a <b class="text-success">{{#match from 'jobs'}}Hire{{/match}} {{#match from 'search'}}Contact{{/match}} Request</b> to <b>{{appData.fName}} {{appData.lName}}</b></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <!-- use method="post" to send your form to server -->
+        <form class="form-horizontal" method="post" action="">
+
+            <div class="form-group">
+                <input class="form-control" type="text" id="subject" name="subject" placeholder="Subject" required>
+                <div class="col-sm-7"></div>
+            </div>
+
+            <div class="form-group">
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" id="body" name="body" placeholder="Body" required></textarea>
+                <div class="col-sm-7"></div>
+            </div>
+
+             <small><i>Your clinic's contact details will be automatically attached to this request.</i></small>
+
+            <div class="modal-footer" style="margin-top: 15px;">
+               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success">Confirm {{#match from 'jobs'}}Hire{{/match}} {{#match from 'search'}}Contact{{/match}} Request</button>
+            </div>
+        </form>
       </div>
     </div>
   </div>
