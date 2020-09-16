@@ -26,10 +26,10 @@
 
 		</div>
 
-		
-
+		{{#ifEquals placement "Temporary"}}
 		<div class="card-footer p-1">
-			<small class="text-muted">Date Needed: {{date}}</small>
+			<small class="text-muted">From <b>{{date_start}}</b> to <b>{{date_end}}</b></small>
 		</div>
+		{{/ifEquals}}
 	</div>
 </a>

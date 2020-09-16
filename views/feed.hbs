@@ -8,6 +8,9 @@
 
 	<div class="col-sm-9 m-0">
 		<p class="h1">Job Feed</p>
+
+		{{warn}}
+		
 		<div id="jobFeed">
 			{{#each jobs}}
 			{{>jobItem app_count = this.applicants.length accType = ../accType}}
@@ -96,7 +99,12 @@
 			<div class="p-3 card border m-0 mb-2">
 				<p class="h5 mt-2"> Date Needed </p>
 				<div class="form-group">
-					<input class="form-control" type="date" id="date" name="date">
+					<small>Date Start</small>
+					<input class="form-control" type="date" id="date_start" name="date_start">
+				</div>
+				<div class="form-group">
+					<small>Date End</small>
+					<input class="form-control" type="date" id="date_end" name="date_end">
 				</div>
 			</div>
 

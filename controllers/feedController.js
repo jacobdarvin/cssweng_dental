@@ -220,6 +220,12 @@ const feedController = {
 
                 console.log(parseInt(results.page) + 1);
 
+                let resultWarn = "";
+
+                if(results.total == 0) {
+                    resultWarn = "No Jobs returned From Filter";
+                }
+
                 res.render('feed', {
                     active_session: req.session.user && req.cookies.user_sid,
                     active_user: req.session.user,
@@ -227,6 +233,7 @@ const feedController = {
                     filter_route: '/feed-emp',
                     profile_active: true,
                     jobs: results.docs,
+                    warn: resultWarn,
 
                     //cities and states
                     states: Object.keys(citiesAndStates).sort(),
@@ -437,6 +444,12 @@ const feedController = {
                 hasNextPage = false;
             }
 
+            let resultWarn = "";
+
+            if(results.total == 0) {
+                resultWarn = "No Jobs returned From Filter";
+            }
+
             console.log(parseInt(results.page) + 1);
 
             res.render('feed', {
@@ -446,6 +459,7 @@ const feedController = {
                 filter_route: '/feed-app',
                 profile_active: true,
                 jobs: results.docs,
+                warn: resultWarn,
 
                 //cities and states
                 states: Object.keys(citiesAndStates).sort(),
@@ -632,15 +646,23 @@ const feedController = {
                         hasNextPage,
                     } = pagination.configPagination(results, route, queryLinks);
 
+                    let resultWarn = "";
+
+                    if(results.total == 0) {
+                        resultWarn = "No Applicants returned From Filter";
+                    }
+
                     res.render('feed-app', {
                         active_session:
-                            req.session.user && req.cookies.user_sid,
+                        req.session.user && req.cookies.user_sid,
                         active_user: req.session.user,
                         title: 'Applicants | BookMeDental',
                         filter_route: route,
                         profile_active: true,
                         applicants: results.docs,
                         profile_route: `/jobs/${sntJobId}/applicants`,
+
+                        warn: resultWarn,
 
                         // Pagination
                         selectOptions: selectOptions,

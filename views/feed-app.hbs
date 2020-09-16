@@ -15,6 +15,9 @@
 <div class="container mb-4 p-0" style="margin-top: 5em; display: flex">
 	<div class="col-9 m-0">
 		<p class="h1">Applicants</p>
+
+		{{warn}}
+
 		{{#each applicants}}
 		{{> appItem profile_route=../profile_route}}
 		{{/each}}

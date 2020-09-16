@@ -3,6 +3,44 @@
     - Changed clinic Location to clinic details to present the one and only clinic represented by the employer account. Please present details using hbs
     - Changed Software proficiency in optional filters to checkbox, please use this instead!
 -->
+<script>
+function placementCheck() {
+    if (document.getElementById('Permanent').checked) {
+        document.getElementById('date_perm').style.display = 'block';
+        document.getElementById('date_range').style.display = 'none'
+
+    } else  {
+        document.getElementById('date_perm').style.display = 'none';
+        document.getElementById('date_range').style.display = 'inline-flex';
+    }
+}
+function dateDefault() {
+    var dateObj = new Date();
+    let month = dateObj.getMonth() + 1;
+
+    if(month < 10) {
+        month = '0' + month;
+    } 
+
+    let day = dateObj.getDate() + 1;
+    let day_end = dateObj.getDate() + 2;
+
+    if(day < 10) {
+        day = '0' + day;
+    } 
+
+    let year = dateObj.getFullYear();
+
+    let output = year+'-'+month+'-'+day;
+    let output_end = year+'-'+month+'-'+day_end;
+
+    document.getElementById('date_start').defaultValue = output;
+    document.getElementById('date_end').defaultValue = output_end;
+}
+
+window.onload = dateDefault;
+
+</script>
 
 <style>
     body {
@@ -11,12 +49,9 @@
     form label {
         font-weight: bold;
     }
-    textarea {
-        resize: none;
-    }
 </style>
-<p class="h1 shrink" style="font-size: 70px; text-align: center; color: #8455ca; margin-top: 4rem;">
-    Post Job
+<p class="h1 shrink gradient-text" style="font-size: 70px; text-align: center; margin-top: 4rem;">
+    Create a Job
     <i class="fas fa-tooth"></i>
 </p>
 <!-- OWNER INFORMATION -->
@@ -29,11 +64,11 @@
                 <div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
               <label class="btn w-100 btn-secondary active">
                 <i class="fas fa-user" style="font-size: 42px"></i> <br>
-                <input type="radio" name="placement" id="Permanent" value="Permanent" {{check "Permanent" input.placement "Permanent"}}>Permanent
+                <input type="radio" onclick="placementCheck();" name="placement" id="Permanent" value="Permanent" {{check "Permanent" input.placement "Permanent"}}>Permanent
               </label>
               <label class="btn w-100 btn-secondary">
                 <i class="fas fa-user-nurse" style="font-size: 42px"></i> <br>
-                <input type="radio" name="placement" id="Temporary" value="Temporary" {{check "Temporary" input.placement "Permanent"}}>Temporary
+                <input type="radio" onclick="placementCheck();" name="placement" id="Temporary" value="Temporary" {{check "Temporary" input.placement "Permanent"}}>Temporary
             </div>
         </div>
     </div>
@@ -94,9 +129,28 @@
                 -->
             </div>
             <br>
-            <label for="example-datetime-local-input" style="margin-top: 10px">Date Needed</label>
-            <input class="form-control" type="date" id="date" name="date" required>
+            <label for="example-datetime-local-input" style="margin-top: 10px">Date Needed</label> <br>
+            <div class="row">
+
+                <div class="col" id="date_perm">
+                    <small><i>Date range not available for permanent job postings</i></small>
+                </div>
+
+                <div id="date_range" class="w-100" style="display: none;">
+                    <div class="col">
+                        <small>Start Date</small><br>
+                        <input class="form-control w-100" type="date" id="date_start" name="date_start">
+                    </div>
+
+                    <div class="col">
+                        <small>End Date</small><br>
+                        <input class="form-control w-100" type="date" id="date_end" name="date_end">
+                    </div>
+                </div>
+            </div>
+
             <p style="color: red; margin-top: 3px">{{dateError}}</p>
+
         </div>
     </div>
 
