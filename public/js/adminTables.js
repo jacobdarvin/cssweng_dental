@@ -75,7 +75,7 @@ var applicantsTable = new Tabulator('#applicants-table', {
 
         console.log(rowData);
 
-        document.getElementById("appModalTitle").innerHTML = "Managing account for " + "<b>" + rowData.fName + ' ' + rowData.lName + "</b>";
+        document.getElementById("appModalTitle").innerHTML = "Viewing account details for " + "<b>" + rowData.fName + ' ' + rowData.lName + "</b>";
 
         document.getElementById("appModalBody").innerHTML = 
         "Account Details <br>" + 
@@ -91,9 +91,8 @@ var applicantsTable = new Tabulator('#applicants-table', {
         "<b>House No:    </b>" + rowData.houseNo + "<br>" +
         "<b>City:        </b>" + rowData.city + "<br>" +
         "<b>State:       </b>" + rowData.state + "<br>" +
-        "<b>Zip:         </b>" + rowData.zip + "<br>" +
+        "<b>Zip:         </b>" + rowData.zip + "<br>";
 
-        "<hr>";
         let showStatus = "";
     },
 
@@ -142,8 +141,7 @@ var jobsTable = new Tabulator('#jobs-table', {
 
         document.getElementById("jobModalBodyDesc").innerHTML = rowData.description;
 
-        document.getElementById("admin_confirmApproveTitle").innerHTML = "Confirm Employer Status Approval for " + "<b>" + rowData.clinicName + "</b>";
-        document.getElementById("admin_confirmDeclineTitle").innerHTML = "Confirm Employer Status Declination for " + "<b>" + rowData.clinicName + "</b>";
+        document.getElementById("admin_closeJobTitle").innerHTML = "Confirm to Close Job for " + "<b>" + rowData.clinicName + "</b>";
     },
 
     resizableRows: false,
