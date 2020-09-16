@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Job = require('../models/JobModel');
 const Employer = require('../models/EmployerModel');
 const Applicant = require('../models/ApplicantModel');
+const Response = require('../models/EmpResponseModel');
 const helper = require('../helpers/helper');
 const pagination = require('../helpers/pagination');
 const db = require('../models/db');
@@ -205,35 +206,78 @@ const dashboardEmpController = {
         }
 
         var sntAppId = helper.sanitize(req.params.appId);
-        db.findOne(Applicant, { _id: sntAppId }, '', function (applicant) {
-            if (applicant) {
-                applicant.populate(
-                    {
-                        path: 'account',
-                        select: 'accEmail -_id',
-                        options: { lean: true },
-                    },
-                    function (err, result) {
-                        if (err) throw err;
-
-                        res.render('details-app', {
-                            active_session:
-                            req.session.user && req.cookies.user_sid,
-                            active_user: req.session.user,
-                            title: `Applicant ${applicant.fName} ${applicant.lName} | BookMeDental`,
-                            appData: result.toObject(),
-                            profile_active: true,
-
-                            // additional config
-                            from: 'search',
-                        });
-                    },
-                );
-            } else {
-                res.status(404);
-                next();
+        db.findOne(Response, {accEmpId: req.session.user, applicantId: sntAppId}, '', function (response){
+            if(response){
+                db.findOne(Applicant, { _id: sntAppId }, '', function (applicant) {
+                    if (applicant) {
+                        applicant.populate(
+                            {
+                                path: 'account',
+                                select: 'accEmail -_id',
+                                options: { lean: true },
+                            },
+                            function (err, result) {
+                                if (err) throw err;
+        
+                                res.render('details-app', {
+                                    active_session:
+                                    req.session.user && req.cookies.user_sid,
+                                    active_user: req.session.user,
+                                    title: `Applicant ${applicant.fName} ${applicant.lName} | BookMeDental`,
+                                    appData: result.toObject(),
+                                    profile_active: true,
+                                    type: 'contact',
+                                    response: true,
+        
+        
+                                    // additional config
+                                    from: 'search',
+                                });
+                            },
+                        );
+                    } else {
+                        res.status(404);
+                        next();
+                    }
+                });
+            } else{
+                db.findOne(Applicant, { _id: sntAppId }, '', function (applicant) {
+                    if (applicant) {
+                        applicant.populate(
+                            {
+                                path: 'account',
+                                select: 'accEmail -_id',
+                                options: { lean: true },
+                            },
+                            function (err, result) {
+                                if (err) throw err;
+        
+                                res.render('details-app', {
+                                    active_session:
+                                    req.session.user && req.cookies.user_sid,
+                                    active_user: req.session.user,
+                                    title: `Applicant ${applicant.fName} ${applicant.lName} | BookMeDental`,
+                                    appData: result.toObject(),
+                                    profile_active: true,
+                                    type: 'contact',
+                                    response: false,
+        
+        
+                                    // additional config
+                                    from: 'search',
+                                });
+                            },
+                        );
+                    } else {
+                        res.status(404);
+                        next();
+                    }
+                });
             }
-        });
+
+        })
+       
+
     },
 
     getAppResume : function (req, res){
@@ -256,7 +300,67 @@ const dashboardEmpController = {
                 res.redirect('/dashboard');
             }
         })
-    }
+    },
+
+    sendHireResponse: function (req, res){
+        console.log("hello");
+        console.log(req.params.jobId);
+        console.log(req.params.appId);
+        console.log(req.params.type);
+
+        var appId = helper.sanitize(req.params.appId);
+        var jobId = helper.sanitize(req.params.jobId);
+        var type = helper.sanitize(req.params.type);
+        var subject = helper.sanitize(req.body.subject);
+        var body = helper.sanitize(req.body.body);
+
+        console.log('inserting');
+
+        var response = new Response({
+            _id: new mongoose.Types.ObjectId(),
+            jobId: jobId,
+            accEmpId: req.session.user,
+            applicantId: appId,
+            type: type,
+            subject: subject,
+            body: body
+        })
+
+        db.insertOne(Response, response, function (flag){
+            if(flag){
+                res.redirect(`/jobs/${jobId}/applicants`)
+            }
+        })
+    },
+
+    sendContactResponse: function (req, res){
+        console.log("hello");
+        console.log(req.params.appId);
+        console.log(req.params.type);
+        console.log(req.body);
+
+        var appId = helper.sanitize(req.params.appId);
+        var type = helper.sanitize(req.params.type);
+        var subject = helper.sanitize(req.body.subject);
+        var body = helper.sanitize(req.body.body);
+
+        console.log('inserting');
+
+        var response = new Response({
+            _id: new mongoose.Types.ObjectId(),
+            applicantId: appId,
+            accEmpId: req.session.user,
+            type: type,
+            subject: subject,
+            body: body
+        })
+
+        db.insertOne(Response, response, function (flag){
+            if(flag){
+                res.redirect('/search/applicants')
+            }
+        })
+    },
 };
 
 // enables to export controller object when called in another .js file

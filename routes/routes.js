@@ -174,6 +174,12 @@ app.get('/jobs/:jobId/applicants/:appId', feedController.getAppProfile); // view
 app.get('/getAppResume/:resume', dashboardEmpController.getAppResume);
 // /feed / FEED
 
+// employer / sendResponse
+app.post('/sendHireResponse/:appId/job/:jobId/type/:type', dashboardEmpController.sendHireResponse);
+app.post('/sendContactResponse/:appId/type/:type', dashboardEmpController.sendContactResponse);
+// employer / sendResponse
+
+
 // /register | REGISTER
 app.get('/register', registerController.getRegister);
 app.post(

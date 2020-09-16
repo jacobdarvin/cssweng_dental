@@ -4,6 +4,7 @@ const db = require('../models/db');
 const Job = require('../models/JobModel');
 const Applicant = require('../models/ApplicantModel');
 const Employer = require('../models/EmployerModel');
+const Response = require('../models/EmpResponseModel');
 const pagination = require('../helpers/pagination');
 
 const fs = require('fs');
@@ -510,29 +511,76 @@ const feedController = {
                                 '_id',
                             ).exec();
                             applied = data.applicants.includes(applicant._id);
+                            helper.updatePostedDate();
+                            db.findOne(Response, {applicantId: applicant._id, jobId: sntJobId}, '', function(response){
+                                if(response){
+                                    res.render('details', {
+                                        active_session:
+                                        req.session.user && req.cookies.user_sid,
+                                        active_user: req.session.user,
+                                        title:
+                                            data.placement +
+                                            ' ' +
+                                            data.position +
+                                            ' | ' +
+                                            'BookMeDental',
+                                        profile_active: true,
+                                        jobData: data.toObject(),
+                                        date: helper.formatDate(data.created),
+                                        response: response.toObject(),
+                                        type: response.type,
+            
+                                        // additional config
+                                        accType: req.session.accType,
+                                        url,
+                                        applied,
+                                    });
+                                } else{
+                                    res.render('details', {
+                                        active_session:
+                                        req.session.user && req.cookies.user_sid,
+                                        active_user: req.session.user,
+                                        title:
+                                            data.placement +
+                                            ' ' +
+                                            data.position +
+                                            ' | ' +
+                                            'BookMeDental',
+                                        profile_active: true,
+                                        jobData: data.toObject(),
+                                        date: helper.formatDate(data.created),
+            
+                                        // additional config
+                                        accType: req.session.accType,
+                                        url,
+                                        applied,
+                                    });
+                                }
+                            })
                         }
-
-                        console.log(data)
-                        helper.updatePostedDate();
-                        res.render('details', {
-                            active_session:
-                            req.session.user && req.cookies.user_sid,
-                            active_user: req.session.user,
-                            title:
-                                data.placement +
-                                ' ' +
-                                data.position +
-                                ' | ' +
-                                'BookMeDental',
-                            profile_active: true,
-                            jobData: data.toObject(),
-                            date: helper.formatDate(data.created),
-
-                            // additional config
-                            accType: req.session.accType,
-                            url,
-                            applied,
-                        });
+                        else {
+                            console.log(data)
+                            helper.updatePostedDate();
+                            res.render('details', {
+                                active_session:
+                                req.session.user && req.cookies.user_sid,
+                                active_user: req.session.user,
+                                title:
+                                    data.placement +
+                                    ' ' +
+                                    data.position +
+                                    ' | ' +
+                                    'BookMeDental',
+                                profile_active: true,
+                                jobData: data.toObject(),
+                                date: helper.formatDate(data.created),
+    
+                                // additional config
+                                accType: req.session.accType,
+                                url,
+                                applied,
+                            });    
+                        }
                     },
                 );
             } else {
@@ -697,35 +745,76 @@ const feedController = {
         }
 
         var sntAppId = helper.sanitize(req.params.appId);
-        db.findOne(Applicant, { _id: sntAppId }, '', function (applicant) {
-            if (applicant) {
-                applicant.populate(
-                    {
-                        path: 'account',
-                        select: 'accEmail -_id',
-                        options: { lean: true },
-                    },
-                    function (err, result) {
-                        if (err) throw err;
-
-                        res.render('details-app', {
-                            active_session:
-                            req.session.user && req.cookies.user_sid,
-                            active_user: req.session.user,
-                            title: `Applicant ${applicant.fName} ${applicant.lName} | BookMeDental`,
-                            appData: result.toObject(),
-                            profile_active: true,
-
-                            // additional config
-                            from: 'jobs',
-                        });
-                    },
-                );
-            } else {
-                res.status(404);
-                next();
+        db.findOne(Response, {accEmpId: req.session.user, applicantId: sntAppId}, '', function (response){
+            if(response){
+                db.findOne(Applicant, { _id: sntAppId }, '', function (applicant) {
+                    if (applicant) {
+                        applicant.populate(
+                            {
+                                path: 'account',
+                                select: 'accEmail -_id',
+                                options: { lean: true },
+                            },
+                            function (err, result) {
+                                if (err) throw err;
+        
+                                res.render('details-app', {
+                                    active_session:
+                                    req.session.user && req.cookies.user_sid,
+                                    active_user: req.session.user,
+                                    title: `Applicant ${applicant.fName} ${applicant.lName} | BookMeDental`,
+                                    appData: result.toObject(),
+                                    profile_active: true,
+                                    jobId: req.params.jobId,
+                                    type: 'hire',
+                                    response: true,
+        
+                                    // additional config
+                                    from: 'jobs',
+                                });
+                            },
+                        );
+                    } else {
+                        res.status(404);
+                        next();
+                    }
+                });
             }
-        });
+            else{
+                db.findOne(Applicant, { _id: sntAppId }, '', function (applicant) {
+                    if (applicant) {
+                        applicant.populate(
+                            {
+                                path: 'account',
+                                select: 'accEmail -_id',
+                                options: { lean: true },
+                            },
+                            function (err, result) {
+                                if (err) throw err;
+        
+                                res.render('details-app', {
+                                    active_session:
+                                    req.session.user && req.cookies.user_sid,
+                                    active_user: req.session.user,
+                                    title: `Applicant ${applicant.fName} ${applicant.lName} | BookMeDental`,
+                                    appData: result.toObject(),
+                                    profile_active: true,
+                                    jobId: req.params.jobId,
+                                    type: 'hire',
+                                    response: false,
+        
+                                    // additional config
+                                    from: 'jobs',
+                                });
+                            },
+                        );
+                    } else {
+                        res.status(404);
+                        next();
+                    }
+                });
+            }
+        })
     },
 
 };

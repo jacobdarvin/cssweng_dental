@@ -11,6 +11,12 @@
         display: flex;
         flex-wrap: wrap;
     }
+
+     .error {
+        color: red;
+        font-size: 15px;
+        
+    }
 </style>
 
 <div class="container mb-4 p-0" style="margin-top: 5em;">
@@ -20,7 +26,6 @@
             <span class="title"> {{appData.fName}} {{appData.lName}}</b> </span>
         </div>
     </div>
-
     {{!-- <hr> --}}
 
     <div class="row">
@@ -30,10 +35,16 @@
                 <p class="h3">Description</p>
                 <p class="description">{{appData.profile}}</p>
                    <hr>
-                    <button type="button" class="border col btn btn-success mb-1" data-toggle="modal" data-target="#hireModal">{{#match from 'jobs'}}Send Hire Request{{/match}}{{#match from 'search'}}Send Contact Request{{/match}}</button>
-                    {{#match from 'jobs'}}
-                    <button type="button" class="border col btn btn-danger" data-toggle="modal" data-target="#declineModal">Decline Application</button>
-                    {{/match}}
+                    {{#if response}}
+                        <span tabindex="0" data-toggle="tooltip" data-placement="right" title="You already sent your response to this applicant">
+                        <button type="submit" style="pointer-events: none;" class="btn btn-primary w-100" disabled>Your request was successfully submitted</button>
+                        </span>
+                    {{else}}
+                        <button type="button" class="border col btn btn-success mb-1" data-toggle="modal" data-target="#hireModal">{{#match from 'jobs'}}Send Hire Request{{/match}}{{#match from 'search'}}Send Contact Request{{/match}}</button>
+                        {{#match from 'jobs'}}
+                        <button type="button" class="border col btn btn-danger" data-toggle="modal" data-target="#declineModal">Decline Application</button>
+                        {{/match}}
+                    {{/if}}
 
             </div>
 
@@ -88,32 +99,7 @@
     </div>
 </div>
 
-<!-- Modal -->
-{{!-- <div class="modal fade border" id="hireModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">You are about to send a <b class="text-success">{{#match from 'jobs'}}Hire{{/match}} {{#match from 'search'}}Contact{{/match}} Request</b> to <b>{{appData.fName}} {{appData.lName}}</b></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="form-group">
-            <input class="form-control" type="text" placeholder="Subject">
-            <br>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Body"></textarea>
-        </div>
-        <small><i>Your clinic's contact details will be automatically attached to this request.</i></small>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-success">Confirm {{#match from 'jobs'}}Hire{{/match}} {{#match from 'search'}}Contact{{/match}} Request</button>
-      </div>
-    </div>
-  </div>
-</div> --}}
-
+<!-- Hire Modal -->
 <div class="modal fade border" id="hireModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
@@ -123,23 +109,28 @@
       </div>
       <div class="modal-body">
         <!-- use method="post" to send your form to server -->
-        <form class="form-horizontal" method="post" action="">
-
+        <form class="form-horizontal" id="request" method="post" action={{#match from 'jobs'}}"/sendHireResponse/{{appData._id}}/job/{{jobId}}/type/{{type}}"{{/match}} {{#match from 'search'}}"/sendContactResponse/{{appData._id}}/type/{{type}}"{{/match}}>
             <div class="form-group">
-                <input class="form-control" type="text" id="subject" name="subject" placeholder="Subject" required>
-                <div class="col-sm-7"></div>
+                <div class="col-xs-5">  
+                  <input class="form-control" type="text" id="subject" name="subject" placeholder="Subject">
+                </div>
+                <div class="col-sm-7">
+                </div>
             </div>
 
             <div class="form-group">
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" id="body" name="body" placeholder="Body" required></textarea>
-                <div class="col-sm-7"></div>
+                <div class="col-xs-5">  
+                  <textarea class="form-control" rows="3" id="body" name="body" placeholder="Body"></textarea>
+                </div>
+                <div class="col-sm-7">
+                </div>
             </div>
 
              <small><i>Your clinic's contact details will be automatically attached to this request.</i></small>
 
             <div class="modal-footer" style="margin-top: 15px;">
                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-success">Confirm {{#match from 'jobs'}}Hire{{/match}} {{#match from 'search'}}Contact{{/match}} Request</button>
+               <button type="submit" class="btn btn-success">Confirm {{#match from 'jobs'}}Hire{{/match}} {{#match from 'search'}}Contact{{/match}} Request</button>
             </div>
         </form>
       </div>
@@ -147,26 +138,34 @@
   </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade border" id="declineModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Decline Modal -->
+<div class="modal fade border" id="declineModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">You are about to <b class="text-danger">Decline</b> <b>{{appData.fName}} {{appData.lName}}'s</b> application</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <h5 class="modal-title" id="myModalLabel">You are about to <b class="text-danger">Decline</b> <b>{{appData.fName}} {{appData.lName}}'s</b> application</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
-        <div class="form-group">
-            <small>Optional reasons</small>
-            <textarea class="form-control mt-1" id="exampleFormControlTextarea1" rows="3" placeholder="Body"></textarea>
-        </div>
-        <small><i>Your clinic's contact details will be automatically attached to this request.</i></small>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-danger">Decline Application</button>
+        <!-- use method="post" to send your form to server -->
+        <form class="form-horizontal" id="decline" method="post" action="/sendHireResponse/{{appData._id}}/job/{{jobId}}/type/decline">
+
+            <div class="form-group">
+                <div class="col-xs-5">  
+                   <small>Optional reasons</small>
+                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" id="body" name="body" placeholder="Body" ></textarea>
+                </div>
+                <div class="col-sm-7">
+                </div>
+            </div>
+
+             <small><i>Your clinic's contact details will be automatically attached to this request.</i></small>
+
+            <div class="modal-footer" style="margin-top: 15px;">
+               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+               <button type="submit" class="btn btn-danger">Decline Application</button>
+            </div>
+        </form>
       </div>
     </div>
   </div>

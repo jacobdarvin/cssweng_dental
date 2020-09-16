@@ -40,8 +40,12 @@
 						<button type="submit" class="btn btn-primary w-100">Apply</button>
 					{{/if}}
 						<hr>
-						<button type="button" class="btn btn-success w-100" data-toggle="modal" data-target="#acceptModal">View Accepted Response</button>
-						<button type="button" class="btn btn-danger w-100"  data-toggle="modal" data-target="#declineModal">View Declined Response</button>
+						{{#match type 'hire'}}
+							<button type="button" class="btn btn-success w-100" data-toggle="modal" data-target="#acceptModal">View Accepted Response</button>
+						{{/match}}
+						{{#match type 'decline'}}
+							<button type="button" class="btn btn-danger w-100"  data-toggle="modal" data-target="#declineModal">View Declined Response</button>
+						{{/match}}
 				</form>
 				{{/match}}
 
@@ -118,11 +122,8 @@
         </button>
       </div>
       <div class="modal-body">
-        <p class="h1">Good day!</p>
-        <p> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr.</p>
-
-        <p> Please contact me though my work email at mark@gmail.com</p>
-        <p>- Mark</p>
+        <p class="h1">{{response.subject}}</p>
+        <p> {{response.body}}</p>
       </div>
       <div class="modal-footer">
 
@@ -149,10 +150,7 @@
       </div>
       <div class="modal-body">
       	<small><b>Reason for declination</b></small>
-        <p class="mt-1"> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr.</p>
-
-        <p> Please contact me though my work email at mark@gmail.com</p>
-        <p>- Mark</p>
+        <p class="mt-1"> {{response.body}}</p>
       </div>
       <div class="modal-footer">
 
