@@ -309,6 +309,66 @@ const validation = {
                 ),
         ];
     },
+
+    editAppProfileValidation: function () {
+        return [
+            check('fname')
+                .trim()
+                .notEmpty()
+                .withMessage('First Name: field is required')
+                .trim(),
+            check('lname')
+                .trim()
+                .notEmpty()
+                .withMessage('Last name: field is required')
+                .trim(),
+            check('streetAdd')
+                .trim()
+                .notEmpty()
+                .withMessage('Street address: field is required')
+                .trim(),
+            check('house')
+                .trim()
+                .notEmpty()
+                .withMessage('House No.: field is required')
+                .bail()
+                .isNumeric()
+                .withMessage('House No.: please input a number')
+                .trim(),
+            check('city')
+                .notEmpty()
+                .withMessage('City: please select a city')
+                .trim(),
+            check('state')
+                .notEmpty()
+                .withMessage('State: please select a state')
+                .trim(),
+            check('zip')
+                .trim()
+                .notEmpty()
+                .withMessage('Zip: field is required')
+                .trim(),
+            check('phone')
+                .trim()
+                .isMobilePhone('en-US')
+                .withMessage('Phone: please enter a valid US phone number.')
+                .trim(),
+            check('payrate')
+                .trim()
+                .custom((value, { req, location, path }) => {
+                    return (
+                        req.body.placement == 'Permanent Work' ||
+                        (req.body.placement == 'Temporary Work' &&
+                            value != '' &&
+                            !Number.isNaN(Number(value)))
+                    );
+                })
+                .withMessage(
+                    "Placement: please input your rate if you selected 'Temporary Work'",
+                )
+                .trim(),
+        ];
+    },
 };
 
 module.exports = validation;

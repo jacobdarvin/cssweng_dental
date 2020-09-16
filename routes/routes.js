@@ -111,7 +111,7 @@ app.get('/features', function (req, res) {
         active_session: req.session.user && req.cookies.user_sid,
         active_user: req.session.user,
         title: 'Features | BookMeDental',
-        
+
         // navbar indicator
         accType: req.session.accType,
 
@@ -154,7 +154,19 @@ app.get('/details-app', function (req, res) {
 });
 // /dashboard-type / DASHBOARD
 app.get('/dashboard', dashboardController.getDashboard);
-app.post('/dashboard/applicant/:appId/edit-description', dashboardAppController.postEditDescription);
+app.post(
+    '/dashboard/applicant/:appId/edit-description',
+    dashboardAppController.postEditDescription,
+);
+app.get(
+    '/dashboard/applicant/data',
+    dashboardAppController.getPopulateEditProfile,
+);
+app.post(
+    '/dashboard/applicant/:appId/edit-profile',
+    validation.editAppProfileValidation(),
+    dashboardAppController.postEditProfile,
+);
 // /dashboard-type / DASHBOARD
 
 // post job / CREATE

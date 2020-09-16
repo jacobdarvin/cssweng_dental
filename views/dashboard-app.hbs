@@ -17,6 +17,14 @@
         border-radius: 5px;
         text-align: center;
     }
+
+    input[type="radio"]+.temp {
+        display: none;
+    }
+
+    input[type="radio"]:checked+.showrate {
+        display: block;
+    }
 </style>
 
 <div class="container mb-4 p-0" style="margin-top: 6rem;">
@@ -146,155 +154,14 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="form-edit-profile" action="/dashboard/applicant/{{profileData._id}}/edit-profile">
-                    <div class="card-text">
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col pr-2">
-                                    <label for="fname">First Name<span class="text-danger"> *</span></label>
-                                    <input type="text" class="form-control" id="fname" name="fname"
-                                        aria-describedby="emailHelp" placeholder="First Name"
-                                        value="{{profileData.fName}}" />
-                                    <p style="color: red;">
-                                        {{details.fnameError}}
-                                    </p>
-                                </div>
-                                <div class="col pl-2">
-                                    <label for="lname">Last Name<span class="text-danger"> *</span></label>
-                                    <input type="text" class="form-control" id="lname" name="lname"
-                                        aria-describedby="emailHelp" placeholder="Last Name"
-                                        value="{{profileData.lName}}" />
-                                    <p style="color: red;">
-                                        {{details.lnameError}}
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-8 pr-2" style="margin-top: 15px;">
-                                        <label for="streetaddress">Street Address<span class="text-danger">
-                                                *</span></label>
-                                        <input type="text" class="form-control" id="streetAdd" name="streetAdd"
-                                            aria-describedby="emailHelp" placeholder="Street Address"
-                                            value="{{profileData.streetAdd}}" />
-                                        <p style="color: red;">
-                                            {{details.streetAddError}}
-                                        </p>
-                                    </div>
-                                    <div class="col-4 pl-2" style="margin-top: 15px;">
-                                        <label for="house">House No.<span class="text-danger"> *</span></label>
-                                        <input type="text" class="form-control" id="house" name="house"
-                                            aria-describedby="emailHelp" placeholder="House No."
-                                            value="{{profileData.houseNo}}" />
-                                        <p style="color: red;">
-                                            {{details.houseError}}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-6 pr-1">
-                                        <label for="state">State<span class="text-danger"> *</span></label>
-                                        <select name="state" class="form-control" id="state"
-                                            onchange="populateCities(this.value, 'city')">
-                                            {{!-- <option value="">{{profileData.state}}</option> --}}
-                                            {{!-- {{#each states}}
-                                            <option value="{{this}}" {{select this ../input.state}}>{{this}}</option>
-                                            {{/each}} --}}
-                                        </select>
-
-                                        <p style="color: red;">
-                                            {{details.stateError}}
-                                        </p>
-                                    </div>
-                                    <div class="col-4 pl-1 pr-1">
-                                        <label for="city">City<span class="text-danger"> *</span></label>
-                                        <select name="city" class="form-control" id="city">
-                                            {{!-- <option value="">{{profileData.city}}</option> --}}
-                                            {{!-- {{#each cities}}
-                                            <option value="{{this}}" {{select this ../input.city}}>{{this}}</option>
-                                            {{/each}} --}}
-                                        </select>
-
-                                        <p style="color: red;">
-                                            {{details.cityError}}
-                                        </p>
-                                    </div>
-                                    <div class="col-2 pl-1">
-                                        <label for="zip">Zip<span class="text-danger"> *</span></label>
-                                        <input type="text" class="form-control" id="zip" name="zip"
-                                            aria-describedby="emailHelp" placeholder="Zip"
-                                            value="{{profileData.zip}}" />
-                                        <p style="color: red;">
-                                            {{details.zipError}}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="phone">Phone<span class="text-danger"> *</span></label>
-                                <input type="text" class="form-control" id="phone" name="phone"
-                                    placeholder="(555) 555-1234" value="{{profileData.phone}}" />
-                                <p style="color: red;">
-                                    {{details.phoneError}}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card-text">
-                        <label>Position<span class="text-danger"> *</span></label>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="position" id="exampleRadios1"
-                                value="Front Desk" {{check "Front Desk" input.position "Front Desk"}} />
-                            <p style="margin-bottom: -3px;">Front Desk</p>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="position" id="exampleRadios2"
-                                value="Dental Assistant" {{check "Dental Assistant" input.position "Front Desk"}} />
-                            <p style="margin-bottom: -3px;">Dental Assistant</p>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="position" id="exampleRadios3"
-                                value="Dental Hygienist" {{check "Dental Hygienist" input.position "Front Desk"}} />
-                            <p style="margin-bottom: -3px;">Dental Hygienist</p>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="position" id="exampleRadios3"
-                                value="Dentist" {{check "Dentist" input.position "Front Desk"}} />
-                            <p style="margin-bottom: -3px;">Dentist</p>
-                        </div>
-                        <hr>
-                        <label>Placement<span class="text-danger"> *</span></label>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="placement" id="placement"
-                                value="Permanent Work" {{check "Permanent Work" input.placement "Permanent Work"}} />
-                            <p style="margin-bottom: -3px;">Permanent Work</p>
-                        </div>
-                        <div class="form-check">
-                            <label style="font-weight: 10; color: rgb(97, 95, 95);">Temporary Work</label>
-                            <input class="form-check-input" type="radio" name="placement" id="placement"
-                                value="Temporary Work" style="margin-left: -138.3px;"
-                                {{check "Temporary Work" input.placement "Permanent Work"}} />
-                            <div class="col-5 temp showrate" style="margin-left: -35px; margin-top: -5px;">
-                                <label for="payrate">Desired pay rate per hour?<span class="text-danger">
-                                        *</span></label>
-                                <input type="text" class="form-control" id="payrate" name="payrate"
-                                    placeholder="$/hr..." value="{{profileData.payrate}}"
-                                    style="margin-bottom: 10px;" />
-                                <p style="color: red;">
-                                    {{details.payrateError}}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </form>
+                <div class="alert alert-danger" id="error-container" style="display: none;">
+                </div>
+                <div id="container-edit-profile"></div>
 
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Discard Changes</button>
-                <button type="button" class="btn btn-primary">Save</button>
+                <button type="submit" class="btn btn-primary" form="form-edit-profile">Save</button>
             </div>
         </div>
     </div>
@@ -374,10 +241,70 @@
 
     // --------EDIT PROFILE--------
 
-    $(document).ready(() => {
-        // initialize state and city dropdowns
+    $(`a[data-target='#modalEdit']`).on('click', e => {
+        // reset error-container
+        $('#error-container').text('').css('display', 'none');
+        var action = `/dashboard/applicant/data`;
+        $.get(action, (data, status) => {
+            if (status === 'success') {
+                $('#container-edit-profile').html(data);
 
-        const [defaultCity, defaultState] = $('#city-state').text().replace(/\s/g, '').split(',');
+                // initialize state and city dropdowns
+                initStatesAndCities();
+
+                // onsubmit listener that validates inputs via AJAX
+                $('#form-edit-profile').on('submit', e => {
+                    e.preventDefault();
+
+                    var action = $('#form-edit-profile').attr('action');
+                    var $inputs = $('#form-edit-profile :input:not(button):not(input[type=radio])');
+                    var values = {};
+                    $inputs.each((i, elem) => {
+                        values[$(elem).attr('name')] = $(elem).val();
+                    });
+
+                    // get radio button inputs separately
+                    $('#form-edit-profile :input[type=radio]:checked').each(
+                        (i, elem) => values[$(elem).attr('name')] = $(elem).val()
+                    )
+
+
+                    $.post(action, values, (data, status) => {
+                        if (status === 'success') {
+
+                            if (data.map) {
+                                var $ul = $('<ul/>').css('margin-bottom', 0);
+                                var $lis = data.map(msg => $('<li/>').text(msg));
+                                $ul.append($lis)
+                                $('#error-container').html($ul).css('display', 'block');
+
+                                $('#modalEdit .modal-body').scrollTop(0);
+                            } else {
+                                console.log('ok');
+                                $('#error-container').text('').css('display', 'none');
+
+                                // dismiss modal on save
+                                $('#modalEdit').modal('toggle');
+
+                                // refresh page
+                                location.reload();
+                            }
+
+                        } else {
+                            console.log('error');
+                            console.log(data);
+                        }
+                    });
+                })
+            } else {
+                console.log(data);
+            }
+        })
+    })
+
+
+    function initStatesAndCities() {
+        const [defaultCity, defaultState] = $('#city-state').text().split(',').map(v => v.trim());
 
         var $state = $('#form-edit-profile #state');
         var $city = $('#form-edit-profile #city');
@@ -406,12 +333,7 @@
                 console.log('error while getting cities');
             }
         })
-    })
+    }
 
-    // TODO: show error messages in one textbox (above form) after AJAX resolves
-    // TODO: onclick of edit profile, populate modal fields based on applicant data
-    // TODO: payrate textfield toggle
-    // TODO: fix labels
-    // TODO: add onsubmit listener that validates inputs via AJAX
     // --------EDIT PROFILE--------
 </script>

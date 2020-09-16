@@ -1,6 +1,7 @@
 const db = require('../models/db');
 const Job = require('../models/JobModel');
 const Applicant = require('../models/ApplicantModel');
+const { validationResult } = require('express-validator');
 
 const dashboardAppController = {
     createSearchJobRoute: function (appDoc) {
@@ -61,7 +62,71 @@ const dashboardAppController = {
         );
     },
 
-    // TODO: edit applicant profile
+    getPopulateEditProfile: function (req, res) {
+        Applicant.findOne({ account: req.session.user }, '')
+            .exec()
+            .then(doc =>
+                res.render(
+                    './partials/editProfileForm',
+                    { profileData: doc.toObject(), layout: false },
+                    (err, html) => {
+                        if (err) throw err;
+                        res.send(html);
+                    },
+                ),
+            )
+            .catch(err => {
+                console.log(err);
+                res.send(err);
+            });
+    },
+
+    postEditProfile: function (req, res) {
+        var errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            errors = errors.errors;
+
+            res.send(errors.map(e => e.msg));
+        } else {
+            const {
+                fname,
+                lname,
+                streetAdd,
+                house,
+                state,
+                city,
+                zip,
+                phone,
+                payrate,
+                position,
+                placement,
+            } = req.body;
+            
+            // update database
+            var obj = {
+                fName: fname,
+                lName: lname,
+                streetAdd: streetAdd,
+                houseNo: house,
+                state: state,
+                city: city,
+                zip: zip,
+                phone: phone,
+                rate: placement === 'Temporary Work' ? payrate : 0,
+                position: position,
+                placement: placement,
+            };
+
+            db.updateOne(Applicant, { _id: req.params.appId }, obj, result => {
+                if (result) {
+                    res.send(obj);
+                } else {
+                    res.status(500).send('An error occurred in the server');
+                }
+            });
+        }
+    },
 };
 
 // enables to export controller object when called in another .js file
