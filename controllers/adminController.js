@@ -79,7 +79,7 @@ const adminController = {
     getJobList: function(req, res) {
         Job.find(
             { employer: { $exists: true} },
-            '_id applicants placement position clinicName clinic_city clinic_state created',
+            '_id applicants placement position clinicName clinic_city clinic_state created description',
         )
             .populate('employer')
             .exec()
