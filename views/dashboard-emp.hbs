@@ -1,7 +1,3 @@
-{{!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/additional-methods.js"></script> --}}
-
 <script type="text/javascript">
     localStorage.permanent = false;
     localStorage.temporary = false;
@@ -108,46 +104,6 @@
     </div>
 </div>
 
-{{!-- <!-- Modal -->
-<div class="modal fade border" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="updateClinic" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalCenterTitle">{{profileData.clinicName}}</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="clinicProfile" method="POST">
-                    <div class="card-text">
-                        <div class="form-group">
-                            <label for="clinic_email">Email/s<span class="text-danger"> *</span></label>
-                            <div class="col-xs-5">  
-                                <input type="text" class="form-control" id="clinic_email" name="clinic_email" placeholder="{{profileData.clinicContactEmails.[0]}}" value="{{profileData.clinicContactEmails.[0]}}" />
-                            </div>
-                            <small>Separate email addresses with a comma.</small>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="clinic_phone">Clinic Phone<span class="text-danger"> *</span></label>
-                            <div class="col-xs-5">  
-                                <input type="text" class="form-control" id="clinic_phone" name="clinic_phone" placeholder="{{profileData.phone}}"/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" >Discard Changes</button>
-                        <button type="submit" class="btn btn-primary" id="saveBtn">Save</button>
-                        {{!-- <button type="submit" class="btn btn-primary" data-dismiss="static" id="saveBtn">Save</button> --}}
-                        <p id="hi">hi</p>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div> --}}
-
 
 <!-- Modal -->
 <div class="modal fade border" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -165,10 +121,6 @@
 <form class="form-horizontal" method="post" action="/updateClinicProfile">
 
 	<div class="form-group">
-		{{!-- <lable for="fullname" class="col-sm-3 control-label">Name</lable>
-		<div class="col-sm-6">
-			<input type="text" id="fullname" name="fullname" class="form-control" required/>
-		</div> --}}
         <label for="clinic_email">Email/s<span class="text-danger"> *</span><span><small style="margin-left: 5px;">(Separate email addresses with a comma)</small></span></label>
         <div class="col-xs-5">  
             <input type="text" class="form-control" id="clinic_email" name="clinic_email" placeholder="{{profileData.clinicContactEmails.[0]}}" required/>
@@ -185,46 +137,12 @@
         <div class="col-sm-7"></div>
     </div>
 
-<!-- <div class="col-sm-offset-2 col-sm-10 rsButtons">
-	<button type="reset" class="btn btn-primary">Reset</button>
-	<button type="submit" class="btn btn-primary">Submit</button>
-</div> -->
-
-
- {{!-- <div class="form-group">
-	<div class="col-sm-offset-2 col-sm-10">
-		<input type="submit" class="btn btn-primary" value="Submit">
-	</div>
-</div> --}}
 <div class="modal-footer">
     <button type="button" class="btn btn-secondary" data-dismiss="modal" >Discard Changes</button>
     <button type="submit" class="btn btn-primary" id="saveBtn">Save</button>
-    {{!-- <button type="submit" class="btn btn-primary" data-dismiss="static" id="saveBtn">Save</button> --}}
-    {{!-- <p id="hi">hi</p> --}}
 </div>
 	</form>
       </div>
-      {{!-- <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div> --}}
     </div>
   </div>
 </div>
-
-
-
-
-{{!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-{{!-- <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.10.0/jquery.validate.min.js"></script>
-<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.10.0/additional-methods.js"></script> --}}
-<a href="http://docs.jquery.com/Plugins/Validation" target="_blank" style="display: none; position: absolute; bottom: 0;"></a> --}}
-{{!-- <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-{{!-- <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script> --}}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.15.0/jquery.validate.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> --}}
-
-{{!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> --}}
-{{!-- <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script> --}}
-
-
