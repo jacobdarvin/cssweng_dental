@@ -124,6 +124,8 @@
                                     <hr />
 
                                     <h2>Matching Jobs For You</h2>
+                                    <p>{{warn_matching_jobs}}</p>
+
                                     {{#each matching_jobs}}
                                     {{>jobItem}}
                                     {{/each}}
@@ -131,6 +133,8 @@
 
                                     <hr />
                                     <h2>Active Applied Jobs</h2>
+                                    <p>{{warn_applied_jobs}}</p>
+
                                     {{#each applied_jobs}}
                                     {{>jobItem}}
                                     {{/each}}

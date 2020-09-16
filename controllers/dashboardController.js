@@ -61,7 +61,14 @@ const dashboardController = {
                                         renderOptions.applied_jobs_count = nAppliedJobs;
                                         renderOptions.applied_jobs =
                                             appData.appliedJobs;
-
+                                        renderOptions.warn_matching_jobs =
+                                            nMatchingJobs === 0
+                                                ? 'You have no matching jobs based on your profile details.'
+                                                : '';
+                                        renderOptions.warn_applied_jobs =
+                                            nAppliedJobs === 0
+                                                ? 'You have no active jobs available.'
+                                                : '';
                                         res.render(view, renderOptions);
                                     })
                                     .catch(error => {

@@ -8,13 +8,15 @@ const dashboardAppController = {
         return `/feed-app?placement=${appDoc.placement.replace(
             ' Work',
             '',
-        )}&position=${appDoc.position}`;
+        )}&position=${appDoc.position}&clinic_state=${appDoc.state}&clinic_city=${appDoc.city}`;
     },
 
     getJobMatchCount: function (appDoc) {
         return Job.countDocuments({
             placement: appDoc.placement.replace(' Work', ''),
             position: appDoc.position,
+            clinic_state: appDoc.state,
+            clinic_city: appDoc.city
         }).exec();
     },
 
@@ -22,6 +24,8 @@ const dashboardAppController = {
         return Job.find({
             placement: appDoc.placement.replace(' Work', ''),
             position: appDoc.position,
+            clinic_state: appDoc.state,
+            clinic_city: appDoc.city
         })
             .populate('employer')
             .sort('-created')
