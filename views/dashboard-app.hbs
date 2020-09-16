@@ -109,7 +109,7 @@
                                         <div class="col border m-1 card p-1 shadow-sm">
                                             <span class="card-text my-auto">
                                                 Hourly Wage <br />
-                                                <b>$ {{profileData.rate}} / hour</b> <br />
+                                                <b id="rate-text">$ {{profileData.rate}} / hour</b> <br />
                                                 <small><a href="" data-toggle="modal"
                                                         data-target="#modalUpdateWage">Update</a></small>
                                             </span>
@@ -204,24 +204,26 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">$</span>
-                        </div>
-                        <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)"
-                            placeholder="{{profileData.rate}}" value="{{profileData.rate}}">
-                        <div class="input-group-append">
-                            <span class="input-group-text">/ hr</span>
+            <form action="/dashboard/applicant/{{profileData._id}}/edit-wage" id="form-edit-wage">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">$</span>
+                            </div>
+                            <input type="number" min="1" class="form-control"
+                                aria-label="Amount (to the nearest dollar)" name="rate" value="{{profileData.rate}}">
+                            <div class="input-group-append">
+                                <span class="input-group-text">/ hr</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Update Wage</button>
-            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Update Wage</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -229,6 +231,44 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="/js/dropdown-populator.js"></script>
 <script>
+    // --------EDIT WAGE--------
+    $(`#form-edit-wage input[name='rate']`).on('input', e => {
+        var input = e.delegateTarget.value.trim();
+        var $submit = $('#form-edit-wage button[type=submit]');
+        $submit.attr('disabled', (!input || input < 1));
+    })
+
+    $(`a[data-target='#modalUpdateWage']`).on('click', e => {
+        var rateText = $('#rate-text').text().split('/')[0].replace(/(\s|\$)/g, '');
+
+        $('#form-edit-wage input[name="rate"]').val(rateText);
+
+        var input = $('#form-edit-wage input[name="rate"]').val().trim();
+        var $submit = $('#form-edit-wage button[type=submit]');
+        $submit.attr('disabled', (!input || input < 1));
+
+    })
+
+    $(`#form-edit-wage`).on('submit', e => {
+        e.preventDefault();
+
+        var action = $('#form-edit-wage').attr('action');
+        var $inputs = $('#form-edit-wage :input:not(button)');
+        var values = {};
+        $inputs.each((i, elem) => values[$(elem).attr('name')] = $(elem).val());
+
+        $.post(action, values, (data, status) => {
+            if (status === 'success') {
+                // dismiss modal on save
+                $('#modalUpdateWage').modal('toggle');
+
+                // update rate in DOM
+                $('#rate-text').html(`$ ${data.rate} / hour`);
+            }
+        });
+    })
+    // --------EDIT WAGE--------
+
     // --------EDIT DESCRIPTION--------
     // disable submit when textarea is empty
     $('#form-edit-description textarea').on('keyup', e => {

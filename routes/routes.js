@@ -170,6 +170,10 @@ app.post(
     validation.editAppProfileValidation(),
     dashboardAppController.postEditProfile,
 );
+app.post(
+    '/dashboard/applicant/:appId/edit-wage',
+    dashboardAppController.postEditWage,
+);
 // /dashboard-type / DASHBOARD
 
 // post job / CREATE

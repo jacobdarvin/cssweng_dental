@@ -102,7 +102,7 @@ const dashboardAppController = {
                 position,
                 placement,
             } = req.body;
-            
+
             // update database
             var obj = {
                 fName: fname,
@@ -126,6 +126,14 @@ const dashboardAppController = {
                 }
             });
         }
+    },
+
+    postEditWage: (req, res) => {
+        var rate = Number(req.body.rate.trim());
+        db.updateOne(Applicant, { _id: req.params.appId }, { rate }, result => {
+            if (result) res.send({ rate });
+            else res.status(500).send('An error occurred in the server.');
+        });
     },
 };
 
