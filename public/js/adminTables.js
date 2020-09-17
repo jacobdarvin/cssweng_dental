@@ -29,6 +29,11 @@ var employersTable = new Tabulator('#employers-table', {
 
         document.getElementById("admin_confirmApproveTitle").innerHTML = "Confirm Employer Status Approval for " + "<b>" + rowData.clinicName + "</b>";
         document.getElementById("admin_confirmDeclineTitle").innerHTML = "Confirm Employer Status Declination for " + "<b>" + rowData.clinicName + "</b>";
+
+        if(rowData.accStatus == true) {
+            document.getElementById("admin_approveBtn").innerHTML = '<button type="button" style="display: inline-block;" class="w-100 btn btn-danger"  data-toggle="modal" data-target="#admin_confirmDecline">Decline Status</button> <button type="button" style="display: inline-block;" class="w-100 btn btn-secondary" data-dismiss="modal">Close</button>';
+            
+        }
     },
 
     resizableRows: false,
