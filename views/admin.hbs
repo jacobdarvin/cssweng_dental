@@ -114,7 +114,7 @@
             </li>
         </ul>
     </div>
-    
+
 </nav>
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
 
@@ -144,7 +144,7 @@
 <script src="/js/adminTables.js"></script>
 
 <!-- APP Modal --><!-- APP Modal --><!-- APP Modal --><!-- APP Modal --><!-- APP Modal -->
-<div class="modal fade" id="admin_employerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal" id="admin_employerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -156,7 +156,7 @@
       <pre class="modal-body" id="empModalBody">
         
       </pre>
-      <div class="modal-footer">
+      <div class="modal-footer" id="admin_approveBtn">
         <button type="button" style="display: inline-block;" class="w-100 btn btn-success" data-toggle="modal" data-target="#admin_confirmApprove">Approve Status</button>
         <button type="button" style="display: inline-block;" class="w-100 btn btn-danger"  data-toggle="modal" data-target="#admin_confirmDecline">Decline Status</button>
         <button type="button" style="display: inline-block;" class="w-100 btn btn-secondary" data-dismiss="modal">Close</button>
@@ -167,7 +167,7 @@
 <!-- APP Modal --><!-- APP Modal --><!-- APP Modal --><!-- APP Modal --><!-- APP Modal -->
 
 <!-- EMP Modal --><!-- EMP Modal --><!-- EMP Modal --><!-- EMP Modal --><!-- EMP Modal -->
-<div class="modal fade" id="admin_applicantModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal" id="admin_applicantModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -180,17 +180,45 @@
         
       </pre>
       <div class="modal-footer">
+        <button type="button" style="display: inline-block;" class="w-100 btn btn-secondary" data-dismiss="modal">Close</button>
+        <!--
         <button type="button" style="display: inline-block;" class="w-100 btn btn-primary" data-toggle="modal" data-target="#admin_confirmApprove">Edit Account</button>
         <button type="button" style="display: inline-block;" class="w-100 btn btn-danger"  data-toggle="modal" data-target="#admin_confirmDecline">Delete Account</button>
-        <button type="button" style="display: inline-block;" class="w-100 btn btn-secondary" data-dismiss="modal">Close</button>
+        -->
+        
       </div>
     </div>
   </div>
 </div>
 <!-- EMP Modal --><!-- EMP Modal --><!-- EMP Modal --><!-- EMP Modal --><!-- EMP Modal -->
 
+<!-- JOB Modal --><!-- JOB Modal --><!-- JOB Modal --><!-- JOB Modal --><!-- JOB Modal -->
+<div class="modal" id="admin_jobModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="jobModalTitle"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <pre class="modal-body pb-0 mb-0" id="jobModalBody">
+        
+      </pre>
+      <span class="modal-body pt-0 mt-0" id="jobModalBodyDesc">
+        
+      </span>
+      <div class="modal-footer">
+        <button type="button" style="display: inline-block;" class="w-100 btn btn-danger" data-toggle="modal" data-target="#admin_closeJob">Close Job</button>
+        <button type="button" style="display: inline-block;" class="w-100 btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- JOB Modal --><!-- JOB Modal --><!-- JOB Modal --><!-- JOB Modal --><!-- JOB Modal -->
+
 <!-- Modal -->
-<div class="modal fade" id="admin_confirmApprove" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal" id="admin_confirmApprove" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -208,7 +236,7 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="admin_confirmDecline" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal" id="admin_confirmDecline" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -219,6 +247,24 @@
       </div>
       <div class="modal-footer">
         <button type="button" style="display: inline-block;" class="w-100 btn btn-danger">Decline Status</button>
+        <button type="button" style="display: inline-block;" class="w-100 btn btn-secondary" data-dismiss="modal">Go Back</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal" id="admin_closeJob" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="admin_closeJobTitle"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" style="display: inline-block;" class="w-100 btn btn-danger">Close Job</button>
         <button type="button" style="display: inline-block;" class="w-100 btn btn-secondary" data-dismiss="modal">Go Back</button>
       </div>
     </div>

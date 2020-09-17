@@ -17,6 +17,25 @@ a {
 a:hover {
 }
 
+.edit-image {
+  filter: brightness(100%);
+  transition: .2s ease;
+  backface-visibility: hidden;
+}
+
+.edit-image:hover {
+    filter: brightness(90%);
+    transition: .2s ease;
+}
+
+.middle {
+    color: white;
+    position: absolute;
+    top: 2%;
+    left: 2.5%;
+}
+
+
 .h1 {
     font-weight: 800;
     color: #2f353e;

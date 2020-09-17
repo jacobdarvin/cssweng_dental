@@ -29,6 +29,11 @@ var employersTable = new Tabulator('#employers-table', {
 
         document.getElementById("admin_confirmApproveTitle").innerHTML = "Confirm Employer Status Approval for " + "<b>" + rowData.clinicName + "</b>";
         document.getElementById("admin_confirmDeclineTitle").innerHTML = "Confirm Employer Status Declination for " + "<b>" + rowData.clinicName + "</b>";
+
+        if(rowData.accStatus == true) {
+            document.getElementById("admin_approveBtn").innerHTML = '<button type="button" style="display: inline-block;" class="w-100 btn btn-danger"  data-toggle="modal" data-target="#admin_confirmDecline">Decline Status</button> <button type="button" style="display: inline-block;" class="w-100 btn btn-secondary" data-dismiss="modal">Close</button>';
+            
+        }
     },
 
     resizableRows: false,
@@ -75,7 +80,7 @@ var applicantsTable = new Tabulator('#applicants-table', {
 
         console.log(rowData);
 
-        document.getElementById("appModalTitle").innerHTML = "Managing account for " + "<b>" + rowData.fName + ' ' + rowData.lName + "</b>";
+        document.getElementById("appModalTitle").innerHTML = "Viewing account details for " + "<b>" + rowData.fName + ' ' + rowData.lName + "</b>";
 
         document.getElementById("appModalBody").innerHTML = 
         "Account Details <br>" + 
@@ -91,9 +96,8 @@ var applicantsTable = new Tabulator('#applicants-table', {
         "<b>House No:    </b>" + rowData.houseNo + "<br>" +
         "<b>City:        </b>" + rowData.city + "<br>" +
         "<b>State:       </b>" + rowData.state + "<br>" +
-        "<b>Zip:         </b>" + rowData.zip + "<br>" +
+        "<b>Zip:         </b>" + rowData.zip + "<br>";
 
-        "<hr>";
         let showStatus = "";
     },
 
@@ -121,6 +125,30 @@ var applicantsTable = new Tabulator('#applicants-table', {
 });
 
 var jobsTable = new Tabulator('#jobs-table', {
+
+    rowClick: function(e, row) {
+
+        $("#admin_jobModal").modal();
+        rowData = row.getData();
+
+        document.getElementById("jobModalTitle").innerHTML = "Managing job for " + "<b>" + rowData.clinicName + "</b>";
+
+        document.getElementById("jobModalBody").innerHTML = 
+        "Job Details <br>" + 
+        "<b>Clinic Name:       </b>" + rowData.clinicName + "<br>" +
+        "<b>Placement:         </b>" + rowData.placement + "<br>" + 
+        "<b>Clinic City:       </b>" + rowData.clinic_city + "<br>" +
+        "<b>Clinic State:      </b>" + rowData.clinic_state + "<br>" +
+        "<hr>" +
+        "<b>Job ID:            </b>" + rowData._id + "<br>" +
+        "<b>Job Created:       </b>" + rowData.created + "<br>" +
+        "<b>Description:       </b>";
+
+        document.getElementById("jobModalBodyDesc").innerHTML = rowData.description;
+
+        document.getElementById("admin_closeJobTitle").innerHTML = "Confirm to Close Job for " + "<b>" + rowData.clinicName + "</b>";
+    },
+
     resizableRows: false,
     resizableColumns: true,
     pagination: 'local',
@@ -136,7 +164,7 @@ var jobsTable = new Tabulator('#jobs-table', {
         { title: 'Clinic State', field: 'clinic_state' },
         { title: 'Created', field: 'created' },
         { title: 'Job ID', field: '_id' },
-        
+
     ],
 });
 
