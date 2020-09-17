@@ -2,13 +2,17 @@ const db = require('../models/db');
 const Job = require('../models/JobModel');
 const Applicant = require('../models/ApplicantModel');
 const { validationResult } = require('express-validator');
+const helper = require('../helpers/helper');
+const fs = require('fs');
 
 const dashboardAppController = {
     createSearchJobRoute: function (appDoc) {
         return `/feed-app?placement=${appDoc.placement.replace(
             ' Work',
             '',
-        )}&position=${appDoc.position}&clinic_state=${appDoc.state}&clinic_city=${appDoc.city}`;
+        )}&position=${appDoc.position}&clinic_state=${
+            appDoc.state
+        }&clinic_city=${appDoc.city}`;
     },
 
     getJobMatchCount: function (appDoc) {
@@ -16,7 +20,7 @@ const dashboardAppController = {
             placement: appDoc.placement.replace(' Work', ''),
             position: appDoc.position,
             clinic_state: appDoc.state,
-            clinic_city: appDoc.city
+            clinic_city: appDoc.city,
         }).exec();
     },
 
@@ -25,7 +29,7 @@ const dashboardAppController = {
             placement: appDoc.placement.replace(' Work', ''),
             position: appDoc.position,
             clinic_state: appDoc.state,
-            clinic_city: appDoc.city
+            clinic_city: appDoc.city,
         })
             .populate('employer')
             .sort('-created')
@@ -138,6 +142,31 @@ const dashboardAppController = {
             if (result) res.send({ rate });
             else res.status(500).send('An error occurred in the server.');
         });
+    },
+
+    postEditAvatar: function (req, res, next) {
+        var filePath = req.files['avatar'][0].path;
+        var mimetype = req.files['avatar'][0].mimetype;
+
+        if (mimetype.search('image/') === -1 && fs.existsSync(filePath)) {
+            fs.unlinkSync(filePath);
+            res.redirect('/dashboard');
+        } else {
+            var filename = helper.renameAvatar(req, req.session.user);
+
+            db.updateOne(
+                Applicant,
+                { _id: req.params.appId },
+                { avatar: filename },
+                result => {
+                    if (result) res.redirect('/dashboard');
+                    else {
+                        res.status(404);
+                        next();
+                    }
+                },
+            );
+        }
     },
 };
 

@@ -174,6 +174,11 @@ app.post(
     '/dashboard/applicant/:appId/edit-wage',
     dashboardAppController.postEditWage,
 );
+app.post(
+    '/dashboard/applicant/:appId/edit-avatar',
+    uploadFilter,
+    dashboardAppController.postEditAvatar,
+);
 // /dashboard-type / DASHBOARD
 
 // post job / CREATE
