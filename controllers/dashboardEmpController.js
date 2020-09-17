@@ -91,8 +91,8 @@ const dashboardEmpController = {
                     position: req.body.position,
                     clinicName: result.clinicName,
 
-                    date_start: req.body.date_start,
-                    date_end: req.body.date_end,
+                    date_start: helper.parseDate(helper.sanitize(req.body.date_start)),
+                    date_end: helper.parseDate(helper.sanitize(req.body.date_end)),
 
                     description: desc,
                     software: req.body.software,
