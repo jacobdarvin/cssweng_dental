@@ -19,12 +19,10 @@ const EmpResponseSchema = mongoose.Schema({
         enum: ['hire', 'decline', 'contact']
     },
     subject: {
-        type: String,
-        default: "Default subject"
+        type: String
     },
     body: {
-        type: String,
-        default: "Default body"
+        type: String
     },
 });
 
