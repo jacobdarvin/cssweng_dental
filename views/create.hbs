@@ -31,8 +31,8 @@ function dateDefault() {
     let output = year+'-'+month+'-'+day;
     let output_end = year+'-'+month+'-'+day_end;
 
-    document.getElementById('date_start').defaultValue = output;
-    document.getElementById('date_end').defaultValue = output_end;
+    document.getElementById('date_start_c').defaultValue = output;
+    document.getElementById('date_end_c').defaultValue = output_end;
 }
 
 window.onload = dateDefault;
@@ -124,12 +124,12 @@ window.onload = dateDefault;
                 <div id="date_range" class="w-100" style="display: none;">
                     <div class="col">
                         <small>Start Date</small><br>
-                        <input class="form-control w-100" type="date" id="date_start" name="date_start">
+                        <input class="form-control w-100" type="date" id="date_start_c" name="date_start">
                     </div>
 
                     <div class="col">
                         <small>End Date</small><br>
-                        <input class="form-control w-100" type="date" id="date_end" name="date_end">
+                        <input class="form-control w-100" type="date" id="date_end_c" name="date_end">
                     </div>
                 </div>
             </div>

@@ -1,4 +1,4 @@
-            
+
             $(function(){
                 var test = localStorage.dentist === 'true'? true: false;
                 $('#dentist').prop('checked', test || false);
@@ -73,9 +73,11 @@
         return false;
       });
 
+    /*
+
     document.getElementById("date_start").value = getSavedValue("date_start");    // set the value to this input
     document.getElementById("date_end").value = getSavedValue("date_end");   // set the value to this input
-        /* Here you can add more inputs to set value. if it's saved */
+        /* Here you can add more inputs to set value. if it's saved 
 
         //Save the value function - save it to localStorage as (ID, VALUE)
     function saveValue(e){
@@ -91,3 +93,5 @@
             }
             return localStorage.getItem(v);
         }
+
+        */

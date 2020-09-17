@@ -313,7 +313,10 @@ const feedController = {
         let cityStatus = helper.sanitize(req.query.clinic_city);
 
         let date_start = helper.parseDate(helper.sanitize(req.query.date_start));
+        let unparsed_start  = req.query.date_start;
+
         let date_end   = helper.parseDate(helper.sanitize(req.query.date_end));
+        let unparsed_end    = req.query.date_end;
 
         if(date_start == null) {
             date_start = new Date(-8640000000000000);
