@@ -11,10 +11,10 @@ var employersTable = new Tabulator('#employers-table', {
 
         if(rowData.accStatus == true) {
             statusColor = "green"
-            showStatus = "Verified";
+            showStatus = "<b>Verified</b>";
         } else {
             statusColor = "red"
-            showStatus = "Unverified";
+            showStatus = "<b>Unverified</b>";
         }
 
         document.getElementById("empModalBody").innerHTML = 
@@ -32,7 +32,7 @@ var employersTable = new Tabulator('#employers-table', {
 
         if(rowData.accStatus == true) {
             document.getElementById("admin_approveBtn").innerHTML = '<button type="button" style="display: inline-block;" class="w-100 btn btn-danger"  data-toggle="modal" data-target="#admin_confirmDecline">Decline Status</button> <button type="button" style="display: inline-block;" class="w-100 btn btn-secondary" data-dismiss="modal">Close</button>';
-            
+
         }
     },
 
