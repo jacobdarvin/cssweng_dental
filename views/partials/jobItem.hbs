@@ -23,11 +23,7 @@
 			<a href="/jobs/{{_id}}">
 				   <small>View Job</small>
 			</a>
-			<!--
-			<div class="m-0 p-0">
-				<small style="margin-bottom: -1px; padding-left: 5px; font-size: 13px; color: black">{{description}}</small> 
-			</div>
-			-->
+
 			<div class="collapse " id="a{{_id}}"> 
 		    	{{description}}
 			</div>
@@ -37,6 +33,12 @@
 		{{#ifEquals placement "Temporary"}}
 		<div class="card-footer p-1">
 			<small class="text-muted">From <b>{{date_start}}</b> to <b>{{date_end}}</b></small>
+		</div>
+		{{/ifEquals}}
+
+		{{#ifEquals placement "Permanent"}}
+		<div class="card-footer p-1">
+			<small class="text-muted">Created <b>{{date_start}}</b></small>
 		</div>
 		{{/ifEquals}}
 	</div>
