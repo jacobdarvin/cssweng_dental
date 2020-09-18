@@ -124,6 +124,9 @@ const feedController = {
                 page: page,
                 limit: 4,
 
+                sort: {
+                    created: -1
+                }
             };
 
             let query = {
@@ -379,6 +382,10 @@ const feedController = {
             lean: true,
             page: page,
             limit: 4,
+
+            sort: {
+                created: -1
+            }
         };
 
         let query = {

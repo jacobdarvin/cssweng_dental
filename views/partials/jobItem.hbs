@@ -32,13 +32,14 @@
 
 		{{#ifEquals placement "Temporary"}}
 		<div class="card-footer p-1">
-			<small class="text-muted">From <b>{{formatJobDate date_start}}</b> to <b>{{formatJobDate date_end}}</b></small>
+			<small class="text-muted">From <b>{{formatJobDate date_start}}</b> to <b>{{formatJobDate date_end}}</b></small><br>
+			<small class="text-muted">Created <b>{{formatJobDate created}}</b></small>
 		</div>
 		{{/ifEquals}}
 
 		{{#ifEquals placement "Permanent"}}
 		<div class="card-footer p-1">
-			<small class="text-muted">Created <b>{{formatJobDate date_start}}</b></small>
+			<small class="text-muted">Created <b>{{formatJobDate created}}</b></small>
 		</div>
 		{{/ifEquals}}
 	</div>
