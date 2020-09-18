@@ -9,7 +9,6 @@ const pagination = require('../helpers/pagination');
 const fs = require('fs');
 const path = require('path');
 
-
 const buffer = fs.readFileSync(
     path.resolve(__dirname, '../public/json/us_cities_and_states.json'),
 );
@@ -46,8 +45,8 @@ const feedController = {
 
         let dateStatus = helper.parseDate(helper.sanitize(req.query.date));
 
-        if(Array.isArray(positionStatus)) {
-            for(let i = 0; i < positionStatus.length; i++) {
+        if (Array.isArray(positionStatus)) {
+            for (let i = 0; i < positionStatus.length; i++) {
                 positionQuery.push(positionStatus[i]);
             }
         } else if (positionStatus) {
@@ -71,24 +70,22 @@ const feedController = {
             placementQuery.push('Permanent', 'Temporary');
         }
 
-        if(stateStatus == undefined || stateStatus == '') {
-            stateQuery = (Object.keys(citiesAndStates).sort());
+        if (stateStatus == undefined || stateStatus == '') {
+            stateQuery = Object.keys(citiesAndStates).sort();
         } else {
             stateQuery.push(stateStatus);
         }
 
-        if(cityStatus == undefined || cityStatus == '') {
-            
+        if (cityStatus == undefined || cityStatus == '') {
             cityQueryLoad = new Array();
 
-            cityQueryLoad = (Object.values(citiesAndStates).sort());
+            cityQueryLoad = Object.values(citiesAndStates).sort();
 
-            for(let i = 0; i < cityQueryLoad.length; i++) {
-                for(let j = 0; j < cityQueryLoad[i].length; j++) {
+            for (let i = 0; i < cityQueryLoad.length; i++) {
+                for (let j = 0; j < cityQueryLoad[i].length; j++) {
                     cityQuery.push(cityQueryLoad[i][j]);
                 }
             }
-            
         } else {
             cityQuery.push(cityStatus);
         }
@@ -96,9 +93,9 @@ const feedController = {
         console.log(stateQuery);
         console.log(cityQuery);
 
-
-        db.findOne(Employer, {account: req.session.user}, '_id', function(emp){
-
+        db.findOne(Employer, { account: req.session.user }, '_id', function (
+            emp,
+        ) {
             let page = helper.sanitize(req.query.page);
 
             if (page == null) {
@@ -110,7 +107,6 @@ const feedController = {
                 lean: true,
                 page: page,
                 limit: 4,
-
             };
 
             let query = {
@@ -118,8 +114,8 @@ const feedController = {
                 position: { $in: positionQuery },
                 placement: { $in: placementQuery },
 
-                clinic_city : { $in: cityQuery },
-                clinic_state: { $in: stateQuery }
+                clinic_city: { $in: cityQuery },
+                clinic_state: { $in: stateQuery },
             };
             helper.updatePostedDate();
             Job.paginate(query, options, function (err, results) {
@@ -146,13 +142,13 @@ const feedController = {
                     positonLink += '&position=' + positionQuery[i];
                 }
 
-                if(stateStatus == null) {
+                if (stateStatus == null) {
                     cityLink = '&clinic_city=';
                 } else {
                     cityLink = '&clinic_city=' + cityStatus;
                 }
 
-                if(cityStatus == null) {
+                if (cityStatus == null) {
                     stateLink = '&clinic_state=';
                 } else {
                     stateLink = '&clinic_state=' + stateStatus;
@@ -220,10 +216,10 @@ const feedController = {
 
                 console.log(parseInt(results.page) + 1);
 
-                let resultWarn = "";
+                let resultWarn = '';
 
-                if(results.total == 0) {
-                    resultWarn = "No Jobs returned From Filter";
+                if (results.total == 0) {
+                    resultWarn = 'No Jobs returned From Filter';
                 }
 
                 res.render('feed', {
@@ -238,8 +234,8 @@ const feedController = {
                     //cities and states
                     states: Object.keys(citiesAndStates).sort(),
                     cities: req.body.clinic_state
-                    ? citiesAndStates[req.body.clinic_state].sort()
-                    : '',
+                        ? citiesAndStates[req.body.clinic_state].sort()
+                        : '',
                     // navbar indicator
                     accType: req.session.accType,
 
@@ -261,11 +257,11 @@ const feedController = {
         }
 
         if (req.session.accType != 'applicant') {
-           res.render('404', {
-                    active_session: req.session.user && req.cookies.user_sid,
-                    active_user: req.session.user,
-                    title: '404 Page Not Found | BookMeDental',
-                });
+            res.render('404', {
+                active_session: req.session.user && req.cookies.user_sid,
+                active_user: req.session.user,
+                title: '404 Page Not Found | BookMeDental',
+            });
         }
         console.log('getFiltered request');
 
@@ -283,8 +279,8 @@ const feedController = {
 
         let dateStatus = helper.parseDate(helper.sanitize(req.query.date));
 
-        if(Array.isArray(positionStatus)) {
-            for(let i = 0; i < positionStatus.length; i++) {
+        if (Array.isArray(positionStatus)) {
+            for (let i = 0; i < positionStatus.length; i++) {
                 positionQuery.push(positionStatus[i]);
             }
         } else if (positionStatus) {
@@ -308,24 +304,22 @@ const feedController = {
             placementQuery.push('Permanent', 'Temporary');
         }
 
-        if(stateStatus == undefined || stateStatus == '') {
-            stateQuery = (Object.keys(citiesAndStates).sort());
+        if (stateStatus == undefined || stateStatus == '') {
+            stateQuery = Object.keys(citiesAndStates).sort();
         } else {
             stateQuery.push(stateStatus);
         }
 
-        if(cityStatus == undefined || cityStatus == '') {
-            
+        if (cityStatus == undefined || cityStatus == '') {
             cityQueryLoad = new Array();
 
-            cityQueryLoad = (Object.values(citiesAndStates).sort());
+            cityQueryLoad = Object.values(citiesAndStates).sort();
 
-            for(let i = 0; i < cityQueryLoad.length; i++) {
-                for(let j = 0; j < cityQueryLoad[i].length; j++) {
+            for (let i = 0; i < cityQueryLoad.length; i++) {
+                for (let j = 0; j < cityQueryLoad[i].length; j++) {
                     cityQuery.push(cityQueryLoad[i][j]);
                 }
             }
-            
         } else {
             cityQuery.push(cityStatus);
         }
@@ -347,8 +341,8 @@ const feedController = {
             position: { $in: positionQuery },
             placement: { $in: placementQuery },
 
-            clinic_city : { $in: cityQuery },
-            clinic_state: { $in: stateQuery }
+            clinic_city: { $in: cityQuery },
+            clinic_state: { $in: stateQuery },
         };
 
         helper.updatePostedDate();
@@ -372,13 +366,13 @@ const feedController = {
                 positonLink += '&position=' + positionQuery[i];
             }
 
-            if(stateStatus == null) {
+            if (stateStatus == null) {
                 cityLink = '&clinic_city=';
             } else {
                 cityLink = '&clinic_city=' + cityStatus;
             }
 
-            if(cityStatus == null) {
+            if (cityStatus == null) {
                 stateLink = '&clinic_state=';
             } else {
                 stateLink = '&clinic_state=' + stateStatus;
@@ -414,7 +408,7 @@ const feedController = {
                       placementLink +
                       positonLink +
                       stateLink +
-                        cityLink +
+                      cityLink +
                       '&page=' +
                       prevPageNumber
                     : '';
@@ -424,7 +418,7 @@ const feedController = {
                       placementLink +
                       positonLink +
                       stateLink +
-                        cityLink +
+                      cityLink +
                       '&page=' +
                       nextPageNumber
                     : '';
@@ -444,10 +438,10 @@ const feedController = {
                 hasNextPage = false;
             }
 
-            let resultWarn = "";
+            let resultWarn = '';
 
-            if(results.total == 0) {
-                resultWarn = "No Jobs returned From Filter";
+            if (results.total == 0) {
+                resultWarn = 'No Jobs returned From Filter';
             }
 
             console.log(parseInt(results.page) + 1);
@@ -464,8 +458,8 @@ const feedController = {
                 //cities and states
                 states: Object.keys(citiesAndStates).sort(),
                 cities: req.body.clinic_state
-                ? citiesAndStates[req.body.clinic_state].sort()
-                : '',
+                    ? citiesAndStates[req.body.clinic_state].sort()
+                    : '',
                 // navbar indicator
                 accType: req.session.accType,
 
@@ -511,11 +505,11 @@ const feedController = {
                             applied = data.applicants.includes(applicant._id);
                         }
 
-                        console.log(data)
+                        console.log(data);
                         helper.updatePostedDate();
                         res.render('details', {
                             active_session:
-                            req.session.user && req.cookies.user_sid,
+                                req.session.user && req.cookies.user_sid,
                             active_user: req.session.user,
                             title:
                                 data.placement +
@@ -557,7 +551,7 @@ const feedController = {
                 { _id: sntJobId },
                 { $push: { applicants: applicant._id } },
                 function (result) {
-                    helper.updatePostedDate()
+                    helper.updatePostedDate();
                     if (result) {
                         db.updateOne(
                             Applicant,
@@ -597,7 +591,10 @@ const feedController = {
 
         db.findOne(Job, { _id: sntJobId }, 'applicants', function (job) {
             if (job) {
-                let placementQuery = pagination.initQueryArray(helper.sanitize(req.query.placement), ['Permanent Work', 'Temporary Work'])
+                let placementQuery = pagination.initQueryArray(
+                    helper.sanitize(req.query.placement),
+                    ['Permanent Work', 'Temporary Work'],
+                );
                 let positionQuery = pagination.initQueryArray(
                     helper.sanitize(req.query.position),
                     [
@@ -629,7 +626,10 @@ const feedController = {
                     if (err) throw err;
                     let route = `/jobs/${sntJobId}/applicants`;
 
-                    let placementLink = pagination.createQueryLink(placementQuery, 'placement');
+                    let placementLink = pagination.createQueryLink(
+                        placementQuery,
+                        'placement',
+                    );
                     let positionLink = pagination.createQueryLink(
                         positionQuery,
                         'position',
@@ -646,15 +646,15 @@ const feedController = {
                         hasNextPage,
                     } = pagination.configPagination(results, route, queryLinks);
 
-                    let resultWarn = "";
+                    let resultWarn = '';
 
-                    if(results.total == 0) {
-                        resultWarn = "No Applicants returned From Filter";
+                    if (results.total == 0) {
+                        resultWarn = 'No Applicants returned From Filter';
                     }
 
                     res.render('feed-app', {
                         active_session:
-                        req.session.user && req.cookies.user_sid,
+                            req.session.user && req.cookies.user_sid,
                         active_user: req.session.user,
                         title: 'Applicants | BookMeDental',
                         filter_route: route,
@@ -709,7 +709,7 @@ const feedController = {
 
                         res.render('details-app', {
                             active_session:
-                            req.session.user && req.cookies.user_sid,
+                                req.session.user && req.cookies.user_sid,
                             active_user: req.session.user,
                             title: `Applicant ${applicant.fName} ${applicant.lName} | BookMeDental`,
                             appData: result.toObject(),
@@ -727,6 +727,144 @@ const feedController = {
         });
     },
 
+    getAppliedAppFeed: function (req, res, next) {
+        if (!(req.session.user && req.cookies.user_sid)) {
+            res.redirect('/login');
+            return;
+        }
+
+        if (req.session.accType != 'applicant') {
+            res.render('404', {
+                active_session: req.session.user && req.cookies.user_sid,
+                active_user: req.session.user,
+                title: '404 Page Not Found | BookMeDental',
+            });
+        }
+
+        let placementQuery = pagination.initQueryArray(
+            helper.sanitize(req.query.placement),
+            ['Permanent', 'Temporary'],
+        );
+
+        let positionQuery = pagination.initQueryArray(
+            helper.sanitize(req.query.position),
+            ['Dentist', 'Dental Hygienist', 'Front Desk', 'Dental Assistant'],
+        );
+
+        let stateQuery = pagination.initQueryArray(
+            helper.sanitize(req.query.clinic_state),
+            Object.keys(citiesAndStates).sort(),
+        );
+
+        let allCities = [].concat.apply(
+            [],
+            Object.values(citiesAndStates).sort(),
+        );
+
+        let cityQuery = pagination.initQueryArray(
+            helper.sanitize(req.query.clinic_city),
+            allCities,
+        );
+        
+        let page = helper.sanitize(req.query.page);
+        if (page == null) page = '1';
+
+        Applicant.findOne({ account: req.session.user }, 'appliedJobs')
+            .exec()
+            .then(doc => {
+                let options = {
+                    populate: 'employer',
+                    lean: true,
+                    page: page,
+                    limit: 4,
+                };
+
+                let query = {
+                    position: { $in: positionQuery },
+                    placement: { $in: placementQuery },
+
+                    clinic_city: { $in: cityQuery },
+                    clinic_state: { $in: stateQuery },
+                    _id: { $in: doc.appliedJobs },
+                };
+
+                helper.updatePostedDate();
+
+                return Job.paginate(query, options);
+            })
+            .then(results => {
+                let route = `/feed-app/applied-jobs`;
+
+                let placementLink = pagination.createQueryLink(
+                    placementQuery,
+                    'placement',
+                );
+                let positionLink = pagination.createQueryLink(
+                    positionQuery,
+                    'position',
+                );
+
+                let cityLink = pagination.createQueryLink(
+                    req.query.clinic_city ?  cityQuery : '',
+                    'clinic_city',
+                );
+
+                let stateLink = pagination.createQueryLink(
+                    stateQuery,
+                    'clinic_state',
+                );
+
+                let queryLinks = [];
+                queryLinks.push(positionLink);
+                queryLinks.push(placementLink);
+                queryLinks.push(cityLink);
+                queryLinks.push(stateLink);
+
+                const {
+                    selectOptions,
+                    prevPageLink,
+                    nextPageLink,
+                    hasPrevPage,
+                    hasNextPage,
+                } = pagination.configPagination(results, route, queryLinks);
+
+                let resultWarn = '';
+
+                if (results.total == 0) {
+                    resultWarn = 'No Applicants returned From Filter';
+                }
+
+                res.render('feed', {
+                    active_session: req.session.user && req.cookies.user_sid,
+                    active_user: req.session.user,
+                    title: 'Job Feed | BookMeDental',
+                    filter_route: route,
+                    profile_active: true,
+                    jobs: results.docs,
+                    warn: resultWarn,
+
+                    //cities and states
+                    states: Object.keys(citiesAndStates).sort(),
+                    cities: req.body.clinic_state
+                        ? citiesAndStates[req.body.clinic_state].sort()
+                        : '',
+                    // navbar indicator
+                    accType: req.session.accType,
+
+                    //Pagination
+                    selectOptions: selectOptions,
+                    hasPrev: hasPrevPage,
+                    hasNext: hasNextPage,
+                    prevPageLink: prevPageLink,
+                    nextPageLink: nextPageLink,
+                });
+            })
+            .catch(err => {
+                console.log(err);
+                res.status(404);
+                next();
+            });
+    },
 };
 
 // enables to export controller object when called in another .js file

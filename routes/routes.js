@@ -191,6 +191,7 @@ app.get('/applicants/:appId', dashboardEmpController.getAppProfile); // view app
 // /feed / FEED
 app.get('/feed-emp', feedController.getEmpFeed);
 app.get('/feed-app', feedController.getAppFeed);
+app.get('/feed-app/applied-jobs', feedController.getAppliedAppFeed);
 app.get('/jobs/:jobId', feedController.getIndivJob);
 app.post('/jobs/:jobId', feedController.postIndivJob);
 app.get('/jobs/:jobId/applicants', feedController.getJobApplicants);
