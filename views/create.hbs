@@ -53,6 +53,30 @@ function placementCheck() {
     }
 }
 
+function setPermaDate() {
+    var dateObj = new Date();
+    let month = dateObj.getMonth() + 1;
+
+    if(month < 10) {
+        month = '0' + month;
+    } 
+
+    let day = dateObj.getDate();
+
+    if(day < 10) {
+        day = '0' + day;
+    } 
+
+    let year = dateObj.getFullYear();
+
+    let output = year+'-'+month+'-'+day;
+
+    document.getElementById('date_start_c').defaultValue = output;
+    document.getElementById('date_end_c').defaultValue   = '2090-12-30';
+}
+
+window.onload = setPermaDate;
+
 </script>
 
 <style>
