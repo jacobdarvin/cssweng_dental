@@ -59,11 +59,6 @@ const feedController = {
             date_end = new Date(8640000000000000);
         }
 
-        //console.log('//date filter - - - - -');
-        //console.log(date_start.toISOString());
-        //console.log(date_end.toISOString());
-        //console.log('//date filter - - - - -');
-
         if(Array.isArray(positionStatus)) {
             for(let i = 0; i < positionStatus.length; i++) {
                 positionQuery.push(positionStatus[i]);

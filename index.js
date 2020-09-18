@@ -57,6 +57,12 @@ app.engine(
             ifEquals : function (arg1, arg2, options) {
                 return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
             },
+
+            formatJobDate : function(arg1) {
+                var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                var days   = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+                return months[arg1.getMonth()] + ' ' + arg1.getDate() + ', ' + arg1.getFullYear() + ' ' + '(' + days[arg1.getDay()] + ')';
+            },
         },
     }),
 );
