@@ -142,9 +142,9 @@ var jobsTable = new Tabulator('#jobs-table', {
         "<hr>" +
         "<b>Job ID:            </b>" + rowData._id + "<br>" +
         "<b>Job Created:       </b>" + rowData.created + "<br>" +
-        "<b>Description:       </b>";
+        "<b>Description:       </b>" + rowData.description + "<br>";
 
-        document.getElementById("jobModalBodyDesc").innerHTML = rowData.description;
+        // document.getElementById("jobModalBodyDesc").innerHTML = rowData.description;
 
         document.getElementById("admin_closeJobTitle").innerHTML = "Confirm to Close Job for " + "<b>" + rowData.clinicName + "</b>";
     },
