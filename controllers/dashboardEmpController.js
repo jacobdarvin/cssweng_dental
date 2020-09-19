@@ -55,67 +55,101 @@ const dashboardEmpController = {
 
         var now = Date.now();
 
-        if (input < now) {
-            db.findOne(Employer, { account: req.session.user }, '', function (result) {
-                res.render('create', {
-                    active_session: req.session.user && req.cookies.user_sid,
-                    active_user: req.session.user,
-                    title: 'Create Job | BookMeDental',
-                    profile_active: true,
-                    input: req.body,
-                    emp: result.toObject(),
-                    dateError:
-                        'Invalid date. Please enter a date that comes after the date today.',
+        if(req.body.placement == 'Temporary') {
+            if (input < now) {
+                db.findOne(Employer, { account: req.session.user }, '', function (result) {
+                    res.render('create', {
+                        active_session: req.session.user && req.cookies.user_sid,
+                        active_user: req.session.user,
+                        title: 'Create Job | BookMeDental',
+                        profile_active: true,
+                        input: req.body,
+                        emp: result.toObject(),
+                        dateError:
+                            'Invalid date. Please enter a date that comes after the date today.',
+                    });
+                })
+            } else if (input_end <= input) {
+                db.findOne(Employer, { account: req.session.user }, '', function (result) {
+                    res.render('create', {
+                        active_session: req.session.user && req.cookies.user_sid,
+                        active_user: req.session.user,
+                        title: 'Create Job | BookMeDental',
+                        profile_active: true,
+                        accType: req.session.accType,
+                        emp: result.toObject(),
+                        input: req.body,
+                        dateError:
+                            'Invalid date. Please enter a date that comes after the start date.',
+                    });
+                })
+
+            } else {
+                db.findOne(Employer, { account: req.session.user }, '', function (
+                    result,
+                ) {
+                    console.log('inserting');
+
+                    var job = new Job({
+                        _id: new mongoose.Types.ObjectId(),
+                        employer: result._id,
+                        placement: req.body.placement,
+                        position: req.body.position,
+                        clinicName: result.clinicName,
+
+                        date_start: helper.parseDate(helper.sanitize(req.body.date_start)),
+                        date_end: helper.parseDate(helper.sanitize(req.body.date_end)),
+
+                        description: desc,
+                        software: req.body.software,
+                        experience: req.body.experience,
+                        posted: 'just now',
+                        clinic_city: result.clinicAddress.city,
+                        clinic_state: result.clinicAddress.state,
+                    });
+
+                    db.insertOne(Job, job, function (flag) {
+                        if (flag) {
+                            console.log('inserted');
+                            helper.updatePostedDate();
+                            res.redirect('/dashboard');
+                        }
+                    });
                 });
-            })
-        } else if (input_end <= input) {
-            db.findOne(Employer, { account: req.session.user }, '', function (result) {
-                res.render('create', {
-                    active_session: req.session.user && req.cookies.user_sid,
-                    active_user: req.session.user,
-                    title: 'Create Job | BookMeDental',
-                    profile_active: true,
-                    accType: req.session.accType,
-                    emp: result.toObject(),
-                    input: req.body,
-                    dateError:
-                        'Invalid date. Please enter a date that comes after the start date.',
-                });
-            })
-            
+            }
         } else {
-            db.findOne(Employer, { account: req.session.user }, '', function (
-                result,
-            ) {
-                console.log('inserting');
+                db.findOne(Employer, { account: req.session.user }, '', function (
+                    result,
+                ) {
+                    console.log('inserting');
 
-                var job = new Job({
-                    _id: new mongoose.Types.ObjectId(),
-                    employer: result._id,
-                    placement: req.body.placement,
-                    position: req.body.position,
-                    clinicName: result.clinicName,
+                    var job = new Job({
+                        _id: new mongoose.Types.ObjectId(),
+                        employer: result._id,
+                        placement: req.body.placement,
+                        position: req.body.position,
+                        clinicName: result.clinicName,
 
-                    date_start: req.body.date_start,
-                    date_end: req.body.date_end,
+                        date_start: helper.parseDate(helper.sanitize(req.body.date_start)),
+                        date_end: helper.parseDate(helper.sanitize(req.body.date_end)),
 
-                    description: desc,
-                    software: req.body.software,
-                    experience: req.body.experience,
-                    posted: 'just then',
-                    clinic_city: result.clinicAddress.city,
-                    clinic_state: result.clinicAddress.state,
+                        description: desc,
+                        software: req.body.software,
+                        experience: req.body.experience,
+                        posted: 'just now',
+                        clinic_city: result.clinicAddress.city,
+                        clinic_state: result.clinicAddress.state,
+                    });
+
+                    db.insertOne(Job, job, function (flag) {
+                        if (flag) {
+                            console.log('inserted');
+                            helper.updatePostedDate();
+                            res.redirect('/dashboard');
+                        }
+                    });
                 });
-
-                db.insertOne(Job, job, function (flag) {
-                    if (flag) {
-                        console.log('inserted');
-                        helper.updatePostedDate();
-                        res.redirect('/dashboard');
-                    }
-                });
-            });
-        }
+            }
     },
 
     getApplicantsFromSearch: function (req, res) {

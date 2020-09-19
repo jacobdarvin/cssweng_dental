@@ -2,6 +2,65 @@
 
 <style>
     body {
+        background-color: white;
+    }
+</style>
+
+<script type="text/javascript">
+  //Responsive Side Tabbing
+
+  window.lastActive = 'generalTab';
+
+  function tabCheck(tab, typeTab) {
+    if(tab == 'employers') {
+      document.getElementById(lastActive).className =
+      document.getElementById(lastActive).className.replace( /(?:^|\s)active(?!\S)/g , '' );
+
+      document.getElementById(typeTab).className += " active";
+      lastActive = typeTab;
+
+      document.getElementById('empTable').style.display = "block";
+      document.getElementById('appTable').style.display = "none";
+      document.getElementById('jobTable').style.display = "none";
+
+    } else if (tab == 'applicants') {
+      document.getElementById(lastActive).className =
+      document.getElementById(lastActive).className.replace( /(?:^|\s)active(?!\S)/g , '' );
+
+      document.getElementById(typeTab).className += " active";
+      lastActive = typeTab;
+
+      document.getElementById('empTable').style.display = "none";
+      document.getElementById('appTable').style.display = "block";
+      document.getElementById('jobTable').style.display = "none";
+
+    } else if (tab == 'jobs') {
+      document.getElementById(lastActive).className =
+      document.getElementById(lastActive).className.replace( /(?:^|\s)active(?!\S)/g , '' );
+
+      document.getElementById(typeTab).className += " active";
+      lastActive = typeTab;
+
+      document.getElementById('empTable').style.display = "none";
+      document.getElementById('appTable').style.display = "none";
+      document.getElementById('jobTable').style.display = "block";
+    } else if (tab == 'general') {
+      document.getElementById(lastActive).className =
+      document.getElementById(lastActive).className.replace( /(?:^|\s)active(?!\S)/g , '' );
+
+      document.getElementById(typeTab).className += " active";
+      lastActive = typeTab;
+
+      document.getElementById('empTable').style.display = "block";
+      document.getElementById('appTable').style.display = "block";
+      document.getElementById('jobTable').style.display = "block";
+    }
+  }
+
+</script>
+
+<style>
+    body {
     }
 </style>
 
@@ -9,25 +68,25 @@
     <div class="sidebar-sticky">
         <ul class="nav flex-column mt-3">
             <li class="nav-item">
-                <a class="nav-link active" href="#">
+                <a class="nav-link active" id="generalTab" onclick="tabCheck('general', 'generalTab')" href="#">
                     <span data-feather="home"></span>
                     General Overview <span class="sr-only">(current)</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" id="empTab" onclick="tabCheck('employers', 'empTab')" href="#">
                     <span data-feather="file"></span>
                     List of Employers
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" id="appTab" onclick="tabCheck('applicants', 'appTab')" href="#">
                     <span data-feather="shopping-cart"></span>
                     List of Applicants
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" id="jobTab" onclick="tabCheck('jobs', 'jobTab')" href="#">
                     <span data-feather="users"></span>
                     List of Posted Jobs
                 </a>
@@ -55,21 +114,37 @@
             </li>
         </ul>
     </div>
+
 </nav>
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+
     <h1 class="pt-4" style="font-size: 40px;">General Overview</h1>
     <div class="alert alert-warning" role="alert"><i class="fas fa-bell"></i> While you were gone one (1) new clinic/s were recently registered.</div>
-    <h3>Employers</h1>
-    <div id="employers-table"></div>
-    <br>
-    <h3>Applicants</h1>
-    <div id="applicants-table"></div>
+
+    <div id="empTable">
+      <h3>Employers</h3>
+      <div id="employers-table"></div>
+      <hr>
+    </div>
+
+    <div id="appTable">
+      <h3>Applicants</h3>
+      <div id="applicants-table"></div>
+      <hr>
+    </div>
+
+    <div id="jobTable">
+      <h3>Jobs</h3>
+      <div id="jobs-table"></div>
+      <hr>
+    </div>
+
 </main>
 
 <script src="/js/adminTables.js"></script>
 
-<!-- Modal -->
-<div class="modal fade" id="admin_employerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<!-- APP Modal --><!-- APP Modal --><!-- APP Modal --><!-- APP Modal --><!-- APP Modal -->
+<div class="modal" id="admin_employerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -81,7 +156,7 @@
       <pre class="modal-body" id="empModalBody">
         
       </pre>
-      <div class="modal-footer">
+      <div class="modal-footer" id="admin_approveBtn">
         <button type="button" style="display: inline-block;" class="w-100 btn btn-success" data-toggle="modal" data-target="#admin_confirmApprove">Approve Status</button>
         <button type="button" style="display: inline-block;" class="w-100 btn btn-danger"  data-toggle="modal" data-target="#admin_confirmDecline">Decline Status</button>
         <button type="button" style="display: inline-block;" class="w-100 btn btn-secondary" data-dismiss="modal">Close</button>
@@ -89,9 +164,61 @@
     </div>
   </div>
 </div>
+<!-- APP Modal --><!-- APP Modal --><!-- APP Modal --><!-- APP Modal --><!-- APP Modal -->
+
+<!-- EMP Modal --><!-- EMP Modal --><!-- EMP Modal --><!-- EMP Modal --><!-- EMP Modal -->
+<div class="modal" id="admin_applicantModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="appModalTitle"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <pre class="modal-body" id="appModalBody">
+        
+      </pre>
+      <div class="modal-footer">
+        <button type="button" style="display: inline-block;" class="w-100 btn btn-secondary" data-dismiss="modal">Close</button>
+        <!--
+        <button type="button" style="display: inline-block;" class="w-100 btn btn-primary" data-toggle="modal" data-target="#admin_confirmApprove">Edit Account</button>
+        <button type="button" style="display: inline-block;" class="w-100 btn btn-danger"  data-toggle="modal" data-target="#admin_confirmDecline">Delete Account</button>
+        -->
+        
+      </div>
+    </div>
+  </div>
+</div>
+<!-- EMP Modal --><!-- EMP Modal --><!-- EMP Modal --><!-- EMP Modal --><!-- EMP Modal -->
+
+<!-- JOB Modal --><!-- JOB Modal --><!-- JOB Modal --><!-- JOB Modal --><!-- JOB Modal -->
+<div class="modal" id="admin_jobModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="jobModalTitle"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <pre class="modal-body pb-0 mb-0" id="jobModalBody">
+        
+      </pre>
+      <span class="modal-body pt-0 mt-0" id="jobModalBodyDesc">
+        
+      </span>
+      <div class="modal-footer">
+        <button type="button" style="display: inline-block;" class="w-100 btn btn-danger" data-toggle="modal" data-target="#admin_closeJob">Close Job</button>
+        <button type="button" style="display: inline-block;" class="w-100 btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- JOB Modal --><!-- JOB Modal --><!-- JOB Modal --><!-- JOB Modal --><!-- JOB Modal -->
 
 <!-- Modal -->
-<div class="modal fade" id="admin_confirmApprove" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal" id="admin_confirmApprove" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -109,7 +236,7 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="admin_confirmDecline" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal" id="admin_confirmDecline" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -120,6 +247,24 @@
       </div>
       <div class="modal-footer">
         <button type="button" style="display: inline-block;" class="w-100 btn btn-danger">Decline Status</button>
+        <button type="button" style="display: inline-block;" class="w-100 btn btn-secondary" data-dismiss="modal">Go Back</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal" id="admin_closeJob" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="admin_closeJobTitle"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" style="display: inline-block;" class="w-100 btn btn-danger">Close Job</button>
         <button type="button" style="display: inline-block;" class="w-100 btn btn-secondary" data-dismiss="modal">Go Back</button>
       </div>
     </div>

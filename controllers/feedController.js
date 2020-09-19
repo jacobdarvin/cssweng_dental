@@ -46,7 +46,20 @@ const feedController = {
         let stateStatus = helper.sanitize(req.query.clinic_state);
         let cityStatus = helper.sanitize(req.query.clinic_city);
 
-        let dateStatus = helper.parseDate(helper.sanitize(req.query.date));
+        let date_start = helper.parseDate(helper.sanitize(req.query.date_start));
+        let unparsed_start  = req.query.date_start;
+
+        let date_end   = helper.parseDate(helper.sanitize(req.query.date_end));
+        let unparsed_end    = req.query.date_end;
+
+
+        if(date_start == null) {
+            date_start = new Date(-8640000000000000);
+        }
+
+        if(date_end == null) {
+            date_end = new Date(8640000000000000);
+        }
 
         if(Array.isArray(positionStatus)) {
             for(let i = 0; i < positionStatus.length; i++) {
@@ -95,8 +108,8 @@ const feedController = {
             cityQuery.push(cityStatus);
         }
 
-        console.log(stateQuery);
-        console.log(cityQuery);
+        //console.log(stateQuery);
+        //console.log(cityQuery);
 
 
         db.findOne(Employer, {account: req.session.user}, '_id', function(emp){
@@ -113,6 +126,9 @@ const feedController = {
                 page: page,
                 limit: 4,
 
+                sort: {
+                    created: -1
+                }
             };
 
             let query = {
@@ -121,22 +137,29 @@ const feedController = {
                 placement: { $in: placementQuery },
 
                 clinic_city : { $in: cityQuery },
-                clinic_state: { $in: stateQuery }
+                clinic_state: { $in: stateQuery },
+
+                date_start : { $gte: date_start.toISOString() },
+                date_end   : { $lte: date_end.toISOString() }
             };
+
             helper.updatePostedDate();
             Job.paginate(query, options, function (err, results) {
                 console.log(results);
 
                 let selectOptions = new Array();
 
-                console.log(placementQuery);
-                console.log(positionQuery);
+                //console.log(placementQuery);
+                //console.log(positionQuery);
 
-                let placementLink = '';
-                let positonLink = '';
+                let placementLink   = '';
+                let positonLink     = '';
 
-                let cityLink = '';
-                let stateLink = '';
+                let cityLink    = '';
+                let stateLink   = '';
+
+                let dstartLink  = '&date_start=' + unparsed_start;
+                let dendLink    = '&date_end='   + unparsed_end;
 
                 for (let i = 0; i < placementQuery.length; i++) {
                     if (i == 0)
@@ -170,6 +193,8 @@ const feedController = {
                             positonLink +
                             stateLink +
                             cityLink +
+                            dstartLink +
+                            dendLink +
                             '&page=' +
                             nPage,
                         pageNo: nPage,
@@ -191,6 +216,8 @@ const feedController = {
                           positonLink +
                           stateLink +
                           cityLink +
+                          dstartLink + 
+                          dendLink +
                           '&page=' +
                           prevPageNumber
                         : '';
@@ -201,6 +228,8 @@ const feedController = {
                           positonLink +
                           stateLink +
                           cityLink +
+                          dstartLink + 
+                          dendLink +
                           '&page=' +
                           nextPageNumber
                         : '';
@@ -220,7 +249,7 @@ const feedController = {
                     hasNextPage = false;
                 }
 
-                console.log(parseInt(results.page) + 1);
+                //console.log(parseInt(results.page) + 1);
 
                 let resultWarn = "";
 
@@ -283,7 +312,19 @@ const feedController = {
         let stateStatus = helper.sanitize(req.query.clinic_state);
         let cityStatus = helper.sanitize(req.query.clinic_city);
 
-        let dateStatus = helper.parseDate(helper.sanitize(req.query.date));
+        let date_start = helper.parseDate(helper.sanitize(req.query.date_start));
+        let unparsed_start  = req.query.date_start;
+
+        let date_end   = helper.parseDate(helper.sanitize(req.query.date_end));
+        let unparsed_end    = req.query.date_end;
+
+        if(date_start == null) {
+            date_start = new Date(-8640000000000000);
+        }
+
+        if(date_end == null) {
+            date_end = new Date(8640000000000000);
+        }
 
         if(Array.isArray(positionStatus)) {
             for(let i = 0; i < positionStatus.length; i++) {
@@ -343,6 +384,10 @@ const feedController = {
             lean: true,
             page: page,
             limit: 4,
+
+            sort: {
+                created: -1
+            }
         };
 
         let query = {
@@ -350,7 +395,10 @@ const feedController = {
             placement: { $in: placementQuery },
 
             clinic_city : { $in: cityQuery },
-            clinic_state: { $in: stateQuery }
+            clinic_state: { $in: stateQuery },
+
+            date_start : { $gte: date_start.toISOString() },
+            date_end   : { $lte: date_end.toISOString() }
         };
 
         helper.updatePostedDate();
@@ -364,6 +412,12 @@ const feedController = {
 
             let placementLink = '';
             let positonLink = '';
+
+            let cityLink    = '';
+            let stateLink   = '';
+
+            let dstartLink  = '&date_start=' + unparsed_start;
+            let dendLink    = '&date_end='   + unparsed_end;
 
             for (let i = 0; i < placementQuery.length; i++) {
                 if (i == 0) placementLink += 'placement=' + placementQuery[i];
@@ -396,6 +450,8 @@ const feedController = {
                         positonLink +
                         stateLink +
                         cityLink +
+                        dstartLink + 
+                        dendLink +
                         '&page=' +
                         nPage,
                     pageNo: nPage,
@@ -416,7 +472,9 @@ const feedController = {
                       placementLink +
                       positonLink +
                       stateLink +
-                        cityLink +
+                      cityLink +
+                      dstartLink + 
+                        dendLink +
                       '&page=' +
                       prevPageNumber
                     : '';
@@ -426,7 +484,9 @@ const feedController = {
                       placementLink +
                       positonLink +
                       stateLink +
-                        cityLink +
+                      cityLink +
+                      dstartLink + 
+                        dendLink +
                       '&page=' +
                       nextPageNumber
                     : '';

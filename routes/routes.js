@@ -95,8 +95,11 @@ app.post(
 );
 
 // /admin | ADMIN
+
 app.get('/employers', adminController.getEmployerList);
 app.get('/applicants', adminController.getApplicantList);
+app.get('/jobs', adminController.getJobList);
+
 app.get('/admin', adminController.getAdmin);
 // /admin | ADMIN
 

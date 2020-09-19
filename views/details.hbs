@@ -18,7 +18,7 @@
 	<div class="row mb-2">
 		<div class="card w-100 border m-0 p-2 ">
 			<span class="title"> <b>{{jobData.position}}</b> at <b>{{jobData.employer.clinicName}}</b> </span>
-			<small> Posted {{date}} by <a href="#">{{jobData.employer.clinicName}}</a></small>
+			<small> Posted {{date}} by <b>{{jobData.employer.clinicName}}</b></small>
 		</div>
 	</div>
 
@@ -80,7 +80,7 @@
 					{{#ifEquals jobData.placement "Temporary"}}
 					<div class="col">
 						<b>Date Needed</b> <br>
-						<small><b>{{jobData.date_start}}</b> to <b>{{jobData.date_end}}</b></small>
+						<small><b>{{formatJobDate jobData.date_start}}</b> to <b>{{formatJobDate jobData.date_end}}</b></small>
 					</div>
 					{{/ifEquals}}
 				</div>

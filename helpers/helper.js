@@ -79,7 +79,6 @@ const helper = {
             time = 'on ' + dateformat(date, 'mmm dd, yyyy');
         }
 
-
         return time;
     },
 
