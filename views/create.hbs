@@ -1,15 +1,38 @@
 <script>
 
-//function checkRadio() {
-    //if (document.getElementById('Permanent').checked) {
-    //    document.getElementById('date_perm').style.display = 'block';
-    //    document.getElementById('date_range').style.display = 'none'
+function checkRadio() {
+    if (document.getElementById('Permanent').checked) {
+        document.getElementById('date_perm').style.display = 'block';
+        document.getElementById('date_range').style.display = 'none'
 
-    //} else  {
-    //    document.getElementById('date_perm').style.display = 'none';
-    //    document.getElementById('date_range').style.display = 'inline-flex';
-    //}
-//}
+    } else  {
+        document.getElementById('date_perm').style.display = 'none';
+        document.getElementById('date_range').style.display = 'inline-flex';
+
+        var dateObj = new Date();
+        let month = dateObj.getMonth() + 1;
+
+        if(month < 10) {
+            month = '0' + month;
+        } 
+
+        let day = dateObj.getDate() + 1;
+        let day_end = dateObj.getDate() + 2;
+
+        if(day < 10) {
+            day = '0' + day;
+        } 
+
+        let year = dateObj.getFullYear();
+
+        let output = year+'-'+month+'-'+day;
+        let output_end = year+'-'+month+'-'+day_end;
+
+        document.getElementById('date_start_c').defaultValue = output;
+        document.getElementById('date_end_c').defaultValue = output_end;
+
+    }
+}
 
 function placementCheck() {
     if (document.getElementById('Permanent').checked) {
@@ -88,7 +111,7 @@ function setPermaDate() {
 
 window.onload = function(){
     setPermaDate();
-    //checkRadio();
+    checkRadio();
 }
 
 </script>
