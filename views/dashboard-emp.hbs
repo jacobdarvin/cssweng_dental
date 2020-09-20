@@ -87,7 +87,7 @@
                         {{/match}}
                         {{#match status 'Unverified'}}
                             <span tabindex="0" data-toggle="tooltip" data-placement="right" title="This feature is not available as your account is still waiting to be verified by the admin.">
-                                <button type="button" class="btn btn-primary w-100 mb-2" href="/create/{{profileData._id}}" disabled> <i class="fas fa-plus-circle"></i> Create New</button>
+                                <button type="button" style="pointer-events: none;" class="btn btn-primary w-100 mb-2" href="/create/{{profileData._id}}" disabled> <i class="fas fa-plus-circle"></i> Create New</button>
                             </span>
                         {{/match}}
 
@@ -106,7 +106,7 @@
                         {{/match}}
                         {{#match status 'Unverified'}}
                             <span tabindex="0" data-toggle="tooltip" data-placement="right" title="This feature is not available as your account is still waiting to be verified by the admin.">
-                                <button href="/search/applicants" class="btn btn-primary w-100" disabled><i class="fas fa-search"></i> Search</button>
+                                <button href="/search/applicants" style="pointer-events: none;" class="btn btn-primary w-100" disabled><i class="fas fa-search"></i> Search</button>
                             </span>
                         {{/match}}
                     </div>
