@@ -84,6 +84,7 @@ const dashboardController = {
                                                 activeJob: result,
                                                 temp: temp_count,
                                                 perma: perm_count,
+                                                status: data.account.accStatus
                                             });
                                         })
                                     })

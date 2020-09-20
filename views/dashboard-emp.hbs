@@ -82,7 +82,15 @@
                     <hr />
                     <div class="container">
                         <h2>Your Active Job Posts</h2>
-                        <a type="button" class="btn btn-primary w-100 mb-2" href="/create/{{profileData._id}}"> <i class="fas fa-plus-circle"></i> Create New</a>
+                        {{#match status 'Verified'}}
+                            <button type="button" class="btn btn-primary w-100 mb-2" href="/create/{{profileData._id}}"> <i class="fas fa-plus-circle"></i> Create New</button> 
+                        {{/match}}
+                        {{#match status 'Unverified'}}
+                            <span tabindex="0" data-toggle="tooltip" data-placement="right" title="This feature is not available as your account is still waiting to be verified by the admin.">
+                                <button type="button" class="btn btn-primary w-100 mb-2" href="/create/{{profileData._id}}" disabled> <i class="fas fa-plus-circle"></i> Create New</button>
+                            </span>
+                        {{/match}}
+
                         {{#each activeJob}}
                             {{> jobItem app_count = this.applicants.length accType = ../accType}}
                         {{/each}}
@@ -93,13 +101,21 @@
 
                         <h2>Search For Employees</h2>
                         <small>Browse and filter a list of our website's applicants</small>
-                        <a href="/search/applicants" class="btn btn-primary w-100"><i class="fas fa-search"></i> Search</a>
+                        {{#match status 'Verified'}}
+                            <button href="/search/applicants" class="btn btn-primary w-100"><i class="fas fa-search"></i> Search</button>
+                        {{/match}}
+                        {{#match status 'Unverified'}}
+                            <span tabindex="0" data-toggle="tooltip" data-placement="right" title="This feature is not available as your account is still waiting to be verified by the admin.">
+                                <button href="/search/applicants" class="btn btn-primary w-100" disabled><i class="fas fa-search"></i> Search</button>
+                            </span>
+                        {{/match}}
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 
 
 <!-- Modal -->

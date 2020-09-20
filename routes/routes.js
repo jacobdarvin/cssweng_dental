@@ -99,6 +99,8 @@ app.post(
 app.get('/employers', adminController.getEmployerList);
 app.get('/applicants', adminController.getApplicantList);
 app.get('/jobs', adminController.getJobList);
+app.post('/confirmEmpStatus', adminController.confirmEmpStatus);
+app.post('/declineEmpStatus', adminController.declineEmpStatus);
 
 app.get('/admin', adminController.getAdmin);
 // /admin | ADMIN
