@@ -381,6 +381,27 @@ const validation = {
                 .trim(),
         ];
     },
+
+    editJobDetailsValidation: function () {
+        return [
+            check('date_start')
+                .if(body('placement').exists().equals('Temporary'))
+                .isAfter()
+                .withMessage(
+                    'Start date: Please enter a date that comes after the date today',
+                ),
+            check('date_end')
+                .if(body('placement').exists().equals('Temporary'))
+                .custom((date_end, { req, location, path }) => {
+                    const ds_date = new Date(req.body.date_start);
+                    const de_date = new Date(date_end);
+                    return de_date > ds_date;
+                })
+                .withMessage(
+                    'End date: Please enter a date that comes after the start date',
+                ),
+        ];
+    },
 };
 
 module.exports = validation;

@@ -6,6 +6,7 @@ const Applicant = require('../models/ApplicantModel');
 const Employer = require('../models/EmployerModel');
 const Response = require('../models/EmpResponseModel');
 const pagination = require('../helpers/pagination');
+const { validationResult } = require('express-validator');
 
 const fs = require('fs');
 const path = require('path');
@@ -143,7 +144,7 @@ const feedController = {
 
             helper.updatePostedDate();
             Job.paginate(query, options, function (err, results) {
-                console.log(results);
+                // console.log(results);
 
                 let selectOptions = new Array();
 
@@ -1032,6 +1033,52 @@ const feedController = {
                 else res.status(500).send('An error occurred in the server.');
             },
         );
+    },
+
+    getPopulatedJobDetails: async function (req, res) {
+        try {
+            const job = await Job.findById(req.params.jobId)
+                .populate('employer')
+                .exec();
+            res.render(
+                './partials/editJobForm',
+                { jobData: job.toObject(), layout: false },
+                (err, html) => {
+                    if (err) throw err;
+                    res.send(html);
+                },
+            );
+        } catch (error) {
+            console.log(error);
+            res.send(error);
+        }
+    },
+
+    postEditJobDetails: function (req, res) {
+        var errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            errors = errors.errors;
+
+            res.send(errors.map(e => e.msg));
+        } else {
+            const { date_start, date_end, ...rest } = req.body;
+
+            const obj =
+                rest.placement === 'Temporary'
+                    ? { ...rest, date_start, date_end }
+                    : { ...rest, $unset: { date_start, date_end } };
+
+
+            // update database
+            db.updateOne(Job, { _id: req.params.jobId }, obj, result => {
+                if (result) {
+                    res.send(obj);
+                } else {
+                    res.status(500).send('An error occurred in the server');
+                }
+            });
+        }
     },
 };
 
