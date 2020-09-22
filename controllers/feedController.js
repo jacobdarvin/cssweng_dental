@@ -137,8 +137,8 @@ const feedController = {
                 clinic_city: { $in: cityQuery },
                 clinic_state: { $in: stateQuery },
 
-                date_start: { $gte: date_start.toISOString() },
-                date_end: { $lte: date_end.toISOString() },
+                // date_start: { $gte: date_start.toISOString() },
+                // date_end: { $lte: date_end.toISOString() },
             };
 
             helper.updatePostedDate();
@@ -1019,6 +1019,19 @@ const feedController = {
                 res.status(404);
                 next();
             });
+    },
+
+    postEditDescription: function (req, res) {
+        var description = req.body.description.trim();
+        db.updateOne(
+            Job,
+            { _id: req.params.jobId },
+            { description },
+            result => {
+                if (result) res.send({ description });
+                else res.status(500).send('An error occurred in the server.');
+            },
+        );
     },
 };
 

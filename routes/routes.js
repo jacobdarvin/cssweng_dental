@@ -199,6 +199,7 @@ app.get('/feed-app', feedController.getAppFeed);
 app.get('/feed-app/applied-jobs', feedController.getAppliedAppFeed);
 app.get('/jobs/:jobId', feedController.getIndivJob);
 app.post('/jobs/:jobId', feedController.postIndivJob);
+app.post('/jobs/:jobId/edit-description', feedController.postEditDescription);
 app.get('/jobs/:jobId/applicants', feedController.getJobApplicants);
 app.get('/jobs/:jobId/applicants/:appId', feedController.getAppProfile); // view applicant from job post's applicants
 app.get('/getAppResume/:resume', dashboardEmpController.getAppResume);

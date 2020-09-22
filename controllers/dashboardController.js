@@ -54,7 +54,8 @@ const dashboardController = {
                                             nAppliedJobs,
                                             appData,
                                         ] = results;
-
+                                        // console.log(matchingJobs);
+                                        // console.log(appData.appliedJobs);
                                         renderOptions.search_job_route = searchJobRoute;
                                         renderOptions.matching_jobs_count = nMatchingJobs;
                                         renderOptions.matching_jobs = matchingJobs;
