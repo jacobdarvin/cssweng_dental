@@ -1,187 +1,429 @@
 <style>
-	body {
-		background-color: rgb(245, 245, 245);
-	}
-
-	.title {
-		font-size: 42px;
-	}
-
-	.flex-row {
-		display: flex;
-		flex-wrap: wrap;
-	}
+   body {
+   background-color: rgb(245, 245, 245);
+   }
+   .title {
+   font-size: 42px;
+   }
+   .flex-row {
+   display: flex;
+   flex-wrap: wrap;
+   }
 </style>
 
+<script>
+
+function checkRadio() {
+    if (document.getElementById('Permanent').checked) {
+        document.getElementById('date_perm').style.display = 'block';
+        document.getElementById('date_range').style.display = 'none'
+
+    } else  {
+        document.getElementById('date_perm').style.display = 'none';
+        document.getElementById('date_range').style.display = 'inline-flex';
+
+        var dateObj = new Date();
+        let month = dateObj.getMonth() + 1;
+
+        if(month < 10) {
+            month = '0' + month;
+        } 
+
+        let day = dateObj.getDate() + 1;
+        let day_end = dateObj.getDate() + 2;
+
+        if(day < 10) {
+            day = '0' + day;
+        } 
+
+        let year = dateObj.getFullYear();
+
+        let output = year+'-'+month+'-'+day;
+        let output_end = year+'-'+month+'-'+day_end;
+
+        document.getElementById('date_start_c').defaultValue = output;
+        document.getElementById('date_end_c').defaultValue = output_end;
+
+    }
+}
+
+function placementCheck() {
+    if (document.getElementById('Permanent').checked) {
+
+        var dateObj = new Date();
+        let month = dateObj.getMonth() + 1;
+
+        if(month < 10) {
+            month = '0' + month;
+        } 
+
+        let day = dateObj.getDate();
+        let day_end = dateObj.getDate() + 2;
+
+        if(day < 10) {
+            day = '0' + day;
+        } 
+
+        let year = dateObj.getFullYear();
+
+        let output = year+'-'+month+'-'+day;
+
+        document.getElementById('date_perm').style.display = 'block';
+        document.getElementById('date_range').style.display = 'none';
+        document.getElementById('date_start_c').defaultValue = output;
+
+    } else  {
+        var dateObj = new Date();
+        let month = dateObj.getMonth() + 1;
+
+        if(month < 10) {
+            month = '0' + month;
+        } 
+
+        let day = dateObj.getDate() + 1;
+        let day_end = dateObj.getDate() + 2;
+
+        if(day < 10) {
+            day = '0' + day;
+        } 
+
+        let year = dateObj.getFullYear();
+
+        let output = year+'-'+month+'-'+day;
+        let output_end = year+'-'+month+'-'+day_end;
+
+        document.getElementById('date_start_c').defaultValue = output;
+        document.getElementById('date_end_c').defaultValue = output_end;
+
+        document.getElementById('date_perm').style.display = 'none';
+        document.getElementById('date_range').style.display = 'inline-flex';
+    }
+}
+
+function setPermaDate() {
+    var dateObj = new Date();
+    let month = dateObj.getMonth() + 1;
+
+    if(month < 10) {
+        month = '0' + month;
+    } 
+
+    let day = dateObj.getDate();
+
+    if(day < 10) {
+        day = '0' + day;
+    } 
+
+    let year = dateObj.getFullYear();
+
+    let output = year+'-'+month+'-'+day;
+
+    document.getElementById('date_start_c').defaultValue = output;
+    document.getElementById('date_end_c').defaultValue   = '2090-12-30';
+}
+
+window.onload = function(){
+    setPermaDate();
+    checkRadio();
+}
+
+</script>
+
 <div class="container mb-4 p-0" style="margin-top: 5em;">
-
-	<div class="row mb-2">
-		<div class="card w-100 border m-0 p-2 ">
-			<span class="title"> <b>{{jobData.position}}</b> at <b>{{jobData.employer.clinicName}}</b> </span>
-			<small> Posted {{date}} by <a href="#">{{jobData.employer.clinicName}}</a></small>
-		</div>
-	</div>
-
-	<hr>
-
-	<div class="row">
-
-		<div class="col-sm-9 pl-0 pr-1">
-			<div class="card border m-0 p-2 shadow-sm">
-				<p class="h3">Job Description</p>
-				<p class="description">{{jobData.description}}</p>
-				{{#match accType 'applicant'}}
-				<form action="{{url}}" method="POST">
-					{{#if applied}}
-						<span tabindex="0" data-toggle="tooltip" data-placement="right" title="The employer is currently reviewing your application">
-							<button type="submit" style="pointer-events: none;" class="btn btn-primary w-100" disabled>Awaiting Employer Response</button>
-						</span>
-					{{else}}
-						<button type="submit" class="btn btn-primary w-100">Apply</button>
-					{{/if}}
-						<hr>
-						<button type="button" class="btn btn-success w-100" data-toggle="modal" data-target="#acceptModal">View Accepted Response</button>
-						<button type="button" class="btn btn-danger w-100"  data-toggle="modal" data-target="#declineModal">View Declined Response</button>
-				</form>
-				{{/match}}
-
-				{{#match accType 'employer'}}
-				<a href="{{url}}" style="text-decoration: none;">
-					<button class="btn btn-primary w-100"><i class="fas fa-list"></i> View Your Applicants</button>
-				</a>
-				{{/match}}
-
-				
-			</div>
-
-		
-
-			<div class="card border m-0 mt-4 p-2 shadow-sm">
-				<div class="row flex-row">
-					<div class="col">
-						<b>Position</b> <br>
-						<small>{{jobData.position}}</small>
-					</div>
-					<div class="col">
-						<b>Software</b> <br>
-						<small>{{jobData.software}}</small>
-					</div>
-					<div class="col">
-						<b>Experience</b> <br>
-						<small>At least {{jobData.experience}} of Experience</small>
-					</div>
-					{{#ifEquals jobData.placement "Temporary"}}
-					<div class="col">
-						<b>Date Needed</b> <br>
-						<small><b>{{jobData.date_start}}</b> to <b>{{jobData.date_end}}</b></small>
-					</div>
-					{{/ifEquals}}
-				</div>
-				<hr>
-			</div>
-
-		</div>
-
-		<div class="col-sm-3 pr-0 pl-1">
-			<div class="card border shadow-sm mx-auto profile-length h-100" style="width: 100%;">
-				<div class="card-body">
-					<span class="card-text" style="text-align: left; font-size: 32px;">
-						{{jobData.employer.clinicName}}
-					</span>
-					<hr />
-					<span class="card-text" style="text-align: left;"> <i class="fas fa-location-arrow icon-color">&nbsp;</i> {{jobData.employer.clinicAddress.city}},
-						{{jobData.employer.clinicAddress.state}} </span>
-					<br />
-					<span class="card-text" style="text-align: left;"> <i class="far fa-envelope icon-color">&nbsp;</i> {{jobData.employer.clinicContactEmails.[0]}} </span>
-					<br />
-					<span class="card-text" style="text-align: left;"> <i class="fas fa-phone icon-color">&nbsp;</i> {{jobData.employer.clinicPhone}} </span>
-					<br />
-				</div>
-					{{#match accType 'employer'}}
-					
-					<a href="#" class="m-2 text-danger text-bottom text-right" data-toggle="modal" data-target="#closeJob"><b>Close Job </b><i class="fas fa-times-circle"></i></a>
-
-					{{/match}}
-			</div>
-		</div>
-	</div>
+   <div class="row mb-2">
+      <div class="card w-100 border m-0 p-2 ">
+         <span class="title"> <b>{{jobData.position}}</b> at <b>{{jobData.employer.clinicName}}</b> </span>
+         <small> Posted {{date}} by <b>{{jobData.employer.clinicName}}</b></small>
+      </div>
+   </div>
+   <hr>
+   <div class="row">
+      <div class="col-sm-9 pl-0 pr-1">
+         <div class="card border m-0 p-2 shadow-sm">
+            <p class="h3">Job Description</p>
+            <p class="description">{{jobData.description}}</p>
+            {{#match accType 'employer'}}
+            <a href="" data-toggle="modal" data-target="#editDesc" class="mb-2"><i class="fas fa-edit"></i> Edit Description</a>
+            {{/match}}
+            {{#match accType 'applicant'}}
+            <form action="{{url}}" method="POST">
+               {{#if applied}}
+               {{#if await}}
+               <span tabindex="0" data-toggle="tooltip" data-placement="right" title="The employer is currently reviewing your application">
+               <button type="submit" style="pointer-events: none;" class="btn btn-primary w-100" disabled>Awaiting Employer Response</button>
+               </span>
+               {{else}}
+               {{#match type 'hire'}}
+               <button type="button" class="btn btn-success w-100" data-toggle="modal" data-target="#acceptModal">View Accepted Response</button>
+               {{/match}}
+               {{#match type 'decline'}}
+               <button type="button" class="btn btn-danger w-100"  data-toggle="modal" data-target="#declineModal">View Declined Response</button>
+               {{/match}}
+               {{/if}}
+               {{else}}
+               <button type="submit" class="btn btn-primary w-100">Apply</button>
+               {{/if}}
+               <hr>
+            </form>
+            {{/match}}
+            {{#match accType 'employer'}}
+            <a href="{{url}}" style="text-decoration: none;">
+            <button class="btn btn-primary w-100"><i class="fas fa-list"></i> View Your Applicants</button>
+            </a>
+            {{/match}}
+         </div>
+         <div class="card border m-0 mt-4 p-2 shadow-sm">
+            <div class="row flex-row">
+               <div class="col">
+                  <b>Position</b> <br>
+                  <small>{{jobData.position}}</small>
+               </div>
+               <div class="col">
+                  <b>Software</b> <br>
+                  <small>{{jobData.software}}</small>
+               </div>
+               <div class="col">
+                  <b>Experience</b> <br>
+                  <small>At least {{jobData.experience}} of Experience</small>
+               </div>
+               {{#ifEquals jobData.placement "Temporary"}}
+               <div class="col">
+                  <b>Date Needed</b> <br>
+                  <small><b>{{formatJobDate jobData.date_start}}</b> to <b>{{formatJobDate jobData.date_end}}</b></small>
+               </div>
+               {{/ifEquals}}
+            </div>
+            <hr>
+            {{#match accType 'employer'}}
+            <a href="" data-toggle="modal" data-target="#editJob" class="mb-2"><i class="fas fa-edit"></i> Edit Job Details </a>
+            {{/match}}
+         </div>
+      </div>
+      <div class="col-sm-3 pr-0 pl-1">
+         <div class="card border shadow-sm mx-auto profile-length h-100" style="width: 100%;">
+            <div class="card-body">
+               <span class="card-text" style="text-align: left; font-size: 32px;">
+               {{jobData.employer.clinicName}}
+               </span>
+               <hr />
+               <span class="card-text" style="text-align: left;"> <i class="fas fa-location-arrow icon-color">&nbsp;</i> {{jobData.employer.clinicAddress.city}},
+               {{jobData.employer.clinicAddress.state}} </span>
+               <br />
+               <span class="card-text" style="text-align: left;"> <i class="far fa-envelope icon-color">&nbsp;</i> {{jobData.employer.clinicContactEmails.[0]}} </span>
+               <br />
+               <span class="card-text" style="text-align: left;"> <i class="fas fa-phone icon-color">&nbsp;</i> {{jobData.employer.clinicPhone}} </span>
+               <br />
+            </div>
+            {{#match accType 'employer'}}
+            <a href="#" class="m-2 text-danger text-bottom text-right" data-toggle="modal" data-target="#closeJob"><b>Close Job </b><i class="fas fa-times-circle"></i></a>
+            {{/match}}
+         </div>
+      </div>
+   </div>
 </div>
-
 <!-- Modal -->
 <div class="modal fade border" id="acceptModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalCenterTitle">{{jobData.employer.clinicName}}</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+   <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalCenterTitle">{{jobData.employer.clinicName}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+            <p class="h1">{{response.subject}}</p>
+            <p> {{response.body}}</p>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Mark as Read</button>
+            <span> <i class="fas fa-location-arrow icon-color"></i> {{jobData.employer.clinicAddress.city}}, {{jobData.employer.clinicAddress.state}} </span>
+            <span> <i class="far fa-envelope icon-color"></i> {{jobData.employer.clinicContactEmails.[0]}} </span>
+            <span> <i class="fas fa-phone icon-color"></i> {{jobData.employer.clinicPhone}} </span>
+         </div>
       </div>
-      <div class="modal-body">
-        <p class="h1">Good day!</p>
-        <p> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr.</p>
-
-        <p> Please contact me though my work email at mark@gmail.com</p>
-        <p>- Mark</p>
-      </div>
-      <div class="modal-footer">
-
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Mark as Read</button>
-
-		<span> <i class="fas fa-location-arrow icon-color"></i> {{jobData.employer.clinicAddress.city}}, {{jobData.employer.clinicAddress.state}} </span>
-		<span> <i class="far fa-envelope icon-color"></i> {{jobData.employer.clinicContactEmails.[0]}} </span>
-		<span> <i class="fas fa-phone icon-color"></i> {{jobData.employer.clinicPhone}} </span>
-      </div>
-    </div>
-  </div>
+   </div>
 </div>
 <!-- Modal -->
-
 <div class="modal fade border" id="declineModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalCenterTitle">{{jobData.employer.clinicName}}</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+   <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalCenterTitle">{{jobData.employer.clinicName}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+            <small><b>Reason for declination</b></small>
+            <p class="mt-1"> {{response.body}}</p>
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Mark as Read</button>
+            <span> <i class="fas fa-location-arrow icon-color"></i> {{jobData.employer.clinicAddress.city}}, {{jobData.employer.clinicAddress.state}} </span>
+            <span> <i class="far fa-envelope icon-color"></i> {{jobData.employer.clinicContactEmails.[0]}} </span>
+            <span> <i class="fas fa-phone icon-color"></i> {{jobData.employer.clinicPhone}} </span>
+         </div>
       </div>
-      <div class="modal-body">
-      	<small><b>Reason for declination</b></small>
-        <p class="mt-1"> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr.</p>
-
-        <p> Please contact me though my work email at mark@gmail.com</p>
-        <p>- Mark</p>
-      </div>
-      <div class="modal-footer">
-
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Mark as Read</button>
-        
-		<span> <i class="fas fa-location-arrow icon-color"></i> {{jobData.employer.clinicAddress.city}}, {{jobData.employer.clinicAddress.state}} </span>
-		<span> <i class="far fa-envelope icon-color"></i> {{jobData.employer.clinicContactEmails.[0]}} </span>
-		<span> <i class="fas fa-phone icon-color"></i> {{jobData.employer.clinicPhone}} </span>
-      </div>
-    </div>
-  </div>
+   </div>
 </div>
-
 <!-- Modal -->
 <div class="modal fade" id="closeJob" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title text-danger font-weight-bold" id="empModalTitle">Are you sure you want to close this job?
-                <br><small class="text-muted"><i>You cannot undo this action.</i></small></h5>        
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+   <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title text-danger font-weight-bold" id="empModalTitle">Are you sure you want to close this job?
+               <br><small class="text-muted"><i>You cannot undo this action.</i></small>
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+            <button type="button" style="display: inline-block;" class="w-100 btn btn-danger" data-toggle="modal" data-target="#admin_confirmApprove">Close Job</button>
+            <button type="button" style="display: inline-block;" class="mt-2 w-100 btn btn-secondary" data-dismiss="modal">Go Back</button>
+         </div>
       </div>
-      <div class="modal-body">
-       <button type="button" style="display: inline-block;" class="w-100 btn btn-danger" data-toggle="modal" data-target="#admin_confirmApprove">Close Job</button>
-       <button type="button" style="display: inline-block;" class="mt-2 w-100 btn btn-secondary" data-dismiss="modal">Go Back</button>
-   		</div>
-    </div>
-  </div>
+   </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="editDesc" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title">Editing Description</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+            <textarea class="form-control mb-2" id="exampleFormControlTextarea1" rows="3">{{jobData.description}}</textarea>
+            <button type="button" style="display: inline-block;" class="w-100 btn btn-primary" data-toggle="modal" data-target="#admin_confirmApprove">Update Description</button>
+            <button type="button" style="display: inline-block;" class="mt-2 w-100 btn btn-secondary" data-dismiss="modal">Go Back</button>
+         </div>
+      </div>
+   </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="editJob" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title">Editing Description</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+            <form action="/create" method="POST">
+               <div class="card-title" style="font-size: 42px;">Placement</div>
+               <p style="font-style: italic; font-size: 16px; margin-top: -16px;">What kind of job are you offering?</p>
+               <div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
+                  <label class="btn w-100 btn-secondary active">
+                  <i class="fas fa-user" style="font-size: 42px"></i> <br>
+                  <input type="radio" onclick="placementCheck();" name="placement" id="Permanent" value="Permanent" {{check "Permanent" input.placement "Permanent"}}>Permanent
+                  </label>
+                  <label class="btn w-100 btn-secondary">
+                     <i class="fas fa-user-nurse" style="font-size: 42px"></i> <br>
+                     <input type="radio" onclick="placementCheck();" name="placement" id="Temporary" value="Temporary" {{check "Temporary" input.placement "Permanent"}}>Temporary
+               </div>
+               <div class="card-title" style="font-size: 42px;">Position</div>
+               <p style="font-style: italic; font-size: 16px; margin-top: -16px;">Who are you looking to hire?</p>
+               <div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
+               <label class="btn w-100 btn-secondary active">
+               <i class="fas fa-user" style="font-size: 42px"></i> <br>
+               <input type="radio" name="position" id="Front Desk" value="Front Desk" {{check "Front Desk" input.position "Front Desk"}}> Front Desk
+               </label>
+               <label class="btn w-100 btn-secondary">
+               <i class="fas fa-user-nurse" style="font-size: 42px"></i> <br>
+               <input type="radio" name="position" id="Dental Assistant" value="Dental Assistant" {{check "Dental Assistant" input.position "Front Desk"}}> Dental Assistant
+               </label>
+               <label class="btn w-100 btn-secondary">
+               <i class="fas fa-user-ninja" style="font-size: 42px"></i> <br>
+               <input type="radio" name="position" id="Dental Hygienist" value="Dental Hygienist" {{check "Dental Hygienist" input.position "Front Desk"}}> Dental Hygienist
+               </label>
+               <label class="btn w-100 btn-secondary">
+               <i class="fas fa-user-md" style="font-size: 42px"></i> <br>
+               <input type="radio" name="position" id="Dentist" value="Dentist" {{check "Dentist" input.position "Front Desk"}}> Dentist
+               </label>
+               </div>
+               <!-- CLINIC LOCATION -->
+                  <div class="card-title" style="font-size: 42px;">Clinic Details</div>
+                  <p style="font-style: italic; font-size: 16px; margin-top: -16px;">Please confirm the following location details for your job.</p>
+                  <div class="card-text" style="margin-bottom: -20px; border: 1px solid rgb(173, 169, 169); padding-left: 10px;">
+                     <p class="h3" style="margin-top: 14px"> {{jobData.employer.clinicName}} </p>
+                     <p class="mb-0"> Clinic Address: {{jobData.employer.clinicAddress.houseNo}} {{jobData.employer.clinicAddress.street}}</p>
+                     <p> Location: {{jobData.employer.clinicAddress.city}}, {{jobData.employer.clinicAddress.state}}</p>
+                  </div>
+                  <br>
+                  <label for="example-datetime-local-input" style="margin-top: 10px">Date Needed</label> <br>
+                  <div class="row">
+                     <div class="col" id="date_perm">
+                        <small><i>Date range not available for permanent job postings</i></small>
+                     </div>
+                     <div id="date_range" class="w-100" style="display: none;">
+                        <div class="col">
+                           <small>Start Date</small><br>
+                           <input class="form-control w-100" type="date" id="date_start_c" name="date_start">
+                        </div>
+                        <div class="col">
+                           <small>End Date</small><br>
+                           <input class="form-control w-100" type="date" id="date_end_c" name="date_end">
+                        </div>
+                     </div>
+                  </div>
+                  <p style="color: red; margin-top: 3px">{{dateError}}</p>
+               <!-- CLINIC CONTACT -->
+                  <div class="card-title" style="font-size: 42px;">Additional Job Requirements</div>
+                  <div class="card-title">
+                     <label for="clinic_con_name">Software Proficiency</label>
+                     <div class="container ">
+                        <div class="form-check col w-100" >
+                           <input class="form-check-input" type="checkbox" value="Dentrix" id="Dentrix" name="software" {{checkbox "Dentrix" input.software}}>
+                           <label class="col form-check-label" for="defaultCheck1">
+                           Dentrix
+                           </label>
+                        </div>
+                        <div class="form-check col w-100" >
+                           <input class="form-check-input" type="checkbox" value="Easy Dental" id="Easy Dental" name="software" {{checkbox "Easy Dental" input.software}}>
+                           <label class="col form-check-label" for="defaultCheck1">
+                           Easy Dental
+                           </label>
+                        </div>
+                        <div class="form-check col w-100">
+                           <input class="form-check-input" type="checkbox" value="Eaglesoft" id="Eaglesoft" name="software" {{checkbox "Eaglesoft" input.software}}>
+                           <label class="col form-check-label" for="defaultCheck1">
+                           Eaglesoft
+                           </label>
+                        </div>
+                        <div class="form-check col w-100">
+                           <input class="form-check-input" type="checkbox" value="Open Dental" id="Open Dental" name="software" {{checkbox "Open Dental" input.software}}>
+                           <label class="col form-check-label" for="defaultCheck1">
+                           Open Dental
+                           </label>
+                        </div>
+                     </div>
+                     <br>
+                     <div class="card-text">
+                        <label for="inputGroupSelect04">Years of Experience</label>
+                        <div class="input-group">
+                           <select class="custom-select" id="experience" name="experience" aria-label="Example select with button addon">
+                           <option value="Less than a Year"  {{select "Less than a Year" input.experience}}>Less than a Year</option>
+                           <option value="1 Year" {{select "1 Year" input.experience}}>1 Year</option>
+                           <option value="More than a Year" {{select "More than a Year" input.experience}}>More than a Year </option>
+                           <option value="5 Years or More" {{select "5 Years or More" input.experience}}>5 Years or More</option>
+                           </select>
+                        </div>
+                     </div>
+               </div>
+         </div>
+         </form>
+         <div class="modal-footer">
+            <button type="button" style="display: inline-block;" class="w-100 btn btn-primary">Update Job Details</button>
+            <button type="button" style="display: inline-block;" class="mt-2 w-100 btn btn-secondary" data-dismiss="modal">Go Back</button>
+         </div>
+      </div>
+   </div>
 </div>

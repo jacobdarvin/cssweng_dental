@@ -10,10 +10,10 @@
 		<p class="h1">Job Feed</p>
 
 		{{warn}}
-		
+
 		<div id="jobFeed">
 			{{#each jobs}}
-			{{>jobItem}}
+			{{>jobItem app_count = this.applicants.length accType = ../accType}}
 			{{/each}}
 		</div>
 
@@ -98,14 +98,16 @@
 			</div>
 
 			<div class="p-3 card border m-0 mb-2">
-				<p class="h5 mt-2"> Date Needed </p>
+				<p class="h5 mt-2"> Date Range </p>
 				<div class="form-group">
-					<small>Date Start</small>
-					<input class="form-control" type="date" id="date_start" name="date_start">
+					<small>From</small>
+					<input class="form-control" type="date" id="date_start" name="date_start" value=""
+						onchange='saveValue(this);'>
 				</div>
 				<div class="form-group">
-					<small>Date End</small>
-					<input class="form-control" type="date" id="date_end" name="date_end">
+					<small>To</small>
+					<input class="form-control" type="date" id="date_end" name="date_end" value=""
+						onchange='saveValue(this);'>
 				</div>
 			</div>
 

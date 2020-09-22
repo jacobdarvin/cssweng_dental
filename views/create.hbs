@@ -1,6 +1,6 @@
 <script>
 
-function placementCheck() {
+function checkRadio() {
     if (document.getElementById('Permanent').checked) {
         document.getElementById('date_perm').style.display = 'block';
         document.getElementById('date_range').style.display = 'none'
@@ -8,10 +8,86 @@ function placementCheck() {
     } else  {
         document.getElementById('date_perm').style.display = 'none';
         document.getElementById('date_range').style.display = 'inline-flex';
+
+        var dateObj = new Date();
+        let month = dateObj.getMonth() + 1;
+
+        if(month < 10) {
+            month = '0' + month;
+        } 
+
+        let day = dateObj.getDate() + 1;
+        let day_end = dateObj.getDate() + 2;
+
+        if(day < 10) {
+            day = '0' + day;
+        } 
+
+        let year = dateObj.getFullYear();
+
+        let output = year+'-'+month+'-'+day;
+        let output_end = year+'-'+month+'-'+day_end;
+
+        document.getElementById('date_start_c').defaultValue = output;
+        document.getElementById('date_end_c').defaultValue = output_end;
+
     }
 }
 
-function dateDefault() {
+function placementCheck() {
+    if (document.getElementById('Permanent').checked) {
+
+        var dateObj = new Date();
+        let month = dateObj.getMonth() + 1;
+
+        if(month < 10) {
+            month = '0' + month;
+        } 
+
+        let day = dateObj.getDate();
+        let day_end = dateObj.getDate() + 2;
+
+        if(day < 10) {
+            day = '0' + day;
+        } 
+
+        let year = dateObj.getFullYear();
+
+        let output = year+'-'+month+'-'+day;
+
+        document.getElementById('date_perm').style.display = 'block';
+        document.getElementById('date_range').style.display = 'none';
+        document.getElementById('date_start_c').defaultValue = output;
+
+    } else  {
+        var dateObj = new Date();
+        let month = dateObj.getMonth() + 1;
+
+        if(month < 10) {
+            month = '0' + month;
+        } 
+
+        let day = dateObj.getDate() + 1;
+        let day_end = dateObj.getDate() + 2;
+
+        if(day < 10) {
+            day = '0' + day;
+        } 
+
+        let year = dateObj.getFullYear();
+
+        let output = year+'-'+month+'-'+day;
+        let output_end = year+'-'+month+'-'+day_end;
+
+        document.getElementById('date_start_c').defaultValue = output;
+        document.getElementById('date_end_c').defaultValue = output_end;
+
+        document.getElementById('date_perm').style.display = 'none';
+        document.getElementById('date_range').style.display = 'inline-flex';
+    }
+}
+
+function setPermaDate() {
     var dateObj = new Date();
     let month = dateObj.getMonth() + 1;
 
@@ -19,8 +95,7 @@ function dateDefault() {
         month = '0' + month;
     } 
 
-    let day = dateObj.getDate() + 1;
-    let day_end = dateObj.getDate() + 2;
+    let day = dateObj.getDate();
 
     if(day < 10) {
         day = '0' + day;
@@ -29,13 +104,15 @@ function dateDefault() {
     let year = dateObj.getFullYear();
 
     let output = year+'-'+month+'-'+day;
-    let output_end = year+'-'+month+'-'+day_end;
 
-    document.getElementById('date_start').defaultValue = output;
-    document.getElementById('date_end').defaultValue = output_end;
+    document.getElementById('date_start_c').defaultValue = output;
+    document.getElementById('date_end_c').defaultValue   = '2090-12-30';
 }
 
-window.onload = dateDefault;
+window.onload = function(){
+    setPermaDate();
+    checkRadio();
+}
 
 </script>
 
@@ -54,7 +131,6 @@ window.onload = dateDefault;
 </p>
 <!-- OWNER INFORMATION -->
 <form action="/create" method="POST">
-
     <div class="card shadow-sm border mx-auto" style="width: 50rem; margin-bottom: 2rem;">
         <div class="card-body">
             <div class="card-title" style="font-size: 42px;">Placement</div>
@@ -95,6 +171,19 @@ window.onload = dateDefault;
         </div>
             </div>
     </div>
+
+    <!-- JOB DETAILS -->
+     <div class="card shadow-sm border mx-auto" style="width: 50rem; margin-bottom: 2rem;">
+        <div class="card-body">
+            <div class="card-title" style="font-size: 42px;">Job Details</div>
+            <p style="font-style: italic; font-size: 16px; margin-top: -16px;">Write a quick description about this job</p>
+            <div class="card-text">
+                <label>Job Description</label><br />
+                <textarea class="w-100 border" id="jobdescription" name="jobdescription" style="height: 8em;" required>{{input.jobdescription}}</textarea>
+             </div>
+        </div>
+    </div>  
+
     <!-- CLINIC LOCATION -->
     <div class="card shadow-sm border mx-auto" style="width: 50rem; margin-bottom: 2rem;">
         <div class="card-body">
@@ -104,14 +193,6 @@ window.onload = dateDefault;
                 <p class="h3" style="margin-top: 14px"> {{emp.clinicName}} </p>
                 <p class="mb-0"> Clinic Address: {{emp.clinicAddress.houseNo}} {{emp.clinicAddress.street}}</p>
                 <p> Location: {{emp.clinicAddress.city}}, {{emp.clinicAddress.state}}</p>
-                <!--
-                <label for="inputGroupSelect04">Clinic</label>
-                <div class="input-group">
-                    <select class="custom-select" id="clinic" name="clinic" aria-label="Example select with button addon">
-                        <option value="Main Clinic" selected>Main Clinic</option>
-                    </select>
-                </div>
-                -->
             </div>
             <br>
             <label for="example-datetime-local-input" style="margin-top: 10px">Date Needed</label> <br>
@@ -124,12 +205,12 @@ window.onload = dateDefault;
                 <div id="date_range" class="w-100" style="display: none;">
                     <div class="col">
                         <small>Start Date</small><br>
-                        <input class="form-control w-100" type="date" id="date_start" name="date_start">
+                        <input class="form-control w-100" type="date" id="date_start_c" name="date_start">
                     </div>
 
                     <div class="col">
                         <small>End Date</small><br>
-                        <input class="form-control w-100" type="date" id="date_end" name="date_end">
+                        <input class="form-control w-100" type="date" id="date_end_c" name="date_end">
                     </div>
                 </div>
             </div>
@@ -139,57 +220,46 @@ window.onload = dateDefault;
         </div>
     </div>
 
-    <div class="card shadow-sm border mx-auto" style="width: 50rem; margin-bottom: 2rem;">
-        <div class="card-body">
-            <div class="card-title" style="font-size: 42px;">Job Details</div>
-            <p style="font-style: italic; font-size: 16px; margin-top: -16px;">Write a quick description about this job</p>
-            <div class="card-text">
-                <label>Job Description</label>
-                <textarea class="form-control w-100 border" id="jobdescription" name="jobdescription" rows="3" required>{{input.jobdescription}}</textarea>
-        </div>
-    </div>
-</div>
     <!-- CLINIC CONTACT -->
     <div class="card shadow-sm border mx-auto" style="width: 50rem; margin-bottom: 2rem;">
         <div class="card-body">
-            <div class="card-title" style="font-size: 42px;">Job Requirements</div>
+            <div class="card-title" style="font-size: 42px;">Additional Job Requirements</div>
             <div class="card-title">
                             <label for="clinic_con_name">Software Proficiency</label>
+                            
                             <div class="container ">
                                 <div class="form-check col w-100" >
-                                  <input class="form-check-input" type="checkbox" value="Dentrix" id="defaultCheck1" name="software" {{checkbox "Dentrix" input.programs}}>
+                                  <input class="form-check-input" type="checkbox" value="Dentrix" id="Dentrix" name="software" {{checkbox "Dentrix" input.software}}>
                                   <label class="col form-check-label" for="defaultCheck1">
                                     Dentrix
                                   </label>
                                 </div>
 
                                 <div class="form-check col w-100" >
-                                  <input class="form-check-input" type="checkbox" value="Easy Dental" id="defaultCheck1" name="software" {{checkbox "Easy Dental" input.programs}}>
+                                  <input class="form-check-input" type="checkbox" value="Easy Dental" id="Easy Dental" name="software" {{checkbox "Easy Dental" input.software}}>
                                   <label class="col form-check-label" for="defaultCheck1">
                                     Easy Dental
                                   </label>
                                 </div>
 
                                 <div class="form-check col w-100">
-                                  <input class="form-check-input" type="checkbox" value="Eaglesoft" id="defaultCheck1" name="software" {{checkbox "Eaglesoft" input.programs}}>
+                                  <input class="form-check-input" type="checkbox" value="Eaglesoft" id="Eaglesoft" name="software" {{checkbox "Eaglesoft" input.software}}>
                                   <label class="col form-check-label" for="defaultCheck1">
                                     Eaglesoft
                                   </label>
                                 </div>
 
                                 <div class="form-check col w-100">
-                                  <input class="form-check-input" type="checkbox" value="Open Dental" id="defaultCheck1" name="software" {{checkbox "Open Dental" input.programs}}>
+                                  <input class="form-check-input" type="checkbox" value="Open Dental" id="Open Dental" name="software" {{checkbox "Open Dental" input.software}}>
                                   <label class="col form-check-label" for="defaultCheck1">
                                     Open Dental
                                   </label>
                                 </div>
+
                             </div>
-                            <!--
-                            <input type="text" class="form-control" id="software" name="software" aria-describedby="emailHelp" placeholder="List down your needed softwares..." value="{{input.software}}"/>
-                            -->
                            <br>
                 <div class="card-text">
-                <label for="inputGroupSelect04">Experience</label>
+                <label for="inputGroupSelect04">Years of Experience</label>
                 <div class="input-group">
                   <select class="custom-select" id="experience" name="experience" aria-label="Example select with button addon">
                     <option value="Less than a Year"  {{select "Less than a Year" input.experience}}>Less than a Year</option>

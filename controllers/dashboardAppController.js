@@ -1,5 +1,6 @@
 const db = require('../models/db');
 const Job = require('../models/JobModel');
+const Response = require('../models/EmpResponseModel');
 const Applicant = require('../models/ApplicantModel');
 const { validationResult } = require('express-validator');
 const helper = require('../helpers/helper');

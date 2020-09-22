@@ -21,6 +21,12 @@
         border-radius: 5px;
         text-align: center;
     }
+
+    .error {
+        color: red;
+        font-size: 15px;
+        
+    }
 </style>
 
 <div class="container mb-4 p-0" style="margin-top: 6rem;">
@@ -38,8 +44,9 @@
                     <br />
                     <span class="card-text" style="text-align: left;"> <i class="fas fa-phone icon-color">&nbsp;</i> {{profileData.clinicPhone}} </span>
                     <br />
-                    <br />
-                    <li><a href="" data-toggle="modal" data-target="#modalEdit">Edit Profile</a></li>
+                  
+                    <hr />
+                    <i class="fas fa-user-edit icon-color"></i><a href="" data-toggle="modal" data-target="#modalEdit" style="margin-left: 10px;">Edit Clinic Profile</a>
                 </div>
             </div>
 
@@ -77,7 +84,7 @@
                         <h2>Your Active Job Posts</h2>
                         <a type="button" class="btn btn-primary w-100 mb-2" href="/create/{{profileData._id}}"> <i class="fas fa-plus-circle"></i> Create New</a>
                         {{#each activeJob}}
-                            {{> jobItem}}
+                            {{> jobItem app_count = this.applicants.length accType = ../accType}}
                         {{/each}}
 
                         <a href="/feed-emp">View Your Active Jobs</a>
@@ -87,7 +94,6 @@
                         <h2>Search For Employees</h2>
                         <small>Browse and filter a list of our website's applicants</small>
                         <a href="/search/applicants" class="btn btn-primary w-100"><i class="fas fa-search"></i> Search</a>
-
                     </div>
                 </div>
             </div>
@@ -97,86 +103,39 @@
 
 
 <!-- Modal -->
-<div class="modal fade border" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade border" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalCenterTitle">{{profileData.clinicName}}</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <h5 class="modal-title" id="myModalLabel">{{profileData.clinicName}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
+        <!-- use method="post" to send your form to server -->
+        <form class="form-horizontal" id="clinicProfile" method="post" action="/updateClinicProfile">
 
-        <form>
-          <div class="form-group">
-            <label>Clinic Name</label>
-            <input type="" value="{{profileData.clinicName}}" class="form-control" id="" aria-describedby="" placeholder="{{profileData.clinicName}}">
-          </div>
+            <div class="form-group">
+                <label for="clinic_email">Email/s<span class="text-danger"> *</span><span><small style="margin-left: 5px;">(Separate email addresses with a comma)</small></span></label>
+                <div class="col-xs-5">  
+                    <input type="text" class="form-control" id="clinic_email" name="clinic_email" placeholder="{{profileData.clinicContactEmails.[0]}}" required/>
+                </div>
+                
+                <div class="col-sm-7"></div>
+            </div>
 
-          <div class="card-text">
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-8">
-                            <label for="clinic_street">Clinic Street Address<span class="text-danger"> *</span></label>
-                            <input type="text" class="form-control" id="clinic_street" name="clinic_street"
-                                aria-describedby="emailHelp" placeholder="Street Address"
-                                value="{{profileData.clinicAddress.street}}" />
-                            <p style="color: red;">{{details.clinic_streetError}}</p>
-                        </div>
-                        <div class="col-4">
-                            <label for="clinic_no">No.<span class="text-danger"> *</span></label>
-                            <input type="text" class="form-control" id="clinic_no" name="clinic_no"
-                                aria-describedby="emailHelp" placeholder="No." value="{{profileData.clinicAddress.houseNo}}" />
-                            <p style="color: red;">{{details.clinic_noError}}</p>
-                        </div>
-                    </div>
+            <div class="form-group">
+                <label for="clinic_phone">Clinic Phone<span class="text-danger"> *</span></label>
+                <div class="col-xs-5">  
+                    <input type="text" class="form-control" id="clinic_phone" name="clinic_phone" placeholder="{{profileData.phone}}" required/>
                 </div>
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-6">
-                            <label for="clinic_state">State<span class="text-danger"> *</span></label>
-                            <select name="clinic_state" class="form-control" id="clinic_state"
-                                onchange="populateCities(this.value, 'clinic_city')">
-                                <option value="{{profileData.clinicAddress.state}}">{{profileData.clinicAddress.state}}</option>
-                                {{#each states}}
-                                <option value="{{this}}" {{select this ../inputs.clinic_state}}>{{this}}</option>
-                                {{/each}}
-                            </select>
-                            <p style="color: red;">{{details.clinic_stateError}}</p>
-                        </div>
-                        <div class="col-4">
-                            <label for="clinic_city">City<span class="text-danger"> *</span></label>
-                            <select name="clinic_city" class="form-control" id="clinic_city">
-                                <option value="{{profileData.clinicAddress.city}}">{{profileData.clinicAddress.city}}</option>
-                                {{#each cities}}
-                                <option value="{{this}}" {{select this ../inputs.clinic_city}}>{{this}}</option>
-                                {{/each}}
-                            </select>
-                            <p style="color: red;">{{details.clinic_cityError}}</p>
-                        </div>
-                        <div class="col-2">
-                            <label for="clinic_zip">Zip<span class="text-danger"> *</span></label>
-                            <input type="text" class="form-control" id="clinic_zip" name="clinic_zip"
-                                aria-describedby="emailHelp" placeholder="Zip" value="{{profileData.clinicAddress.zip}}" />
-                            <p style="color: red;">{{details.clinic_zipError}}</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="clinic_phone">Clinic Phone<span class="text-danger"> *</span></label>
-                    <input type="text" class="form-control" id="clinic_phone" name="clinic_phone"
-                        placeholder="(555) 555-1234" value="{{profileData.phone}}" />
-                    <p style="color: red;">{{details.clinic_phoneError}}</p>
-                </div>
+                <div class="col-sm-7"></div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" >Discard Changes</button>
+                <button type="submit" class="btn btn-primary" id="saveBtn">Save</button>
             </div>
         </form>
-
-      </div>
-      <div class="modal-footer">
-
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Discard Changes</button>
-        <button type="button" class="btn btn-primary">Save</button>
       </div>
     </div>
   </div>

@@ -2,15 +2,16 @@ const mongoose = require('mongoose');
 const Job = require('../models/JobModel');
 const Employer = require('../models/EmployerModel');
 const Applicant = require('../models/ApplicantModel');
+const Response = require('../models/EmpResponseModel');
 const helper = require('../helpers/helper');
 const pagination = require('../helpers/pagination');
 const db = require('../models/db');
 const fs = require('fs');
+const { validationResult } = require('express-validator');
 
 const dashboardEmpController = {
     getCreateJob: function (req, res) {
-        var empId = helper.sanitize(req.params.jobId);
-        db.findOne(Employer, { _id: empId }, '', function (result) {
+        db.findOne(Employer, { account: req.session.user }, '', function (result) {
             if (result) {
                 res.render('create', {
                     active_session: req.session.user && req.cookies.user_sid,
@@ -54,63 +55,101 @@ const dashboardEmpController = {
 
         var now = Date.now();
 
-        if (input < now) {
-            res.render('create', {
-                active_session: req.session.user && req.cookies.user_sid,
-                active_user: req.session.user,
-                title: 'Create Job | BookMeDental',
-                profile_active: true,
-                accType: req.session.accType,
+        if(req.body.placement == 'Temporary') {
+            if (input < now) {
+                db.findOne(Employer, { account: req.session.user }, '', function (result) {
+                    res.render('create', {
+                        active_session: req.session.user && req.cookies.user_sid,
+                        active_user: req.session.user,
+                        title: 'Create Job | BookMeDental',
+                        profile_active: true,
+                        input: req.body,
+                        emp: result.toObject(),
+                        dateError:
+                            'Invalid date. Please enter a date that comes after the date today.',
+                    });
+                })
+            } else if (input_end <= input) {
+                db.findOne(Employer, { account: req.session.user }, '', function (result) {
+                    res.render('create', {
+                        active_session: req.session.user && req.cookies.user_sid,
+                        active_user: req.session.user,
+                        title: 'Create Job | BookMeDental',
+                        profile_active: true,
+                        accType: req.session.accType,
+                        emp: result.toObject(),
+                        input: req.body,
+                        dateError:
+                            'Invalid date. Please enter a date that comes after the start date.',
+                    });
+                })
 
-                input: req.body,
-                dateError:
-                    'Invalid date. Please enter a date that comes after the date today.',
-            });
-        } else if (input_end <= input) {
-            res.render('create', {
-                active_session: req.session.user && req.cookies.user_sid,
-                active_user: req.session.user,
-                title: 'Create Job | BookMeDental',
-                profile_active: true,
-                accType: req.session.accType,
+            } else {
+                db.findOne(Employer, { account: req.session.user }, '', function (
+                    result,
+                ) {
+                    console.log('inserting');
 
-                input_end: req.body,
-                dateError:
-                    'Invalid date. Please enter a date that comes after the start date.',
-            });
+                    var job = new Job({
+                        _id: new mongoose.Types.ObjectId(),
+                        employer: result._id,
+                        placement: req.body.placement,
+                        position: req.body.position,
+                        clinicName: result.clinicName,
+
+                        date_start: helper.parseDate(helper.sanitize(req.body.date_start)),
+                        date_end: helper.parseDate(helper.sanitize(req.body.date_end)),
+
+                        description: desc,
+                        software: req.body.software,
+                        experience: req.body.experience,
+                        posted: 'just now',
+                        clinic_city: result.clinicAddress.city,
+                        clinic_state: result.clinicAddress.state,
+                    });
+
+                    db.insertOne(Job, job, function (flag) {
+                        if (flag) {
+                            console.log('inserted');
+                            helper.updatePostedDate();
+                            res.redirect('/dashboard');
+                        }
+                    });
+                });
+            }
         } else {
-            db.findOne(Employer, { account: req.session.user }, '', function (
-                result,
-            ) {
-                console.log('inserting');
+                db.findOne(Employer, { account: req.session.user }, '', function (
+                    result,
+                ) {
+                    console.log('inserting');
 
-                var job = new Job({
-                    _id: new mongoose.Types.ObjectId(),
-                    employer: result._id,
-                    placement: req.body.placement,
-                    position: req.body.position,
-                    clinicName: result.clinicName,
+                    var job = new Job({
+                        _id: new mongoose.Types.ObjectId(),
+                        employer: result._id,
+                        placement: req.body.placement,
+                        position: req.body.position,
+                        clinicName: result.clinicName,
 
-                    date_start: req.body.date_start,
-                    date_end: req.body.date_end,
+                        date_start: helper.parseDate(helper.sanitize(req.body.date_start)),
+                        date_end: helper.parseDate(helper.sanitize(req.body.date_end)),
 
-                    description: desc,
-                    software: req.body.software,
-                    experience: req.body.experience,
-                    posted: 'just then',
-                    clinic_city: result.clinicAddress.city,
-                    clinic_state: result.clinicAddress.state,
+                        description: desc,
+                        software: req.body.software,
+                        experience: req.body.experience,
+                        posted: 'just now',
+                        clinic_city: result.clinicAddress.city,
+                        clinic_state: result.clinicAddress.state,
+                    });
+
+                    db.insertOne(Job, job, function (flag) {
+                        if (flag) {
+                            console.log('inserted');
+                            helper.updatePostedDate();
+                            res.redirect('/dashboard');
+                        }
+                    });
                 });
-
-                db.insertOne(Job, job, function (flag) {
-                    if (flag) {
-                        console.log('inserted');
-                        helper.updatePostedDate();
-                        res.redirect('/dashboard');
-                    }
-                });
-            });
-        }
+            }
     },
 
     getApplicantsFromSearch: function (req, res) {
@@ -201,35 +240,56 @@ const dashboardEmpController = {
         }
 
         var sntAppId = helper.sanitize(req.params.appId);
-        db.findOne(Applicant, { _id: sntAppId }, '', function (applicant) {
-            if (applicant) {
-                applicant.populate(
-                    {
-                        path: 'account',
-                        select: 'accEmail -_id',
-                        options: { lean: true },
-                    },
-                    function (err, result) {
-                        if (err) throw err;
+        db.findOne(Response, {accEmpId: req.session.user, applicantId: sntAppId, type: 'contact'}, '', function (response){
+            db.findOne(Applicant, { _id: sntAppId }, '', function (applicant) {
+                if (applicant) {
+                    applicant.populate(
+                        {
+                            path: 'account',
+                            select: 'accEmail -_id',
+                            options: { lean: true },
+                        },
+                        function (err, result) {
+                            if (err) throw err;
 
-                        res.render('details-app', {
-                            active_session:
-                                req.session.user && req.cookies.user_sid,
-                            active_user: req.session.user,
-                            title: `Applicant ${applicant.fName} ${applicant.lName} | BookMeDental`,
-                            appData: result.toObject(),
-                            profile_active: true,
+                            if(response){
+                                res.render('details-app', {
+                                    active_session:
+                                    req.session.user && req.cookies.user_sid,
+                                    active_user: req.session.user,
+                                    title: `Applicant ${applicant.fName} ${applicant.lName} | BookMeDental`,
+                                    appData: result.toObject(),
+                                    profile_active: true,
+                                    type: 'contact',
+                                    response: true,
+        
+                                    // additional config
+                                    from: 'search',
+                                });
+                            } else{
+                                res.render('details-app', {
+                                    active_session:
+                                    req.session.user && req.cookies.user_sid,
+                                    active_user: req.session.user,
+                                    title: `Applicant ${applicant.fName} ${applicant.lName} | BookMeDental`,
+                                    appData: result.toObject(),
+                                    profile_active: true,
+                                    type: 'contact',
+                                  
+                                    // additional config
+                                    from: 'search',
+                                });
+                            }                            
+                        },
+                    );
+                } else {
+                    res.status(404);
+                    next();
+                }
+            });
+        })
+       
 
-                            // additional config
-                            from: 'search',
-                        });
-                    },
-                );
-            } else {
-                res.status(404);
-                next();
-            }
-        });
     },
 
     getAppResume : function (req, res){
@@ -241,7 +301,78 @@ const dashboardEmpController = {
                 res.download(resumePath, resumeFile);
             }
         })
-    }
+    },
+
+    updateClinicProfile: function (req, res){
+        var email = helper.sanitize(req.body.clinic_email);
+        var phone = helper.sanitize(req.body.clinic_phone);
+
+        db.updateOne(Employer, {account: req.session.user}, {clinicContactEmails: email, clinicPhone: phone}, function(result){
+            if(result){
+                res.redirect('/dashboard');
+            }
+        })
+    },
+
+    sendHireResponse: function (req, res){
+        console.log("hello");
+        console.log(req.params.jobId);
+        console.log(req.params.appId);
+        console.log(req.params.type);
+
+        var appId = helper.sanitize(req.params.appId);
+        var jobId = helper.sanitize(req.params.jobId);
+        var type = helper.sanitize(req.params.type);
+        var subject = helper.sanitize(req.body.subject);
+        var body = helper.sanitize(req.body.body);
+
+        console.log('inserting');
+
+        var response = new Response({
+            _id: new mongoose.Types.ObjectId(),
+            jobId: jobId,
+            accEmpId: req.session.user,
+            applicantId: appId,
+            type: type,
+            subject: subject,
+            body: body
+        })
+
+        db.insertOne(Response, response, function (flag){
+            if(flag){
+                res.redirect(`/jobs/${jobId}/applicants`)
+            }
+        })
+    },
+
+    sendContactResponse: function (req, res){
+        console.log("hello");
+        console.log(req.params.appId);
+        console.log(req.params.type);
+        console.log(req.body);
+
+        var appId = helper.sanitize(req.params.appId);
+        var type = helper.sanitize(req.params.type);
+        var subject = helper.sanitize(req.body.subject);
+        var body = helper.sanitize(req.body.body);
+
+        console.log('inserting');
+
+        var response = new Response({
+            _id: new mongoose.Types.ObjectId(),
+            applicantId: appId,
+            accEmpId: req.session.user,
+            type: type,
+            subject: subject,
+            body: body
+        })
+
+        db.insertOne(Response, response, function (flag){
+            if(flag){
+                res.redirect('/search/applicants')
+            }
+        })
+    },
 };
 
 // enables to export controller object when called in another .js file

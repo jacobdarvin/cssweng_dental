@@ -42,7 +42,7 @@ const helper = {
         var time;
 
         if (diff_seconds < 30) {
-            time = 'just then';
+            time = 'just now';
         } else if (diff_seconds < minute) {
             time = diff_seconds + ' seconds ago';
         } else if (diff_seconds < 2 * minute) {
@@ -55,8 +55,14 @@ const helper = {
             time = Math.floor(diff_seconds / hour) + ' hours ago';
         } else if (diff_seconds == day) {
             time = 'yesterday';
-        } else if (diff_seconds < day * 7) {
-            time = Math.floor(diff_seconds / day) + ' days ago';
+        } else if (diff_seconds < day * 7){
+            var temp = Math.floor(diff_seconds / day);
+
+            if (temp == 1){
+                time = '1 day ago'
+            } else{
+                time = Math.floor(diff_seconds / day) + ' days ago';
+            }
         } else if (diff_seconds == week) {
             time = '1 week ago'; 
         } else if (diff_seconds == week * 2){
@@ -72,7 +78,6 @@ const helper = {
         } else {
             time = 'on ' + dateformat(date, 'mmm dd, yyyy');
         }
-
 
         return time;
     },
@@ -95,7 +100,6 @@ const helper = {
     },
 
     getActiveJobPost: function (emp) {
-        //this.updatePostedDate();
         return Job.find({ employer: emp })
             .populate('employer')
             .sort('-created')
@@ -118,16 +122,9 @@ const helper = {
     },
 
     updatePostedDate: function (){
-        var yes;
         var self = this;
-        // yes = this.formatDate("2020-09-05T04:49:10.324+00:00");
-        // console.log(yes);
        Job.find({}, function(err, results){
            results.forEach(function(jobs){
-            //     yes = self.formatDate(jobs.created)
-            //     console.log(yes);
-            //    console.log(jobs.created);
-            //   db.updateOne(Job,{_id: jobs._id}, {posted: self.formatDate(jobs.created)}, function(res){}).exec();
                 Job.updateOne({_id: jobs._id}, {posted: self.formatDate(jobs.created)}).exec();
            })
 

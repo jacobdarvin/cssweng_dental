@@ -181,6 +181,9 @@ app.post(
 );
 // /dashboard-type / DASHBOARD
 
+// /updateClinicProfile
+app.post('/updateClinicProfile', dashboardEmpController.updateClinicProfile);
+
 // post job / CREATE
 app.get('/create/:jobId', dashboardEmpController.getCreateJob);
 // post job / CREATE
@@ -198,6 +201,12 @@ app.get('/jobs/:jobId/applicants', feedController.getJobApplicants);
 app.get('/jobs/:jobId/applicants/:appId', feedController.getAppProfile); // view applicant from job post's applicants
 app.get('/getAppResume/:resume', dashboardEmpController.getAppResume);
 // /feed / FEED
+
+// employer / sendResponse
+app.post('/sendHireResponse/:appId/job/:jobId/type/:type', dashboardEmpController.sendHireResponse);
+app.post('/sendContactResponse/:appId/type/:type', dashboardEmpController.sendContactResponse);
+// employer / sendResponse
+
 
 // /register | REGISTER
 app.get('/register', registerController.getRegister);

@@ -4,10 +4,12 @@ const db = require('../models/db');
 const Job = require('../models/JobModel');
 const Applicant = require('../models/ApplicantModel');
 const Employer = require('../models/EmployerModel');
+const Response = require('../models/EmpResponseModel');
 const pagination = require('../helpers/pagination');
 
 const fs = require('fs');
 const path = require('path');
+const { SSL_OP_NO_TLSv1_1 } = require('constants');
 
 const buffer = fs.readFileSync(
     path.resolve(__dirname, '../public/json/us_cities_and_states.json'),
@@ -43,7 +45,21 @@ const feedController = {
         let stateStatus = helper.sanitize(req.query.clinic_state);
         let cityStatus = helper.sanitize(req.query.clinic_city);
 
-        let dateStatus = helper.parseDate(helper.sanitize(req.query.date));
+        let date_start = helper.parseDate(
+            helper.sanitize(req.query.date_start),
+        );
+        let unparsed_start = req.query.date_start;
+
+        let date_end = helper.parseDate(helper.sanitize(req.query.date_end));
+        let unparsed_end = req.query.date_end;
+
+        if (date_start == null) {
+            date_start = new Date(-8640000000000000);
+        }
+
+        if (date_end == null) {
+            date_end = new Date(8640000000000000);
+        }
 
         if (Array.isArray(positionStatus)) {
             for (let i = 0; i < positionStatus.length; i++) {
@@ -90,8 +106,8 @@ const feedController = {
             cityQuery.push(cityStatus);
         }
 
-        console.log(stateQuery);
-        console.log(cityQuery);
+        //console.log(stateQuery);
+        //console.log(cityQuery);
 
         db.findOne(Employer, { account: req.session.user }, '_id', function (
             emp,
@@ -107,6 +123,10 @@ const feedController = {
                 lean: true,
                 page: page,
                 limit: 4,
+
+                sort: {
+                    created: -1,
+                },
             };
 
             let query = {
@@ -116,21 +136,28 @@ const feedController = {
 
                 clinic_city: { $in: cityQuery },
                 clinic_state: { $in: stateQuery },
+
+                date_start: { $gte: date_start.toISOString() },
+                date_end: { $lte: date_end.toISOString() },
             };
+
             helper.updatePostedDate();
             Job.paginate(query, options, function (err, results) {
                 console.log(results);
 
                 let selectOptions = new Array();
 
-                console.log(placementQuery);
-                console.log(positionQuery);
+                //console.log(placementQuery);
+                //console.log(positionQuery);
 
                 let placementLink = '';
                 let positonLink = '';
 
                 let cityLink = '';
                 let stateLink = '';
+
+                let dstartLink = '&date_start=' + unparsed_start;
+                let dendLink = '&date_end=' + unparsed_end;
 
                 for (let i = 0; i < placementQuery.length; i++) {
                     if (i == 0)
@@ -164,6 +191,8 @@ const feedController = {
                             positonLink +
                             stateLink +
                             cityLink +
+                            dstartLink +
+                            dendLink +
                             '&page=' +
                             nPage,
                         pageNo: nPage,
@@ -185,6 +214,8 @@ const feedController = {
                           positonLink +
                           stateLink +
                           cityLink +
+                          dstartLink +
+                          dendLink +
                           '&page=' +
                           prevPageNumber
                         : '';
@@ -195,6 +226,8 @@ const feedController = {
                           positonLink +
                           stateLink +
                           cityLink +
+                          dstartLink +
+                          dendLink +
                           '&page=' +
                           nextPageNumber
                         : '';
@@ -214,7 +247,7 @@ const feedController = {
                     hasNextPage = false;
                 }
 
-                console.log(parseInt(results.page) + 1);
+                //console.log(parseInt(results.page) + 1);
 
                 let resultWarn = '';
 
@@ -277,7 +310,21 @@ const feedController = {
         let stateStatus = helper.sanitize(req.query.clinic_state);
         let cityStatus = helper.sanitize(req.query.clinic_city);
 
-        let dateStatus = helper.parseDate(helper.sanitize(req.query.date));
+        let date_start = helper.parseDate(
+            helper.sanitize(req.query.date_start),
+        );
+        let unparsed_start = req.query.date_start;
+
+        let date_end = helper.parseDate(helper.sanitize(req.query.date_end));
+        let unparsed_end = req.query.date_end;
+
+        if (date_start == null) {
+            date_start = new Date(-8640000000000000);
+        }
+
+        if (date_end == null) {
+            date_end = new Date(8640000000000000);
+        }
 
         if (Array.isArray(positionStatus)) {
             for (let i = 0; i < positionStatus.length; i++) {
@@ -335,6 +382,10 @@ const feedController = {
             lean: true,
             page: page,
             limit: 4,
+
+            sort: {
+                created: -1,
+            },
         };
 
         let query = {
@@ -343,6 +394,9 @@ const feedController = {
 
             clinic_city: { $in: cityQuery },
             clinic_state: { $in: stateQuery },
+
+            date_start: { $gte: date_start.toISOString() },
+            date_end: { $lte: date_end.toISOString() },
         };
 
         helper.updatePostedDate();
@@ -356,6 +410,12 @@ const feedController = {
 
             let placementLink = '';
             let positonLink = '';
+
+            let cityLink = '';
+            let stateLink = '';
+
+            let dstartLink = '&date_start=' + unparsed_start;
+            let dendLink = '&date_end=' + unparsed_end;
 
             for (let i = 0; i < placementQuery.length; i++) {
                 if (i == 0) placementLink += 'placement=' + placementQuery[i];
@@ -388,6 +448,8 @@ const feedController = {
                         positonLink +
                         stateLink +
                         cityLink +
+                        dstartLink +
+                        dendLink +
                         '&page=' +
                         nPage,
                     pageNo: nPage,
@@ -409,6 +471,8 @@ const feedController = {
                       positonLink +
                       stateLink +
                       cityLink +
+                      dstartLink +
+                      dendLink +
                       '&page=' +
                       prevPageNumber
                     : '';
@@ -419,6 +483,8 @@ const feedController = {
                       positonLink +
                       stateLink +
                       cityLink +
+                      dstartLink +
+                      dendLink +
                       '&page=' +
                       nextPageNumber
                     : '';
@@ -503,29 +569,87 @@ const feedController = {
                                 '_id',
                             ).exec();
                             applied = data.applicants.includes(applicant._id);
+                            helper.updatePostedDate();
+                            db.findOne(
+                                Response,
+                                { applicantId: applicant._id, jobId: sntJobId },
+                                '',
+                                function (response) {
+                                    if (response) {
+                                        res.render('details', {
+                                            active_session:
+                                                req.session.user &&
+                                                req.cookies.user_sid,
+                                            active_user: req.session.user,
+                                            title:
+                                                data.placement +
+                                                ' ' +
+                                                data.position +
+                                                ' | ' +
+                                                'BookMeDental',
+                                            profile_active: true,
+                                            jobData: data.toObject(),
+                                            date: helper.formatDate(
+                                                data.created,
+                                            ),
+                                            response: response.toObject(),
+                                            type: response.type,
+
+                                            // additional config
+                                            accType: req.session.accType,
+                                            url,
+                                            applied,
+                                        });
+                                    } else {
+                                        res.render('details', {
+                                            active_session:
+                                                req.session.user &&
+                                                req.cookies.user_sid,
+                                            active_user: req.session.user,
+                                            title:
+                                                data.placement +
+                                                ' ' +
+                                                data.position +
+                                                ' | ' +
+                                                'BookMeDental',
+                                            profile_active: true,
+                                            jobData: data.toObject(),
+                                            date: helper.formatDate(
+                                                data.created,
+                                            ),
+                                            await: true,
+
+                                            // additional config
+                                            accType: req.session.accType,
+                                            url,
+                                            applied,
+                                        });
+                                    }
+                                },
+                            );
+                        } else {
+                            console.log(data);
+                            helper.updatePostedDate();
+                            res.render('details', {
+                                active_session:
+                                    req.session.user && req.cookies.user_sid,
+                                active_user: req.session.user,
+                                title:
+                                    data.placement +
+                                    ' ' +
+                                    data.position +
+                                    ' | ' +
+                                    'BookMeDental',
+                                profile_active: true,
+                                jobData: data.toObject(),
+                                date: helper.formatDate(data.created),
+
+                                // additional config
+                                accType: req.session.accType,
+                                url,
+                                applied,
+                            });
                         }
-
-                        console.log(data);
-                        helper.updatePostedDate();
-                        res.render('details', {
-                            active_session:
-                                req.session.user && req.cookies.user_sid,
-                            active_user: req.session.user,
-                            title:
-                                data.placement +
-                                ' ' +
-                                data.position +
-                                ' | ' +
-                                'BookMeDental',
-                            profile_active: true,
-                            jobData: data.toObject(),
-                            date: helper.formatDate(data.created),
-
-                            // additional config
-                            accType: req.session.accType,
-                            url,
-                            applied,
-                        });
                     },
                 );
             } else {
@@ -696,35 +820,66 @@ const feedController = {
         }
 
         var sntAppId = helper.sanitize(req.params.appId);
-        db.findOne(Applicant, { _id: sntAppId }, '', function (applicant) {
-            if (applicant) {
-                applicant.populate(
-                    {
-                        path: 'account',
-                        select: 'accEmail -_id',
-                        options: { lean: true },
-                    },
-                    function (err, result) {
-                        if (err) throw err;
+        db.findOne(
+            Response,
+            { accEmpId: req.session.user, applicantId: sntAppId },
+            '',
+            function (response) {
+                db.findOne(Applicant, { _id: sntAppId }, '', function (
+                    applicant,
+                ) {
+                    if (applicant) {
+                        applicant.populate(
+                            {
+                                path: 'account',
+                                select: 'accEmail -_id',
+                                options: { lean: true },
+                            },
+                            function (err, result) {
+                                if (err) throw err;
 
-                        res.render('details-app', {
-                            active_session:
-                                req.session.user && req.cookies.user_sid,
-                            active_user: req.session.user,
-                            title: `Applicant ${applicant.fName} ${applicant.lName} | BookMeDental`,
-                            appData: result.toObject(),
-                            profile_active: true,
+                                if (response) {
+                                    res.render('details-app', {
+                                        active_session:
+                                            req.session.user &&
+                                            req.cookies.user_sid,
+                                        active_user: req.session.user,
+                                        title: `Applicant ${applicant.fName} ${applicant.lName} | BookMeDental`,
+                                        appData: result.toObject(),
+                                        profile_active: true,
+                                        jobId: req.params.jobId,
+                                        type: 'hire',
+                                        response: true,
 
-                            // additional config
-                            from: 'jobs',
-                        });
-                    },
-                );
-            } else {
-                res.status(404);
-                next();
-            }
-        });
+                                        // additional config
+                                        from: 'jobs',
+                                    });
+                                } else {
+                                    res.render('details-app', {
+                                        active_session:
+                                            req.session.user &&
+                                            req.cookies.user_sid,
+                                        active_user: req.session.user,
+                                        title: `Applicant ${applicant.fName} ${applicant.lName} | BookMeDental`,
+                                        appData: result.toObject(),
+                                        profile_active: true,
+                                        jobId: req.params.jobId,
+                                        type: 'hire',
+                                        response: false,
+
+                                        // additional config
+                                        from: 'jobs',
+                                    });
+                                }
+                            },
+                        );
+                    } else {
+                        res.status(404);
+                        next();
+                    }
+                });
+            },
+        );
     },
 
     getAppliedAppFeed: function (req, res, next) {
@@ -765,7 +920,7 @@ const feedController = {
             helper.sanitize(req.query.clinic_city),
             allCities,
         );
-        
+
         let page = helper.sanitize(req.query.page);
         if (page == null) page = '1';
 
@@ -805,7 +960,7 @@ const feedController = {
                 );
 
                 let cityLink = pagination.createQueryLink(
-                    req.query.clinic_city ?  cityQuery : '',
+                    req.query.clinic_city ? cityQuery : '',
                     'clinic_city',
                 );
 

@@ -1,18 +1,10 @@
-<!-- To Do: 
-    Sprint 2:
-    - Added description button which collapses a description. Use the posts id to use this functionality. No js fiddling required.
-    - Added placeholder for address of clinic
-    - Added time place holder "created five minutes ago".
-    please change this to the time of the creation of the item
--->
-
 <a href="/jobs/{{_id}}" style="text-decoration: none;">
 	<div class="card job border m-0 mb-2">
 		<div class="p-2">
 			<p class=" p-0 mb-0" style="font-size: 18px; padding-top: 5px;"><b>{{position}}</b> at <b>{{employer.clinicName}}</b>
 			<small>({{clinic_city}}, {{clinic_state}})</small>
 			<br>
-			<small><i class="far fa-clock" style="color: gray;"></i> {{posted}}    <i class="fas fa-business-time" style="color: gray; margin-left: 10px"></i> {{placement}}</i></small>
+			<small><i class="far fa-clock" style="color: gray;"></i> {{posted}}    <i class="fas fa-business-time" style="color: gray; margin-left: 10px"></i> {{placement}}    {{#match accType 'employer'}}<i class="fas fa-user-tie" style="color: gray; margin-left: 10px"></i>    {{app_count}}{{/match}}</small>
 
 			<hr style="margin-top:-1px; margin-bottom: 10px">
 
@@ -23,11 +15,7 @@
 			<a href="/jobs/{{_id}}">
 				   <small>View Job</small>
 			</a>
-			<!--
-			<div class="m-0 p-0">
-				<small style="margin-bottom: -1px; padding-left: 5px; font-size: 13px; color: black">{{description}}</small> 
-			</div>
-			-->
+
 			<div class="collapse " id="a{{_id}}"> 
 		    	{{description}}
 			</div>
@@ -36,7 +24,14 @@
 
 		{{#ifEquals placement "Temporary"}}
 		<div class="card-footer p-1">
-			<small class="text-muted">From <b>{{date_start}}</b> to <b>{{date_end}}</b></small>
+			<small class="text-muted">From <b>{{formatJobDate date_start}}</b> to <b>{{formatJobDate date_end}}</b></small><br>
+			<small class="text-muted">Created <b>{{formatJobDate created}}</b></small>
+		</div>
+		{{/ifEquals}}
+
+		{{#ifEquals placement "Permanent"}}
+		<div class="card-footer p-1">
+			<small class="text-muted">Created <b>{{formatJobDate created}}</b></small>
 		</div>
 		{{/ifEquals}}
 	</div>
