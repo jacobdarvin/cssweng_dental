@@ -69,53 +69,28 @@
         <ul class="nav flex-column mt-3">
             <li class="nav-item">
                 <a class="nav-link active" id="generalTab" onclick="tabCheck('general', 'generalTab')" href="#">
-                    <span data-feather="home"></span>
                     General Overview <span class="sr-only">(current)</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="empTab" onclick="tabCheck('employers', 'empTab')" href="#">
-                    <span data-feather="file"></span>
                     List of Employers
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="appTab" onclick="tabCheck('applicants', 'appTab')" href="#">
-                    <span data-feather="shopping-cart"></span>
                     List of Applicants
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="jobTab" onclick="tabCheck('jobs', 'jobTab')" href="#">
-                    <span data-feather="users"></span>
                     List of Posted Jobs
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <span data-feather="bar-chart-2"></span>
-                    List of Fast Hired
-                </a>
-            </li>
-        </ul>
-
-        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-            <span>Others</span>
-            <a class="d-flex align-items-center text-muted" href="#">
-                <span data-feather="plus-circle"></span>
-            </a>
-        </h6>
-        <ul class="nav flex-column mb-2">
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <span data-feather="file-text"></span>
-                    Reviews
                 </a>
             </li>
         </ul>
     </div>
-
 </nav>
+
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
 
     <h1 class="pt-4" style="font-size: 40px;">General Overview</h1>
@@ -203,11 +178,20 @@
         </button>
       </div>
       <pre class="modal-body pb-0 mb-0" id="jobModalBody">
-        
       </pre>
-      {{!-- <span class="modal-body pt-0 mt-0" id="jobModalBodyDesc"> --}}
-        
-      </span>
+
+      <textarea class="form-control p-2" id="jobModalBodyDesc" rows="6" readonly>
+      </textarea>
+
+      <div class="p-2">
+        <a data-toggle="collapse" href="#jobApplicantsList" id="collapseAppList" role="button" aria-expanded="false" aria-controls="{{_id}}">View list of Job Applicants</a>
+
+        <div class="collapse " id="jobAppList"> 
+          
+        </div>
+
+      </div>
+
       <div class="modal-footer">
         <button type="button" style="display: inline-block;" class="w-100 btn btn-danger" data-toggle="modal" data-target="#admin_closeJob">Close Job</button>
         <button type="button" style="display: inline-block;" class="w-100 btn btn-secondary" data-dismiss="modal">Close</button>

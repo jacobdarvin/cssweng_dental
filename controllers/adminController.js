@@ -4,12 +4,14 @@ const Job = require('../models/JobModel');
 
 const adminController = {
     getAdmin: function (req, res) {
-        res.render('admin', {
-            active_session: req.session.user && req.cookies.user_sid,
-            active_user: req.session.user,
-            title: 'Admin | BookMeDental',
-            admin_active: true,
-        });
+        if(req.session.accType == 'admin') {
+            res.render('admin', {
+                active_session: req.session.user && req.cookies.user_sid,
+                active_user: req.session.user,
+                title: 'Admin | BookMeDental',
+                admin_active: true,
+            });
+        } else res.redirect('/404');
     },
     getEmployerList: function (req, res) {
         // only get Employers who have completed the form

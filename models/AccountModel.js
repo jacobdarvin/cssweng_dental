@@ -4,7 +4,7 @@ const accountSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     accType: {
         type: String,
-        enum: ['applicant', 'employer'],
+        enum: ['applicant', 'employer', 'admin'],
         required: true
     },
     accEmail: {
