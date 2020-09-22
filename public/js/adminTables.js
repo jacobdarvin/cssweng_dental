@@ -1,3 +1,4 @@
+
 var employersTable = new Tabulator('#employers-table', {
 
     rowClick: function(e, row) {
@@ -9,7 +10,7 @@ var employersTable = new Tabulator('#employers-table', {
 
         let showStatus = "";
 
-        if(rowData.accStatus == true) {
+        if(rowData.accStatus == 'Verified' ) {
             statusColor = "green"
             showStatus = "<b>Verified</b>";
         } else {
@@ -17,23 +18,36 @@ var employersTable = new Tabulator('#employers-table', {
             showStatus = "<b>Unverified</b>";
         }
 
-        document.getElementById("empModalBody").innerHTML = 
-        "Account Details <br>" + 
-        "<b>Account Name:      </b>" + rowData.first + " " + rowData.last + "<br>" +
-        "<b>Account Email:     </b>" + '<a href="mailto:rowData.accEmail">' + rowData.accEmail + "</a>" + "<br>" + 
-        "<b>Account Phone:     </b>" + rowData.phone + "<br>" +
-        "<b>Clinic Name:       </b>" + rowData.clinicName + "<br>" +
-        "<hr>" +
-        "<b>Account Created:   </b>" + rowData.created + "<br>" +
-        "<b>Account Status:    </b>" + "<font color =" + statusColor + ">" + showStatus + "</font>";
+        document.getElementById("acc_id").innerHTML = rowData._id;
+        document.getElementById("acc_name").innerHTML = rowData.first + " " + rowData.last;
+        document.getElementById("acc_email").innerHTML = '<a href="mailto:rowData.accEmail">' + rowData.accEmail;
+        document.getElementById("acc_phone").innerHTML = rowData.phone;
+        document.getElementById("cl_name").innerHTML = rowData.clinicName;
+        document.getElementById("acc_create").innerHTML = rowData.created;
+        document.getElementById("acc_stat").innerHTML =  "<font color =" + statusColor + ">" + showStatus + "</font>";
+        document.getElementById("confirm_id").value = rowData._id;
+        document.getElementById("decline_id").value = rowData._id;
 
-        document.getElementById("admin_confirmApproveTitle").innerHTML = "Confirm Employer Status Approval for " + "<b>" + rowData.clinicName + "</b>";
-        document.getElementById("admin_confirmDeclineTitle").innerHTML = "Confirm Employer Status Declination for " + "<b>" + rowData.clinicName + "</b>";
+        // document.getElementById("empModalBody").innerHTML = 
+        // "Account Details <br>" + 
+        // "<b>Account Name:      </b>" + rowData.first + " " + rowData.last + "<br>" +
+        // "<b>Account Email:     </b>" + '<a href="mailto:rowData.accEmail">' + rowData.accEmail + "</a>" + "<br>" + 
+        // "<b>Account Phone:     </b>" + rowData.phone + "<br>" +
+        // "<b>Clinic Name:       </b>" + rowData.clinicName + "<br>" +
+        // "<hr>" +
+        // "<b>Account Created:   </b>" + rowData.created + "<br>" +
+        // "<b>Account Status:    </b>" + "<font color =" + statusColor + ">" + showStatus + "</font>";
 
-        if(rowData.accStatus == true) {
-            document.getElementById("admin_approveBtn").innerHTML = '<button type="button" style="display: inline-block;" class="w-100 btn btn-danger"  data-toggle="modal" data-target="#admin_confirmDecline">Decline Status</button> <button type="button" style="display: inline-block;" class="w-100 btn btn-secondary" data-dismiss="modal">Close</button>';
+        document.getElementById("admin_confirmApproveTitle").innerHTML = "Confirm Employer Status Approval for " + "<b>" + rowData.clinicName +"</b>" + "?";
+        document.getElementById("admin_confirmDeclineTitle").innerHTML = "Confirm Employer Status Declination for " + "<b>" + rowData.clinicName + "</b>" + "?";
 
+        if(rowData.accStatus == 'Verified') {
+            document.getElementById("admin_approveBtn").innerHTML = '<button type="button" style="display: inline-block;" class="w-100 btn btn-danger" data-toggle="modal" data-target="#admin_confirmDecline" data-dismiss="modal">Decline Status</button> <button type="button" style="display: inline-block;" class="w-100 btn btn-secondary" data-dismiss="modal">Close</button>';
+           
+        } else{
+            document.getElementById("admin_approveBtn").innerHTML = ' <button type="button" style="display: inline-block;" class="w-100 btn btn-success" data-toggle="modal" data-target="#admin_confirmApprove" data-dismiss="modal">Approve Status</button> <button type="button" style="display: inline-block;" class="w-100 btn btn-secondary" data-dismiss="modal">Close</button>';
         }
+        
     },
 
     resizableRows: false,
@@ -44,7 +58,7 @@ var employersTable = new Tabulator('#employers-table', {
     index: '_id',
     columns: [
         //Define Table Columns
-
+        { title: 'Account ID', field: '_id'},
         { title: 'First Name', field: 'first' },
         { title: 'Last Name', field: 'last' },
         { title: 'Clinic Name', field: 'clinicName' },
@@ -68,7 +82,6 @@ var employersTable = new Tabulator('#employers-table', {
             title: 'Status',
             field: 'accStatus',
             hozAlign: 'center',
-            formatter: 'tickCross',
         },
     ],
 });

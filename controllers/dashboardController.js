@@ -78,34 +78,28 @@ const dashboardController = {
                                     });
                             } else {
                                 var query = helper.getActiveJobPost(data._id);
-                                query.exec(function (err, result) {
-                                    if (err) throw err;
-                                    helper
-                                        .getPermCount(data._id)
-                                        .then(function (perm_count) {
-                                            helper
-                                                .getTempCount(data._id)
-                                                .then(function (temp_count) {
-                                                    res.render(view, {
-                                                        active_session:
-                                                            req.session.user &&
-                                                            req.cookies
-                                                                .user_sid,
-                                                        active_user:
-                                                            req.session.user,
-                                                        title:
-                                                            'Dashboard | BookMeDental',
-                                                        // profile_active: true,
-                                                        accType:
-                                                            req.session.accType,
-                                                        profileData: data.toObject(),
-                                                        activeJob: result,
-                                                        temp: temp_count,
-                                                        perma: perm_count,
-                                                    });
-                                                });
-                                        });
-                                });
+                                query.exec(function(err, result){
+                                    if(err) throw err;
+                                    helper.getPermCount(data._id).then(function(perm_count){
+                                        helper.getTempCount(data._id).then(function(temp_count){
+                                            res.render(view, {
+                                                active_session:
+                                                req.session.user && req.cookies.user_sid,
+                                                active_user: req.session.user,
+                                                title: 'Dashboard | BookMeDental',
+                                                profile_active: true,
+//                                                 employer_active: true,
+                                                accType: req.session.accType,
+                                                profileData: data.toObject(),
+                                                activeJob: result,
+                                                temp: temp_count,
+                                                perma: perm_count,
+                                                status: data.account.accStatus
+                                            });
+                                        })
+                                    })
+                                })
+                               
                             }
                         });
                 } else {
