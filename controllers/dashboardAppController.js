@@ -3,6 +3,7 @@ const Response = require('../models/EmpResponseModel');
 const Applicant = require('../models/ApplicantModel');
 const Employer = require('../models/EmployerModel');
 const db = require('../models/db');
+const helper = require('../helpers/helper');
 
 const dashboardAppController = {
     createSearchJobRoute: function (appDoc) {
@@ -66,9 +67,8 @@ const dashboardAppController = {
     },
     
     getContactReqFeed: function (req, res){
-        console.log(req.params.appId);
-
-        db.findMany(Response, {applicantId: req.params.appId, type: 'contact'}, '', function (result){
+        var appId = helper.sanitize(req.params.appId);
+        db.findMany(Response, {applicantId: appId, type: 'contact'}, '', function (result){
             if(result){
                 res.render('feed-reqs', {
                     contact: true,
@@ -82,6 +82,17 @@ const dashboardAppController = {
             }
         })
     },
+
+    deleteContactRequest: function (req, res){
+        var contact_req_id = helper.sanitize(req.params.contact_reqId);
+        var appId = helper.sanitize(req.params.appId);
+
+        db.deleteOne(Response, {_id: contact_req_id, type: 'contact'}, function(result){
+            if(result){
+                res.redirect(`/feed-contact/${appId}`);
+            }
+        })
+    }
 };
 
 // enables to export controller object when called in another .js file

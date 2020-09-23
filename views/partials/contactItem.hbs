@@ -35,8 +35,10 @@
       </div>
       
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-trash"></i> Delete</button>
+        <form method="post" action="/deleteContactRequest/{{_id}}/{{applicantId}}">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i> Delete</button>
+        </form>
         <a type="button" class="btn btn-primary" href="mailto: abc@example.com"><i class="far fa-envelope"></i> Contact Employer</a>
       </div>
     </div>

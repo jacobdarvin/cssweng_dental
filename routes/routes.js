@@ -200,6 +200,10 @@ app.post('/sendHireResponse/:appId/job/:jobId/type/:type', dashboardEmpControlle
 app.post('/sendContactResponse/:appId/type/:type', dashboardEmpController.sendContactResponse);
 // employer / sendResponse
 
+// applicant / deleteContactRequest
+app.post('/deleteContactRequest/:contact_reqId/:appId', dashboardAppController.deleteContactRequest);
+// applicant / deleteContactRequest
+
 // /register | REGISTER
 app.get('/register', registerController.getRegister);
 app.post(
