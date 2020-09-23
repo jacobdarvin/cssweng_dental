@@ -91,8 +91,6 @@ var applicantsTable = new Tabulator('#applicants-table', {
         $("#admin_applicantModal").modal();
         rowData = row.getData();
 
-        console.log(rowData);
-
         document.getElementById("appModalTitle").innerHTML = "Viewing account details for " + "<b>" + rowData.fName + ' ' + rowData.lName + "</b>";
 
         document.getElementById("appModalBody").innerHTML = 
@@ -155,11 +153,17 @@ var jobsTable = new Tabulator('#jobs-table', {
         "<hr>" +
         "<b>Job ID:            </b>" + rowData._id + "<br>" +
         "<b>Job Created:       </b>" + rowData.created + "<br>" +
-        "<b>Description:       </b>" + rowData.description + "<br>";
+        "<b>Description:       </b><hr>";
 
-        // document.getElementById("jobModalBodyDesc").innerHTML = rowData.description;
-
+        document.getElementById("jobModalBodyDesc").innerHTML = rowData.description;
         document.getElementById("admin_closeJobTitle").innerHTML = "Confirm to Close Job for " + "<b>" + rowData.clinicName + "</b>";
+
+        //document.getElementById("collapseAppList").setAttribute('href', '#a' + rowData._id);
+        //document.getElementById("jobAppList").setAttribute('id', 'a' + rowData._id);
+
+        //document.getElementById('a' + rowData._id).innerHTML = rowData.applicants.fName;
+
+        //console.log(rowData.applicants);
     },
 
     resizableRows: false,
