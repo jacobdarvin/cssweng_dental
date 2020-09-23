@@ -49,6 +49,14 @@ const dashboardAppController = {
         return Job.countDocuments({ applicants: app_id }).exec();
     },
 
+    getRecentContactReq: function (app_id){
+        return Response.find({ applicantId: app_id, type: 'contact' })
+            .sort('-created')
+            .limit(5)
+            .lean()
+            .exec();
+    },
+    
     getContactReqFeed: function (req, res){
         console.log(req.params.appId);
 

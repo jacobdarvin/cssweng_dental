@@ -104,13 +104,11 @@
                                         {{/ifEquals}}
                                     </div>
                                     <h2 class="mt-2">Contact Requests</h2>
-
-                                    {{!-- {{> contactItem}}
-                                    {{> contactItem}}
-                                    {{> contactItem}}
-                                    {{> contactItem}}
-                                    {{> contactItem}} --}}
                                     
+                                    {{#each contact_request}}
+                                    {{>contactItem}}
+                                    {{/each}} 
+
                                     <a href="/feed-contact/{{profileData._id}}">View All Contact Requests</a>
 
                                     <hr />

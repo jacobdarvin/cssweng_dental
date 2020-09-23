@@ -67,6 +67,10 @@ const dashboardController = {
                                         })
                                         .then(appData => {
                                             renderOptions.applied_jobs = appData.appliedJobs;
+                                            return dac.getRecentContactReq(data._id);
+                                        })
+                                        .then(contactRequest => {
+                                            renderOptions.contact_request = contactRequest;
                                             res.render(view, renderOptions);
                                         })
                                         .catch(err => {
