@@ -48,7 +48,7 @@ const dashboardAppController = {
     getAppliedJobsCount: function (app_id) {
         return Job.countDocuments({ applicants: app_id }).exec();
     },
-
+    
     getContactReqFeed: function (req, res){
         console.log(req.params.appId);
 
@@ -65,8 +65,15 @@ const dashboardAppController = {
                     
             }
         })
-    
-    }
+    },
+
+    getRecentContactReq: function (app_id){
+        return Job.find({ employer: emp })
+            .populate('employer')
+            .sort('-created')
+            .limit(5)
+            .lean();
+    },
 };
 
 // enables to export controller object when called in another .js file
