@@ -83,13 +83,13 @@
                                     <div class="row m-0">
                                         <div class="col border m-0 mr-1 mb-1 card p-1">
                                             <span class="card-text my-auto">
-                                                <b>2 Employer Hire Requests</b> <br />
+                                                <b>{{hire_req_count}} Employer Hire Requests</b> <br />
                                                 <small><a href="/feed-hire">View Requests</a></small>
                                             </span>
                                         </div>
                                         <div class="col border m-0 ml-1 mb-1 card p-1">
                                             <span class="card-text my-auto">
-                                                <b>2 Employer Contact Requests</b> <br />
+                                                <b>{{contact_req_count}} Employer Contact Requests</b> <br />
                                                 <small><a href="/feed-contact/{{profileData._id}}">View Requests</a></small>
                                             </span>
                                         </div>
@@ -104,7 +104,7 @@
                                         {{/ifEquals}}
                                     </div>
                                     <h2 class="mt-2">Contact Requests</h2>
-                                    
+
                                     {{#each contact_request}}
                                     {{>contactItem}}
                                     {{/each}} 
