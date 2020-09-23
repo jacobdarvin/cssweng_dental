@@ -16,6 +16,7 @@ const indexController = require('../controllers/indexController');
 //DASHBOARD CONTROLLER
 const dashboardController = require('../controllers/dashboardController');
 const dashboardEmpController = require('../controllers/dashboardEmpController');
+const dashboardAppController = require('../controllers/dashboardAppController');
 //DASHBOARD CONTROLLER
 
 //FEED CONTROLLER
@@ -160,16 +161,8 @@ app.get('/details-app', function (req, res) {
 app.get('/dashboard', dashboardController.getDashboard);
 // /dashboard-type / DASHBOARD
 
-//retrieve requests
-app.get('/feed-contact', function (req, res) {
-   res.render('feed-reqs', {
-        contact: true,
-        hire: false,
-        active_session: req.session.user && req.cookies.user_sid,
-        active_user: req.session.user,
-        title: 'Contact Requests | BookMeDental',
-    });
-});
+//retrieve applicant contact requests feed
+app.get('/feed-contact/:appId', dashboardAppController.getContactReqFeed);
 
 app.get('/feed-hire', function (req, res) {
    res.render('feed-reqs', {

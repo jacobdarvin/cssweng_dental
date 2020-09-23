@@ -1,6 +1,8 @@
 const Job = require('../models/JobModel');
 const Response = require('../models/EmpResponseModel');
 const Applicant = require('../models/ApplicantModel');
+const Employer = require('../models/EmployerModel');
+const db = require('../models/db');
 
 const dashboardAppController = {
     createSearchJobRoute: function (appDoc) {
@@ -46,6 +48,25 @@ const dashboardAppController = {
     getAppliedJobsCount: function (app_id) {
         return Job.countDocuments({ applicants: app_id }).exec();
     },
+
+    getContactReqFeed: function (req, res){
+        console.log(req.params.appId);
+
+        db.findMany(Response, {applicantId: req.params.appId, type: 'contact'}, '', function (result){
+            if(result){
+                res.render('feed-reqs', {
+                    contact: true,
+                    hire: false,
+                    active_session: req.session.user && req.cookies.user_sid,
+                    active_user: req.session.user,
+                    title: 'Contact Requests | BookMeDental',
+                    contact_req: result
+                });
+                    
+            }
+        })
+    
+    }
 };
 
 // enables to export controller object when called in another .js file

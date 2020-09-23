@@ -20,7 +20,9 @@
 		{{/if}}
 
 		{{#if contact}}
-			{{> contactItem}}
+			{{#each contact_req}}
+					{{> contactItem}}
+			{{/each}}
 		{{/if}}
 	</div>
 
