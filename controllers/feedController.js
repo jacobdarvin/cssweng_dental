@@ -53,6 +53,7 @@ const feedController = {
         let date_end   = helper.parseDate(helper.sanitize(req.query.date_end));
         let unparsed_end    = req.query.date_end;
 
+        let sortStatus = helper.sanitize(req.query.sortby);
 
         if(date_start == null) {
             date_start = new Date(-8640000000000000);
@@ -121,6 +122,15 @@ const feedController = {
                 page = '1';
             }
 
+            let sortInt = -1;
+
+            if(sortStatus == 'Latest') {
+                sortInt = -1;
+            } else if (sortStatus == 'Oldest') {
+                sortInt = 1;
+            }
+
+
             let options = {
                 populate: 'employer',
                 lean: true,
@@ -128,7 +138,7 @@ const feedController = {
                 limit: 4,
 
                 sort: {
-                    created: -1
+                    created: sortInt,
                 }
             };
 
@@ -162,9 +172,11 @@ const feedController = {
                 let dstartLink  = '&date_start=' + unparsed_start;
                 let dendLink    = '&date_end='   + unparsed_end;
 
+                let sortLink = 'sortby=' + sortStatus;
+
                 for (let i = 0; i < placementQuery.length; i++) {
                     if (i == 0)
-                        placementLink += 'placement=' + placementQuery[i];
+                        placementLink += '&placement=' + placementQuery[i];
                     else placementLink += '&placement=' + placementQuery[i];
                 }
 
@@ -190,6 +202,7 @@ const feedController = {
                     let options = {
                         pageLink:
                             '/feed-emp?' +
+                            sortLink +
                             placementLink +
                             positonLink +
                             stateLink +
@@ -213,6 +226,7 @@ const feedController = {
                 let prevPageLink =
                     results.page != '1'
                         ? '/feed-emp?' +
+                          sortLink +
                           placementLink +
                           positonLink +
                           stateLink +
@@ -225,6 +239,7 @@ const feedController = {
                 let nextPageLink =
                     results.page != results.pages
                         ? '/feed-emp?' +
+                          sortLink +
                           placementLink +
                           positonLink +
                           stateLink +
@@ -319,6 +334,8 @@ const feedController = {
         let date_end   = helper.parseDate(helper.sanitize(req.query.date_end));
         let unparsed_end    = req.query.date_end;
 
+        let sortStatus = helper.sanitize(req.query.sortby);
+
         if(date_start == null) {
             date_start = new Date(-8640000000000000);
         }
@@ -380,6 +397,14 @@ const feedController = {
             page = '1';
         }
 
+        let sortInt = -1;
+
+        if(sortStatus == 'Latest') {
+            sortInt = -1;
+        } else if (sortStatus == 'Oldest') {
+            sortInt = 1;
+        }
+
         let options = {
             populate: 'employer',
             lean: true,
@@ -387,7 +412,7 @@ const feedController = {
             limit: 4,
 
             sort: {
-                created: -1
+                created: sortInt,
             }
         };
 
@@ -420,8 +445,10 @@ const feedController = {
             let dstartLink  = '&date_start=' + unparsed_start;
             let dendLink    = '&date_end='   + unparsed_end;
 
+            let sortLink = 'sortby=' + sortStatus;
+
             for (let i = 0; i < placementQuery.length; i++) {
-                if (i == 0) placementLink += 'placement=' + placementQuery[i];
+                if (i == 0) placementLink += '&placement=' + placementQuery[i];
                 else placementLink += '&placement=' + placementQuery[i];
             }
 
@@ -447,6 +474,7 @@ const feedController = {
                 let options = {
                     pageLink:
                         '/feed-app?' +
+                        sortLink + 
                         placementLink +
                         positonLink +
                         stateLink +
@@ -468,6 +496,7 @@ const feedController = {
             let prevPageLink =
                 results.page != '1'
                     ? '/feed-app?' +
+                      sortLink +
                       placementLink +
                       positonLink +
                       stateLink +
@@ -480,6 +509,7 @@ const feedController = {
             let nextPageLink =
                 results.page != results.pages
                     ? '/feed-app?' +
+                      sortLink +
                       placementLink +
                       positonLink +
                       stateLink +
