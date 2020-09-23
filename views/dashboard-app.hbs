@@ -90,7 +90,7 @@
                                         <div class="col border m-0 ml-1 mb-1 card p-1">
                                             <span class="card-text my-auto">
                                                 <b>2 Employer Contact Requests</b> <br />
-                                                <small><a href="/feed-contact">View Requests</a></small>
+                                                <small><a href="/feed-contact/{{profileData._id}}">View Requests</a></small>
                                             </span>
                                         </div>
                                         {{#ifEquals profileData.placement "Temporary Work"}}
@@ -110,7 +110,7 @@
                                     {{> contactItem}}
                                     {{> contactItem}}
                                     {{> contactItem}} --}}
-
+                                    
                                     <a href="/feed-contact/{{profileData._id}}">View All Contact Requests</a>
 
                                     <hr />
