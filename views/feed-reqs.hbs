@@ -1,0 +1,27 @@
+<style>
+	body {
+		background-color: rgb(245, 245, 245);
+	}
+</style>
+
+<div class="container mb-4 p-0" style="margin-top: 5em; display: flex">
+
+	<div class="col m-0">
+		{{#if hire}}
+		<p class="h1">Hire Requests</p>
+		{{/if}}
+
+		{{#if contact}}
+		<p class="h1">Contact Requests</p>
+		{{/if}}
+
+		{{#if hire}}
+			{{> jobItem}}
+		{{/if}}
+
+		{{#if contact}}
+			{{> contactItem}}
+		{{/if}}
+	</div>
+
+</div>

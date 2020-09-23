@@ -157,6 +157,7 @@ app.get('/details-app', function (req, res) {
         title: 'Details | BookMeDental',
     });
 });
+
 // /dashboard-type / DASHBOARD
 app.get('/dashboard', dashboardController.getDashboard);
 app.post(
@@ -182,6 +183,28 @@ app.post(
     dashboardAppController.postEditAvatar,
 );
 // /dashboard-type / DASHBOARD
+
+//retrieve requests
+app.get('/feed-contact', function (req, res) {
+   res.render('feed-reqs', {
+        contact: true,
+        hire: false,
+        active_session: req.session.user && req.cookies.user_sid,
+        active_user: req.session.user,
+        title: 'Contact Requests | BookMeDental',
+    });
+});
+
+app.get('/feed-hire', function (req, res) {
+   res.render('feed-reqs', {
+        contact: false,
+        hire: true,
+        active_session: req.session.user && req.cookies.user_sid,
+        active_user: req.session.user,
+        title: 'Hire Requests | BookMeDental',
+    });
+});
+//retrieve requests
 
 // /updateClinicProfile
 app.post('/updateClinicProfile', dashboardEmpController.updateClinicProfile);
@@ -211,7 +234,6 @@ app.get('/getAppResume/:resume', dashboardEmpController.getAppResume);
 app.post('/sendHireResponse/:appId/job/:jobId/type/:type', dashboardEmpController.sendHireResponse);
 app.post('/sendContactResponse/:appId/type/:type', dashboardEmpController.sendContactResponse);
 // employer / sendResponse
-
 
 // /register | REGISTER
 app.get('/register', registerController.getRegister);
