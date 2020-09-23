@@ -92,6 +92,19 @@ const dashboardAppController = {
                 res.redirect(`/feed-contact/${appId}`);
             }
         })
+    },
+
+    getHireReqFeed: function (req, res){
+        
+        res.render('feed-reqs', {
+            contact: false,
+            hire: true,
+            active_session: req.session.user && req.cookies.user_sid,
+            active_user: req.session.user,
+            title: 'Hire Requests | BookMeDental',
+        });
+
+        
     }
 };
 

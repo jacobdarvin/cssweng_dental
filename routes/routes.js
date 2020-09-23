@@ -163,17 +163,11 @@ app.get('/dashboard', dashboardController.getDashboard);
 
 //retrieve applicant contact requests feed
 app.get('/feed-contact/:appId', dashboardAppController.getContactReqFeed);
+//retrieve applicant contact requests feed
 
-app.get('/feed-hire', function (req, res) {
-   res.render('feed-reqs', {
-        contact: false,
-        hire: true,
-        active_session: req.session.user && req.cookies.user_sid,
-        active_user: req.session.user,
-        title: 'Hire Requests | BookMeDental',
-    });
-});
-//retrieve requests
+//retrieve applicant hire requests feed
+app.get('/feed-hire/:appId', dashboardAppController.getHireReqFeed);
+//retrieve applicant hire requests feed
 
 // /updateClinicProfile
 app.post('/updateClinicProfile', dashboardEmpController.updateClinicProfile);
