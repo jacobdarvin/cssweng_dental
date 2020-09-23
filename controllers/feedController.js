@@ -15,6 +15,7 @@ const { SSL_OP_NO_TLSv1_1 } = require('constants');
 const buffer = fs.readFileSync(
     path.resolve(__dirname, '../public/json/us_cities_and_states.json'),
 );
+
 const citiesAndStates = JSON.parse(buffer);
 
 const feedController = {
@@ -460,8 +461,6 @@ const feedController = {
 
                 selectOptions.push(options);
             }
-
-            //fix this logic
 
             let nextPageNumber = parseInt(results.page) + 1;
             let prevPageNumber = parseInt(results.page) - 1;

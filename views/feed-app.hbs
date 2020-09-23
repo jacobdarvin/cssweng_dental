@@ -76,21 +76,28 @@
 				</div>
 			</div>
 			<div class="p-3 card border m-0 mb-2">
-				<p class="h5 mt-2"> Location </p>
-				<div class="form-group">
-					<select class="form-control" id="exampleFormControlSelect1">
-						<option>In Progress</option>
-						<option>2</option>
-						<option>3</option>
-						<option>4</option>
-						<option>5</option>
-					</select>
-				</div>
+				<p class="h5"> Location </p>
+                    <small>State</small>
+                       	<select name="app_state" class="form-control" id="app_state" onchange="populateCities(this.value, 'app_city')">
+							<option value="">All States</option>
+                                {{#each states}}
+							<option value="{{this}}" {{select this ../inputs.app_state}}>{{this}}</option>
+                                {{/each}}
+						</select>
+						<br>
+                     <small>City</small>
+                       	<select name="app_city" class="form-control" id="app_city">
+                        <option value="">All Cities</option>
+                        		{{#each cities}}
+                        <option value="{{this}}" {{select this ../inputs.app_city}}>{{this}}</option>
+                        {{/each}}
+                    </select>
 			</div>
 			<button id="filter" class="btn btn-primary w-100" role="button" type="submit">Filter</button>
 
 			{{!-- <a class="btn btn-primary w-100" href="#" role="button">Filter</a> --}}
 		</form>
 	</div>
-
 </div>
+
+<script src="/js/dropdown-populator.js"></script>

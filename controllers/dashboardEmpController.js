@@ -6,8 +6,16 @@ const Response = require('../models/EmpResponseModel');
 const helper = require('../helpers/helper');
 const pagination = require('../helpers/pagination');
 const db = require('../models/db');
+
 const fs = require('fs');
+const path = require('path');
 const { validationResult } = require('express-validator');
+
+const buffer = fs.readFileSync(
+    path.resolve(__dirname, '../public/json/us_cities_and_states.json'),
+);
+
+const citiesAndStates = JSON.parse(buffer);
 
 const dashboardEmpController = {
     getCreateJob: function (req, res) {
@@ -173,15 +181,43 @@ const dashboardEmpController = {
             ['Dentist', 'Dental Hygienist', 'Front Desk', 'Dental Assistant'],
         );
 
+        let stateStatus = helper.sanitize(req.query.app_state);
+        let cityStatus = helper.sanitize(req.query.app_city);
+
+        let stateQuery = new Array();
+        let cityQuery = new Array();
+
+
+        if(stateStatus == undefined || stateStatus == '') {
+            stateQuery = (Object.keys(citiesAndStates).sort());
+        } else {
+            stateQuery.push(stateStatus);
+        }
+
+        if(cityStatus == undefined || cityStatus == '') {
+            cityQueryLoad = new Array();
+            cityQueryLoad = (Object.values(citiesAndStates).sort());
+            for(let i = 0; i < cityQueryLoad.length; i++) {
+                for(let j = 0; j < cityQueryLoad[i].length; j++) {
+                    cityQuery.push(cityQueryLoad[i][j]);
+                }
+            }
+        } else {
+            cityQuery.push(cityStatus);
+        }
+
         let page = helper.sanitize(req.query.page);
         if (page == null) page = '1';
 
-        let options = { lean: true, page: page, limit: 6 };
+        let options = { lean: true, page: page, limit: 2 };
 
         let query = {
             account: { $exists: true },
             position: { $in: positionQuery },
             placement: { $in: placementQuery },
+
+            city : { $in: cityQuery },
+            state: { $in: stateQuery },
         };
 
         Applicant.paginate(query, options, function (err, results) {
@@ -197,9 +233,23 @@ const dashboardEmpController = {
                 'position',
             );
 
+            if(stateStatus == null) {
+                cityLink = '&app_city=&';
+            } else {
+                cityLink = '&app_city=' + cityStatus + '&';
+            }
+
+            if(cityStatus == null) {
+                stateLink = 'app_state=';
+            } else {
+                stateLink = 'app_state=' + stateStatus;
+            }
+
             let queryLinks = [];
             queryLinks.push(positionLink);
             queryLinks.push(placementLink);
+            queryLinks.push(stateLink);
+            queryLinks.push(cityLink);
 
             const {
                 selectOptions,
@@ -217,6 +267,12 @@ const dashboardEmpController = {
                 profile_active: true,
                 applicants: results.docs,
                 profile_route: `/applicants`,
+
+                //cities and states
+                states: Object.keys(citiesAndStates).sort(),
+                cities: req.body.clinic_state
+                ? citiesAndStates[req.body.clinic_state].sort()
+                : '',
 
                 // Pagination
                 selectOptions: selectOptions,
