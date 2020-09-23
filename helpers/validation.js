@@ -402,6 +402,16 @@ const validation = {
                 ),
         ];
     },
+
+    searchJobApplicantsValidation: function () {
+        return [
+            check('job_id')
+                .trim()
+                .isMongoId()
+                .withMessage('Not a valid MongoDB ID')
+                .trim(),
+        ];
+    },
 };
 
 module.exports = validation;

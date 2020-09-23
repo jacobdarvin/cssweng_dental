@@ -105,6 +105,7 @@ app.post('/confirmEmpStatus', adminController.confirmEmpStatus);
 app.post('/declineEmpStatus', adminController.declineEmpStatus);
 
 app.get('/admin', adminController.getAdmin);
+app.get('/admin/applicants', validation.searchJobApplicantsValidation(), adminController.getJobApplicantsList);
 // /admin | ADMIN
 
 // /home | HOME

@@ -88,28 +88,7 @@ var employersTable = new Tabulator('#employers-table', {
 
 var applicantsTable = new Tabulator('#applicants-table', {
     rowClick: function(e, row) {
-        $("#admin_applicantModal").modal();
-        rowData = row.getData();
-
-        document.getElementById("appModalTitle").innerHTML = "Viewing account details for " + "<b>" + rowData.fName + ' ' + rowData.lName + "</b>";
-
-        document.getElementById("appModalBody").innerHTML = 
-        "Account Details <br>" + 
-        "<b>ID:          </b>" + rowData._id + "<br>" +
-        "<b>Full Name:   </b>" + rowData.fName + " " + rowData.lName + "<br>" +
-        "<b>Email:       </b>" + '<a href="mailto:rowData.accEmail">' + rowData.accEmail + "</a>" + "<br>" + 
-        "<b>Phone:       </b>" + rowData.phone + "<br>" +
-        "<b>Placement:   </b>" + rowData.placement + "<br>" +
-        "<b>Position:    </b>" + rowData.position + "<br>" +
-        "<hr>" +
-        "Account Address <br>" + 
-        "<b>Street:      </b>" + rowData.streetAdd + "<br>" +
-        "<b>House No:    </b>" + rowData.houseNo + "<br>" +
-        "<b>City:        </b>" + rowData.city + "<br>" +
-        "<b>State:       </b>" + rowData.state + "<br>" +
-        "<b>Zip:         </b>" + rowData.zip + "<br>";
-
-        let showStatus = "";
+        showApplicantDetails(row);
     },
 
     resizableRows: false,
@@ -138,27 +117,9 @@ var applicantsTable = new Tabulator('#applicants-table', {
 var jobsTable = new Tabulator('#jobs-table', {
 
     rowClick: function(e, row) {
-
-        $("#admin_jobModal").modal();
-        rowData = row.getData();
-
-        document.getElementById("jobModalTitle").innerHTML = "Managing job for " + "<b>" + rowData.clinicName + "</b>";
-
-        document.getElementById("jobModalBody").innerHTML = 
-        "Job Details <br>" + 
-        "<b>Clinic Name:       </b>" + rowData.clinicName + "<br>" +
-        "<b>Placement:         </b>" + rowData.placement + "<br>" + 
-        "<b>Clinic City:       </b>" + rowData.clinic_city + "<br>" +
-        "<b>Clinic State:      </b>" + rowData.clinic_state + "<br>" +
-        "<hr>" +
-        "<b>Job ID:            </b>" + rowData._id + "<br>" +
-        "<b>Job Created:       </b>" + rowData.created + "<br>" +
-        "<b>Description:       </b><hr>";
-
-        document.getElementById("jobModalBodyDesc").innerHTML = rowData.description;
-        document.getElementById("admin_closeJobTitle").innerHTML = "Confirm to Close Job for " + "<b>" + rowData.clinicName + "</b>";
-
-        //document.getElementById("collapseAppList").setAttribute('href', '#a' + rowData._id);
+        showJobDetails(row);
+        
+        //document.getElementById("collapseAppList").setAttribute('href', `/admin/jobs/${rowData._id}/applicants`);
         //document.getElementById("jobAppList").setAttribute('id', 'a' + rowData._id);
 
         //document.getElementById('a' + rowData._id).innerHTML = rowData.applicants.fName;
@@ -185,6 +146,108 @@ var jobsTable = new Tabulator('#jobs-table', {
     ],
 });
 
+
+var jobApplicantsTable = new Tabulator('#job-app-table', {
+    rowClick: function(e, row) {
+        showApplicantDetails(row);
+    },
+    
+    resizableRows: false,
+    resizableColumns: true,
+    pagination: 'local',
+    paginationSize: 8,
+    layout: 'fitColumns',
+    index: '_id',
+    columns: [
+        { title: 'ID', field: '_id' },
+        { title: 'First Name', field: 'fName' },
+        { title: 'Last Name', field: 'lName' },
+        { title: 'Applicant email', field: 'accEmail' },
+        { title: 'Contact', field: 'phone' },
+        { title: 'Placement', field: 'placement' },
+        { title: 'Position', field: 'position' },
+        { title: 'Street', field: 'streetAdd' },
+        { title: 'House No.', field: 'houseNo' },
+        { title: 'City', field: 'city' },
+        { title: 'State', field: 'state' },
+        { title: 'Zip', field: 'zip' },
+    ],
+})
+
+    
+
 jobsTable.setData('/jobs');
 employersTable.setData('/employers');
 applicantsTable.setData('/applicants');
+
+
+// --------EVENT LISTENERS--------
+
+document.getElementById('input-job-id').oninput = (ev) => {
+    const jobIdEl = ev.target;
+
+    jobApplicantsTable.setData(`/admin/applicants?${jobIdEl.name}=${jobIdEl.value}`);
+}
+
+document.getElementById('collapseAppList').onclick = ev => {
+    const jobIdEl = document.getElementById('input-job-id');
+    jobIdEl.value = document.getElementById('job-id').nextSibling.textContent;
+
+    const inputEvent = document.createEvent('Event');
+    inputEvent.initEvent('input', true, true)
+    document.getElementById('input-job-id').dispatchEvent(inputEvent);
+}
+
+// --------EVENT LISTENERS--------
+
+// --------FUNCTIONS--------
+
+// display job modal
+function showJobDetails(row) {
+    $("#admin_jobModal").modal();
+    rowData = row.getData();
+
+    document.getElementById("jobModalTitle").innerHTML = "Managing job for " + "<b>" + rowData.clinicName + "</b>";
+
+    document.getElementById("jobModalBody").innerHTML = 
+    "Job Details <br>" + 
+    "<b>Clinic Name:       </b>" + rowData.clinicName + "<br>" +
+    "<b>Placement:         </b>" + rowData.placement + "<br>" + 
+    "<b>Clinic City:       </b>" + rowData.clinic_city + "<br>" +
+    "<b>Clinic State:      </b>" + rowData.clinic_state + "<br>" +
+    "<hr>" +
+    "<b id='job-id'>Job ID:            </b>" + rowData._id + "<br>" +
+    "<b>Job Created:       </b>" + rowData.created + "<br>" +
+    "<b>Description:       </b><hr>";
+
+    document.getElementById("jobModalBodyDesc").innerHTML = rowData.description;
+    document.getElementById("admin_closeJobTitle").innerHTML = "Confirm to Close Job for " + "<b>" + rowData.clinicName + "</b>";
+
+}
+
+// display applicant modal
+function showApplicantDetails(row) {
+    $("#admin_applicantModal").modal();
+        rowData = row.getData();
+
+        document.getElementById("appModalTitle").innerHTML = "Viewing account details for " + "<b>" + rowData.fName + ' ' + rowData.lName + "</b>";
+
+        document.getElementById("appModalBody").innerHTML = 
+        "Account Details <br>" + 
+        "<b>ID:          </b>" + rowData._id + "<br>" +
+        "<b>Full Name:   </b>" + rowData.fName + " " + rowData.lName + "<br>" +
+        "<b>Email:       </b>" + '<a href="mailto:rowData.accEmail">' + rowData.accEmail + "</a>" + "<br>" + 
+        "<b>Phone:       </b>" + rowData.phone + "<br>" +
+        "<b>Placement:   </b>" + rowData.placement + "<br>" +
+        "<b>Position:    </b>" + rowData.position + "<br>" +
+        "<hr>" +
+        "Account Address <br>" + 
+        "<b>Street:      </b>" + rowData.streetAdd + "<br>" +
+        "<b>House No:    </b>" + rowData.houseNo + "<br>" +
+        "<b>City:        </b>" + rowData.city + "<br>" +
+        "<b>State:       </b>" + rowData.state + "<br>" +
+        "<b>Zip:         </b>" + rowData.zip + "<br>";
+
+        let showStatus = "";
+}
+// --------FUNCTIONS--------
