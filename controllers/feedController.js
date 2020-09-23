@@ -727,11 +727,39 @@ const feedController = {
                     limit: 6,
                 };
 
+                let stateStatus = helper.sanitize(req.query.app_state);
+                let cityStatus = helper.sanitize(req.query.app_city);
+
+                let stateQuery = new Array();
+                let cityQuery = new Array();
+
+                if(stateStatus == undefined || stateStatus == '') {
+                    stateQuery = (Object.keys(citiesAndStates).sort());
+                } else {
+                    stateQuery.push(stateStatus);
+                }
+
+                if(cityStatus == undefined || cityStatus == '') {
+                    cityQueryLoad = new Array();
+                    cityQueryLoad = (Object.values(citiesAndStates).sort());
+                    for(let i = 0; i < cityQueryLoad.length; i++) {
+                        for(let j = 0; j < cityQueryLoad[i].length; j++) {
+                            cityQuery.push(cityQueryLoad[i][j]);
+                        }
+                    }
+                } else {
+                    cityQuery.push(cityStatus);
+                }
+
                 let query = {
                     account: { $exists: true },
                     _id: { $in: job.applicants },
+
                     position: { $in: positionQuery },
                     placement: { $in: placementQuery },
+
+                    city : { $in: cityQuery },
+                    state: { $in: stateQuery },
                 };
 
                 Applicant.paginate(query, options, function (err, results) {
@@ -744,9 +772,24 @@ const feedController = {
                         'position',
                     );
 
+                    if(stateStatus == null) {
+                        cityLink = '&app_city=&';
+                    } else {
+                        cityLink = '&app_city=' + cityStatus + '&';
+                    }
+
+                    if(cityStatus == null) {
+                        stateLink = 'app_state=';
+                    } else {
+                        stateLink = 'app_state=' + stateStatus;
+                    }
+
                     let queryLinks = [];
                     queryLinks.push(positionLink);
                     queryLinks.push(placementLink);
+                    queryLinks.push(stateLink);
+                    queryLinks.push(cityLink);
+
                     const {
                         selectOptions,
                         prevPageLink,
@@ -772,6 +815,12 @@ const feedController = {
                         profile_route: `/jobs/${sntJobId}/applicants`,
 
                         warn: resultWarn,
+
+                        //cities and states
+                        states: Object.keys(citiesAndStates).sort(),
+                        cities: req.body.clinic_state
+                        ? citiesAndStates[req.body.clinic_state].sort()
+                        : '',
                 
                         // Pagination
                         selectOptions: selectOptions,

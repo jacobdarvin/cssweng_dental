@@ -209,10 +209,11 @@ const dashboardEmpController = {
         let page = helper.sanitize(req.query.page);
         if (page == null) page = '1';
 
-        let options = { lean: true, page: page, limit: 2 };
+        let options = { lean: true, page: page, limit: 6 };
 
         let query = {
             account: { $exists: true },
+            
             position: { $in: positionQuery },
             placement: { $in: placementQuery },
 
@@ -267,6 +268,8 @@ const dashboardEmpController = {
                 profile_active: true,
                 applicants: results.docs,
                 profile_route: `/applicants`,
+
+                warn: resultWarn,
 
                 //cities and states
                 states: Object.keys(citiesAndStates).sort(),
