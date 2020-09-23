@@ -4,6 +4,8 @@ const Applicant = require('../models/ApplicantModel');
 const Employer = require('../models/EmployerModel');
 const db = require('../models/db');
 const helper = require('../helpers/helper');
+const mongoose = require('mongoose');
+const { ObjectId } = require('mongodb');
 
 const dashboardAppController = {
     createSearchJobRoute: function (appDoc) {
@@ -95,15 +97,32 @@ const dashboardAppController = {
     },
 
     getHireReqFeed: function (req, res){
-        
-        res.render('feed-reqs', {
-            contact: false,
-            hire: true,
-            active_session: req.session.user && req.cookies.user_sid,
-            active_user: req.session.user,
-            title: 'Hire Requests | BookMeDental',
-        });
+        var appId = helper.sanitize(req.params.appId);
 
+        db.findMany(Response, {applicantId: appId, type: 'hire'}, 'jobId', function (result){
+            if(result){
+
+                var query_id = result.map( res => {
+                   
+                    // console.log(res.jobId);
+                    return mongoose.Types.ObjectId(res.jobId);
+                })
+
+                console.log(query_id)
+
+                db.findMany(Job, {_id: {$in: query_id}}, '', function (jobs){
+                    res.render('feed-reqs', {
+                    contact: false,
+                    hire: true,
+                    active_session: req.session.user && req.cookies.user_sid,
+                    active_user: req.session.user,
+                    title: 'Hire Requests | BookMeDental',
+                    hire_req: jobs
+                });
+                })
+                    
+            }
+        })
         
     }
 };
