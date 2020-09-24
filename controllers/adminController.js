@@ -133,6 +133,14 @@ const adminController = {
         db.updateOne(Account, {_id: acc_id}, {accStatus: 'Unverified'}, function(result){
             res.redirect('/admin');
         })
+    },
+
+    closeJob: function (req, res){
+        var job_id = req.body.closejob_id;
+
+        db.deleteOne(Job, {_id: job_id}, function(result){
+            res.redirect('/admin');
+        })
     }
 };
 

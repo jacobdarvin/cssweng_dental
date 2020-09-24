@@ -144,19 +144,26 @@ var jobsTable = new Tabulator('#jobs-table', {
 
         document.getElementById("jobModalTitle").innerHTML = "Managing job for " + "<b>" + rowData.clinicName + "</b>";
 
-        document.getElementById("jobModalBody").innerHTML = 
-        "Job Details <br>" + 
-        "<b>Clinic Name:       </b>" + rowData.clinicName + "<br>" +
-        "<b>Placement:         </b>" + rowData.placement + "<br>" + 
-        "<b>Clinic City:       </b>" + rowData.clinic_city + "<br>" +
-        "<b>Clinic State:      </b>" + rowData.clinic_state + "<br>" +
-        "<hr>" +
-        "<b>Job ID:            </b>" + rowData._id + "<br>" +
-        "<b>Job Created:       </b>" + rowData.created + "<br>" +
-        "<b>Description:       </b><hr>";
+        // document.getElementById("jobModalBody").innerHTML = 
+        // "Job Details <br>" + 
+        // "<b>Clinic Name:       </b>" + rowData.clinicName + "<br>" +
+        // "<b>Placement:         </b>" + rowData.placement + "<br>" + 
+        // "<b>Clinic City:       </b>" + rowData.clinic_city + "<br>" +
+        // "<b>Clinic State:      </b>" + rowData.clinic_state + "<br>" +
+        // "<hr>" +
+        // "<b>Job ID:            </b>" + rowData._id + "<br>" +
+        // "<b>Job Created:       </b>" + rowData.created + "<br>" +
+        // "<b>Description:       </b><hr>";
 
-        document.getElementById("jobModalBodyDesc").innerHTML = rowData.description;
+        document.getElementById("job_clinic_name").innerHTML = rowData.clinicName;
+        document.getElementById("job_clinic_city").innerHTML = rowData.placement;
+        document.getElementById("job_clinic_state").innerHTML = rowData.clinic_city;
+        document.getElementById("job_placement").innerHTML = rowData.clinic_state;
+        document.getElementById("job_id").innerHTML = rowData._id;
+        document.getElementById("job_create").innerHTML = rowData.created;
+        document.getElementById("job_description").innerHTML = rowData.description;
         document.getElementById("admin_closeJobTitle").innerHTML = "Confirm to Close Job for " + "<b>" + rowData.clinicName + "</b>";
+        document.getElementById("closejob_id").value = rowData._id;
 
         //document.getElementById("collapseAppList").setAttribute('href', '#a' + rowData._id);
         //document.getElementById("jobAppList").setAttribute('id', 'a' + rowData._id);

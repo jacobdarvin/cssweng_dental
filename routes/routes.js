@@ -102,7 +102,7 @@ app.get('/applicants', adminController.getApplicantList);
 app.get('/jobs', adminController.getJobList);
 app.post('/confirmEmpStatus', adminController.confirmEmpStatus);
 app.post('/declineEmpStatus', adminController.declineEmpStatus);
-
+app.post('/closeJob', adminController.closeJob);
 app.get('/admin', adminController.getAdmin);
 // /admin | ADMIN
 
