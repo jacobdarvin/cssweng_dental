@@ -20,6 +20,18 @@
         </ul>
         <ul class="navbar-nav ml-auto">
             {{#if active_session}}
+            {{#ifEquals accType 'applicant'}}
+            <div class="dropdown">
+              <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               <span class="font-weight-bold" style="color: #33699E"><i class="fas fa-bell"></i> {{combined_req_count}}</span>
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="/feed-contact/{{profile_id}}">   <b>{{contact_req_count}}</b> Contact Request/s <br><small> Click to see all Contact Requests </small></a>
+                <a class="dropdown-item" href="/feed-hire/{{profile_id}}"><b>{{hire_req_count}}</b> Hire Request/s <br><small> Click to see all Hire Requests </small></a>
+              </div>
+            </div>
+            {{/ifEquals}}
+
             <li class="nav-item {{#if profile_active}}active{{/if}}">
                 <a class="nav-link" href="/dashboard"><i class="fas fa-tooth"></i> Dashboard</a>
             </li>

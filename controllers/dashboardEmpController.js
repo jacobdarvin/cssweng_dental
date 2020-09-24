@@ -260,6 +260,12 @@ const dashboardEmpController = {
                 hasNextPage,
             } = pagination.configPagination(results, route, queryLinks);
 
+            let resultWarn = "";
+
+            if(results.total == 0) {
+                resultWarn = "No Applicants Returned from Filter";
+            }
+
             res.render('feed-app', {
                 active_session: req.session.user && req.cookies.user_sid,
                 active_user: req.session.user,

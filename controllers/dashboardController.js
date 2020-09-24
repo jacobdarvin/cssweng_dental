@@ -46,11 +46,14 @@ const dashboardController = {
                                 if (err) throw err;
 
                                 renderOptions.profileData = data.toObject();
+                                renderOptions.profile_id = renderOptions.profileData._id;
 
                                 if (view == 'dashboard-app') {
                                     renderOptions.search_job_route = dac.createSearchJobRoute(
                                         data,
                                     );
+
+                                    let countCombined = 0;
 
                                     dac.getJobMatchCount(data)
                                         .then(n => {
@@ -71,14 +74,23 @@ const dashboardController = {
                                         })
                                         .then(contactRequest => {
                                             renderOptions.contact_request = contactRequest;
-                                            return dac.getHireReqCount(data._id);
+                                            return dac.getHireReqCount(data._id);                                            
                                         })
                                         .then(n => {
                                             renderOptions.hire_req_count = n;
                                             return dac.getContactReqCount(data._id);
+
+                                            countCombined += n;
                                         })
                                         .then(n => {
                                             renderOptions.contact_req_count = n;
+
+                                            countCombined += n;
+
+                                            if (countCombined > 0) {
+                                                renderOptions.combined_req_count = countCombined;
+                                            }
+
                                             res.render(view, renderOptions);
                                         })
                                         .catch(err => {
@@ -86,6 +98,7 @@ const dashboardController = {
                                             res.status(404);
                                             next();
                                         });
+
                                 } else {
                                     var query = helper.getActiveJobPost(data._id);
                                     query.exec(function(err, result){
@@ -96,9 +109,9 @@ const dashboardController = {
                                                     active_session:
                                                     req.session.user && req.cookies.user_sid,
                                                     active_user: req.session.user,
+
                                                     title: 'Dashboard | BookMeDental',
                                                     profile_active: true,
-    //                                                 employer_active: true,
                                                     accType: req.session.accType,
                                                     profileData: data.toObject(),
                                                     activeJob: result,

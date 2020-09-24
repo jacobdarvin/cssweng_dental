@@ -70,9 +70,11 @@ const dashboardAppController = {
     
     getContactReqFeed: function (req, res){
         var appId = helper.sanitize(req.params.appId);
+
         db.findMany(Response, {applicantId: appId, type: 'contact'}, '', function (result){
             if(result){
                 res.render('feed-reqs', {
+                    profile_id: appId,
                     contact: true,
                     hire: false,
                     active_session: req.session.user && req.cookies.user_sid,
@@ -112,6 +114,7 @@ const dashboardAppController = {
 
                 db.findMany(Job, {_id: {$in: query_id}}, '', function (jobs){
                     res.render('feed-reqs', {
+                    profile_id: appId,
                     contact: false,
                     hire: true,
                     active_session: req.session.user && req.cookies.user_sid,
