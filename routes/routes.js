@@ -194,6 +194,10 @@ app.post('/sendHireResponse/:appId/job/:jobId/type/:type', dashboardEmpControlle
 app.post('/sendContactResponse/:appId/type/:type', dashboardEmpController.sendContactResponse);
 // employer / sendResponse
 
+// employer / closeJob
+app.post('/EmpCloseJob/jobId/:jobId', dashboardEmpController.EmpCloseJob);
+// employer / closeJob
+
 // applicant / deleteContactRequest
 app.post('/deleteContactRequest/:contact_reqId/:appId', dashboardAppController.deleteContactRequest);
 // applicant / deleteContactRequest

@@ -382,6 +382,14 @@ const dashboardEmpController = {
 
         })
     },
+
+    EmpCloseJob: function (req, res) {
+        var jobId = req.params.jobId;
+
+        db.deleteOne(Job, {_id: jobId}, function(result){
+            res.redirect('/feed-emp');
+        })
+    }
 };
 
 // enables to export controller object when called in another .js file
