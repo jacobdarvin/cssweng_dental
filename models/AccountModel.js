@@ -17,8 +17,8 @@ const accountSchema = mongoose.Schema({
     },
     accStatus: {
         type: String,
-        enum: ['active', 'inactive'],
-        default: 'active',
+        enum: ['Verified', 'Unverified'],
+        default: 'Unverified',
     },
     created: {
         type: Date,

@@ -67,6 +67,18 @@ const dashboardController = {
                                         })
                                         .then(appData => {
                                             renderOptions.applied_jobs = appData.appliedJobs;
+                                            return dac.getRecentContactReq(data._id);
+                                        })
+                                        .then(contactRequest => {
+                                            renderOptions.contact_request = contactRequest;
+                                            return dac.getHireReqCount(data._id);
+                                        })
+                                        .then(n => {
+                                            renderOptions.hire_req_count = n;
+                                            return dac.getContactReqCount(data._id);
+                                        })
+                                        .then(n => {
+                                            renderOptions.contact_req_count = n;
                                             res.render(view, renderOptions);
                                         })
                                         .catch(err => {
@@ -92,6 +104,7 @@ const dashboardController = {
                                                     activeJob: result,
                                                     temp: temp_count,
                                                     perma: perm_count,
+                                                    status: data.account.accStatus,
                                                 });
                                             })
                                         })

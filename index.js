@@ -63,6 +63,11 @@ app.engine(
                 var days   = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
                 return months[arg1.getMonth()] + ' ' + arg1.getDate() + ', ' + arg1.getFullYear() + ' ' + '(' + days[arg1.getDay()] + ')';
             },
+
+            formatContactReqDate: function(arg1){
+                var months = ["Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
+                return months[arg1.getMonth()] + ' ' + arg1.getDate() + ', ' + arg1.getFullYear();
+            }
         },
     }),
 );

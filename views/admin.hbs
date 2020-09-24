@@ -1,5 +1,6 @@
 <link href="css/sidebar.css" rel="stylesheet" />
 
+
 <style>
     body {
         background-color: white;
@@ -126,13 +127,20 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <pre class="modal-body" id="empModalBody">
-        
-      </pre>
+      <div class="modal-body" id="empModalBody" style="font-size: 15px; ">
+        <p style="margin-bottom: -7px; font-size: 20px;" >Account Details</p><br>
+        <p style="margin-bottom: 5px;"><b>Account ID:</b><span style="margin-left: 58px;" id="acc_id"></span></p>
+        <p style="margin-bottom: 5px;"><b>Account Name:</b><span style="margin-left: 35px;" id="acc_name"></span></p>
+        <p style="margin-bottom: 5px;"><b>Account Email:</b><span style="margin-left: 37px;" id="acc_email"></span></p>
+        <p style="margin-bottom: 5px;"><b>Account Phone:</b><span style="margin-left: 30px;" id="acc_phone"></span></p>
+        <p style="margin-bottom: 5px;"><b>Clinic Name:</b><span style="margin-left: 55px;" id="cl_name"></span></p>
+        <p style="margin-bottom: 5px;"><b>Account Created:</b><span style="margin-left: 20px;" id="acc_create"></span></p>
+        <p style="margin-bottom: 5px;"><b>Account Status:</b><span style="margin-left: 30px;" id="acc_stat"></span></p>
+      </div>
       <div class="modal-footer" id="admin_approveBtn">
-        <button type="button" style="display: inline-block;" class="w-100 btn btn-success" data-toggle="modal" data-target="#admin_confirmApprove">Approve Status</button>
+        {{!-- <button type="button" style="display: inline-block;" class="w-100 btn btn-success" data-toggle="modal" data-target="#admin_confirmApprove">Approve Status</button>
         <button type="button" style="display: inline-block;" class="w-100 btn btn-danger"  data-toggle="modal" data-target="#admin_confirmDecline">Decline Status</button>
-        <button type="button" style="display: inline-block;" class="w-100 btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" style="display: inline-block;" class="w-100 btn btn-secondary" data-dismiss="modal">Close</button> --}}
       </div>
     </div>
   </div>
@@ -201,7 +209,7 @@
 
 <!-- Modal -->
 <div class="modal" id="admin_confirmApprove" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="width: 600px">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="admin_confirmApproveTitle"></h5>
@@ -209,9 +217,12 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-footer">
-        <button type="button" style="display: inline-block;" class="w-100 btn btn-success">Confirm Approval</button>
-        <button type="button" style="display: inline-block;" class="w-100 btn btn-secondary" data-dismiss="modal">Go Back</button>
+      <div class="modal-footer" style="margin-left: 30px;">
+        <form method="post" action="/confirmEmpStatus">
+          <input type="text" value="" id="confirm_id" name="confirm_id" style="display: none;">
+          <button type="button" style="display: inline-block; margin-left: 90px;" class="w-150 btn btn-secondary" data-dismiss="modal">Go Back</button>
+           <button type="submit" style="display: inline-block; margin-left: 90px;" class="w-150 btn btn-success">Confirm Approval</button>
+        </form>
       </div>
     </div>
   </div>
@@ -219,7 +230,7 @@
 
 <!-- Modal -->
 <div class="modal" id="admin_confirmDecline" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="width: 600px">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="admin_confirmDeclineTitle"></h5>
@@ -227,10 +238,17 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-footer">
+       <div class="modal-footer" style="margin-left: 30px;">
+        <form method="post" action="/declineEmpStatus">
+          <input type="text" value="" id="decline_id" name="decline_id" style="display: none;">
+          <button type="button" style="display: inline-block; margin-left: 90px;" class="w-150 btn btn-secondary" data-dismiss="modal">Go Back</button>
+           <button type="submit" style="display: inline-block; margin-left: 90px;" class="w-150 btn btn-danger">Decline Status</button>
+        </form>
+      </div>
+      {{!-- <div class="modal-footer">
         <button type="button" style="display: inline-block;" class="w-100 btn btn-danger">Decline Status</button>
         <button type="button" style="display: inline-block;" class="w-100 btn btn-secondary" data-dismiss="modal">Go Back</button>
-      </div>
+      </div> --}}
     </div>
   </div>
 </div>

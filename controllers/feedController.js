@@ -884,7 +884,8 @@ const feedController = {
         }
 
         var sntAppId = helper.sanitize(req.params.appId);
-        db.findOne(Response, {accEmpId: req.session.user, applicantId: sntAppId}, '', function (response){
+        var jobId = helper.sanitize(req.params.jobId);
+        db.findOne(Response, {accEmpId: req.session.user, applicantId: sntAppId, type: 'hire', jobId: jobId }, '', function (response){
             db.findOne(Applicant, { _id: sntAppId }, '', function (applicant) {
                 if (applicant) {
                     applicant.populate(
@@ -895,7 +896,7 @@ const feedController = {
                         },
                         function (err, result) {
                             if (err) throw err;
-
+                
                             if(response){
                                 res.render('details-app', {
                                     active_session:
@@ -921,8 +922,7 @@ const feedController = {
                                     profile_active: true,
                                     jobId: req.params.jobId,
                                     type: 'hire',
-                                    response: false,
-        
+                                
                                     // additional config
                                     from: 'jobs',
                                 });

@@ -16,6 +16,7 @@ const indexController = require('../controllers/indexController');
 //DASHBOARD CONTROLLER
 const dashboardController = require('../controllers/dashboardController');
 const dashboardEmpController = require('../controllers/dashboardEmpController');
+const dashboardAppController = require('../controllers/dashboardAppController');
 //DASHBOARD CONTROLLER
 
 //FEED CONTROLLER
@@ -99,6 +100,8 @@ app.post(
 app.get('/employers', adminController.getEmployerList);
 app.get('/applicants', adminController.getApplicantList);
 app.get('/jobs', adminController.getJobList);
+app.post('/confirmEmpStatus', adminController.confirmEmpStatus);
+app.post('/declineEmpStatus', adminController.declineEmpStatus);
 
 app.get('/admin', adminController.getAdmin);
 // /admin | ADMIN
@@ -158,27 +161,13 @@ app.get('/details-app', function (req, res) {
 app.get('/dashboard', dashboardController.getDashboard);
 // /dashboard-type / DASHBOARD
 
-//retrieve requests
-app.get('/feed-contact', function (req, res) {
-   res.render('feed-reqs', {
-        contact: true,
-        hire: false,
-        active_session: req.session.user && req.cookies.user_sid,
-        active_user: req.session.user,
-        title: 'Contact Requests | BookMeDental',
-    });
-});
+//retrieve applicant contact requests feed
+app.get('/feed-contact/:appId', dashboardAppController.getContactReqFeed);
+//retrieve applicant contact requests feed
 
-app.get('/feed-hire', function (req, res) {
-   res.render('feed-reqs', {
-        contact: false,
-        hire: true,
-        active_session: req.session.user && req.cookies.user_sid,
-        active_user: req.session.user,
-        title: 'Hire Requests | BookMeDental',
-    });
-});
-//retrieve requests
+//retrieve applicant hire requests feed
+app.get('/feed-hire/:appId', dashboardAppController.getHireReqFeed);
+//retrieve applicant hire requests feed
 
 // /updateClinicProfile
 app.post('/updateClinicProfile', dashboardEmpController.updateClinicProfile);
@@ -204,6 +193,10 @@ app.get('/getAppResume/:resume', dashboardEmpController.getAppResume);
 app.post('/sendHireResponse/:appId/job/:jobId/type/:type', dashboardEmpController.sendHireResponse);
 app.post('/sendContactResponse/:appId/type/:type', dashboardEmpController.sendContactResponse);
 // employer / sendResponse
+
+// applicant / deleteContactRequest
+app.post('/deleteContactRequest/:contact_reqId/:appId', dashboardAppController.deleteContactRequest);
+// applicant / deleteContactRequest
 
 // /register | REGISTER
 app.get('/register', registerController.getRegister);

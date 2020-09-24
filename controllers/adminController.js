@@ -1,6 +1,8 @@
 const Applicant = require('../models/ApplicantModel');
 const Employer = require('../models/EmployerModel');
 const Job = require('../models/JobModel');
+const Account = require('../models/AccountModel');
+const db = require('../models/db');
 
 const adminController = {
     getAdmin: function (req, res) {
@@ -13,11 +15,12 @@ const adminController = {
             });
         } else res.redirect('/404');
     },
+
     getEmployerList: function (req, res) {
         // only get Employers who have completed the form
         Employer.find(
             { account: { $exists: true } },
-            'account name clinicName phone',
+            '_id account name clinicName phone',
         )
             .populate('account')
             .exec()
@@ -27,16 +30,17 @@ const adminController = {
                     name: { first, last },
                     clinicName,
                     phone,
-                    account: { accEmail, created, accStatus },
+                    account: {  _id, accEmail, created, accStatus },
                 } of docs)
                     data.push({
+                        _id,
                         first,
                         last,
                         clinicName,
                         phone,
                         accEmail,
                         created,
-                        accStatus: accStatus === 'active',
+                        accStatus,
                     });
 
                 res.send(data);
@@ -113,6 +117,23 @@ const adminController = {
             })
             .catch(err => res.send(err));
     },
+
+    confirmEmpStatus: function (req, res){
+        var acc_id = req.body.confirm_id;
+
+        db.updateOne(Account, {_id: acc_id}, {accStatus: 'Verified'}, function(result){
+            res.redirect('/admin');
+        })
+    },
+
+    declineEmpStatus: function (req, res){
+        var acc_id = req.body.decline_id;
+        console.log(req.body);
+
+        db.updateOne(Account, {_id: acc_id}, {accStatus: 'Unverified'}, function(result){
+            res.redirect('/admin');
+        })
+    }
 };
 
 module.exports = adminController;

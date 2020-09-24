@@ -1,6 +1,11 @@
 const Job = require('../models/JobModel');
 const Response = require('../models/EmpResponseModel');
 const Applicant = require('../models/ApplicantModel');
+const Employer = require('../models/EmployerModel');
+const db = require('../models/db');
+const helper = require('../helpers/helper');
+const mongoose = require('mongoose');
+const { ObjectId } = require('mongodb');
 
 const dashboardAppController = {
     createSearchJobRoute: function (appDoc) {
@@ -46,6 +51,80 @@ const dashboardAppController = {
     getAppliedJobsCount: function (app_id) {
         return Job.countDocuments({ applicants: app_id }).exec();
     },
+
+    getHireReqCount: function (app_id){
+        return Response.countDocuments({ applicantId: app_id, type: 'hire' }).exec();
+    },
+
+    getContactReqCount: function (app_id){
+        return Response.countDocuments({ applicantId: app_id, type: 'contact' }).exec();
+    },
+
+    getRecentContactReq: function (app_id){
+        return Response.find({ applicantId: app_id, type: 'contact' })
+            .sort('-created')
+            .limit(5)
+            .lean()
+            .exec();
+    },
+    
+    getContactReqFeed: function (req, res){
+        var appId = helper.sanitize(req.params.appId);
+        db.findMany(Response, {applicantId: appId, type: 'contact'}, '', function (result){
+            if(result){
+                res.render('feed-reqs', {
+                    contact: true,
+                    hire: false,
+                    active_session: req.session.user && req.cookies.user_sid,
+                    active_user: req.session.user,
+                    title: 'Contact Requests | BookMeDental',
+                    contact_req: result
+                });
+                    
+            }
+        })
+    },
+
+    deleteContactRequest: function (req, res){
+        var contact_req_id = helper.sanitize(req.params.contact_reqId);
+        var appId = helper.sanitize(req.params.appId);
+
+        db.deleteOne(Response, {_id: contact_req_id, type: 'contact'}, function(result){
+            if(result){
+                res.redirect(`/feed-contact/${appId}`);
+            }
+        })
+    },
+
+    getHireReqFeed: function (req, res){
+        var appId = helper.sanitize(req.params.appId);
+
+        db.findMany(Response, {applicantId: appId, type: 'hire'}, 'jobId', function (result){
+            if(result){
+
+                var query_id = result.map( res => {
+                   
+                    // console.log(res.jobId);
+                    return mongoose.Types.ObjectId(res.jobId);
+                })
+
+                console.log(query_id)
+
+                db.findMany(Job, {_id: {$in: query_id}}, '', function (jobs){
+                    res.render('feed-reqs', {
+                    contact: false,
+                    hire: true,
+                    active_session: req.session.user && req.cookies.user_sid,
+                    active_user: req.session.user,
+                    title: 'Hire Requests | BookMeDental',
+                    hire_req: jobs
+                });
+                })
+                    
+            }
+        })
+        
+    }
 };
 
 // enables to export controller object when called in another .js file
