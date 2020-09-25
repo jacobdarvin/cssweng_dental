@@ -79,6 +79,7 @@ app.use((req, res, next) => {
     next();
 });
 
+app.get('/states', formController.getStates);
 app.get('/cities', formController.getCities);
 app.get('/form/:fappId', formController.getApplicantReg);
 app.post(
@@ -104,6 +105,7 @@ app.post('/confirmEmpStatus', adminController.confirmEmpStatus);
 app.post('/declineEmpStatus', adminController.declineEmpStatus);
 app.post('/closeJob', adminController.closeJob);
 app.get('/admin', adminController.getAdmin);
+app.get('/admin/applicants', validation.searchJobApplicantsValidation(), adminController.getJobApplicantsList);
 // /admin | ADMIN
 
 // /home | HOME
@@ -115,7 +117,7 @@ app.get('/features', function (req, res) {
         active_session: req.session.user && req.cookies.user_sid,
         active_user: req.session.user,
         title: 'Features | BookMeDental',
-        
+
         // navbar indicator
         accType: req.session.accType,
 
@@ -159,6 +161,28 @@ app.get('/details-app', function (req, res) {
 
 // /dashboard-type / DASHBOARD
 app.get('/dashboard', dashboardController.getDashboard);
+app.post(
+    '/dashboard/applicant/:appId/edit-description',
+    dashboardAppController.postEditDescription,
+);
+app.get(
+    '/dashboard/applicant/data',
+    dashboardAppController.getPopulateEditProfile,
+);
+app.post(
+    '/dashboard/applicant/:appId/edit-profile',
+    validation.editAppProfileValidation(),
+    dashboardAppController.postEditProfile,
+);
+app.post(
+    '/dashboard/applicant/:appId/edit-wage',
+    dashboardAppController.postEditWage,
+);
+app.post(
+    '/dashboard/applicant/:appId/edit-avatar',
+    uploadFilter,
+    dashboardAppController.postEditAvatar,
+);
 // /dashboard-type / DASHBOARD
 
 //retrieve applicant contact requests feed
@@ -182,8 +206,12 @@ app.get('/applicants/:appId', dashboardEmpController.getAppProfile); // view app
 // /feed / FEED
 app.get('/feed-emp', feedController.getEmpFeed);
 app.get('/feed-app', feedController.getAppFeed);
+app.get('/feed-app/applied-jobs', feedController.getAppliedAppFeed);
 app.get('/jobs/:jobId', feedController.getIndivJob);
 app.post('/jobs/:jobId', feedController.postIndivJob);
+app.post('/jobs/:jobId/edit-description', feedController.postEditDescription);
+app.get('/jobs/:jobId/form', feedController.getPopulatedJobDetails);
+app.post('/jobs/:jobId/edit-job', validation.editJobDetailsValidation(), feedController.postEditJobDetails);
 app.get('/jobs/:jobId/applicants', feedController.getJobApplicants);
 app.get('/jobs/:jobId/applicants/:appId', feedController.getAppProfile); // view applicant from job post's applicants
 app.get('/getAppResume/:resume', dashboardEmpController.getAppResume);

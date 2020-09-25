@@ -5,13 +5,11 @@ const Job = require('../models/JobModel');
 const dac = require('./dashboardAppController');
 const helper = require('../helpers/helper');
 
-
 const dashboardController = {
     getDashboard: function (req, res, next) {
         // If there's no active session, redirect to login
         if (!req.session.user) res.redirect('/login');
         else {
-
             var renderOptions = {
                 active_session: req.session.user && req.cookies.user_sid,
                 active_user: req.session.user,
@@ -34,7 +32,7 @@ const dashboardController = {
                 adminUsing = true;
             }
 
-            if(!adminUsing) {
+            if (!adminUsing) {
                 helper.updatePostedDate();
                 db.findOne(model, { account: req.session.user }, '', function (
                     result,
@@ -46,83 +44,101 @@ const dashboardController = {
                                 if (err) throw err;
 
                                 renderOptions.profileData = data.toObject();
-                                renderOptions.profile_id = renderOptions.profileData._id;
+                                renderOptions.profile_id =
+                                    renderOptions.profileData._id;
 
                                 if (view == 'dashboard-app') {
-                                    renderOptions.search_job_route = dac.createSearchJobRoute(
-                                        data,
-                                    );
+                                    Promise.all([
+                                        dac.createSearchJobRoute(data),
+                                        dac.getJobMatchCount(data),
+                                        dac.getMatchingJobs(data),
+                                        dac.getAppliedJobsCount(data._id),
+                                        dac.getAppliedJobs(data._id),
+                                        dac.getRecentContactReq(data._id),
+                                        dac.getHireReqCount(data._id),
+                                        dac.getContactReqCount(data._id),
+                                    ])
+                                        .then(results => {
+                                            const [
+                                                searchJobRoute,
+                                                nMatchingJobs,
+                                                matchingJobs,
+                                                nAppliedJobs,
+                                                appData,
+                                                contactRequest,
+                                                nHireCount,
+                                                nContactCount,
+                                            ] = results;
 
-                                    let countCombined = 0;
-
-                                    dac.getJobMatchCount(data)
-                                        .then(n => {
-                                            renderOptions.matching_jobs_count = n;
-                                            return dac.getMatchingJobs(data);
-                                        })
-                                        .then(jobs => {
-                                            renderOptions.matching_jobs = jobs;
-                                            return dac.getAppliedJobsCount(data._id)
-                                        })
-                                        .then(n => {
-                                            renderOptions.applied_jobs_count = n;
-                                            return dac.getAppliedJobs(data._id);
-                                        })
-                                        .then(appData => {
-                                            renderOptions.applied_jobs = appData.appliedJobs;
-                                            return dac.getRecentContactReq(data._id);
-                                        })
-                                        .then(contactRequest => {
+                                            renderOptions.search_job_route = searchJobRoute;
+                                            renderOptions.matching_jobs_count = nMatchingJobs;
+                                            renderOptions.matching_jobs = matchingJobs;
+                                            renderOptions.applied_jobs_count = nAppliedJobs;
+                                            renderOptions.applied_jobs =
+                                                appData.appliedJobs;
                                             renderOptions.contact_request = contactRequest;
-                                            return dac.getHireReqCount(data._id);                                            
-                                        })
-                                        .then(n => {
-                                            renderOptions.hire_req_count = n;
-                                            return dac.getContactReqCount(data._id);
+                                            renderOptions.hire_req_count = nHireCount;
+                                            renderOptions.contact_req_count = nContactCount;
 
-                                            countCombined += n;
-                                        })
-                                        .then(n => {
-                                            renderOptions.contact_req_count = n;
+                                            let countCombined =
+                                                nHireCount + nContactCount;
+                                            renderOptions.combined_req_count = countCombined;
 
-                                            countCombined += n;
-
-                                            if (countCombined > 0) {
-                                                renderOptions.combined_req_count = countCombined;
-                                            }
-
+                                            renderOptions.warn_matching_jobs =
+                                                nMatchingJobs === 0
+                                                    ? 'You have no matching jobs based on your profile details.'
+                                                    : '';
+                                            renderOptions.warn_applied_jobs =
+                                                nAppliedJobs === 0
+                                                    ? 'You have no active jobs available.'
+                                                    : '';
                                             res.render(view, renderOptions);
                                         })
-                                        .catch(err => {
-                                            console.log(err);
+                                        .catch(error => {
+                                            console.log(error);
                                             res.status(404);
                                             next();
                                         });
-
                                 } else {
-                                    var query = helper.getActiveJobPost(data._id);
-                                    query.exec(function(err, result){
-                                        if(err) throw err;
-                                        helper.getPermCount(data._id).then(function(perm_count){
-                                            helper.getTempCount(data._id).then(function(temp_count){
-                                                res.render(view, {
-                                                    active_session:
-                                                    req.session.user && req.cookies.user_sid,
-                                                    active_user: req.session.user,
-
-                                                    title: 'Dashboard | BookMeDental',
-                                                    profile_active: true,
-                                                    accType: req.session.accType,
-                                                    profileData: data.toObject(),
-                                                    activeJob: result,
-                                                    temp: temp_count,
-                                                    perma: perm_count,
-                                                    status: data.account.accStatus,
-                                                });
-                                            })
-                                        })
-                                    })
-                                   
+                                    var query = helper.getActiveJobPost(
+                                        data._id,
+                                    );
+                                    query.exec(function (err, result) {
+                                        if (err) throw err;
+                                        helper
+                                            .getPermCount(data._id)
+                                            .then(function (perm_count) {
+                                                helper
+                                                    .getTempCount(data._id)
+                                                    .then(function (
+                                                        temp_count,
+                                                    ) {
+                                                        res.render(view, {
+                                                            active_session:
+                                                                req.session
+                                                                    .user &&
+                                                                req.cookies
+                                                                    .user_sid,
+                                                            active_user:
+                                                                req.session
+                                                                    .user,
+                                                            title:
+                                                                'Dashboard | BookMeDental',
+                                                            profile_active: true,
+                                                            accType:
+                                                                req.session
+                                                                    .accType,
+                                                            profileData: data.toObject(),
+                                                            activeJob: result,
+                                                            temp: temp_count,
+                                                            perma: perm_count,
+                                                            status:
+                                                                data.account
+                                                                    .accStatus,
+                                                        });
+                                                    });
+                                            });
+                                    });
                                 }
                             });
                     } else {
@@ -130,7 +146,7 @@ const dashboardController = {
                         res.redirect(
                             req.session.accType == 'applicant'
                                 ? '/form/' + req.session.user
-                                : '/form-emp/' + req.session.user ,
+                                : '/form-emp/' + req.session.user,
                         );
                     }
                 });

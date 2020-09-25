@@ -1,0 +1,135 @@
+<script>
+    var tempRadio = document.getElementById('Temporary');
+    if (tempRadio.checked) {
+        document.getElementById('date_perm').style.display = 'none';
+        document.getElementById('date_range').style.display = 'inline-flex';
+        placementCheck();
+    } else {
+        document.getElementById('date_perm').style.display = 'block';
+        document.getElementById('date_range').style.display = 'none'
+    }   
+</script>
+<form id="form-edit-job" action="/jobs/{{jobData._id}}/edit-job">
+    <div class="card-title" style="font-size: 42px;">Placement</div>
+    <p style="font-style: italic; font-size: 16px; margin-top: -16px;">What kind of job are you
+        offering?</p>
+    <div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
+        <label class="btn w-100 btn-secondary {{#match "Permanent" jobData.placement}}active{{/match}}">
+            <i class="fas fa-user" style="font-size: 42px"></i> <br>
+            <input type="radio" onclick="placementCheck();" name="placement" id="Permanent" value="Permanent"
+                {{check "Permanent" input.placement jobData.placement}}>Permanent
+        </label>
+        <label class="btn w-100 btn-secondary {{#match "Temporary" jobData.placement}}active{{/match}}">
+            <i class="fas fa-user-nurse" style="font-size: 42px"></i> <br>
+            <input type="radio" onclick="placementCheck();" name="placement" id="Temporary" value="Temporary"
+                {{check "Temporary" input.placement jobData.placement}}>Temporary
+    </div>
+    <div class="card-title" style="font-size: 42px;">Position</div>
+    <p style="font-style: italic; font-size: 16px; margin-top: -16px;">Who are you looking to hire?</p>
+    <div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
+        <label class="btn w-100 btn-secondary {{#match "Front Desk" jobData.position}}active{{/match}}">
+            <i class="fas fa-user" style="font-size: 42px"></i> <br>
+            <input type="radio" name="position" id="Front Desk" value="Front Desk"
+                {{check "Front Desk" input.position jobData.position}}> Front Desk
+        </label>
+        <label class="btn w-100 btn-secondary {{#match "Dental Assistant" jobData.position}}active{{/match}}">
+            <i class="fas fa-user-nurse" style="font-size: 42px"></i> <br>
+            <input type="radio" name="position" id="Dental Assistant" value="Dental Assistant"
+                {{check "Dental Assistant" input.position jobData.position}}> Dental Assistant
+        </label>
+        <label class="btn w-100 btn-secondary {{#match "Dental Hygienist" jobData.position}}active{{/match}}">
+            <i class="fas fa-user-ninja" style="font-size: 42px"></i> <br>
+            <input type="radio" name="position" id="Dental Hygienist" value="Dental Hygienist"
+                {{check "Dental Hygienist" input.position jobData.position}}> Dental Hygienist
+        </label>
+        <label class="btn w-100 btn-secondary {{#match "Dentist" jobData.position}}active{{/match}}">
+            <i class="fas fa-user-md" style="font-size: 42px"></i> <br>
+            <input type="radio" name="position" id="Dentist" value="Dentist"
+                {{check "Dentist" input.position jobData.position}}> Dentist
+        </label>
+    </div>
+    <!-- CLINIC LOCATION -->
+    <div class="card-title" style="font-size: 42px;">Clinic Details</div>
+    <p style="font-style: italic; font-size: 16px; margin-top: -16px;">Please confirm the following
+        location
+        details for your job.</p>
+    <div class="card-text" style="margin-bottom: -20px; border: 1px solid rgb(173, 169, 169); padding-left: 10px;">
+        <p class="h3" style="margin-top: 14px"> {{jobData.employer.clinicName}} </p>
+        <p class="mb-0"> Clinic Address: {{jobData.employer.clinicAddress.houseNo}}
+            {{jobData.employer.clinicAddress.street}}</p>
+        <p> Location: {{jobData.employer.clinicAddress.city}}, {{jobData.employer.clinicAddress.state}}
+        </p>
+    </div>
+    <br>
+    <label for="example-datetime-local-input" style="margin-top: 10px">Date Needed</label> <br>
+    <div class="row">
+        <div class="col" id="date_perm">
+            <small><i>Date range not available for permanent job postings</i></small>
+        </div>
+        <div id="date_range" class="w-100" style="display: none;">
+            <div class="col">
+                <small>Start Date</small><br>
+                <input class="form-control w-100" type="date" id="date_start_c" name="date_start">
+            </div>
+            <div class="col">
+                <small>End Date</small><br>
+                <input class="form-control w-100" type="date" id="date_end_c" name="date_end">
+            </div>
+        </div>
+    </div>
+    <p style="color: red; margin-top: 3px">{{dateError}}</p>
+    <!-- CLINIC CONTACT -->
+    <div class="card-title" style="font-size: 42px;">Additional Job Requirements</div>
+    <div class="card-title">
+        <label for="clinic_con_name">Software Proficiency</label>
+        <div class="container ">
+            <div class="form-check col w-100">
+                <input class="form-check-input" type="checkbox" value="Dentrix" id="Dentrix" name="software"
+                    {{checkbox "Dentrix" jobData.software}}>
+                <label class="col form-check-label" for="defaultCheck1">
+                    Dentrix
+                </label>
+            </div>
+            <div class="form-check col w-100">
+                <input class="form-check-input" type="checkbox" value="Easy Dental" id="Easy Dental" name="software"
+                    {{checkbox "Easy Dental" jobData.software}}>
+                <label class="col form-check-label" for="defaultCheck1">
+                    Easy Dental
+                </label>
+            </div>
+            <div class="form-check col w-100">
+                <input class="form-check-input" type="checkbox" value="Eaglesoft" id="Eaglesoft" name="software"
+                    {{checkbox "Eaglesoft" jobData.software}}>
+                <label class="col form-check-label" for="defaultCheck1">
+                    Eaglesoft
+                </label>
+            </div>
+            <div class="form-check col w-100">
+                <input class="form-check-input" type="checkbox" value="Open Dental" id="Open Dental" name="software"
+                    {{checkbox "Open Dental" jobData.software}}>
+                <label class="col form-check-label" for="defaultCheck1">
+                    Open Dental
+                </label>
+            </div>
+        </div>
+        <br>
+        <div class="card-text">
+            <label for="inputGroupSelect04">Years of Experience</label>
+            <div class="input-group">
+                <select class="custom-select" id="experience" name="experience"
+                    aria-label="Example select with button addon">
+                    <option value="Less than a Year" {{select "Less than a Year" jobData.experience}}>Less
+                        than a
+                        Year</option>
+                    <option value="1 Year" {{select "1 Year" jobData.experience}}>1 Year</option>
+                    <option value="More than a Year" {{select "More than a Year" jobData.experience}}>More
+                        than a
+                        Year </option>
+                    <option value="5 Years or More" {{select "5 Years or More" jobData.experience}}>5
+                        Years or More
+                    </option>
+                </select>
+            </div>
+        </div>
+    </div>
+</form>

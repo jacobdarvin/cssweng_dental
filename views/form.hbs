@@ -1,7 +1,3 @@
-<!-- To Do: 
-    Sprint 3: Other submission text box
--->
-
 <style>
     body {
         background-color: rgb(245, 245, 245);
@@ -65,7 +61,14 @@
     input[type="radio"]:checked+.showrate {
         display: block;
     }
-    
+
+    input[type="checkbox"]+label+.showother {
+        display: none;
+    }
+
+    input[type="checkbox"]:checked+label+.showother {
+        display: block;
+    }
 </style>
 
 <p class="h1 shrink gradient-text" style="font-size: 70px; text-align: center; margin-top: 4rem;">BookMeDental <i
@@ -74,7 +77,8 @@
 <form class="dirty" id="form" method="POST" action="/form" enctype="multipart/form-data">
     <div class="card mx-auto border shadow-sm" style="width: 50rem; margin-bottom: 2rem;">
         <div class="card-body">
-            <div class="card-title" style="font-size: 42px;">Contact Information<span class="text-danger"> *</span></div>
+            <div class="card-title" style="font-size: 42px;">Contact Information<span class="text-danger"> *</span>
+            </div>
             <p style="font-style: italic; font-size: 16px; margin-top: -16px;">Tell us about yourself and how we can
                 contact you.</p>
             <small class="text-danger">* Required fields</small>
@@ -101,7 +105,7 @@
                     <div class="form-group">
                         <div class="row">
                             <div class="col-8 pr-2" style="margin-top: 15px;">
-                                <label for="streetaddress">Street Address<span class="text-danger"> *</span></label>
+                                <label for="streetAdd">Street Address<span class="text-danger"> *</span></label>
                                 <input type="text" class="form-control" id="streetAdd" name="streetAdd"
                                     aria-describedby="emailHelp" placeholder="Street Address"
                                     value="{{input.streetAdd}}" />
@@ -199,27 +203,29 @@
             <div class="card-text">
                 <label>Position<span class="text-danger"> *</span></label>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="position" id="exampleRadios1" value="Front Desk"
+                    <input class="form-check-input" type="radio" name="position" id="Front Desk" value="Front Desk"
                         {{check "Front Desk" input.position "Front Desk"}} />
-                    <p style="margin-bottom: -3px;">Front Desk</p>
+                    <label for="Front Desk" style="margin-bottom: -3px; font-weight: normal;">Front Desk</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="position" id="exampleRadios2"
+                    <input class="form-check-input" type="radio" name="position" id="Dental Assistant"
                         value="Dental Assistant" {{check "Dental Assistant" input.position "Front Desk"}} />
-                    <p style="margin-bottom: -3px;">Dental Assistant</p>
+                    <label for="Dental Assistant" style="margin-bottom: -3px; font-weight: normal;">Dental
+                        Assistant</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="position" id="exampleRadios3"
+                    <input class="form-check-input" type="radio" name="position" id="Dental Hygienist"
                         value="Dental Hygienist" {{check "Dental Hygienist" input.position "Front Desk"}} />
-                    <p style="margin-bottom: -3px;">Dental Hygienist</p>
+                    <label for="Dental Hygienist" style="margin-bottom: -3px; font-weight: normal;">Dental
+                        Hygienist</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="position" id="exampleRadios3" value="Dentist"
+                    <input class="form-check-input" type="radio" name="position" id="Dentist" value="Dentist"
                         {{check "Dentist" input.position "Front Desk"}} />
-                    <p style="margin-bottom: -3px;">Dentist</p>
+                    <label for="Dentist" style="margin-bottom: -3px; font-weight: normal;">Dentist</label>
                 </div>
                 <div class="col-4" style="margin-left: -15px; margin-top: 10px;">
-                    <label for="yearsofexperience">Years of Experience?<span class="text-danger"> *</span></label>
+                    <label for="years">Years of Experience?<span class="text-danger"> *</span></label>
                     <input type="text" class="form-control" id="years" name="years" aria-describedby="emailHelp"
                         placeholder="Years of experience" value="{{input.years}}" />
                     <p style="color: red;">
@@ -227,7 +233,8 @@
                     </p>
                 </div>
                 <div class="form-group" style="margin-top: 20px;">
-                    <label for="language">What second language do you speak fluently?<span class="text-danger"> *</span></label>
+                    <label for="language">What second language do you speak fluently?<span class="text-danger">
+                            *</span></label>
                     <input type="text" class="form-control" id="language" name="language"
                         placeholder="List down your second language..." value="{{input.language}}" />
                     <p style="color: red;">
@@ -241,130 +248,175 @@
                         placeholder="List down any programs..." value="{{input.programs}}" />
                     -->
                     <div class="container ">
-                        <div class="form-check col w-100" >
-                          <input class="form-check-input" type="checkbox" value="Dentrix" id="defaultCheck1" name="programs" {{checkbox "Dentrix" input.programs}}>
-                          <label class="col form-check-label" for="defaultCheck1">
-                            Dentrix
-                          </label>
-                        </div>
-
-                        <div class="form-check col w-100" >
-                          <input class="form-check-input" type="checkbox" value="Easy Dental" id="defaultCheck1" name="programs" {{checkbox "Easy Dental" input.programs}}>
-                          <label class="col form-check-label" for="defaultCheck1">
-                            Easy Dental
-                          </label>
+                        <div class="form-check col w-100">
+                            <input class="form-check-input" type="checkbox" value="Dentrix" id="Dentrix" name="programs"
+                                {{checkbox "Dentrix" input.programs}}>
+                            <label class="col form-check-label" for="Dentrix">
+                                Dentrix
+                            </label>
                         </div>
 
                         <div class="form-check col w-100">
-                          <input class="form-check-input" type="checkbox" value="Eaglesoft" id="defaultCheck1" name="programs" {{checkbox "Eaglesoft" input.programs}}>
-                          <label class="col form-check-label" for="defaultCheck1">
-                            Eaglesoft
-                          </label>
+                            <input class="form-check-input" type="checkbox" value="Easy Dental" id="Easy Dental"
+                                name="programs" {{checkbox "Easy Dental" input.programs}}>
+                            <label class="col form-check-label" for="Easy Dental">
+                                Easy Dental
+                            </label>
                         </div>
 
                         <div class="form-check col w-100">
-                          <input class="form-check-input" type="checkbox" value="Open Dental" id="defaultCheck1" name="programs" {{checkbox "Open Dental" input.programs}}>
-                          <label class="col form-check-label" for="defaultCheck1">
-                            Open Dental
-                          </label>
+                            <input class="form-check-input" type="checkbox" value="Eaglesoft" id="Eaglesoft"
+                                name="programs" {{checkbox "Eaglesoft" input.programs}}>
+                            <label class="col form-check-label" for="Eaglesoft">
+                                Eaglesoft
+                            </label>
                         </div>
 
                         <div class="form-check col w-100">
-                          <input class="form-check-input" type="checkbox" value="Open Dental" id="defaultCheck1" name="programs" {{checkbox "Open Dental" input.programs}}>
-                          <label class="col form-check-label" for="defaultCheck1">
-                            Other
-                          </label>
+                            <input class="form-check-input" type="checkbox" value="Open Dental" id="Open Dental"
+                                name="programs" {{checkbox "Open Dental" input.programs}}>
+                            <label class="col form-check-label" for="Open Dental">
+                                Open Dental
+                            </label>
                         </div>
+
+                        <div class="form-check col w-100">
+                            <input class="form-check-input" type="checkbox" value="Other" id="s-other" name="programs"
+                                {{checkbox "Other" input.programs}}>
+                            <label class="col form-check-label" for="s-other">
+                                Other
+                            </label>
+                            <div class="col-5 showother" style="margin-top:10px;">
+                                <input type="text" class="form-control" id="s-other-text" name="software_other_text"
+                                    value="{{input.software_other_text}}" style="margin-bottom: 10px;" />
+                                <label for="s-other-text"
+                                    style="font-style: italic; font-size: 14px; font-weight:normal;">Please separate
+                                    programs
+                                    with a
+                                    comma.</label>
+                                <p style="color: red;">{{details.software_other_textError}}</p>
+                            </div>
+                        </div>
+
+
                     </div>
                 </div>
                 <hr>
-                  <p style="color: red;">
-                        {{details.programsError}}
-                    </p>
+                <p style="color: red;">
+                    {{details.programsError}}
+                </p>
                 <div class="form-group" style="margin-top: 10px;">
-                    <label for="workspecialties">List down any specialties you have work experience with<span class="text-danger"> *</span></label>
+                    <label for="workspecialties">List down any specialties you have work experience with<span
+                            class="text-danger"> *</span></label>
                     <!--
                     <input type="text" class="form-control" id="specialties" name="specialties"
                         placeholder="List down your specialties..." value="{{input.specialties}}" />
                     -->
                     <div class=" container">
-                        <div class="form-check col w-100" >
-                          <input class="form-check-input" type="checkbox" value="General Dentistry" id="generaldentistry" name="specialties" {{checkbox "General Dentistry" input.specialties}}>
-                          <label class="col form-check-label" for="generaldentistry">
-                            General Dentistry
-                          </label>
-                        </div>
-
-                        <div class="form-check col w-100" >
-                          <input class="form-check-input" type="checkbox" value="Endodentistry" id="endodentistry" name="specialties" {{checkbox "Endodentistry" input.specialties}}>
-                          <label class="col form-check-label" for="endodentistry">
-                            Endodontistry
-                          </label>
+                        <div class="form-check col w-100">
+                            <input class="form-check-input" type="checkbox" value="General Dentistry"
+                                id="generaldentistry" name="specialties"
+                                {{checkbox "General Dentistry" input.specialties}}>
+                            <label class="col form-check-label" for="generaldentistry">
+                                General Dentistry
+                            </label>
                         </div>
 
                         <div class="form-check col w-100">
-                          <input class="form-check-input" type="checkbox" value="Periodontistry" id="periodontistry" name="specialties" {{checkbox "Periodontistry" input.specialties}}>
-                          <label class="col form-check-label" for="periodontistry">
-                            Periodontistry
-                          </label>
+                            <input class="form-check-input" type="checkbox" value="Endodentistry" id="endodentistry"
+                                name="specialties" {{checkbox "Endodentistry" input.specialties}}>
+                            <label class="col form-check-label" for="endodentistry">
+                                Endodontistry
+                            </label>
                         </div>
 
                         <div class="form-check col w-100">
-                          <input class="form-check-input" type="checkbox" value="Oral Surgery" id="oralsurgery" name="specialties" {{checkbox "Oral Surgery" input.specialties}}>
-                          <label class="col form-check-label" for="oralsurgery">
-                            Oral Surgery
-                          </label>
+                            <input class="form-check-input" type="checkbox" value="Periodontistry" id="periodontistry"
+                                name="specialties" {{checkbox "Periodontistry" input.specialties}}>
+                            <label class="col form-check-label" for="periodontistry">
+                                Periodontistry
+                            </label>
+                        </div>
+
+                        <div class="form-check col w-100">
+                            <input class="form-check-input" type="checkbox" value="Oral Surgery" id="oralsurgery"
+                                name="specialties" {{checkbox "Oral Surgery" input.specialties}}>
+                            <label class="col form-check-label" for="oralsurgery">
+                                Oral Surgery
+                            </label>
                         </div>
                     </div>
 
                     <div class=" container">
-                        <div class="form-check col w-100" >
-                          <input class="form-check-input" type="checkbox" value="Anesthesiology" id="anesthesiology" name="specialties" {{checkbox "Anesthesiology" input.specialties}}>
-                          <label class="col form-check-label" for="anesthesiology">
-                            Anesthesiology
-                          </label>
-                        </div>
-
-                        <div class="form-check col w-100" >
-                          <input class="form-check-input" type="checkbox" value="Dental Hygiene" id="dentalhygiene" name="specialties" {{checkbox "Dental Hygiene" input.specialties}}>
-                          <label class="col form-check-label" for="dentalhygiene">
-                            Dental Hygiene
-                          </label>
+                        <div class="form-check col w-100">
+                            <input class="form-check-input" type="checkbox" value="Anesthesiology" id="anesthesiology"
+                                name="specialties" {{checkbox "Anesthesiology" input.specialties}}>
+                            <label class="col form-check-label" for="anesthesiology">
+                                Anesthesiology
+                            </label>
                         </div>
 
                         <div class="form-check col w-100">
-                          <input class="form-check-input" type="checkbox" value="Office Management" id="officemanagement" name="specialties" {{checkbox "Office Management" input.specialties}}>
-                          <label class="col form-check-label" for="officemanagement">
-                            Office Management
-                          </label>
+                            <input class="form-check-input" type="checkbox" value="Dental Hygiene" id="dentalhygiene"
+                                name="specialties" {{checkbox "Dental Hygiene" input.specialties}}>
+                            <label class="col form-check-label" for="dentalhygiene">
+                                Dental Hygiene
+                            </label>
                         </div>
 
                         <div class="form-check col w-100">
-                          <input class="form-check-input" type="checkbox" value="Receptionist" id="receptionist" name="specialties" {{checkbox "Receptionist" input.specialties}}>
-                          <label class="col form-check-label" for="receptionist">
-                            Receptionist
-                          </label>
+                            <input class="form-check-input" type="checkbox" value="Office Management"
+                                id="officemanagement" name="specialties"
+                                {{checkbox "Office Management" input.specialties}}>
+                            <label class="col form-check-label" for="officemanagement">
+                                Office Management
+                            </label>
                         </div>
 
-                        <div class="form-check col w-100" >
-                          <input class="form-check-input" type="checkbox" value="Insurance Billing" id="insurancebilling" name="specialties" {{checkbox "Insurance Billing" input.specialties}}>
-                          <label class="col form-check-label" for="insurancebilling">
-                            Insurance Billing
-                          </label>
+                        <div class="form-check col w-100">
+                            <input class="form-check-input" type="checkbox" value="Receptionist" id="receptionist"
+                                name="specialties" {{checkbox "Receptionist" input.specialties}}>
+                            <label class="col form-check-label" for="receptionist">
+                                Receptionist
+                            </label>
                         </div>
 
-                        <div class="form-check col w-100" >
-                          <input class="form-check-input" type="checkbox" value="Dental Assisting" id="dentalassisting" name="specialties" {{checkbox "Dental Assisting" input.specialties}}>
-                          <label class="col form-check-label" for="dentalassisting">
-                            Dental Assisting
-                          </label>
+                        <div class="form-check col w-100">
+                            <input class="form-check-input" type="checkbox" value="Insurance Billing"
+                                id="insurancebilling" name="specialties"
+                                {{checkbox "Insurance Billing" input.specialties}}>
+                            <label class="col form-check-label" for="insurancebilling">
+                                Insurance Billing
+                            </label>
                         </div>
 
-                        <div class="form-check col w-100" >
-                          <input class="form-check-input" type="checkbox" value="Dental Assisting" id="dentalassisting" name="specialties" {{checkbox "Dental Assisting" input.specialties}}>
-                          <label class="col form-check-label" for="dentalassisting">
-                            Other
-                          </label>
+                        <div class="form-check col w-100">
+                            <input class="form-check-input" type="checkbox" value="Dental Assisting"
+                                id="dentalassisting" name="specialties"
+                                {{checkbox "Dental Assisting" input.specialties}}>
+                            <label class="col form-check-label" for="dentalassisting">
+                                Dental Assisting
+                            </label>
+                        </div>
+
+                        <div class="form-check col w-100">
+                            <input class="form-check-input" type="checkbox" value="Other" id="cs-other"
+                                name="specialties" {{checkbox "Other" input.specialties}}>
+                            <label class="col form-check-label" for="cs-other">
+                                Other
+                            </label>
+
+                            <div class="col-5 showother" style="margin-top:10px;">
+                                <input type="text" class="form-control" id="cs-other-text"
+                                    name="clinicspecialty_other_text" value="{{input.clinicspecialty_other_text}}"
+                                    style="margin-bottom: 10px;" />
+                                <label for="cs-other-text"
+                                    style="font-style: italic; font-size: 14px; font-weight:normal;">Please separate
+                                    specialties
+                                    with a
+                                    comma.</label>
+                                <p style="color: red;">{{details.clinicspecialty_other_textError}}</p>
+                            </div>
                         </div>
                     </div>
 
@@ -379,20 +431,22 @@
 
     <div class="card mx-auto border shadow-sm" style="width: 50rem; margin-bottom: 2rem;">
         <div class="card-body">
-            <div class="card-title" style="font-size: 42px;">Placement Preferences<span class="text-danger"> *</span></div>
+            <div class="card-title" style="font-size: 42px;">Placement Preferences<span class="text-danger"> *</span>
+            </div>
             <p style="font-style: italic; font-size: 16px; margin-top: -16px;">Tell us about your work preferences so we
                 can help you find great opportunities.</p>
             <div class="card-text">
                 <label>What type of placement are you seeking?<span class="text-danger"> *</span></label>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="placement" id="Permanent Work" value="Permanent Work"
-                        {{check "Permanent Work" input.placement "Permanent Work"}} />
-                    <p style="margin-bottom: -3px;">Permanent Work</p>
+                    <input class="form-check-input" type="radio" name="placement" id="Permanent Work"
+                        value="Permanent Work" {{check "Permanent Work" input.placement "Permanent Work"}} />
+                    <label for="Permanent Work" style="margin-bottom: -3px; font-weight: normal;">Permanent Work</label>
                 </div>
                 <div class="form-check">
-                    <label style="font-weight: 10; color: rgb(97, 95, 95);">Temporary Work</label>
-                    <input class="form-check-input" type="radio" name="placement" id="Temporary Work" value="Temporary Work"
-                        style="margin-left: -138.3px;" {{check "Temporary Work" input.placement "Permanent Work"}} />
+                    <label for="Temporary Work" style="nargin-bottom: -3px; font-weight: normal;">Temporary Work</label>
+                    <input class="form-check-input" type="radio" name="placement" id="Temporary Work"
+                        value="Temporary Work" style="margin-left: -138.3px;"
+                        {{check "Temporary Work" input.placement "Permanent Work"}} />
                     <div class="col-5 temp showrate" style="margin-left: -35px; margin-top: -5px;">
                         <label for="payrate">Desired pay rate per hour?<span class="text-danger"> *</span></label>
                         <input type="text" class="form-control" id="payrate" name="payrate" placeholder="$/hr..."
@@ -409,10 +463,12 @@
                     <input class="form-check-input" type="radio" name="availability" id="availability"
                         value="Available immediately"
                         {{check "Available immediately" input.availability "Available immediately"}} />
-                    <p style="margin-bottom: -3px;">Available immediately</p>
+                    <label for="availability" style="margin-bottom: -3px; font-weight:normal;">Available
+                        immediately</label>
                 </div>
                 <div class="form-check">
-                    <label style="font-weight: 10; color: rgb(97, 95, 95);">Available after...</label>
+                    <label for="availability-after" style="margin-bottom: -3px; font-weight:normal;">Available
+                        after...</label>
                     <input class="form-check-input" type="radio" name="availability" id="availability-after"
                         value="after" style="margin-left: -130px;"
                         {{check "after" input.availability "Available immediately"}} />
@@ -426,7 +482,8 @@
                         </p>
                     </div>
                 </div>
-                <label>How far are you willing to travel for work?<span class="text-danger"> *</span></label>
+                <label for="travel">How far are you willing to travel for work?<span class="text-danger">
+                        *</span></label>
                 <br />
                 <div class="dropdown">
                     <select id="travel" name="travel"
@@ -446,11 +503,12 @@
 
     <div class="card mx-auto border shadow-sm" style="width: 50rem; margin-bottom: 2rem;">
         <div class="card-body">
-            <div class="card-title" style="font-size: 42px;">Additional Profile Information<span class="text-danger"> *</span></div>
+            <div class="card-title" style="font-size: 42px;">Additional Profile Information<span class="text-danger">
+                    *</span></div>
             <p style="font-style: italic; font-size: 16px; margin-top: -16px;">Provide more information that can help
                 you to stand out among other applicants.</p>
             <div class="card-text">
-                <label>Short Personal Profile<span class="text-danger"> *</span></label><br />
+                <label for="shortprofile">Short Personal Profile<span class="text-danger"> *</span></label><br />
                 <textarea class="w-100" id="shortprofile" name="shortprofile"
                     style="height: 8em;">{{input.shortprofile}}</textarea>
 
@@ -471,9 +529,8 @@
                     <img class="img-circle" src="/imgs/document.jpg" />
                     <div>
                         <div class="col" style="padding-left: 150px;">
-                            <p><input type="file" id="resume" name="resume"
-                                    accept="application/pdf"
-                                    value="{{input.resume}}" required/></p>
+                            <p><input type="file" id="resume" name="resume" accept="application/pdf"
+                                    value="{{input.resume}}" required /></p>
                         </div>
                         <div class="col" style="max-width: 30em;">
                             <p style="font-size: small;">Accepted format of resume should be in PDF(.pdf) only</p>
@@ -487,7 +544,8 @@
 
     <div class="card mx-auto border shadow-sm" style="width: 50rem; margin-bottom: 2rem;">
         <div class="card-body">
-            <div class="card-title" style="font-size: 42px;">Candidate Agreement<span class="text-danger"> *</span></div>
+            <div class="card-title" style="font-size: 42px;">Candidate Agreement<span class="text-danger"> *</span>
+            </div>
             <p style="font-style: italic; font-size: 16px; margin-top: -16px;">Please read and familiarize yourself with
                 our agreement and conditions.</p>
             <div class="card-text">
@@ -498,12 +556,13 @@
                 <div class="form-check" style="margin-left: 5px; margin-top: -15px;">
                     <input type="checkbox" class="form-check-input" id="useragreement" name="useragreement"
                         {{#if input.useragreement}}checked{{/if}} />
-                    <p style="font-style: italic; font-size: 14px;">I have read, understand and agree to the Candidate
-                        Agreement, Terms and Conditions, and Privacy Policy</p>
+                    <label for="useragreement" style="font-style: italic; font-size: 14px; font-weight:normal;">I have
+                        read, understand and agree to the Candidate
+                        Agreement, Terms and Conditions, and Privacy Policy</label>
                     <p style="color: red; margin-left: -20px;">
                         {{details.useragreementError}}</p>
                 </div>
-                <label>Last Question! How did you hear about us?</label>
+                <label for="feedback">Last Question! How did you hear about us?</label>
                 <br />
                 <div class="dropdown">
                     <select id="feedback" name="feedback"
@@ -526,18 +585,18 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="/js/dropdown-populator.js"></script>
 
-<script type = "application/javascript">
+<script type="application/javascript">
     var file = document.getElementById('resume');
 
-    file.onchange = function(e) {
+    file.onchange = function (e) {
         var ext = this.value.match(/\.([^\.]+)$/)[1];
         switch (ext) {
             case 'pdf':
-            document.getElementById('resume_error').innerHTML = ''
-            break;
+                document.getElementById('resume_error').innerHTML = ''
+                break;
             default:
-            document.getElementById('resume_error').innerHTML = 'The file that you are trying to upload is not a pdf. Try again.'
-            this.value = '';
+                document.getElementById('resume_error').innerHTML = 'The file that you are trying to upload is not a pdf. Try again.'
+                this.value = '';
         }
     };
  

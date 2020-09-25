@@ -1,4 +1,4 @@
-const { check } = require('express-validator');
+const { check, body } = require('express-validator');
 const Account = require('../models/AccountModel');
 
 const validation = {
@@ -71,6 +71,9 @@ const validation = {
                 .trim()
                 .notEmpty()
                 .withMessage('House number is required.')
+                .bail()
+                .isNumeric()
+                .withMessage('Please input a number')
                 .trim(),
             check('clinic_city')
                 .notEmpty()
@@ -84,6 +87,9 @@ const validation = {
                 .trim()
                 .notEmpty()
                 .withMessage('Zip is required.')
+                .bail()
+                .isNumeric()
+                .withMessage('Please input a number')
                 .trim(),
 
             check('clinic_phone')
@@ -101,10 +107,34 @@ const validation = {
             check('clinic_programs')
                 .exists()
                 .withMessage('Please check at least one software.'),
+            check('software_other_text')
+                .trim()
+                .if(body('clinic_programs').exists())
+                .if(
+                    (value, { req }) =>
+                        req.body.clinic_programs == 'Other' ||
+                        req.body.clinic_programs.includes('Other'),
+                )
+                .notEmpty()
+                .withMessage('Please fill this out.')
+                .customSanitizer(value => value.split(',')),
+            check('software_other_text.*').trim(),
 
             check('clinic_specialties')
                 .exists()
                 .withMessage('Please check at least one specialty.'),
+            check('clinicspecialty_other_text')
+                .trim()
+                .if(body('clinic_specialties').exists())
+                .if(
+                    (value, { req }) =>
+                        req.body.clinic_specialties == 'Other' ||
+                        req.body.clinic_specialties.includes('Other'),
+                )
+                .notEmpty()
+                .withMessage('Please fill this out.')
+                .customSanitizer(value => value.split(',')),
+            check('clinicspecialty_other_text.*').trim(),
 
             check('clinic_services')
                 .trim()
@@ -176,6 +206,9 @@ const validation = {
                 .trim()
                 .notEmpty()
                 .withMessage('Zip is required.')
+                .bail()
+                .isNumeric()
+                .withMessage('Please input a number')
                 .trim(),
             check('phone')
                 .trim()
@@ -191,11 +224,41 @@ const validation = {
                 .withMessage('Invalid input.')
                 .trim(),
             check('programs')
+                .exists()
+                .withMessage(
+                    'Empty field. Please check at least one software.',
+                ),
+            check('software_other_text')
+                .trim()
+                .if(body('programs').exists())
+                .if(
+                    (value, { req }) =>
+                        req.body.programs == 'Other' ||
+                        req.body.programs.includes('Other'),
+                )
                 .notEmpty()
-                .withMessage('Empty field. Please fill this out.'),
+                .withMessage('Please fill this out.')
+                .customSanitizer(value => value.split(',')),
+            check('software_other_text.*').trim(),
+
             check('specialties')
+                .exists()
+                .withMessage(
+                    'Empty field. Please check at least one specialty.',
+                ),
+            check('clinicspecialty_other_text')
+                .trim()
+                .if(body('specialties').exists())
+                .if(
+                    (value, { req }) =>
+                        req.body.specialties == 'Other' ||
+                        req.body.specialties.includes('Other'),
+                )
                 .notEmpty()
-                .withMessage('Empty field. Please fill this out.'),
+                .withMessage('Please fill this out.')
+                .customSanitizer(value => value.split(',')),
+            check('clinicspecialty_other_text.*').trim(),
+
             check('language')
                 .trim()
                 .notEmpty()
@@ -204,36 +267,15 @@ const validation = {
 
             check('payrate')
                 .trim()
-                // .isNumeric()
-                // .withMessage(
-                //     "Invalid input. Please try again.",
-                // )
-                // .bail()
                 .custom((value, { req, location, path }) => {
-                    // var val = value;
-
-                    // if (req.body.placement == 'Permanent Work') {
-                    //     return true;
-                    // }
-
-                    // return false if placement is temp and payrate is empty
-                    // return !(
-                    //     req.body.placement == 'Temporary Work' && value == ''
-                    // );
-
                     return (
                         req.body.placement == 'Permanent Work' ||
-                        (req.body.placement == 'Temporary Work' && value != '' && !Number.isNaN(Number(value)))
+                        (req.body.placement == 'Temporary Work' &&
+                            value != '' &&
+                            !Number.isNaN(Number(value)))
                     );
                 })
-                // .withMessage(
-                //     "Empty field. If you selected 'Temporary Work', please fill this out.",
-                // )
                 .withMessage('Empty field. Please try again.')
-                // .bail()
-                // .notEmpty()
-                // .isNumeric()
-                // .withMessage('Please input a number.')
                 .trim(),
             check('date')
                 .custom((value, { req, location, path }) => {
@@ -277,22 +319,99 @@ const validation = {
         ];
     },
 
-    // updateClinicProfileValidation: function (){
-    //     return [
-    //         check('clinic_email.*')
-    //             .trim()
-    //             .isEmail()
-    //             .withMessage('Please enter valid email addresses.')
-    //             .bail()
-    //             .trim()
-    //             .normalizeEmail(),
-    //         check('clinic_phone')
-    //             .trim()
-    //             .isMobilePhone('en-US')
-    //             .withMessage('Please enter a valid US phone number.')
-    //             .trim(),
-    //     ];
-    // }
+    editAppProfileValidation: function () {
+        return [
+            check('fname')
+                .trim()
+                .notEmpty()
+                .withMessage('First Name: field is required')
+                .trim(),
+            check('lname')
+                .trim()
+                .notEmpty()
+                .withMessage('Last name: field is required')
+                .trim(),
+            check('streetAdd')
+                .trim()
+                .notEmpty()
+                .withMessage('Street address: field is required')
+                .trim(),
+            check('house')
+                .trim()
+                .notEmpty()
+                .withMessage('House No.: field is required')
+                .bail()
+                .isNumeric()
+                .withMessage('House No.: please input a number')
+                .trim(),
+            check('city')
+                .notEmpty()
+                .withMessage('City: please select a city')
+                .trim(),
+            check('state')
+                .notEmpty()
+                .withMessage('State: please select a state')
+                .trim(),
+            check('zip')
+                .trim()
+                .notEmpty()
+                .withMessage('Zip: field is required')
+                .bail()
+                .isNumeric()
+                .withMessage('Zip: please input a number')
+                .trim(),
+            check('phone')
+                .trim()
+                .isMobilePhone('en-US')
+                .withMessage('Phone: please enter a valid US phone number.')
+                .trim(),
+            check('payrate')
+                .trim()
+                .custom((value, { req, location, path }) => {
+                    return (
+                        req.body.placement == 'Permanent Work' ||
+                        (req.body.placement == 'Temporary Work' &&
+                            value != '' &&
+                            !Number.isNaN(Number(value)))
+                    );
+                })
+                .withMessage(
+                    "Placement: please input your rate if you selected 'Temporary Work'",
+                )
+                .trim(),
+        ];
+    },
+
+    editJobDetailsValidation: function () {
+        return [
+            check('date_start')
+                .if(body('placement').exists().equals('Temporary'))
+                .isAfter()
+                .withMessage(
+                    'Start date: Please enter a date that comes after the date today',
+                ),
+            check('date_end')
+                .if(body('placement').exists().equals('Temporary'))
+                .custom((date_end, { req, location, path }) => {
+                    const ds_date = new Date(req.body.date_start);
+                    const de_date = new Date(date_end);
+                    return de_date > ds_date;
+                })
+                .withMessage(
+                    'End date: Please enter a date that comes after the start date',
+                ),
+        ];
+    },
+
+    searchJobApplicantsValidation: function () {
+        return [
+            check('job_id')
+                .trim()
+                .isMongoId()
+                .withMessage('Not a valid MongoDB ID')
+                .trim(),
+        ];
+    },
 };
 
 module.exports = validation;

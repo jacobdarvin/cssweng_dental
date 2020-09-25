@@ -113,9 +113,14 @@
       <hr>
     </div>
 
+    <div id="jobAppTable">
+      <h3>Applicants per Job</h3>
+      <label for="input-job-id" style="margin-right: .5rem;">Job ID</label><input disabled size="30" type="text" name="job_id" id="input-job-id">
+      <div id="job-app-table"></div>
+      <hr>
+    </div>
 </main>
 
-<script src="/js/adminTables.js"></script>
 
 <!-- APP Modal --><!-- APP Modal --><!-- APP Modal --><!-- APP Modal --><!-- APP Modal -->
 <div class="modal" id="admin_employerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -198,10 +203,10 @@
       </div>
 
       <div class="p-2">
-        <a data-toggle="collapse" href="#jobApplicantsList" id="collapseAppList" role="button" aria-expanded="false" aria-controls="{{_id}}">View list of Job Applicants</a>
+        <a data-toggle="collapse" data-dismiss="modal" href="#" id="collapseAppList" role="button" aria-expanded="false" aria-controls="{{_id}}">View list of Job Applicants</a>
 
         <div class="collapse " id="jobAppList"> 
-          
+
         </div>
 
       </div>
@@ -281,3 +286,6 @@
     </div>
   </div>
 </div>
+
+
+<script src="/js/adminTables.js"></script>

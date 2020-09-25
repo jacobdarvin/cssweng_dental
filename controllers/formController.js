@@ -97,6 +97,28 @@ const formController = {
                 payrate = 0;
             }
 
+            var progs = req.body.programs;
+            
+            if(progs == 'Other') {
+                progs = req.body.software_other_text;
+            }
+            else if(progs.includes('Other')) {
+                progs = progs.concat(req.body.software_other_text);
+                var i = progs.indexOf('Other');
+                progs.splice(i, 1);
+            }
+
+            var specs = req.body.specialties;
+
+            if(specs == 'Other') {
+                specs = req.body.clinicspecialty_other_text;
+            }
+            else if(specs.includes('Other')) {
+                specs = specs.concat(req.body.clinicspecialty_other_text);
+                var i = specs.indexOf('Other');
+                specs.splice(i, 1);
+            }
+
             //user used default avatar
             if (!req.files['avatar']) {
                 var applicant = new Applicant({
@@ -112,9 +134,9 @@ const formController = {
                     phone: phone,
                     position: position,
                     yearExp: years,
-                    dentalProg: req.body.programs,
+                    dentalProg: progs,
                     language: language,
-                    specialties: req.body.specialties,
+                    specialties: specs,
                     placement: placement,
                     rate: payrate,
                     availability: availability,
@@ -149,9 +171,9 @@ const formController = {
                     phone: phone,
                     position: position,
                     yearExp: years,
-                    dentalProg:  req.body.programs,
+                    dentalProg:  progs,
                     language: language,
-                    specialties:  req.body.specialties,
+                    specialties:  specs,
                     placement: placement,
                     rate: payrate,
                     availability: availability,
@@ -242,6 +264,29 @@ const formController = {
                     
                 }
             }
+
+            var progs = req.body.clinic_programs;
+            
+            if(progs == 'Other') {
+                progs = req.body.software_other_text;
+            }
+            else if(progs.includes('Other')) {
+                progs = progs.concat(req.body.software_other_text);
+                var i = progs.indexOf('Other');
+                progs.splice(i, 1);
+            }
+
+            var specs = req.body.clinic_specialties;
+
+            if(specs == 'Other') {
+                specs = req.body.clinicspecialty_other_text;
+            }
+            else if(specs.includes('Other')) {
+                specs = specs.concat(req.body.clinicspecialty_other_text);
+                var i = specs.indexOf('Other');
+                specs.splice(i, 1);
+            }
+
             var employer = {
                 _id: new mongoose.Types.ObjectId(),
                 account: req.session.user,
@@ -259,8 +304,8 @@ const formController = {
                 },
                 clinicPhone: o.clinic_phone,
                 clinicName: o.clinic_name,
-                clinicProgram: o.clinic_programs,
-                clinicSpecialties: o.clinic_specialties,
+                clinicProgram: progs,
+                clinicSpecialties: specs,
                 clinicServices: o.clinic_services,
 
                 clinicContactName: o.clinic_con_name,
@@ -277,10 +322,17 @@ const formController = {
             });
         }
     },
+
+    // --------CITIES AND STATES API--------
     getCities: function (req, res) {
         if (req.query.state) res.send(citiesAndStates[req.query.state].sort());
         else res.send('');
     },
+    
+    getStates: function(req, res) {
+        res.send(Object.keys(citiesAndStates).sort());
+    }
+    // --------CITIES AND STATES API--------
 };
 
 module.exports = formController;

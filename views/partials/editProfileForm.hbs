@@ -1,0 +1,142 @@
+<form id="form-edit-profile" action="/dashboard/applicant/{{profileData._id}}/edit-profile">
+    <div class="card-text">
+        <div class="form-group">
+            <div class="row">
+                <div class="col pr-2">
+                    <label for="fname">First Name<span class="text-danger"> *</span></label>
+                    <input type="text" class="form-control" id="fname" name="fname" aria-describedby="emailHelp"
+                        placeholder="First Name" value="{{profileData.fName}}" />
+                    <p style="color: red;">
+                        {{details.fnameError}}
+                    </p>
+                </div>
+                <div class="col pl-2">
+                    <label for="lname">Last Name<span class="text-danger"> *</span></label>
+                    <input type="text" class="form-control" id="lname" name="lname" aria-describedby="emailHelp"
+                        placeholder="Last Name" value="{{profileData.lName}}" />
+                    <p style="color: red;">
+                        {{details.lnameError}}
+                    </p>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-8 pr-2" style="margin-top: 15px;">
+                        <label for="streetAdd">Street Address<span class="text-danger">
+                                *</span></label>
+                        <input type="text" class="form-control" id="streetAdd" name="streetAdd"
+                            aria-describedby="emailHelp" placeholder="Street Address"
+                            value="{{profileData.streetAdd}}" />
+                        <p style="color: red;">
+                            {{details.streetAddError}}
+                        </p>
+                    </div>
+                    <div class="col-4 pl-2" style="margin-top: 15px;">
+                        <label for="house">House No.<span class="text-danger"> *</span></label>
+                        <input type="text" class="form-control" id="house" name="house" aria-describedby="emailHelp"
+                            placeholder="House No." value="{{profileData.houseNo}}" />
+                        <p style="color: red;">
+                            {{details.houseError}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-6 pr-1">
+                        <label for="state">State<span class="text-danger"> *</span></label>
+                        <select name="state" class="form-control" id="state"
+                            onchange="populateCities(this.value, 'city')">
+                            {{!-- <option value="">{{profileData.state}}</option> --}}
+                            {{!-- {{#each states}}
+                                            <option value="{{this}}" {{select this ../input.state}}>{{this}}</option>
+                                            {{/each}} --}}
+                        </select>
+
+                        <p style="color: red;">
+                            {{details.stateError}}
+                        </p>
+                    </div>
+                    <div class="col-4 pl-1 pr-1">
+                        <label for="city">City<span class="text-danger"> *</span></label>
+                        <select name="city" class="form-control" id="city">
+                            {{!-- <option value="">{{profileData.city}}</option> --}}
+                            {{!-- {{#each cities}}
+                                            <option value="{{this}}" {{select this ../input.city}}>{{this}}</option>
+                                            {{/each}} --}}
+                        </select>
+
+                        <p style="color: red;">
+                            {{details.cityError}}
+                        </p>
+                    </div>
+                    <div class="col-2 pl-1">
+                        <label for="zip">Zip<span class="text-danger"> *</span></label>
+                        <input type="text" class="form-control" id="zip" name="zip" aria-describedby="emailHelp"
+                            placeholder="Zip" value="{{profileData.zip}}" />
+                        <p style="color: red;">
+                            {{details.zipError}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone<span class="text-danger"> *</span></label>
+                <input type="text" class="form-control" id="phone" name="phone" placeholder="(555) 555-1234"
+                    value="{{profileData.phone}}" />
+                <p style="color: red;">
+                    {{details.phoneError}}
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-text">
+        <label>Position<span class="text-danger"> *</span></label>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="position" id="Front Desk" value="Front Desk"
+                {{check "Front Desk" input.position profileData.position}} />
+            <label for="Front Desk" style="margin-bottom: -3px; font-weight: normal;">Front Desk</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="position" id="Dental Assistant" value="Dental Assistant"
+                {{check "Dental Assistant" input.position profileData.position}} />
+            <label for="Dental Assistant" style="margin-bottom: -3px; font-weight: normal;">Dental
+                Assistant</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="position" id="Dental Hygienist" value="Dental Hygienist"
+                {{check "Dental Hygienist" input.position profileData.position}} />
+            <label for="Dental Hygienist" style="margin-bottom: -3px; font-weight: normal;">Dental
+                Hygienist</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="position" id="Dentist" value="Dentist"
+                {{check "Dentist" input.position profileData.position}} />
+            <label for="Dentist" style="margin-bottom: -3px; font-weight: normal;">Dentist</label>
+        </div>
+        <hr>
+        <label>Placement<span class="text-danger"> *</span></label>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="placement" id="Permanent Work" value="Permanent Work"
+                {{check "Permanent Work" input.placement profileData.placement}} />
+            <label for="Permanent Work" style="margin-bottom: -3px; font-weight: normal;">Permanent
+                Work</label>
+        </div>
+        <div class="form-check">
+            <label for="Temporary Work" style="margin-bottom: -3px; font-weight: normal;">Temporary
+                Work</label>
+            <input class="form-check-input" type="radio" name="placement" id="Temporary Work" value="Temporary Work"
+                style="margin-left: -138.3px;" {{check "Temporary Work" input.placement profileData.placement}} />
+            <div class="col-5 temp showrate" style="margin-left: -35px; margin-top: -5px;">
+                <label for="payrate">Pay rate per hour<span class="text-danger">
+                        *</span></label>
+                <input type="text" class="form-control" id="payrate" name="payrate" placeholder="$/hr..."
+                    value="{{profileData.rate}}" style="margin-bottom: 10px;" />
+                <p style="color: red;">
+                    {{details.payrateError}}
+                </p>
+            </div>
+        </div>
+    </div>
+</form>
