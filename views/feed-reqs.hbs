@@ -16,11 +16,15 @@
 		{{/if}}
 
 		{{#if hire}}
-			{{> jobItem}}
+			{{#each hire_req}}
+				{{> jobItem}}
+			{{/each}}
 		{{/if}}
 
 		{{#if contact}}
-			{{> contactItem}}
+			{{#each contact_req}}
+				{{> contactItem}}
+			{{/each}}
 		{{/if}}
 	</div>
 

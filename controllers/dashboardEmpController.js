@@ -251,7 +251,7 @@ const dashboardEmpController = {
                         },
                         function (err, result) {
                             if (err) throw err;
-
+                          
                             if(response){
                                 res.render('details-app', {
                                     active_session:
@@ -275,6 +275,7 @@ const dashboardEmpController = {
                                     appData: result.toObject(),
                                     profile_active: true,
                                     type: 'contact',
+                                    response: false,
                                   
                                     // additional config
                                     from: 'search',
@@ -315,11 +316,6 @@ const dashboardEmpController = {
     },
 
     sendHireResponse: function (req, res){
-        console.log("hello");
-        console.log(req.params.jobId);
-        console.log(req.params.appId);
-        console.log(req.params.type);
-
         var appId = helper.sanitize(req.params.appId);
         var jobId = helper.sanitize(req.params.jobId);
         var type = helper.sanitize(req.params.type);
@@ -328,51 +324,72 @@ const dashboardEmpController = {
 
         console.log('inserting');
 
-        var response = new Response({
-            _id: new mongoose.Types.ObjectId(),
-            jobId: jobId,
-            accEmpId: req.session.user,
-            applicantId: appId,
-            type: type,
-            subject: subject,
-            body: body
-        })
+        db.findOne(Employer, {account: req.session.user}, '', function(result){
+           
+            var response = new Response({
+                _id: new mongoose.Types.ObjectId(),
+                applicantId: appId,
+                accEmpId: req.session.user,
+                type: type,
+                subject: subject,
+                jobId: jobId,
+                body: body,
+                clinic_name: result.clinicName,
+                clinic_city: result.clinicAddress.city,
+                clinic_state: result.clinicAddress.state,
+                clinic_email: result.clinicContactEmails,
+                clinic_phone: result.clinicPhone
+            })
 
-        db.insertOne(Response, response, function (flag){
-            if(flag){
-                res.redirect(`/jobs/${jobId}/applicants`)
-            }
+            db.insertOne(Response, response, function (flag){
+                if(flag){
+                    res.redirect(`/jobs/${jobId}/applicants`)
+                }
+            })
+
         })
     },
 
     sendContactResponse: function (req, res){
-        console.log("hello");
-        console.log(req.params.appId);
-        console.log(req.params.type);
-        console.log(req.body);
-
         var appId = helper.sanitize(req.params.appId);
         var type = helper.sanitize(req.params.type);
         var subject = helper.sanitize(req.body.subject);
         var body = helper.sanitize(req.body.body);
 
         console.log('inserting');
+        
+        db.findOne(Employer, {account: req.session.user}, '', function(result){
+           
+            var response = new Response({
+                _id: new mongoose.Types.ObjectId(),
+                applicantId: appId,
+                accEmpId: req.session.user,
+                type: type,
+                subject: subject,
+                body: body,
+                clinic_name: result.clinicName,
+                clinic_city: result.clinicAddress.city,
+                clinic_state: result.clinicAddress.state,
+                clinic_email: result.clinicContactEmails,
+                clinic_phone: result.clinicPhone
+            })
 
-        var response = new Response({
-            _id: new mongoose.Types.ObjectId(),
-            applicantId: appId,
-            accEmpId: req.session.user,
-            type: type,
-            subject: subject,
-            body: body
-        })
+            db.insertOne(Response, response, function (flag){
+                if(flag){
+                    res.redirect('/search/applicants')
+                }
+            })
 
-        db.insertOne(Response, response, function (flag){
-            if(flag){
-                res.redirect('/search/applicants')
-            }
         })
     },
+
+    EmpCloseJob: function (req, res) {
+        var jobId = req.params.jobId;
+
+        db.deleteOne(Job, {_id: jobId}, function(result){
+            res.redirect('/feed-emp');
+        })
+    }
 };
 
 // enables to export controller object when called in another .js file

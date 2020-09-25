@@ -66,8 +66,8 @@
                     <span class="card-text" style="text-align: left;"> <i
                             class="fas fa-business-time icon-color">&nbsp;</i> {{profileData.placement}} </span>
                     <br />
-                    <br />
-                    <li><a href="" data-toggle="modal" data-target="#modalEdit">Edit Profile</a></li>
+                    <hr>
+                    <i class="fas fa-user-edit icon-color"></i><a href="" data-toggle="modal" data-target="#modalEdit" style="margin-left: 10px;">Edit Profile</a></li>
                 </div>
             </div>
 
@@ -108,14 +108,14 @@
                                     <div class="row m-0">
                                         <div class="col border m-0 mr-1 mb-1 card p-1">
                                             <span class="card-text my-auto">
-                                                <b>2 Employer Hire Requests</b> <br />
-                                                <small><a href="/feed-hire">View Requests</a></small>
+                                                <b>{{hire_req_count}} Employer Hire Requests</b> <br />
+                                                <small><a href="/feed-hire/{{profileData._id}}">View Requests</a></small>
                                             </span>
                                         </div>
                                         <div class="col border m-0 ml-1 mb-1 card p-1">
                                             <span class="card-text my-auto">
-                                                <b>2 Employer Contact Requests</b> <br />
-                                                <small><a href="/feed-contact">View Requests</a></small>
+                                                <b>{{contact_req_count}} Employer Contact Requests</b> <br />
+                                                <small><a href="/feed-contact/{{profileData._id}}">View Requests</a></small>
                                             </span>
                                         </div>
                                         {{#ifEquals profileData.placement "Temporary Work"}}
@@ -131,13 +131,11 @@
                                     </div>
                                     <h2 class="mt-2">Contact Requests</h2>
 
-                                    {{> contactItem}}
-                                    {{> contactItem}}
-                                    {{> contactItem}}
-                                    {{> contactItem}}
-                                    {{> contactItem}}
+                                    {{#each contact_request}}
+                                    {{>contactItem}}
+                                    {{/each}} 
 
-                                    <a href="/feed-contact">View All Contact Requests</a>
+                                    <a href="/feed-contact/{{profileData._id}}">View All Contact Requests</a>
 
                                     <hr />
                                     <h2>Description</h2>

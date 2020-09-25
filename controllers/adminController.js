@@ -201,6 +201,15 @@ const adminController = {
             res.send([]);
         }
     },
+        
+
+    closeJob: function (req, res){
+        var job_id = req.body.closejob_id;
+
+        db.deleteOne(Job, {_id: job_id}, function(result){
+            res.redirect('/admin');
+        })
+    }
 };
 
 module.exports = adminController;

@@ -821,9 +821,15 @@ const feedController = {
         }
 
         var sntAppId = helper.sanitize(req.params.appId);
+        var jobId = helper.sanitize(req.params.jobId);
         db.findOne(
             Response,
-            { accEmpId: req.session.user, applicantId: sntAppId },
+            {
+                accEmpId: req.session.user,
+                applicantId: sntAppId,
+                type: 'hire',
+                jobId: jobId,
+            },
             '',
             function (response) {
                 db.findOne(Applicant, { _id: sntAppId }, '', function (
@@ -866,7 +872,6 @@ const feedController = {
                                         profile_active: true,
                                         jobId: req.params.jobId,
                                         type: 'hire',
-                                        response: false,
 
                                         // additional config
                                         from: 'jobs',
@@ -1068,7 +1073,6 @@ const feedController = {
                 rest.placement === 'Temporary'
                     ? { ...rest, date_start, date_end }
                     : { ...rest, $unset: { date_start, date_end } };
-
 
             // update database
             db.updateOne(Job, { _id: req.params.jobId }, obj, result => {

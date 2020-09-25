@@ -52,6 +52,9 @@ const dashboardController = {
                                         dac.getMatchingJobs(data),
                                         dac.getAppliedJobsCount(data._id),
                                         dac.getAppliedJobs(data._id),
+                                        dac.getRecentContactReq(data._id),
+                                        dac.getHireReqCount(data._id),
+                                        dac.getContactReqCount(data._id)
                                     ])
                                         .then(results => {
                                             const [
@@ -60,6 +63,9 @@ const dashboardController = {
                                                 matchingJobs,
                                                 nAppliedJobs,
                                                 appData,
+                                                contactRequest,
+                                                nHireCount,
+                                                nContactCount
                                             ] = results;
                                             // console.log(matchingJobs);
                                             // console.log(appData.appliedJobs);
@@ -69,6 +75,10 @@ const dashboardController = {
                                             renderOptions.applied_jobs_count = nAppliedJobs;
                                             renderOptions.applied_jobs =
                                                 appData.appliedJobs;
+                                                renderOptions.contact_request = contactRequest;
+                                                renderOptions.hire_req_count = nHireCount;
+                                                renderOptions.contact_req_count = nContactCount;
+
                                             renderOptions.warn_matching_jobs =
                                                 nMatchingJobs === 0
                                                     ? 'You have no matching jobs based on your profile details.'

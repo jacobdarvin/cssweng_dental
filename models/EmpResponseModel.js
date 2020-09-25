@@ -8,7 +8,7 @@ const EmpResponseSchema = mongoose.Schema({
     },
     jobId: {
         type: mongoose.Types.ObjectId,
-        ref: 'JobId'
+        ref: 'Job'
     },
     applicantId: {
         type: mongoose.Types.ObjectId,
@@ -23,6 +23,30 @@ const EmpResponseSchema = mongoose.Schema({
     },
     body: {
         type: String
+    },
+    clinic_name: {
+        type: String,
+        required: true,
+    },
+    clinic_city: {
+        type: String,
+        required: true,
+    },
+    clinic_state: {
+        type: String,
+        required: true,
+    },
+    clinic_phone: {
+        type: String,
+        required: true,
+    },
+    clinic_email: {
+        type: [String],
+        required: true,
+    },
+    created: {
+        type: Date,
+        default: Date.now,
     },
 });
 

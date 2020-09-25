@@ -190,11 +190,19 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <pre class="modal-body pb-0 mb-0" id="jobModalBody">
-      </pre>
-
-      <textarea class="form-control p-2" id="jobModalBodyDesc" rows="6" readonly>
+      <div class="modal-body pb-0 mb-0" id="jobModalBody" style="font-size: 15px;">
+          <p style="margin-bottom: -7px; font-size: 20px;" >Job Details</p><br>
+          <p style="margin-bottom: 5px;"><b>Clinic Name:</b><span style="margin-left: 24px;" id="job_clinic_name"></span></p>
+          <p style="margin-bottom: 5px;"><b>Clinic City:</b><span style="margin-left: 37px;" id="job_clinic_city"></span></p>
+          <p style="margin-bottom: 5px;"><b>Clinic State:</b><span style="margin-left: 28px;" id="job_clinic_state"></span></p>
+           <p style="margin-bottom: 5px;"><b>Placement:</b><span style="margin-left: 36px;" id="job_placement"></span></p>
+          <hr>
+          <p style="margin-bottom: 5px;"><b>Job ID:</b><span style="margin-left: 60px;" id="job_id"></span></p>
+          <p style="margin-bottom: 5px;"><b>Job Created:</b><span style="margin-left: 20px;" id="job_create"></span></p>
+          <p style="margin-bottom: 5px;"><b>Description:</b><span style="margin-left: 30px;"></span></p>
+             <textarea class="form-control p-2" id="job_description" rows="6" style="background-color: white;"readonly>
       </textarea>
+      </div>
 
       <div class="p-2">
         <a data-toggle="collapse" data-dismiss="modal" href="#" id="collapseAppList" role="button" aria-expanded="false" aria-controls="{{_id}}">View list of Job Applicants</a>
@@ -206,7 +214,7 @@
       </div>
 
       <div class="modal-footer">
-        <button type="button" style="display: inline-block;" class="w-100 btn btn-danger" data-toggle="modal" data-target="#admin_closeJob">Close Job</button>
+        <button type="button" style="display: inline-block;" class="w-100 btn btn-danger" data-toggle="modal" data-target="#admin_closeJob" data-dismiss="modal">Close Job</button>
         <button type="button" style="display: inline-block;" class="w-100 btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
@@ -262,7 +270,7 @@
 
 <!-- Modal -->
 <div class="modal" id="admin_closeJob" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="width: 500px">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="admin_closeJobTitle"></h5>
@@ -271,8 +279,11 @@
         </button>
       </div>
       <div class="modal-footer">
-        <button type="button" style="display: inline-block;" class="w-100 btn btn-danger">Close Job</button>
-        <button type="button" style="display: inline-block;" class="w-100 btn btn-secondary" data-dismiss="modal">Go Back</button>
+        <form method="post" action="/closeJob">
+           <input type="text" value="" id="closejob_id" name="closejob_id" style="display: none;">
+          <button type="submit" style="display: inline-block; margin-left: 90px;" class="w-150 btn btn-danger">Close Job</button>
+          <button type="button" style="display: inline-block; margin-left: 90px;" class="w-150 btn btn-secondary" data-dismiss="modal">Go Back</button>
+        </form>
       </div>
     </div>
   </div>
