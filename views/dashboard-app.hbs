@@ -21,7 +21,7 @@
 <div class="container mb-4 p-0" style="margin-top: 6rem;">
     <div class="row">
         <div class="col-sm-3 p-1">
-            <div class="card shadow-sm mx-auto profile-length border">
+            <div class="card mb-2 shadow-sm mx-auto profile-length border">
                 <a href="#" >
                     <img class="edit-image" src="/avatars/{{avatar_found profileData.avatar}}" style="object-fit: cover; width: 100%; height: 256px;">
                     <span class="middle" style= "text-shadow: 1px 1px 3px #000;"><i class="fas fa-paint-brush"></i> Edit Picture</span>
@@ -45,10 +45,7 @@
                     <i class="fas fa-user-edit icon-color"></i><a href="" data-toggle="modal" data-target="#modalEdit" style="margin-left: 10px;">Edit Profile</a></li>
                 </div>
             </div>
-
-            <br />
-
-            <div class="card border shadow-sm mx-auto mb-4 profile-length" style="width: 100%;">
+            <div class="card border shadow-sm mx-auto mb-2 profile-length" style="width: 100%;">
                 <div class="card-body">
                     <span class="card-text" style="text-align: left; font-size: 32px;">
                         {{matching_jobs_count}}
@@ -58,7 +55,7 @@
                     <a href="{{search_job_route}}" class="btn btn-primary w-100">Search Jobs</a>
                 </div>
             </div>
-            <div class="card border shadow-sm mx-auto mb-4 profile-length" style="width: 100%;">
+            <div class="card border shadow-sm mx-auto profile-length" style="width: 100%;">
                 <div class="card-body">
                     <span class="card-text" style="text-align: left; font-size: 32px;">
                         {{applied_jobs_count}}
@@ -76,7 +73,14 @@
                     <div class="col p-0">
                         <div class="card shadow-sm mx-auto profile-length border" style="height: 100%;">
                             <div class="card-body">
-                                <div class="card-title" style="font-size: 42px; font-weight: 800;">Dashboard</div>
+                                <div class="card-title" style="font-size: 42px; font-weight: 800;"><span class="gradient-text">Dashboard</span><button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                       <span class="font-weight-bold" style="color: #4792e9; font-size: 28px;"><i class="fas fa-bell"></i> {{combined_req_count}}</span>
+                                      </button>
+                                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="/feed-contact/{{profile_id}}"><b>{{contact_req_count}}</b> Contact Request/s <br><small> Click to see all Contact Requests </small></a>
+                                        <a class="dropdown-item" href="/feed-hire/{{profile_id}}"><b>{{hire_req_count}}</b> Hire Request/s <br><small> Click to see all Hire Requests </small></a>
+                                      </div>
+                                </div>
                                
                                 <div class="container">
                                      <hr>

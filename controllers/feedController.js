@@ -15,6 +15,7 @@ const { SSL_OP_NO_TLSv1_1 } = require('constants');
 const buffer = fs.readFileSync(
     path.resolve(__dirname, '../public/json/us_cities_and_states.json'),
 );
+
 const citiesAndStates = JSON.parse(buffer);
 
 const feedController = {
@@ -52,6 +53,7 @@ const feedController = {
         let date_end   = helper.parseDate(helper.sanitize(req.query.date_end));
         let unparsed_end    = req.query.date_end;
 
+        let sortStatus = helper.sanitize(req.query.sortby);
 
         if(date_start == null) {
             date_start = new Date(-8640000000000000);
@@ -120,6 +122,15 @@ const feedController = {
                 page = '1';
             }
 
+            let sortInt = -1;
+
+            if(sortStatus == 'Latest') {
+                sortInt = -1;
+            } else if (sortStatus == 'Oldest') {
+                sortInt = 1;
+            }
+
+
             let options = {
                 populate: 'employer',
                 lean: true,
@@ -127,7 +138,7 @@ const feedController = {
                 limit: 4,
 
                 sort: {
-                    created: -1
+                    created: sortInt,
                 }
             };
 
@@ -161,9 +172,11 @@ const feedController = {
                 let dstartLink  = '&date_start=' + unparsed_start;
                 let dendLink    = '&date_end='   + unparsed_end;
 
+                let sortLink = 'sortby=' + sortStatus;
+
                 for (let i = 0; i < placementQuery.length; i++) {
                     if (i == 0)
-                        placementLink += 'placement=' + placementQuery[i];
+                        placementLink += '&placement=' + placementQuery[i];
                     else placementLink += '&placement=' + placementQuery[i];
                 }
 
@@ -189,6 +202,7 @@ const feedController = {
                     let options = {
                         pageLink:
                             '/feed-emp?' +
+                            sortLink +
                             placementLink +
                             positonLink +
                             stateLink +
@@ -212,6 +226,7 @@ const feedController = {
                 let prevPageLink =
                     results.page != '1'
                         ? '/feed-emp?' +
+                          sortLink +
                           placementLink +
                           positonLink +
                           stateLink +
@@ -224,6 +239,7 @@ const feedController = {
                 let nextPageLink =
                     results.page != results.pages
                         ? '/feed-emp?' +
+                          sortLink +
                           placementLink +
                           positonLink +
                           stateLink +
@@ -318,6 +334,8 @@ const feedController = {
         let date_end   = helper.parseDate(helper.sanitize(req.query.date_end));
         let unparsed_end    = req.query.date_end;
 
+        let sortStatus = helper.sanitize(req.query.sortby);
+
         if(date_start == null) {
             date_start = new Date(-8640000000000000);
         }
@@ -379,6 +397,14 @@ const feedController = {
             page = '1';
         }
 
+        let sortInt = -1;
+
+        if(sortStatus == 'Latest') {
+            sortInt = -1;
+        } else if (sortStatus == 'Oldest') {
+            sortInt = 1;
+        }
+
         let options = {
             populate: 'employer',
             lean: true,
@@ -386,7 +412,7 @@ const feedController = {
             limit: 4,
 
             sort: {
-                created: -1
+                created: sortInt,
             }
         };
 
@@ -419,8 +445,10 @@ const feedController = {
             let dstartLink  = '&date_start=' + unparsed_start;
             let dendLink    = '&date_end='   + unparsed_end;
 
+            let sortLink = 'sortby=' + sortStatus;
+
             for (let i = 0; i < placementQuery.length; i++) {
-                if (i == 0) placementLink += 'placement=' + placementQuery[i];
+                if (i == 0) placementLink += '&placement=' + placementQuery[i];
                 else placementLink += '&placement=' + placementQuery[i];
             }
 
@@ -446,6 +474,7 @@ const feedController = {
                 let options = {
                     pageLink:
                         '/feed-app?' +
+                        sortLink + 
                         placementLink +
                         positonLink +
                         stateLink +
@@ -461,14 +490,13 @@ const feedController = {
                 selectOptions.push(options);
             }
 
-            //fix this logic
-
             let nextPageNumber = parseInt(results.page) + 1;
             let prevPageNumber = parseInt(results.page) - 1;
 
             let prevPageLink =
                 results.page != '1'
                     ? '/feed-app?' +
+                      sortLink +
                       placementLink +
                       positonLink +
                       stateLink +
@@ -481,6 +509,7 @@ const feedController = {
             let nextPageLink =
                 results.page != results.pages
                     ? '/feed-app?' +
+                      sortLink +
                       placementLink +
                       positonLink +
                       stateLink +
@@ -728,11 +757,39 @@ const feedController = {
                     limit: 6,
                 };
 
+                let stateStatus = helper.sanitize(req.query.app_state);
+                let cityStatus = helper.sanitize(req.query.app_city);
+
+                let stateQuery = new Array();
+                let cityQuery = new Array();
+
+                if(stateStatus == undefined || stateStatus == '') {
+                    stateQuery = (Object.keys(citiesAndStates).sort());
+                } else {
+                    stateQuery.push(stateStatus);
+                }
+
+                if(cityStatus == undefined || cityStatus == '') {
+                    cityQueryLoad = new Array();
+                    cityQueryLoad = (Object.values(citiesAndStates).sort());
+                    for(let i = 0; i < cityQueryLoad.length; i++) {
+                        for(let j = 0; j < cityQueryLoad[i].length; j++) {
+                            cityQuery.push(cityQueryLoad[i][j]);
+                        }
+                    }
+                } else {
+                    cityQuery.push(cityStatus);
+                }
+
                 let query = {
                     account: { $exists: true },
                     _id: { $in: job.applicants },
+
                     position: { $in: positionQuery },
                     placement: { $in: placementQuery },
+
+                    city : { $in: cityQuery },
+                    state: { $in: stateQuery },
                 };
 
                 Applicant.paginate(query, options, function (err, results) {
@@ -745,9 +802,24 @@ const feedController = {
                         'position',
                     );
 
+                    if(stateStatus == null) {
+                        cityLink = '&app_city=&';
+                    } else {
+                        cityLink = '&app_city=' + cityStatus + '&';
+                    }
+
+                    if(cityStatus == null) {
+                        stateLink = 'app_state=';
+                    } else {
+                        stateLink = 'app_state=' + stateStatus;
+                    }
+
                     let queryLinks = [];
                     queryLinks.push(positionLink);
                     queryLinks.push(placementLink);
+                    queryLinks.push(stateLink);
+                    queryLinks.push(cityLink);
+
                     const {
                         selectOptions,
                         prevPageLink,
@@ -773,6 +845,12 @@ const feedController = {
                         profile_route: `/jobs/${sntJobId}/applicants`,
 
                         warn: resultWarn,
+
+                        //cities and states
+                        states: Object.keys(citiesAndStates).sort(),
+                        cities: req.body.clinic_state
+                        ? citiesAndStates[req.body.clinic_state].sort()
+                        : '',
                 
                         // Pagination
                         selectOptions: selectOptions,
