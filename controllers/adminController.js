@@ -15,7 +15,7 @@ const adminController = {
             title: 'Admin | BookMeDental',
             admin_active: true,
         });
-        } else res.redirect('/404');
+        } else res.redirect('/login');
     },
 
     getEmployerList: function (req, res) {

@@ -219,7 +219,7 @@ document.getElementById('input-job-id').oninput = (ev) => {
 
 document.getElementById('collapseAppList').onclick = ev => {
     const jobIdEl = document.getElementById('input-job-id');
-    jobIdEl.value = document.getElementById('job-id').nextSibling.textContent;
+    jobIdEl.value = document.getElementById('job_id').innerText;
 
     const inputEvent = document.createEvent('Event');
     inputEvent.initEvent('input', true, true)
