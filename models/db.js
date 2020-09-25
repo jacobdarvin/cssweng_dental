@@ -1,22 +1,25 @@
 const mongoose = require('mongoose');
 
-//const url = 'mongodb://localhost:27017/cssweng_dental';
 
-const MongoClient = require('mongodb').MongoClient;
-const url = "mongodb+srv://admin:iamnotsosecure12345@cluster0.nwynq.mongodb.net/bookme-dental?retryWrites=true&w=majority";
+if(process.env.PORT == null || process.env.PORT == "") {
+    const url = 'mongodb://localhost:27017/cssweng_dental';
+} else {
+    const MongoClient = require('mongodb').MongoClient;
+    const url = "mongodb+srv://admin:iamnotsosecure12345@cluster0.nwynq.mongodb.net/bookme-dental?retryWrites=true&w=majority";
 
-const client = new MongoClient(url, { useNewUrlParser: true });
+    const client = new MongoClient(url, { useNewUrlParser: true });
 
-client.connect(err => {
-  const collection = client.db("test").collection("devices");
-  // perform actions on the collection object
-  client.close();
-});
+    client.connect(err => {
+      const collection = client.db("test").collection("devices");
+      // perform actions on the collection object
+      client.close();
+    });
 
-const options = {
-    useUnifiedTopology: true,
-    useNewUrlParser: true
-};
+    const options = {
+        useUnifiedTopology: true,
+        useNewUrlParser: true
+    };
+}
 
 const database = {
 
