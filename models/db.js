@@ -1,6 +1,15 @@
 const mongoose = require('mongoose');
 
-const url = 'mongodb://localhost:27017/cssweng_dental';
+//const url = 'mongodb://localhost:27017/cssweng_dental';
+
+const MongoClient = require('mongodb').MongoClient;
+const url = "mongodb+srv://admin:iamnotsosecure12345@cluster0.nwynq.mongodb.net/bookme-dental?retryWrites=true&w=majority";
+const client = new MongoClient(uri, { useNewUrlParser: true });
+client.connect(err => {
+  const collection = client.db("test").collection("devices");
+  // perform actions on the collection object
+  client.close();
+});
 
 const options = {
     useUnifiedTopology: true,
