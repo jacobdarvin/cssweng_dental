@@ -96,7 +96,7 @@ a:hover {
     padding-top: 7rem;
 
     background: rgb(123,31,162);
-    background: linear-gradient(180deg, rgba(46,93,148,1) 0%, rgba(73,150,241,1) 80%, rgba(255,255,255,1) 80%);
+    background: linear-gradient(180deg, rgba(46,93,148,1) 0%, rgba(73,150,241,1) 80%, rgba(248, 252, 255,1) 80%);
 
     background-position: center;
     background-repeat: no-repeat;
