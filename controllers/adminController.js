@@ -14,6 +14,7 @@ const adminController = {
             active_user: req.session.user,
             title: 'Admin | BookMeDental',
             admin_active: true,
+            accType: req.session.accType,
         });
         } else res.redirect('/login');
     },

@@ -98,14 +98,13 @@ var applicantsTable = new Tabulator('#applicants-table', {
     layout: 'fitColumns',
     index: '_id',
     columns: [
+        { title: 'ID', field: '_id' },
         { title: 'First Name', field: 'fName' },
         { title: 'Last Name', field: 'lName' },
         { title: 'Applicant email', field: 'accEmail' },
         { title: 'Contact', field: 'phone' },
-        { title: 'ID', field: '_id' },
         { title: 'Placement', field: 'placement' },
         { title: 'Position', field: 'position' },
-
         { title: 'Street', field: 'streetAdd' },
         { title: 'House No.', field: 'houseNo' },
         { title: 'City', field: 'city' },
@@ -117,25 +116,12 @@ var applicantsTable = new Tabulator('#applicants-table', {
 var jobsTable = new Tabulator('#jobs-table', {
 
     rowClick: function(e, row) {
-        // showJobDetails(row);
         
-        //document.getElementById("collapseAppList").setAttribute('href', `/admin/jobs/${rowData._id}/applicants`);
-
         $("#admin_jobModal").modal();
         rowData = row.getData();
 
         document.getElementById("jobModalTitle").innerHTML = "Managing job for " + "<b>" + rowData.clinicName + "</b>";
 
-        // document.getElementById("jobModalBody").innerHTML = 
-        // "Job Details <br>" + 
-        // "<b>Clinic Name:       </b>" + rowData.clinicName + "<br>" +
-        // "<b>Placement:         </b>" + rowData.placement + "<br>" + 
-        // "<b>Clinic City:       </b>" + rowData.clinic_city + "<br>" +
-        // "<b>Clinic State:      </b>" + rowData.clinic_state + "<br>" +
-        // "<hr>" +
-        // "<b>Job ID:            </b>" + rowData._id + "<br>" +
-        // "<b>Job Created:       </b>" + rowData.created + "<br>" +
-        // "<b>Description:       </b><hr>";
 
         document.getElementById("job_clinic_name").innerHTML = rowData.clinicName;
         document.getElementById("job_clinic_city").innerHTML = rowData.placement;
@@ -146,13 +132,6 @@ var jobsTable = new Tabulator('#jobs-table', {
         document.getElementById("job_description").innerHTML = rowData.description;
         document.getElementById("admin_closeJobTitle").innerHTML = "Confirm to Close Job for " + "<b>" + rowData.clinicName + "</b>";
         document.getElementById("closejob_id").value = rowData._id;
-
-        //document.getElementById("collapseAppList").setAttribute('href', '#a' + rowData._id);
-        //document.getElementById("jobAppList").setAttribute('id', 'a' + rowData._id);
-
-        //document.getElementById('a' + rowData._id).innerHTML = rowData.applicants.fName;
-
-        //console.log(rowData.applicants);
     },
 
     resizableRows: false,
@@ -163,13 +142,13 @@ var jobsTable = new Tabulator('#jobs-table', {
     index: '_id',
     columns: [
 
+        { title: 'Job ID', field: '_id' },
         { title: 'Clinic Name', field: 'clinicName' },
         { title: 'Placement', field: 'placement' },
         { title: 'Position', field: 'position' },
         { title: 'Clinic City', field: 'clinic_city' },
         { title: 'Clinic State', field: 'clinic_state' },
         { title: 'Created', field: 'created' },
-        { title: 'Job ID', field: '_id' },
 
     ],
 });
@@ -229,29 +208,6 @@ document.getElementById('collapseAppList').onclick = ev => {
 // --------EVENT LISTENERS--------
 
 // --------FUNCTIONS--------
-
-// display job modal
-function showJobDetails(row) {
-    $("#admin_jobModal").modal();
-    rowData = row.getData();
-
-    document.getElementById("jobModalTitle").innerHTML = "Managing job for " + "<b>" + rowData.clinicName + "</b>";
-
-    document.getElementById("jobModalBody").innerHTML = 
-    "Job Details <br>" + 
-    "<b>Clinic Name:       </b>" + rowData.clinicName + "<br>" +
-    "<b>Placement:         </b>" + rowData.placement + "<br>" + 
-    "<b>Clinic City:       </b>" + rowData.clinic_city + "<br>" +
-    "<b>Clinic State:      </b>" + rowData.clinic_state + "<br>" +
-    "<hr>" +
-    "<b id='job-id'>Job ID:            </b>" + rowData._id + "<br>" +
-    "<b>Job Created:       </b>" + rowData.created + "<br>" +
-    "<b>Description:       </b><hr>";
-
-    document.getElementById("jobModalBodyDesc").innerHTML = rowData.description;
-    document.getElementById("admin_closeJobTitle").innerHTML = "Confirm to Close Job for " + "<b>" + rowData.clinicName + "</b>";
-
-}
 
 // display applicant modal
 function showApplicantDetails(row) {
