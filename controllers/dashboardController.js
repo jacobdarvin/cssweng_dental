@@ -44,6 +44,8 @@ const dashboardController = {
                                 if (err) throw err;
 
                                 renderOptions.profileData = data.toObject();
+                                renderOptions.profile_id =
+                                    renderOptions.profileData._id;
 
                                 if (view == 'dashboard-app') {
                                     Promise.all([
@@ -54,7 +56,7 @@ const dashboardController = {
                                         dac.getAppliedJobs(data._id),
                                         dac.getRecentContactReq(data._id),
                                         dac.getHireReqCount(data._id),
-                                        dac.getContactReqCount(data._id)
+                                        dac.getContactReqCount(data._id),
                                     ])
                                         .then(results => {
                                             const [
@@ -65,19 +67,22 @@ const dashboardController = {
                                                 appData,
                                                 contactRequest,
                                                 nHireCount,
-                                                nContactCount
+                                                nContactCount,
                                             ] = results;
-                                            // console.log(matchingJobs);
-                                            // console.log(appData.appliedJobs);
+
                                             renderOptions.search_job_route = searchJobRoute;
                                             renderOptions.matching_jobs_count = nMatchingJobs;
                                             renderOptions.matching_jobs = matchingJobs;
                                             renderOptions.applied_jobs_count = nAppliedJobs;
                                             renderOptions.applied_jobs =
                                                 appData.appliedJobs;
-                                                renderOptions.contact_request = contactRequest;
-                                                renderOptions.hire_req_count = nHireCount;
-                                                renderOptions.contact_req_count = nContactCount;
+                                            renderOptions.contact_request = contactRequest;
+                                            renderOptions.hire_req_count = nHireCount;
+                                            renderOptions.contact_req_count = nContactCount;
+
+                                            let countCombined =
+                                                nHireCount + nContactCount;
+                                            renderOptions.combined_req_count = countCombined;
 
                                             renderOptions.warn_matching_jobs =
                                                 nMatchingJobs === 0

@@ -27,6 +27,16 @@
 		<form method="GET" action="{{filter_route}}">
 
 			<div class="p-3 card border m-0 mb-2">
+				<div class="form-group">
+					<label>Sort by</label>
+					<select name="sortby" class="form-control" id="sortOption">
+					   	<option value="Latest">Latest</option>
+					    <option value="Oldest">Oldest</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="p-3 card border m-0 mb-2">
 				<p class="h5"> Placement Type </p>
 
 				<div class="form-check">
@@ -119,3 +129,4 @@
 </div>
 
 <script src="/js/dropdown-populator.js"></script>
+

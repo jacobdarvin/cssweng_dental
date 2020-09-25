@@ -190,11 +190,15 @@ const dashboardAppController = {
     
     getContactReqFeed: function (req, res){
         var appId = helper.sanitize(req.params.appId);
+
         db.findMany(Response, {applicantId: appId, type: 'contact'}, '', function (result){
             if(result){
                 res.render('feed-reqs', {
+                    profile_id: appId,
+                    accType: 'applicant',
                     contact: true,
                     hire: false,
+                    
                     active_session: req.session.user && req.cookies.user_sid,
                     active_user: req.session.user,
                     title: 'Contact Requests | BookMeDental',
@@ -232,8 +236,11 @@ const dashboardAppController = {
 
                 db.findMany(Job, {_id: {$in: query_id}}, '', function (jobs){
                     res.render('feed-reqs', {
+                    profile_id: appId,
+                    accType: 'applicant',
                     contact: false,
                     hire: true,
+
                     active_session: req.session.user && req.cookies.user_sid,
                     active_user: req.session.user,
                     title: 'Hire Requests | BookMeDental',
