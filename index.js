@@ -120,7 +120,13 @@ app.use(function (req, res) {
 });
 
 // binds the server to a specific port
-const port = 9090;
+
+let port = process.env.PORT;
+
+if(port == null || port == "") {
+    port = 9090;
+}
+
 app.listen(port, function () {
     console.log('app listening at port ' + port);
 });
