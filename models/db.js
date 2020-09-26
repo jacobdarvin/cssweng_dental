@@ -1,17 +1,19 @@
 const mongoose = require('mongoose');
 
 
-//if(process.env.PORT == null || process.env.PORT == "") {
-//    const url = 'mongodb://localhost:27017/cssweng_dental';
-//} else {
+if(process.env.PORT == null || process.env.PORT == "") {
+    const url = 'mongodb://localhost:27017/cssweng_dental';
+} else {
     const MongoClient = require('mongodb').MongoClient;
     const url = "mongodb+srv://admin:iamnotsosecure12345@cluster0.nwynq.mongodb.net/bookme-dental?retryWrites=true&w=majority";
 
     MongoClient.connect(url, function(err, client){
         if(err) {
-            console.log("error during connection to atlas\n", err);
+            console.log("Error During Connection to ATLAS: ", err);
+            throw(err);
+
         } else {
-            console.log('connected');
+            console.log('Connected to MongoDb ATLAS');
         }
 
     })
@@ -20,7 +22,7 @@ const mongoose = require('mongoose');
         useUnifiedTopology: true,
         useNewUrlParser: true
     };
-//}
+}
 
 const database = {
 
