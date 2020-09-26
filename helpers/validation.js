@@ -136,12 +136,12 @@ const validation = {
                 .customSanitizer(value => value.split(',')),
             check('clinicspecialty_other_text.*').trim(),
 
-            check('clinic_services')
-                .trim()
-                .notEmpty()
-                .withMessage('Clinic services field is required.')
-                .customSanitizer(value => value.split(',')),
-            check('clinic_services.*').trim(),
+            // check('clinic_services')
+            //     .trim()
+            //     .notEmpty()
+            //     .withMessage('Clinic services field is required.')
+            //     .customSanitizer(value => value.split(',')),
+            // check('clinic_services.*').trim(),
 
             check('clinic_con_name')
                 .notEmpty()
@@ -259,11 +259,11 @@ const validation = {
                 .customSanitizer(value => value.split(',')),
             check('clinicspecialty_other_text.*').trim(),
 
-            check('language')
-                .trim()
-                .notEmpty()
-                .withMessage('Empty field. Please fill this out.')
-                .trim(),
+            // check('language')
+            //     .trim()
+            //     .notEmpty()
+            //     .withMessage('Empty field. Please fill this out.')
+            //     .trim(),
 
             check('payrate')
                 .trim()

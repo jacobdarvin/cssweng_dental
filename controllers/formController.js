@@ -97,6 +97,10 @@ const formController = {
                 payrate = 0;
             }
 
+            if (language == ''){
+                language = "None";
+            }
+
             var progs = req.body.programs;
             
             if(progs == 'Other') {
@@ -285,6 +289,9 @@ const formController = {
                 specs = specs.concat(req.body.clinicspecialty_other_text);
                 var i = specs.indexOf('Other');
                 specs.splice(i, 1);
+            } 
+            else if(specs == ''){
+                specs = "None";
             }
 
             var employer = {
