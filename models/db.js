@@ -7,13 +7,14 @@ if(process.env.PORT == null || process.env.PORT == "") {
     const MongoClient = require('mongodb').MongoClient;
     const url = "mongodb+srv://admin:iamnotsosecure12345@cluster0.nwynq.mongodb.net/bookme-dental?retryWrites=true&w=majority";
 
-    const client = new MongoClient(url, { useNewUrlParser: true });
+    MongoClient.connect(url, function(err, client){
+        if(err) {
+            console.log("error during connection to atlas\n", err);
+        } else {
+            console.log('connected');
+        }
 
-    client.connect(err => {
-      const collection = client.db("test").collection("devices");
-      // perform actions on the collection object
-      client.close();
-    });
+    })
 
     const options = {
         useUnifiedTopology: true,
