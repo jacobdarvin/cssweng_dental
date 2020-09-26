@@ -290,10 +290,12 @@ const formController = {
                 var i = specs.indexOf('Other');
                 specs.splice(i, 1);
             } 
-            else if(specs == ''){
-                specs = "None";
-            }
 
+            var clinic_services = req.body.clinic_services;
+            if(clinic_services == ''){
+                clinic_services = "None";
+            }
+           
             var employer = {
                 _id: new mongoose.Types.ObjectId(),
                 account: req.session.user,
@@ -313,7 +315,7 @@ const formController = {
                 clinicName: o.clinic_name,
                 clinicProgram: progs,
                 clinicSpecialties: specs,
-                clinicServices: o.clinic_services,
+                clinicServices: clinic_services,
 
                 clinicContactName: o.clinic_con_name,
                 clinicContactTitle: o.clinic_con_title,
