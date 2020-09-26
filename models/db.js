@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
 
-if(process.env.PORT == null || process.env.PORT == "") {
-    const url = 'mongodb://localhost:27017/cssweng_dental';
-} else {
+//if(process.env.PORT == null || process.env.PORT == "") {
+//    const url = 'mongodb://localhost:27017/cssweng_dental';
+//} else {
     const MongoClient = require('mongodb').MongoClient;
     const url = "mongodb+srv://admin:iamnotsosecure12345@cluster0.nwynq.mongodb.net/bookme-dental?retryWrites=true&w=majority";
 
@@ -20,7 +20,7 @@ if(process.env.PORT == null || process.env.PORT == "") {
         useUnifiedTopology: true,
         useNewUrlParser: true
     };
-}
+//}
 
 const database = {
 
