@@ -10,13 +10,11 @@ if(process.env.PORT == null || process.env.PORT == "") {
     MongoClient.connect(url, function(err, client){
         if(err) {
             console.log("Error During Connection to ATLAS: ", err);
-            throw(err);
-
         } else {
             console.log('Connected to MongoDb ATLAS');
         }
 
-    })
+    });
 
     const options = {
         useUnifiedTopology: true,
