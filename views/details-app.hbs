@@ -37,7 +37,7 @@
                    <hr>
                     {{#if response}}
                         <span tabindex="0" data-toggle="tooltip" data-placement="right" title="You already sent your response to this applicant">
-                        <button type="submit" style="pointer-events: none;" class="btn btn-primary w-100" disabled>Your request was successfully submitted</button>
+                        <button type="submit" style="pointer-events: none;" class="btn btn-primary w-100" disabled>Your request was successfully sent</button>
                         </span>
                     {{else}}
                         <button type="button" class="border col btn btn-success mb-1" data-toggle="modal" data-target="#hireModal">{{#match from 'jobs'}}Send Hire Request{{/match}}{{#match from 'search'}}Send Contact Request{{/match}}</button>
@@ -110,16 +110,20 @@
       <div class="modal-body">
         <!-- use method="post" to send your form to server -->
         <form class="form-horizontal" id="request" method="post" action={{#match from 'jobs'}}"/sendHireResponse/{{appData._id}}/job/{{jobId}}/type/{{type}}"{{/match}} {{#match from 'search'}}"/sendContactResponse/{{appData._id}}/type/{{type}}"{{/match}}>
+            
             <div class="form-group">
                 <div class="col-xs-5">  
+                <label for="subject">Subject<span class="text-danger"> *</span></label>
                   <input class="form-control" type="text" id="subject" name="subject" placeholder="Subject">
                 </div>
+
                 <div class="col-sm-7">
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="col-xs-5">  
+                    <label for="body">Body<span class="text-danger"> *</span></label>
                   <textarea class="form-control" rows="3" id="body" name="body" placeholder="Body"></textarea>
                 </div>
                 <div class="col-sm-7">
@@ -152,7 +156,7 @@
 
             <div class="form-group">
                 <div class="col-xs-5">  
-                   <small>Optional reasons</small>
+                    <label for="body">Reason/s for declination <span class="text-danger">*</span></label>
                   <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" id="body" name="body" placeholder="Body" ></textarea>
                 </div>
                 <div class="col-sm-7">
