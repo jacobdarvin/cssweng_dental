@@ -452,7 +452,9 @@ const dashboardEmpController = {
         var jobId = req.params.jobId;
 
         db.deleteOne(Job, {_id: jobId}, function(result){
-            res.redirect('/feed-emp');
+            db.deleteOne(Response, {jobId: jobId}, function(result){
+                res.redirect('/feed-emp');
+            })
         })
     }
 };

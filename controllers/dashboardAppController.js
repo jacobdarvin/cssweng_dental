@@ -173,7 +173,7 @@ const dashboardAppController = {
         }
     },
     getHireReqCount: function (app_id){
-        return Response.countDocuments({ applicantId: app_id, type: 'hire' }).exec();
+        return Response.countDocuments({ applicantId: app_id, type: {$ne: 'contact'}}).exec();
     },
 
     getContactReqCount: function (app_id){
@@ -223,7 +223,7 @@ const dashboardAppController = {
     getHireReqFeed: function (req, res){
         var appId = helper.sanitize(req.params.appId);
 
-        db.findMany(Response, {applicantId: appId, type: 'hire'}, 'jobId', function (result){
+        db.findMany(Response, {applicantId: appId, type: {$ne: 'contact'}}, 'jobId', function (result){
             if(result){
 
                 var query_id = result.map( res => {

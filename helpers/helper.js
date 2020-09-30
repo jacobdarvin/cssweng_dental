@@ -72,7 +72,7 @@ const helper = {
 		} else if (diff_seconds == week * 4){
         	time = '1 month ago'; 
 		} else if ((diff_seconds > week) && (diff_seconds < week * 2)) {
-			time = 'more than 1 week ago' 
+			time = 'more than a week ago' 
         } else if ((diff_seconds > week) && (diff_seconds < week * 4)) {
 			time = 'more than ' + Math.floor(diff_seconds / week) + ' weeks ago' 
         } else {

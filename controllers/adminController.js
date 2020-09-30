@@ -208,7 +208,9 @@ const adminController = {
         var job_id = req.body.closejob_id;
 
         db.deleteOne(Job, {_id: job_id}, function(result){
-            res.redirect('/admin');
+            db.deleteOne(Response, {jobId: job_id}, function(result){
+                res.redirect('/admin');
+            })
         })
     }
 };

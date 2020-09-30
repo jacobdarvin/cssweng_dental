@@ -92,6 +92,10 @@ const dashboardController = {
                                                 nAppliedJobs === 0
                                                     ? 'You have no active jobs available.'
                                                     : '';
+                                            renderOptions.warn_contact_reqs =
+                                                nContactCount === 0
+                                                    ? 'You have no contact requests available.'
+                                                    : '';
                                             res.render(view, renderOptions);
                                         })
                                         .catch(error => {
@@ -113,28 +117,20 @@ const dashboardController = {
                                                     .then(function (
                                                         temp_count,
                                                     ) {
+                                                        if(result.length == 0){
+                                                            job = "You have no active job posts."
+                                                        }
                                                         res.render(view, {
-                                                            active_session:
-                                                                req.session
-                                                                    .user &&
-                                                                req.cookies
-                                                                    .user_sid,
-                                                            active_user:
-                                                                req.session
-                                                                    .user,
-                                                            title:
-                                                                'Dashboard | BookMeDental',
+                                                            active_session: req.session.user && req.cookies.user_sid,
+                                                            active_user: req.session.user,
+                                                            title: 'Dashboard | BookMeDental',
                                                             profile_active: true,
-                                                            accType:
-                                                                req.session
-                                                                    .accType,
+                                                            accType: req.session.accType,
                                                             profileData: data.toObject(),
                                                             activeJob: result,
                                                             temp: temp_count,
                                                             perma: perm_count,
-                                                            status:
-                                                                data.account
-                                                                    .accStatus,
+                                                            status: data.account.accStatus,
                                                         });
                                                     });
                                             });
