@@ -2,6 +2,7 @@ const Applicant = require('../models/ApplicantModel');
 const Employer = require('../models/EmployerModel');
 const Job = require('../models/JobModel');
 const Account = require('../models/AccountModel');
+const Response = require('../models/EmpResponseModel');
 const db = require('../models/db');
 const sanitize = require('mongo-sanitize');
 const { validationResult } = require('express-validator');
