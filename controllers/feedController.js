@@ -149,8 +149,8 @@ const feedController = {
                 clinic_city: { $in: cityQuery },
                 clinic_state: { $in: stateQuery },
 
-                // date_start: { $gte: date_start.toISOString() },
-                // date_end: { $lte: date_end.toISOString() },
+                date_start: { $gte: date_start.toISOString() },
+                date_end: { $lte: date_end.toISOString() },
             };
 
             helper.updatePostedDate();
