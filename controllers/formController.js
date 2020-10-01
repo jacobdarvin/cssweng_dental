@@ -81,7 +81,7 @@ const formController = {
             const zip = helper.sanitize(req.body.zip);
             const phone = helper.sanitize(req.body.phone);
             const years = helper.sanitize(req.body.years);
-            const language = helper.sanitize(req.body.language);
+            var language = helper.sanitize(req.body.language);
             const shortprofile = helper.sanitize(req.body.shortprofile);
 
 
